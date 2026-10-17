@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "task-lifecycle",
+  "version": "0.1.2",
+  "description": "A user-invoked, Markdown-first lifecycle for governed Feature, Bugfix, and Docs work, with human approval, review evidence, and safe recovery.",
+  "author": {
+    "name": "Rocky shi",
+    "email": "rockyshi1993@gmail.com"
+  },
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "DevCodex Task Lifecycle",
+        "shortDescription": "Guided development lifecycle",
+        "longDescription": "Plan, review, and track Feature, Bugfix, and Docs tasks using explicit approvals, evidence-aware quality gates, and portable Markdown artifacts. No automatic source edits or external actions without authorization.",
+        "developerName": "Rocky shi",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Use Task Lifecycle to help me start a governed task in this project. Inspect the project read-only first; ask me to choose workflow depth and request permission before writing files."
+      }
+    }
+  }
+}
