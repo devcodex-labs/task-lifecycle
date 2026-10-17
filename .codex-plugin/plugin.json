@@ -2,7 +2,7 @@
   "interface": {
     "capabilities": [],
     "category": "Productivity",
-    "defaultPrompt": "Use Task Lifecycle to help me start a governed task in this project. Inspect the project read-only first; ask me to choose workflow depth and request permission before writing files.",
+    "defaultPrompt": "Use Task Lifecycle for this project. Inspect read-only; ask for depth and permission before writing.",
     "developerName": "Rocky shi",
     "displayName": "DevCodex Task Lifecycle",
     "longDescription": "Plan, review, and track Feature, Bugfix, and Docs tasks using explicit approvals, evidence-aware quality gates, and portable Markdown artifacts. No automatic source edits or external actions without authorization.",
