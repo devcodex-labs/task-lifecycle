@@ -45,7 +45,8 @@ description: "Use when the real user intends substantive, governed development w
 - **Bugfix** `B01` 缺陷分析 → `B02` 复现/根因 → `B03` 修复方案 → `B04` 执行修复 → `B05` 专项代码审查 → `B06` 回归验证 → `B07` 关联交付 → `B08` 仅合法发布 → `B09` 完成。`B10` 任意阶段变更。
 - **Docs** `DOC01` 读者/目标 → `DOC02` 事实盘点 → `DOC03` 内容契约/信息架构 → `DOC04` 修订计划 → `DOC05` 修订 → `DOC06` 专项审查 → `DOC07` 真实读者/站点验证 → `DOC08` 条件发布 → `DOC09` 交接。`DOC10` 任意阶段变更。
 - `Refactor/Optimization/Maintenance/Migration/Mixed` 必须记录用户原意、行为不变量和风险，**只按合法目标映射**至已有三流程或只读辅助；不自造第四条主工作流，不把独立增强偷偷夹进 Bugfix。
-- 每阶段记录 `phaseId / applicability(required|conditional|N/A+reason) / roleChecklist / currentFacts / requiredArtifacts / optionalArtifacts / mandatoryGates / evidence / approval / blockers / nextAction`。
+- 每阶段记录 `phaseId / applicability(required|conditional|N/A+reason) / roleChecklist / currentFacts / requiredArtifacts / optionalArtifacts / mandatoryGates / evidence / approval / blockers /
+  nextAction`。
   - `fast` 可减少非必需辅助写法，不得省略触发的 Usage Contract、专业审查、真实验证、人工取舍或独立安全授权。
 
 ## 2. 按需加载 Reference：读取条件是执行约束

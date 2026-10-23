@@ -94,7 +94,8 @@
 
 **触发**：真实被审对象存在 API/SDK/CLI 输入输出、配置、事件、内部接口、持久记录/任务 Markdown 状态字段，或本次变更涉及字段语义。没有这些字段时明确 `N/A + reason`，不为了审查虚构 REST/数据库/JSON 接口。
 
-每个适用的真实字段路径（包括嵌套项）至少应被以下可核验语义覆盖：`fieldPath / direction(input|output|record) / consumer / requirementSource / usageScenario / typeAndDomain / requiredConditionalOptional / defaultAbsentNullEmpty / crossFieldConstraints / successResult / errorResult / securityAndPrivacy / compatibility / evidenceOrUnverified / reviewDecision`。
+每个适用的真实字段路径（包括嵌套项）至少应被以下可核验语义覆盖：`fieldPath / direction(input|output|record) / consumer / requirementSource / usageScenario / typeAndDomain / requiredConditionalOptional /
+defaultAbsentNullEmpty / crossFieldConstraints / successResult / errorResult / securityAndPrivacy / compatibility / evidenceOrUnverified / reviewDecision`。
 - 可按类型相同、约束完全一致的字段组共享审查方法，但仍须逐路径标识覆盖；
 - 高风险/公开兼容/鉴权字段不能只用 Schema 类型对照代替必要性及语义判断。
 

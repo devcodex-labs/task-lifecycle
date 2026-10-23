@@ -6,8 +6,9 @@ Task Lifecycle 是一款**按真实用户的实质开发意图（功能开发、
 
 ## 当前包状态与验证边界
 
-- 本包版本：`0.1.4`；当前版本（含按意图触发调整）已推送到 Git 远程仓库，推送本身不等于已被宿主安装识别或完成目标宿主 E4 验收。开发基线与验收记录见 `docs/maintainer-baseline.md`。
-- 清单文件：根 `plugin.json`（Agent Plugins 1.0）和随包 `.codex-plugin/plugin.json`（兼容清单，**并不表示已验证 Codex 自动识别**）；唯一 Skill：`skills/task-lifecycle/SKILL.md`；按风险读取 `references/`；`templates/` 只提供最小语义；`examples/` 为**虚构示例**。
+- 本包版本：`0.1.5`；当前版本（含按意图触发调整）已推送到 Git 远程仓库，推送本身不等于已被宿主安装识别或完成目标宿主 E4 验收。开发基线与验收记录见 `docs/maintainer-baseline.md`。
+- 清单文件：根 `plugin.json`（Agent Plugins 1.0）和随包 `.codex-plugin/plugin.json`（兼容清单，**并不表示已验证 Codex 自动识别**）；唯一 Skill：`skills/task-lifecycle/SKILL.md`；按风险读取 `references/`；`templates/` 只提供最小语义；
+  `examples/` 为**虚构示例**。
 - **未完成的目标宿主 E4 验收**：真实 Codex CLI/桌面、安装/缓存加载、并行/独立Reviewer、WebStorm HTTP Client、真实 API、浏览器或原生 Agent Eval。ZIP 可解包或私有插件保存成功，不证明这些能力已通过。
 - 本插件不包含 MCP、后台服务、远程 API、数据库、自动 Git 操作、自动进化规则晋级或前端 UI；支持能力取决于真实宿主提供的工具和明确权限。
 
@@ -42,7 +43,8 @@ Task Lifecycle 是一款**按真实用户的实质开发意图（功能开发、
 
 ## 安装与兼容说明
 
-这个 ZIP 同时包含根 `plugin.json`（`https://agent-plugins.org/schemas/1.0.0/plugin.schema.json`）和 `.codex-plugin/plugin.json`，两份清单保持版本、作者身份与展示字段一致；Skill 位于 `skills/task-lifecycle/SKILL.md`。**兼容清单实际随包存在不等于当前 Codex 桌面、CLI 或 Marketplace 已安装/识别/加载该插件**；这些仍需在获授权的目标版本上执行 PoC-A，并回读真正加载的文件。
+这个 ZIP 同时包含根 `plugin.json`（`https://agent-plugins.org/schemas/1.0.0/plugin.schema.json`）和 `.codex-plugin/plugin.json`，两份清单保持版本、作者身份与展示字段一致；Skill 位于 `skills/task-lifecycle/SKILL.md`。
+**兼容清单实际随包存在不等于当前 Codex 桌面、CLI 或 Marketplace 已安装/识别/加载该插件**；这些仍需在获授权的目标版本上执行 PoC-A，并回读真正加载的文件。
 
 将源码 ZIP 解包后可以放到你选定的 Git 仓库；**文件存入 GitHub 本身不等于插件已被 Codex 或 ChatGPT 安装/启用**。ChatGPT 账户的私有插件保存与目标 Codex 实际使用也应分别验证。
 
@@ -63,6 +65,8 @@ Task Lifecycle 是一款**按真实用户的实质开发意图（功能开发、
 
 维护检查清单（清单、frontmatter、模板、Reference 路径、包版本、过程数据泄露等）见 `docs/maintainer-baseline.md`。不能在此 README 承诺尚无 E4 结果的系统兼容能力。
 
-**本插件开发历史的适用性**：[验证规则§10.5](skills/task-lifecycle/references/验证与证据分流.md#105-真实进度验收追踪和证据等级分离)中的566、旧527及新增39等数字仅追溯开发Task Lifecycle自身的对应批准基线；普通项目使用自己的有效来源集合和适用子条件。原批准、失败和审查历史保留在维护过程记录中，不作为每个使用者的固定覆盖任务，也不因新包版本自动变成新验证结果。
+**本插件开发历史的适用性**：[验证规则§10.5](skills/task-lifecycle/references/验证与证据分流.md#105-真实进度验收追踪和证据等级分离)中的566、旧527及新增39等数字仅追溯开发Task Lifecycle自身的对应批准基线；普通项目使用自己的有效来源集合和适用子条件。原批准、失败和审查历史保留在维护过程记录中，
+ 不作为每个使用者的固定覆盖任务，也不因新包版本自动变成新验证结果。
 
-**集中发现、成批修复、分层回归**：固定版本和有限清单完成本轮问题收集，再按真实根因/依赖修复；每项做最小验证、每批做消费者影响面回归，最后统一完成适用验收。前置阻断先最小处置并保留版本边界；未受影响的合格证据保留原版本复用，每次重跑说明改动及失效依据。执行主责见[审查规则§7.9](skills/task-lifecycle/references/正式专项审查与Finding.md)和[验证规则§10.7](skills/task-lifecycle/references/验证与证据分流.md)，对应模板和Bugfix示例提供用法；这些规则不承诺一次找齐所有Bug或自动替代真实测试/真人验收。
+**集中发现、成批修复、分层回归**：固定版本和有限清单完成本轮问题收集，再按真实根因/依赖修复；每项做最小验证、每批做消费者影响面回归，最后统一完成适用验收。前置阻断先最小处置并保留版本边界；未受影响的合格证据保留原版本复用，每次重跑说明改动及失效依据。
+ 执行主责见[审查规则§7.9](skills/task-lifecycle/references/正式专项审查与Finding.md)和[验证规则§10.7](skills/task-lifecycle/references/验证与证据分流.md)，对应模板和Bugfix示例提供用法；这些规则不承诺一次找齐所有Bug或自动替代真实测试/真人验收。

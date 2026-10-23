@@ -71,7 +71,8 @@
 
 ### 5.3.1 条件性回归影响控制和新 Bug 归属（P0，不新建状态机）
 
-在 B02/B03 从真实项目识别：`changeSurface`（实际修改处）、`directConsumers`（直接调用方）、`indirectConsumers`（经共享 Schema/配置/事件/状态间接受影响的调用方）、`behaviorInvariants`（应保留的正确行为）、`newBehavior`（允许修正的错误行为）和 `validationCases`（适用 D/A/I/H）。
+在 B02/B03 从真实项目识别：`changeSurface`（实际修改处）、`directConsumers`（直接调用方）、`indirectConsumers`（经共享 Schema/配置/事件/状态间接受影响的调用方）、`behaviorInvariants`（应保留的正确行为）、
+`newBehavior`（允许修正的错误行为）和 `validationCases`（适用 D/A/I/H）。
 - 这些是**现有修复方案/验证方案中的可读信息维度**，不是必须生成的新 JSON 文件或一次性全仓深读；对无关消费者明确 N/A，有疑问写 `unverified`。
 
 修后发现新异常时，先比对冻结的源码/数据/环境/测试标准，分类为：`introduced-regression` / `pre-existing-exposed` / `unrelated-pre-existing` / `environment-or-test` / `causality-unverified`；

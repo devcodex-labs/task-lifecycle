@@ -19,7 +19,8 @@
 3. 候选先过硬门槛：项目/宿主兼容、实际必要角色/声明、可信来源、额外权限和安全、冲突与许可证/限制。再依据项目语言/任务成本与必要验证质量选最小主 Skill，必要时增加职责不冲突的辅助。
 4. 若没有专业 Skill 但可用同等检查方式，诚实说明降级；若对关键质量必需但无能力/权限，仅阻断受影响节点，提出精准补证/审核/安装提案，不能假通过。
 5. 根据真实 `whatFailed / whyMissed / candidateVersions / checkedSources / affectedGate / fallback` 记录 Gap；某次任务特殊情况不自动升为通用 Skill。
-   **Gap 归因门禁（REQ-019/031/033）**：逐案区分 `invocation-gap`（已有 Skill/规则未被正确发现、触发或加载）、`rule-gap`（证据证明实际缺少可执行的通用检查规则）、`specialist-skill-gap`（确实需要而当前宿主不可用的独立专业 Skill）及 `tool-or-environment-gap`（缺工具、权限、网络、环境或可观察执行证据）；
+   **Gap 归因门禁（REQ-019/031/033）**：逐案区分 `invocation-gap`（已有 Skill/规则未被正确发现、触发或加载）、`rule-gap`（证据证明实际缺少可执行的通用检查规则）、`specialist-skill-gap`（确实需要而当前宿主不可用的独立专业 Skill）及 `tool-or-environment-gap`（缺工具、
+   权限、网络、环境或可观察执行证据）；
    - 证据不足标 `classification-unverified` 而非硬选 `rule-gap`。先核实已安装 Skill、实际调用与当前规则、权限和替代验证器；前两类不能靠安装新插件代替根因修复，后两类不自动变成通用规范。
    - 仅真实 `rule-gap` 经通用性资格检查才可提出进化候选，其他按调用修复、维护建议或补证/局部阻断处理。
 
