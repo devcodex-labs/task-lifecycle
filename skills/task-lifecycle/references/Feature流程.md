@@ -19,6 +19,9 @@
 3. 每个 A 阶段先明确实际输入事实、Required/Conditional/Optional 的产物适用性与专业角色，建立动态子步骤、核验器、依赖和完成条件，再在合法权限内实施；正式产物需文件级自审，专项审查必须有获批准的准确计划。
 4. A02 的对外 API 字段按实际存在的契约逐项核对 type/domain/必填/默认/null/错误/权限/兼容/消费者，不虚构 REST/SDK；A03 的技术方案不得用工程方便更改用户批准的行为。
 5. A05 每批先回读有效需求/UC、实际 Git dirty 与消费者；执行后检查 diff→需求和需求→代码两个方向、必要回归。A06 仅真实执行的测试可标 passed，权限不足需保留阻断。
+   - **开工基线**：A05 首个写入批次前，在已授权范围内运行项目既有的安全检查（实际存在的测试/lint/类型检查），记录结果为基线；无法安全运行时记 `unknown` 与原因。
+   - A06 新出现的失败按 `Bugfix流程.md` 的 `introduced-regression/pre-existing-exposed/unrelated-pre-existing/environment-or-test/causality-unverified` 分类，不凭感觉归因。
+   - A05/A06 中发现的既有缺陷按 `正式专项审查与Finding.md` §7.5 处理；阻断当前功能的经 A10 影响分析，不静默扩大范围。
 6. A07 分离公开使用说明与内部过程报告；有实际站点且适用时调用 Docs Site Gate；API `.http` 按 off/suggest/generate 独立授权处理。
 7. A08 无发布意图/权限则 `N/A+reason`；A09 不伪称实际用户终验，只有证据与当前版本适配的交付可声明完成。
 

@@ -57,7 +57,7 @@ description: "Use when the real user intends substantive, governed development w
 |---|---|
 | 入口（必读） | `references/入口速查.md` |
 | 新建/续接、分类、选档（执行具体动作前） | `references/任务识别与合法路由.md`、`references/确认授权与变更.md`、`references/文件目录版本与跨会话恢复.md` |
-| Feature | `references/Feature流程.md`、`references/产物内容与自审契约.md` |
+| Feature | `references/Feature流程.md`、`references/产物内容与自审契约.md`、`references/验证与证据分流.md`（A06 起） |
 | Bugfix | `references/Bugfix流程.md`、`references/正式专项审查与Finding.md`、`references/验证与证据分流.md` |
 | Docs | `references/Docs流程.md`、`references/Docs受众与站点质量.md` |
 | 新正式候选、自审、审查角色 | `references/产物内容与自审契约.md`、`references/角色与专业审查.md` |
