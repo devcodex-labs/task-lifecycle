@@ -10,7 +10,7 @@
   },
   "name": "task-lifecycle",
   "version": "0.1.4",
-  "description": "A user-invoked, Markdown-first lifecycle for governed Feature, Bugfix, and Docs work, with human approval, review evidence, and safe recovery.",
+  "description": "An intent-triggered, Markdown-first lifecycle for governed Feature, Bugfix, and Docs work, with human approval, review evidence, and safe recovery.",
   "author": {
     "name": "Rocky shi",
     "email": "rockyshi1993@gmail.com"
