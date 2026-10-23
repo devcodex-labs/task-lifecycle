@@ -71,9 +71,13 @@
 
 ### 5.3.1 条件性回归影响控制和新 Bug 归属（P0，不新建状态机）
 
-在 B02/B03 从真实项目识别：`changeSurface`（实际修改处）、`directConsumers`（直接调用方）、`indirectConsumers`（经共享 Schema/配置/事件/状态间接受影响的调用方）、`behaviorInvariants`（应保留的正确行为）、`newBehavior`（允许修正的错误行为）和 `validationCases`（适用 D/A/I/H）。这些是**现有修复方案/验证方案中的可读信息维度**，不是必须生成的新 JSON 文件或一次性全仓深读；对无关消费者明确 N/A，有疑问写 `unverified`。
+在 B02/B03 从真实项目识别：`changeSurface`（实际修改处）、`directConsumers`（直接调用方）、`indirectConsumers`（经共享 Schema/配置/事件/状态间接受影响的调用方）、`behaviorInvariants`（应保留的正确行为）、`newBehavior`（允许修正的错误行为）和 `validationCases`（适用 D/A/I/H）。
+- 这些是**现有修复方案/验证方案中的可读信息维度**，不是必须生成的新 JSON 文件或一次性全仓深读；对无关消费者明确 N/A，有疑问写 `unverified`。
 
-修后发现新异常时，先比对冻结的源码/数据/环境/测试标准，分类为：`introduced-regression` / `pre-existing-exposed` / `unrelated-pre-existing` / `environment-or-test` / `causality-unverified`；若需要改变已批准的**公开契约**则另标 `contract-change` 并触发既有人工产品决定（此为处理路由，不当作由修复引入的 Bug 因果结论）。只有因果证据支持时才将新 Bug B 判为 A 的回归；若引入，关联原 Finding，在原任务中返修，B06 至少复证 A+B+适用消费者；未获批准的独立新任务不能作为 A 完成的替代。B 再引出 C 时必须重新评估根因和策略，避免无界补丁；连锁返修同样适用[正式专项审查与Finding](正式专项审查与Finding.md)“实质进展与无效循环判定”的重试上限，超限即公开阻断交用户决定。
+修后发现新异常时，先比对冻结的源码/数据/环境/测试标准，分类为：`introduced-regression` / `pre-existing-exposed` / `unrelated-pre-existing` / `environment-or-test` / `causality-unverified`；
+- 若需要改变已批准的**公开契约**则另标 `contract-change` 并触发既有人工产品决定（此为处理路由，不当作由修复引入的 Bug 因果结论）。只有因果证据支持时才将新 Bug B 判为 A 的回归；
+- 若引入，关联原 Finding，在原任务中返修，B06 至少复证 A+B+适用消费者；未获批准的独立新任务不能作为 A 完成的替代。B 再引出 C 时必须重新评估根因和策略，避免无界补丁；
+- 连锁返修同样适用[正式专项审查与Finding](正式专项审查与Finding.md)“实质进展与无效循环判定”的重试上限，超限即公开阻断交用户决定。
 
 **退出条件**：真实执行证据应对应同一代码/测试/消费者版本，并区分 `passed`、`failed`、`unverified`、`N/A+reason`。没有适用环境或重要消费者未验证时按预定质量标准阻断受影响项；`fast` 只压缩不必要文档形式，不能豁免必要的兼容/安全/数据回归。发布/回滚仍须宿主真实授权。
 

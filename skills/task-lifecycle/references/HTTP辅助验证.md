@@ -39,7 +39,11 @@
 | `suggest`（默认） | HTTP API 适用时在规划中提出可生成的接口/负例、位置、维护价值和风险，等待合法确认 | 未批准前不改项目中的调试文件 |
 | `generate` | 用户当前任务明确要求或项目真实有效偏好批准后，在被允许位置**创建或更新**可用 `.http` | 创建 ≠ 语法校验 ≠ 真实发请求 ≠ 请求结果 passed |
 
-根据真实 API/契约，编排代表性的成功/错误/鉴权/边界请求及适用响应断言。环境地址、Token 等使用变量和私有环境文件，**不得硬编码真实凭证**。有危险副作用的 `POST`/`PUT`/`PATCH`/`DELETE` 不可仅按方法名一概否定，必须依据实际环境、数据与允许的操作分析；**生成文件可合法，实际向真实/生产环境发送须有独立合法授权**。不擅自创建敏感的 `http-client.private.env.json` 示例真实值或把私有文件提交 Git；建议在项目 `.gitignore` 等合法规则中排除私有环境文件，修改忽略规则仍需在范围/权限内。
+根据真实 API/契约，编排代表性的成功/错误/鉴权/边界请求及适用响应断言。
+- 环境地址、Token 等使用变量和私有环境文件，**不得硬编码真实凭证**。
+- 有危险副作用的 `POST`/`PUT`/`PATCH`/`DELETE` 不可仅按方法名一概否定，必须依据实际环境、数据与允许的操作分析；**生成文件可合法，实际向真实/生产环境发送须有独立合法授权**。
+- 不擅自创建敏感的 `http-client.private.env.json` 示例真实值或把私有文件提交 Git；
+- 建议在项目 `.gitignore` 等合法规则中排除私有环境文件，修改忽略规则仍需在范围/权限内。
 
 | 证据层级 | 可声称内容 |
 |---|---|
@@ -48,7 +52,8 @@
 | 已请求 | 记录真实环境、请求/响应、状态、断言、时间、脱敏证据 |
 | 已通过 | 事先冻结的实际请求断言有 E4 证据且未违反授权；不代替单元/集成全覆盖 |
 
-参考 JetBrains 官方 HTTP Client（含公共与私有环境文件、响应脚本、CLI 及报告）：https://www.jetbrains.com/help/idea/http-client-variables.html 、https://www.jetbrains.com/help/idea/http-client-cli.html 。具体特性/命令由目标 WebStorm 与真实安装的 HTTP Client/CLI 版本核实，不能把第三方 IDE 的 `.http` 语法误当通用 HTTP 规范。
+参考 JetBrains 官方 HTTP Client（含公共与私有环境文件、响应脚本、CLI 及报告）：https://www.jetbrains.com/help/idea/http-client-variables.html 、https://www.jetbrains.com/help/idea/http-client-cli.html 。
+- 具体特性/命令由目标 WebStorm 与真实安装的 HTTP Client/CLI 版本核实，不能把第三方 IDE 的 `.http` 语法误当通用 HTTP 规范。
 
 ---
 

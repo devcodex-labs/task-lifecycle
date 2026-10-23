@@ -34,6 +34,7 @@ Task Lifecycle 是一款**按真实用户的实质开发意图（功能开发、
 - **自审和正式专项审查分离**。同一有效计划内连续完成适用的审查批次、候选修订与复审，同根 Finding 集中处理，末尾统一报告；**不因新增报告/发现问题/临时底稿而反复要求确认**。不同正式对象仍须各自准确批准，受保护操作仍需独立授权。Finding 的根因、`whyMissed/controlFailure`、真实复验和必要复审不得省略，不能用改状态制造通过。
 - **过程文档放项目同级的安全外置 `.task-lifecycle/`**（先核实 realpath/Git/worktree/symlink），不得污染项目仓库；最终源码、用户文档、获准生成的 `.http` 仍去其合法交付目录。
 - **HTTP 辅助请求**：`off/suggest/generate`，默认 `suggest`；生成 `.http` 不代表已向服务发请求或接口断言通过，真实生产/敏感 HTTP 永远需独立授权。
+- **自我进化机制默认关闭**：仅当用户明确启用时才加载规则候选/晋级/active 机制；内置规范始终有效。
 - **专业 Skill 与进化**：根据实际已有技能和质量风险决定是否加载，缺失时安全降级/局部阻断。新通用规则必须有可信用户逐条晋级，不能通过修改 active/INDEX/history 来伪造。
 - **并行**：采用 `parallel-eligible / parallel-analysis-only / serial-required / blocked` 四态；只有宿主真正提供且隔离/许可满足时才尝试合法原生并行，否则安全回退或阻断，绝不假报子Agent已执行。
 - **交付集合**：真实提交/打包前按需核对 `working/staged/untracked/generated/ignored` 和必需资产是否实际进入可消费候选；缺漏、未批准内容或无法验证时阻断对应发布声明。
