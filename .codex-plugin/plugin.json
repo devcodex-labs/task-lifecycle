@@ -9,7 +9,7 @@
     "shortDescription": "Guided development lifecycle"
   },
   "name": "task-lifecycle",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "An intent-triggered, Markdown-first lifecycle for governed Feature, Bugfix, and Docs work, with human approval, review evidence, and safe recovery.",
   "author": {
     "name": "Rocky shi",
