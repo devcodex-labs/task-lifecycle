@@ -1,22 +1,36 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "task-lifecycle",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "An intent-triggered, Markdown-first lifecycle for governed Feature, Bugfix, and Docs work, with human approval, review evidence, and safe recovery.",
   "author": {
     "name": "Rocky shi",
-    "email": "rockyshi1993@gmail.com"
+    "email": "rockyshi1993@gmail.com",
+    "url": "https://github.com/devcodex-labs/task-lifecycle"
   },
+  "homepage": "https://github.com/devcodex-labs/task-lifecycle",
+  "repository": "https://github.com/devcodex-labs/task-lifecycle",
+  "license": "MIT",
+  "keywords": ["workflow", "code-review", "bugfix", "feature", "docs", "governance"],
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "DevCodex Task Lifecycle",
         "shortDescription": "Guided development lifecycle",
-        "longDescription": "Plan, review, and track Feature, Bugfix, and Docs tasks using explicit approvals, evidence-aware quality gates, and portable Markdown artifacts. No automatic source edits or external actions without authorization.",
+        "longDescription": "Plan, review, and track Feature, Bugfix, and Docs tasks using explicit approvals, evidence-aware quality gates, and portable Markdown artifacts. Also supports read-only code, PR, and plan review. No automatic source edits or external actions without authorization. Skills-only: no MCP server, background service, or remote API.",
         "developerName": "Rocky shi",
-        "category": "Productivity",
-        "capabilities": [],
-        "defaultPrompt": "Use Task Lifecycle for this project. Inspect read-only; ask for depth and permission before writing."
+        "category": "Developer Tools",
+        "capabilities": ["Plan development tasks", "Review code, PRs, and plans", "Track verification evidence"],
+        "websiteURL": "https://github.com/devcodex-labs/task-lifecycle",
+        "supportURL": "https://github.com/devcodex-labs/task-lifecycle/issues",
+        "defaultPrompt": [
+          "Use Task Lifecycle for this project. Inspect read-only; ask for depth and permission before writing.",
+          "Use Task Lifecycle to plan a bugfix: reproduce, find the root cause, then propose a fix.",
+          "Use Task Lifecycle to review this PR read-only and list findings with evidence."
+        ],
+        "brandColor": "#2357C6",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png"
       }
     }
   }

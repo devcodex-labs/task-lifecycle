@@ -2,6 +2,16 @@
 
 本文件只记录随包内容变化；工作流规则以 `skills/task-lifecycle/` 为准。
 
+## 0.1.9 — 2026-10-24
+
+### 变更
+
+- 发布准备：新增 MIT `LICENSE`；根 `plugin.json` 补 `license`、`repository`、`homepage`、`author.url`、`keywords`。
+- `extensions.com.openai.interface`：类别改为 Developer Tools，补 `capabilities`、`websiteURL`、`supportURL`、`brandColor`、`logo`、`composerIcon`，`defaultPrompt` 改为 3 条数组。
+- 新增 `assets/logo.svg`、`assets/logo.png`（512×512）、`assets/icon.png`（128×128）。
+- 删除与根清单重复的 `.codex-plugin/plugin.json`（根清单含 `extensions.com.openai` 时 OpenAI 不读取它）。
+- README 增加 Cursor、Codex/ChatGPT 安装说明与许可证。不改工作流规则与审批。
+
 ## 0.1.8 — 2026-10-24
 
 ### 变更

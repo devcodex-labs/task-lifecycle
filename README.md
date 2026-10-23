@@ -6,8 +6,8 @@ Task Lifecycle 是一款**按真实用户的实质开发意图（功能开发、
 
 ## 当前包状态与验证边界
 
-- 本包版本：`0.1.8`；当前版本（含按意图触发调整）已推送到 Git 远程仓库，推送本身不等于已被宿主安装识别或完成目标宿主 E4 验收。开发基线与验收记录见 `docs/maintainer-baseline.md`。
-- 清单文件：根 `plugin.json`（Agent Plugins 1.0）和随包 `.codex-plugin/plugin.json`（兼容清单，**并不表示已验证 Codex 自动识别**）；唯一 Skill：`skills/task-lifecycle/SKILL.md`；按风险读取 `references/`；`templates/` 只提供最小语义；
+- 本包版本：`0.1.9`；当前版本（含按意图触发调整）已推送到 Git 远程仓库，推送本身不等于已被宿主安装识别或完成目标宿主 E4 验收。开发基线与验收记录见 `docs/maintainer-baseline.md`。
+- 清单文件：根 `plugin.json`（Agent Plugins 1.0，OpenAI 展示字段在 `extensions.com.openai`，**并不表示已验证宿主自动识别**）；唯一 Skill：`skills/task-lifecycle/SKILL.md`；按风险读取 `references/`；`templates/` 只提供最小语义；
   `examples/` 为**虚构示例**。
 - **未完成的目标宿主 E4 验收**：真实 Codex CLI/桌面、安装/缓存加载、并行/独立Reviewer、WebStorm HTTP Client、真实 API、浏览器或原生 Agent Eval。ZIP 可解包或私有插件保存成功，不证明这些能力已通过。
 - 本插件不包含 MCP、后台服务、远程 API、数据库、自动 Git 操作、自动进化规则晋级或前端 UI；支持能力取决于真实宿主提供的工具和明确权限。
@@ -43,10 +43,25 @@ Task Lifecycle 是一款**按真实用户的实质开发意图（功能开发、
 
 ## 安装与兼容说明
 
-这个 ZIP 同时包含根 `plugin.json`（`https://agent-plugins.org/schemas/1.0.0/plugin.schema.json`）和 `.codex-plugin/plugin.json`，两份清单保持版本、作者身份与展示字段一致；Skill 位于 `skills/task-lifecycle/SKILL.md`。
-**兼容清单实际随包存在不等于当前 Codex 桌面、CLI 或 Marketplace 已安装/识别/加载该插件**；这些仍需在获授权的目标版本上执行 PoC-A，并回读真正加载的文件。
+根 `plugin.json` 遵循 Agent Plugins 1.0（`https://agent-plugins.org/schemas/1.0.0/plugin.schema.json`）；OpenAI 展示字段在 `extensions.com.openai`，图标在 `assets/`。
+Skill 位于 `skills/task-lifecycle/SKILL.md`。以下步骤来自宿主官方文档，**在本包所在环境尚未经真实宿主 E4 验证**。
 
-将源码 ZIP 解包后可以放到你选定的 Git 仓库；**文件存入 GitHub 本身不等于插件已被 Codex 或 ChatGPT 安装/启用**。ChatGPT 账户的私有插件保存与目标 Codex 实际使用也应分别验证。
+### Cursor
+
+1. 本地试用：把仓库放到 `~/.cursor/plugins/local/task-lifecycle`，执行 Developer: Reload Window，在 Customize 中确认出现 `task-lifecycle` Skill。
+2. 公开上架：仓库需为公开仓库，在 `https://cursor.com/marketplace/publish` 提交仓库链接，由 Cursor 人工审核。
+
+### Codex / ChatGPT
+
+1. 仓库级市场：在使用方仓库 `.agents/plugins/marketplace.json` 增加指向本插件的条目（需 `name`、`source`、`policy.installation`、`policy.authentication`、`category`），
+   或执行 `codex plugin marketplace add <owner>/<repo>` 添加含市场清单的仓库。
+2. 公开目录：在 OpenAI 插件提交门户上传插件 ZIP，需已验证的开发者身份，审核通过后由发布者选择发布。
+
+安装成功、ZIP 可解包或私有插件保存成功，均不等于宿主已实际加载并通过 E4 验收；需在目标版本上回读真正加载的文件。
+
+## 许可证
+
+[MIT](LICENSE) © 2026 Rocky shi
 
 ## 仓库与隐私
 
