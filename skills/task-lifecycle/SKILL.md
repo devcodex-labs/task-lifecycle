@@ -60,7 +60,7 @@ description: "Use when the real user intends substantive, governed development w
 |---|---|
 | 入口（必读） | `references/入口速查.md` |
 | 新建/续接、分类、选档（执行具体动作前） | `references/任务识别与合法路由.md`、`references/确认授权与变更.md`、`references/文件目录版本与跨会话恢复.md` |
-| 只读审查/复审/项目分析 | `references/任务识别与合法路由.md` §4.3 第 3 条、`references/正式专项审查与Finding.md`、`references/Bugfix流程.md` 1a、`references/产物内容与自审契约.md`（建议最低信息）；进化机制已启用且审查对象为进化候选时另读 `references/通用规范吸纳与自我进化.md`、`templates/通用规范吸纳审查记录.md`（只读，不写 `evolution/`，除非用户授权） |
+| 只读审查/复审/项目分析 | `references/任务识别与合法路由.md` §4.3 第 3 条、`references/正式专项审查与Finding.md`、`references/Bugfix流程.md` 1a、`references/产物内容与自审契约.md`（建议最低信息）；进化机制已启用且审查对象为进化候选时另读 `references/通用规范吸纳与自我进化.md`、`templates/通用规范吸纳审查记录.md`（只读，不写候选库与外置 `.task-lifecycle/active-rules/`，除非用户授权） |
 | Feature | `references/Feature流程.md`、`references/产物内容与自审契约.md`、`references/正式专项审查与Finding.md`（A01～A03 正式审查）、`references/验证与证据分流.md`（A06 起）、`references/Docs受众与站点质量.md`（A07 有站点时） |
 | Bugfix | `references/Bugfix流程.md`、`references/正式专项审查与Finding.md`、`references/产物内容与自审契约.md`（B03 建议与方案比选）、`references/验证与证据分流.md` |
 | Docs | `references/Docs流程.md`、`references/Docs受众与站点质量.md`、`references/产物内容与自审契约.md`、`references/验证与证据分流.md` |
@@ -76,10 +76,10 @@ description: "Use when the real user intends substantive, governed development w
 | API 调试与 `.http` | `references/HTTP辅助验证.md`，需要时再读 `references/验证与证据分流.md` |
 | 规则候选、人工晋级、active/INDEX/history/回滚（进化机制默认关闭，仅用户明确启用时） | `references/通用规范吸纳与自我进化.md` |
 
-**自我进化机制默认关闭**：仅当当前用户明确启用时，才读取 `references/通用规范吸纳与自我进化.md` 的进化部分（候选/晋级/active/INDEX/history）与外置 `evolution/` 目录；未启用时不捕获候选、不加载 active 规则，内置规范 ABS 始终有效。
+**自我进化机制默认关闭**：仅当当前用户明确启用时，才读取 `references/通用规范吸纳与自我进化.md` 的进化部分（候选/晋级/active/INDEX/history）与候选库 `candidates/`、外置 `.task-lifecycle/active-rules/` 目录；未启用时不捕获候选、不加载 active 规则，内置规范 ABS 始终有效。
 
 **内置规范与后续用户进化规则分离**：内置质量标准为 ABS-01、ABS-07、ABS-08、ABS-11（定义见 `references/通用规范吸纳与自我进化.md` §13.1 内置规范表），其中 ABS-07/08/11 只按触发条件执行；
-- 用户已启用进化机制且受管任务存在真实安全工作区时，按 `references/通用规范吸纳与自我进化.md` 验证 `evolution/INDEX.md` 指向的合法 active 规则并记录实际加载身份。INDEX/active/history 一致也不能证明真人批准；不可验证时隔离该扩展规则，必要时只阻断依赖它的步骤。
+- 用户已启用进化机制且受管任务存在真实安全工作区时，按 `references/通用规范吸纳与自我进化.md` 验证外置 `.task-lifecycle/active-rules/INDEX.md` 指向的合法 active 规则并记录实际加载身份。INDEX/active/history 一致也不能证明真人批准；不可验证时隔离该扩展规则，必要时只阻断依赖它的步骤。
 
 ## 3. 每次受管动作的最小状态检查
 

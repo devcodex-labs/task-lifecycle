@@ -6,7 +6,7 @@ Task Lifecycle 是一款**按真实用户的实质开发意图（功能开发、
 
 ## 当前包状态与验证边界
 
-- 本包版本：`0.1.17`；当前版本（含按意图触发调整）已推送到 Git 远程仓库，推送本身不等于已被宿主安装识别或完成目标宿主 E4 验收。开发基线与验收记录见 `docs/maintainer-baseline.md`。
+- 本包版本：`0.1.18`；当前版本（含按意图触发调整）已推送到 Git 远程仓库，推送本身不等于已被宿主安装识别或完成目标宿主 E4 验收。开发基线与验收记录见 `docs/maintainer-baseline.md`。
 - 清单文件：根 `plugin.json`（Agent Plugins 1.0，OpenAI 展示字段在 `extensions.com.openai`，**并不表示已验证宿主自动识别**）；唯一 Skill：`skills/task-lifecycle/SKILL.md`；按风险读取 `references/`；`templates/` 只提供最小语义；
   `examples/` 为**虚构示例**。
 - **未完成的目标宿主 E4 验收**：真实 Codex CLI/桌面、安装/缓存加载、并行/独立Reviewer、WebStorm HTTP Client、真实 API、浏览器或原生 Agent Eval。ZIP 可解包或私有插件保存成功，不证明这些能力已通过。

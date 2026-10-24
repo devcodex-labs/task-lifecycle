@@ -2,6 +2,12 @@
 
 本文件只记录随包内容变化；工作流规则以 `skills/task-lifecycle/` 为准。
 
+## 0.1.18
+- 修复（BUGFIX-20261024-003）：插件不再引用本地 evolution 仓库路径。候选与审查记录迁入仓库根目录 `candidates/`（46 个文件，内容与编号不变，sha256 逐个核对）；
+  新增 `archived/`（已下架候选，含下架流程）；
+  生效规则与 INDEX 改为用户工作区外置 `.task-lifecycle/active-rules/`，操作记录在外置 `.task-lifecycle/reports/history/`。
+  SKILL.md、references、templates 共 9 个文件改路径，阶段结构与审批规则不变。候选正文内的历史路径按“内容不变”保留，见 `candidates/README.md`。README/维护基线版本号同步。
+
 ## 0.1.17
 - 晋级（RULE-20261024-009 v1，CAND-009 v4 `ae86ad8d…`）：压缩主 description（997 字符），补中文“评审/评价/评估…提案”“恢复受管任务”“需求中途变更”触发；排除项不变。仅描述匹配测试（受干扰证据），E4 未验证。
 - 晋级（RULE-20261024-020 v1，CAND-020 v1/v2 提案/v3 提案）：只读审查在外置目录已授权时建只读审查任务并留记录（含 RULE-006 四项与已加载 reference）；补“评价/评审/采纳建议属受限只读审查”判别标准。SKILL.md:14/:15、路由 :27/:89/:97、入口速查 :7。
