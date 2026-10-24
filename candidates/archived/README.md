@@ -77,3 +77,9 @@
 | CAND-20261024-023 v2 | CAND-20261024-023-v2提案-执行前预检查固定4项 | `candidates/pending/…` | `candidates/archived/CAND-20261024-023-v2提案-执行前预检查固定4项.md` | active；sha e87063da…697d，t215u 批准（DevCodex 来源，Rocky 已亲审） |
 | 审查记录 021/022/023 | 审查记录-CAND-20261024-021、-022、-023 | `candidates/pending/…` | `candidates/archived/审查记录-CAND-20261024-02{1,2,3}.md` | 随候选移入 |
 
+
+## 追加归档（2026-10-24 Asia/Shanghai，任务 ACTIVATE-20261024-002，共 1 个文件）
+
+| 编号 | 文件 | 原路径 | 归档路径 | 已吸纳依据 |
+|---|---|---|---|---|
+| CAND-20261024-024 v1 | CAND-20261024-024-预检查与入口告知的先后 | `candidates/pending/…` | `candidates/archived/CAND-20261024-024-预检查与入口告知的先后.md` | active；sha e5474152…80d4，Rocky t218u“采纳建议”批准；补丁写入 SKILL.md §4 与入口速查「7a 预检查」（v0.1.20）；正文状态行未改 |
