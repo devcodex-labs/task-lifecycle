@@ -92,3 +92,4 @@
 | CAND-20261024-014 v4 | CAND-20261024-014-v4提案-真实验证须加载后新会话实测 | `candidates/pending/…` | `candidates/archived/CAND-20261024-014-v4提案-真实验证须加载后新会话实测.md` | active（RULE-014 修订）；sha 61c990c6…，补丁 7de9ce0e…，Rocky t225u“全批”批准（v0.1.21）；正文状态行未改 |
 | 审查记录 014 v4 | 审查记录-CAND-20261024-014-v4提案 | `candidates/pending/…` | `candidates/archived/审查记录-CAND-20261024-014-v4提案.md` | sha f94c0ce8…，随 014 v4 移入 |
 | CAND-20261024-014 v3 | CAND-20261024-014-v3提案-真实验证须加载后新会话实测 | `candidates/pending/…` | `candidates/archived/CAND-20261024-014-v3提案-真实验证须加载后新会话实测.md` | 被 014 v4 取代；未冻结，t225u |
+| CAND-20261024-026 v1 | CAND-20261024-026-真实用户每条消息均加载并输出预检查 | `candidates/pending/…` | `candidates/archived/CAND-20261024-026-真实用户每条消息均加载并输出预检查.md` | active；sha c577831f…，补丁 3659a8d8…，Rocky t232u“批准”（v0.1.22）；正文状态行未改 |
