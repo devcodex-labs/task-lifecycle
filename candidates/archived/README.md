@@ -76,6 +76,8 @@
 | 编号 | 文件 | 原路径 | 归档路径 | 已吸纳依据 |
 |---|---|---|---|---|
 | CAND-20261024-029 v1 | CAND-20261024-029-审查记录等过程产物外置不进仓库 | `candidates/pending/…` | `candidates/archived/CAND-20261024-029-审查记录等过程产物外置不进仓库.md` | active；sha 2804085f…7127，补丁 717b8f74…523d，Rocky t252u“采纳推荐”（以 t247u 本人指令为批准）（v0.1.24）；正文状态行未改 |
+| CAND-20261024-027 v1 | CAND-20261024-027-执行回合固定7项预检查表 | `candidates/pending/…` | `candidates/archived/CAND-20261024-027-执行回合固定7项预检查表.md` | superseded by v2（未生效）；sha 64546cb1…b0df；正文未改 |
+| CAND-20261024-027 v2 | CAND-20261024-027-v2提案-执行回合固定7项预检查表 | `candidates/pending/…` | `candidates/archived/CAND-20261024-027-v2提案-执行回合固定7项预检查表.md` | active；sha ce312225…e992，补丁 0a897661…9192，Rocky t254u（以 t243u/t245u 本人指令为批准）（v0.1.25）；正文状态行未改 |
 
 ## 审查记录外置对照（MAINT-20261024-002 / ACTIVATE-20261024-005，共 25 份）
 
