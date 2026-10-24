@@ -7,6 +7,9 @@
 //       文件开头的 YAML frontmatter（SKILL.md 的 description 必须单行）。
 //   (b) 相对链接 [x](path#anchor) 指向的文件必须存在；若带锚点且目标为 .md，锚点须匹配某个标题（GitHub slug 规则近似）。
 //       排除：http(s)/mailto 链接、纯 #锚点之外的外部协议、代码块内链接。
+//   (c) 反引号内插件内引用必须存在：以 references/ templates/ examples/ scripts/ docs/ assets/ skills/ 开头的路径，
+//       或 skills/task-lifecycle 下的裸 *.md 文件名；按所在目录、技能根、仓库根（裸名另查 references/templates/examples）解析。
+//       排除：代码块内、含通配/占位符（* { } < >）的值；运行期目录与使用方项目路径不在检查范围。
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -14,6 +17,9 @@ const MAX_LEN = 200;
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const targets = ['skills/task-lifecycle', 'docs', 'README.md', 'CHANGELOG.md'];
 const errors = [];
+const skillRoot = path.join(root, 'skills/task-lifecycle');
+const PREFIX = /^(references|templates|examples|scripts|docs|assets|skills)\//;
+const inSkill = f => !path.relative(skillRoot, f).startsWith('..');
 
 function walk(p, out = []) {
   if (!fs.existsSync(p)) return out;
@@ -49,6 +55,15 @@ for (const f of files) {
     if (inCode) return;
     const len = [...line].length;
     if (len > MAX_LEN && !/^\s*\|/.test(line)) errors.push(`${rel}:${i + 1}: 行长 ${len} > ${MAX_LEN}`);
+    for (const m of line.matchAll(/`([^`\s]+)`/g)) {
+      const ref = m[1].replace(/[:#].*$/, '');
+      if (/[*{}<>]/.test(ref)) continue;
+      const prefixed = PREFIX.test(ref);
+      const bare = inSkill(f) && /^[^/]+\.md$/.test(ref);
+      if (!prefixed && !bare) continue;
+      const bases = [path.dirname(f), skillRoot, root, ...(bare ? ['references', 'templates', 'examples'].map(d => path.join(skillRoot, d)) : [])];
+      if (!bases.some(b => fs.existsSync(path.resolve(b, ref)))) errors.push(`${rel}:${i + 1}: 引用路径不存在 ${ref}`);
+    }
     const clean = line.replace(/`[^`]*`/g, '');
     for (const m of clean.matchAll(/\[[^\]]*\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g)) {
       const href = m[1];
@@ -78,4 +93,4 @@ if (ci > -1) {
 }
 
 if (errors.length) { console.error(errors.join('\n')); console.error(`\n共 ${errors.length} 处问题（检查 ${files.length} 个 .md）`); process.exit(1); }
-console.log(`OK：检查 ${files.length} 个 .md，无超长行/断链${ci > -1 ? '，技能目录一致' : ''}`);
+console.log(`OK：检查 ${files.length} 个 .md，无超长行/断链/悬空引用${ci > -1 ? '，技能目录一致' : ''}`);

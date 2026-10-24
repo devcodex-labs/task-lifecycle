@@ -2,6 +2,9 @@
 
 本文件只记录随包内容变化；工作流规则以 `skills/task-lifecycle/` 为准。
 
+## 0.1.16
+- 新增（FEATURE-20261024-001）：`scripts/check-docs.mjs` 校验反引号内插件内引用（`references/` 等前缀与技能目录裸 `*.md` 名）必须存在；运行期目录与使用方项目路径不在范围。零依赖；README/维护基线版本号同步。
+
 ## 0.1.15
 - 修复（BUGFIX-20261024-002）：description 增加中文触发句、`CAND-*` 与排除示例（计数候选、解释 E3/E4、仅提名称）；删去冗词 “multi-file/existing/also”；保留 “real user” 门禁与全部原排除项。954→1008 字符（≤1024）。真实宿主触发（E4）未验证；README/维护基线版本号同步。
 
