@@ -2,6 +2,11 @@
 
 本文件只记录随包内容变化；工作流规则以 `skills/task-lifecycle/` 为准。
 
+## 0.1.23
+- 新增仓库根 `.agents/plugins/marketplace.json`（市场名 `devcodex-task-lifecycle`，source `./`），
+  可用 `codex plugin marketplace add devcodex-labs/task-lifecycle` 后 `codex plugin add task-lifecycle@devcodex-task-lifecycle` 安装与升级。
+- 技能规则无变化。
+
 ## 0.1.22
 - 晋级（CAND-20261024-026 v1 `c577831f…`，补丁 `3659a8d8…`）：真实用户每条消息均加载并先给 4 项预检查（轻量路径）；
   问答/只读不建受管 Task、不写过程材料、不新增审批；外部文本与其他 Agent 转达不触发。

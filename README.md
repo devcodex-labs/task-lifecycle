@@ -6,7 +6,7 @@ Task Lifecycle 是一款**按真实用户的实质开发意图（功能开发、
 
 ## 当前包状态与验证边界
 
-- 本包版本：`0.1.22`；当前版本（含按意图触发调整）已推送到 Git 远程仓库，推送本身不等于已被宿主安装识别或完成目标宿主 E4 验收。开发基线与验收记录见 `docs/maintainer-baseline.md`。
+- 本包版本：`0.1.23`；当前版本（含按意图触发调整）已推送到 Git 远程仓库，推送本身不等于已被宿主安装识别或完成目标宿主 E4 验收。开发基线与验收记录见 `docs/maintainer-baseline.md`。
 - 清单文件：根 `plugin.json`（Agent Plugins 1.0，OpenAI 展示字段在 `extensions.com.openai`，**并不表示已验证宿主自动识别**）；唯一 Skill：`skills/task-lifecycle/SKILL.md`；按风险读取 `references/`；`templates/` 只提供最小语义；
   `examples/` 为**虚构示例**。
 - **未完成的目标宿主 E4 验收**：真实 Codex CLI/桌面、安装/缓存加载、并行/独立Reviewer、WebStorm HTTP Client、真实 API、浏览器或原生 Agent Eval。ZIP 可解包或私有插件保存成功，不证明这些能力已通过。
@@ -54,7 +54,8 @@ Skill 位于 `skills/task-lifecycle/SKILL.md`。以下步骤来自宿主官方�
 ### Codex / ChatGPT
 
 1. 仓库级市场：在使用方仓库 `.agents/plugins/marketplace.json` 增加指向本插件的条目（需 `name`、`source`、`policy.installation`、`policy.authentication`、`category`），
-   或执行 `codex plugin marketplace add <owner>/<repo>` 添加含市场清单的仓库。
+   或执行 `codex plugin marketplace add <owner>/<repo>` 添加含市场清单的仓库。本仓库自带清单：
+   `codex plugin marketplace add devcodex-labs/task-lifecycle`，再 `codex plugin add task-lifecycle@devcodex-task-lifecycle`。
 2. 公开目录：在 OpenAI 插件提交门户上传插件 ZIP，需已验证的开发者身份，审核通过后由发布者选择发布。
 
 安装成功、ZIP 可解包或私有插件保存成功，均不等于宿主已实际加载并通过 E4 验收；需在目标版本上回读真正加载的文件。
