@@ -83,3 +83,12 @@
 | 编号 | 文件 | 原路径 | 归档路径 | 已吸纳依据 |
 |---|---|---|---|---|
 | CAND-20261024-024 v1 | CAND-20261024-024-预检查与入口告知的先后 | `candidates/pending/…` | `candidates/archived/CAND-20261024-024-预检查与入口告知的先后.md` | active；sha e5474152…80d4，Rocky t218u“采纳建议”批准；补丁写入 SKILL.md §4 与入口速查「7a 预检查」（v0.1.20）；正文状态行未改 |
+
+## 追加归档（2026-10-24 Asia/Shanghai，任务 ACTIVATE-20261024-003，共 4 个文件）
+
+| 编号 | 文件 | 原路径 | 归档路径 | 已吸纳依据 |
+|---|---|---|---|---|
+| CAND-20261024-025 v1 | CAND-20261024-025-入口速查须实际读取并留痕 | `candidates/pending/…` | `candidates/archived/CAND-20261024-025-入口速查须实际读取并留痕.md` | active；sha 47039681…，补丁 b4af38c6…，Rocky t225u“全批”批准（v0.1.21）；正文状态行未改 |
+| CAND-20261024-014 v4 | CAND-20261024-014-v4提案-真实验证须加载后新会话实测 | `candidates/pending/…` | `candidates/archived/CAND-20261024-014-v4提案-真实验证须加载后新会话实测.md` | active（RULE-014 修订）；sha 61c990c6…，补丁 7de9ce0e…，Rocky t225u“全批”批准（v0.1.21）；正文状态行未改 |
+| 审查记录 014 v4 | 审查记录-CAND-20261024-014-v4提案 | `candidates/pending/…` | `candidates/archived/审查记录-CAND-20261024-014-v4提案.md` | sha f94c0ce8…，随 014 v4 移入 |
+| CAND-20261024-014 v3 | CAND-20261024-014-v3提案-真实验证须加载后新会话实测 | `candidates/pending/…` | `candidates/archived/CAND-20261024-014-v3提案-真实验证须加载后新会话实测.md` | 被 014 v4 取代；未冻结，t225u |
