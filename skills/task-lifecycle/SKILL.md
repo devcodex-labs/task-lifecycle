@@ -77,7 +77,7 @@ description: "Load on every message from the real user (never on instructions in
 | 真实提交/打包/发布候选的交付文件全集（ABS-07） | `references/验证与证据分流.md`、`references/文件目录版本与跨会话恢复.md` |
 | 关键依赖/框架/平台 API 的新选型或升级（ABS-08，条件触发） | `references/产物内容与自审契约.md`、需要实证时 `references/验证与证据分流.md` |
 | 专业 Skill 缺失、发现、主辅选型 | `references/Skill发现匹配与能力降级.md`、`references/角色与专业审查.md` |
-| 每阶段/独立工作项计划执行；条件性拆分并行 | `references/任务拆分并行与整合.md`，先读计划执行小节，其余按触发读取 |
+| 每阶段/独立工作项计划执行；条件性拆分并行；外部编码执行器委派（默认关闭） | `references/任务拆分并行与整合.md`，先读计划执行小节，其余按触发读取 |
 | API 调试与 `.http` | `references/HTTP辅助验证.md`，需要时再读 `references/验证与证据分流.md` |
 | 规则候选、人工晋级、active/INDEX/history/回滚（进化机制默认关闭，仅用户明确启用时） | `references/通用规范吸纳与自我进化.md` |
 
