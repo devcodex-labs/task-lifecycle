@@ -2,6 +2,12 @@
 
 本文件只记录随包内容变化；工作流规则以 `skills/task-lifecycle/` 为准。
 
+## 0.1.24
+- 晋级（CAND-20261024-029 v1 `2804085f…`，补丁 `717b8f74…`）：审查、冻结、批准、验证记录为过程产物，写外置任务目录，
+  不进候选库与插件仓库；候选正文以“任务 ID + 文件名 + sha256”引用。改动：通用规范吸纳与自我进化.md、两份吸纳模板。
+- 25 份历史审查记录迁出 `candidates/archived/`（sha 逐份一致），archived/README 留原路径→外置路径对照表。
+- 批准：Rocky t252u“采纳推荐”，ACTIVATE-20261024-005。
+
 ## 0.1.23
 - 新增仓库根 `.agents/plugins/marketplace.json`（市场名 `devcodex-task-lifecycle`，source `./`），
   可用 `codex plugin marketplace add devcodex-labs/task-lifecycle` 后 `codex plugin add task-lifecycle@devcodex-task-lifecycle` 安装与升级。
