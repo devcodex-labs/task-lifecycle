@@ -127,3 +127,9 @@
 | 编号 | 文件 | 原路径 | 归档路径 | 已吸纳依据 |
 |---|---|---|---|---|
 | CAND-20261025-007 v1 | CAND-20261025-007-文件以可点开附件交付 | `candidates/pending/…` | `candidates/archived/CAND-20261025-007-文件以可点开附件交付.md` | Rocky 2026-10-25 11:39 批准按推荐写法晋级（sha256 66b477d2a2ed801bb24249cab7c51b26ac33fc501fcc6dc3f9ca847c89560322），正文按 t349u 不进 Git |
+
+## 追加归档（2026-10-25 Asia/Shanghai，任务 ACTIVATE-20261025-004，共 1 个文件）
+
+| 编号 | 文件 | 原路径 | 归档路径 | 已吸纳依据 |
+|---|---|---|---|---|
+| CAND-20261025-006 v4 | CAND-20261025-006-用例驱动收敛V2 | `candidates/pending/…` | `candidates/archived/CAND-20261025-006-用例驱动收敛V2.md` | Rocky 2026-10-25 11:50 批准按 v4 晋级（sha256 f97cf0851a94ffb5948b336701aee03ba787d0bddfd8a9b7b8acdf22d7863033） |
