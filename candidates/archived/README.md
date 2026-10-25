@@ -133,3 +133,8 @@
 | 编号 | 文件 | 原路径 | 归档路径 | 已吸纳依据 |
 |---|---|---|---|---|
 | CAND-20261025-006 v4 | CAND-20261025-006-用例驱动收敛V2 | `candidates/pending/…` | `candidates/archived/CAND-20261025-006-用例驱动收敛V2.md` | Rocky 2026-10-25 11:50 批准按 v4 晋级（sha256 f97cf0851a94ffb5948b336701aee03ba787d0bddfd8a9b7b8acdf22d7863033） |
+## 追加归档（2026-10-25 Asia/Shanghai，任务 ACTIVATE-20261025-005，共 1 个文件）
+
+| 编号 | 文件 | 原路径 | 归档路径 | 已吸纳依据 |
+|---|---|---|---|---|
+| CAND-20261025-002 v6 | CAND-20261025-002-用户可见文本禁用裸阶段代号 | `candidates/pending/…` | `candidates/archived/CAND-20261025-002-用户可见文本禁用裸阶段代号.md` | Rocky 2026-10-25 12:02 批准按收口写法晋级（sha256 c5c966dd0e477006229589f9b9171acedb6255bcf7fe15810c2b33a4c69bc3b6），正文按 t349u 不进 Git |
