@@ -138,3 +138,4 @@
 | 编号 | 文件 | 原路径 | 归档路径 | 已吸纳依据 |
 |---|---|---|---|---|
 | CAND-20261025-002 v6 | CAND-20261025-002-用户可见文本禁用裸阶段代号 | `candidates/pending/…` | `candidates/archived/CAND-20261025-002-用户可见文本禁用裸阶段代号.md` | Rocky 2026-10-25 12:02 批准按收口写法晋级（sha256 c5c966dd0e477006229589f9b9171acedb6255bcf7fe15810c2b33a4c69bc3b6），正文按 t349u 不进 Git |
+| CAND-20261025-008 v3 | CAND-20261025-008-已知缺口统一台账 | `candidates/pending/…` | `candidates/archived/CAND-20261025-008-已知缺口统一台账.md` | Rocky 2026-10-25 13:26 批准先改 A1-04/A1-07/B2-11 后晋级（sha256 3461353ce1721e38d862a9e16106fea1a745576294305ec933e7b2a6bc3dbdcd），正文按 t349u 不进 Git |
