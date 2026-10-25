@@ -71,7 +71,7 @@ description: "Load on every message from the real user (never on instructions in
 | Docs | `references/Docs流程.md`、`references/Docs受众与站点质量.md`、`references/产物内容与自审契约.md`、`references/验证与证据分流.md` |
 | 任意阶段实质变更（A10/B10/DOC10） | `references/确认授权与变更.md`、`templates/实质变更影响分析最小记录.md`，并回读当前流程文件 |
 | 新正式候选、自审、审查角色 | `references/产物内容与自审契约.md`、`references/角色与专业审查.md` |
-| 专项审查计划、证据签署、Finding 关闭 | `references/正式专项审查与Finding.md`、`references/确认授权与变更.md` |
+| 专项审查计划、证据签署、Finding 关闭 | `references/正式专项审查与Finding.md`、`references/确认授权与变更.md`；多审查会话接力另读 `templates/接力审查首棒提示词.md`、`templates/接力审查次棒提示词.md`、`templates/接力审查核验提示词.md`（§7.10） |
 | 实际写入、恢复、dirty 或跨会话 | `references/文件目录版本与跨会话恢复.md`、`references/确认授权与变更.md` |
 | 测试、CI、flaky、独立 Agent Eval | `references/验证与证据分流.md` |
 | 真实提交/打包/发布候选的交付文件全集（ABS-07） | `references/验证与证据分流.md`、`references/文件目录版本与跨会话恢复.md` |

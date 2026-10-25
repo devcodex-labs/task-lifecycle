@@ -80,6 +80,12 @@
 | CAND-20261024-027 v2 | CAND-20261024-027-v2提案-执行回合固定7项预检查表 | `candidates/pending/…` | `candidates/archived/CAND-20261024-027-v2提案-执行回合固定7项预检查表.md` | active；sha ce312225…e992，补丁 0a897661…9192，Rocky t254u（以 t243u/t245u 本人指令为批准）（v0.1.25）；正文状态行未改 |
 | CAND-20261024-028 v1 | CAND-20261024-028-外部编码执行器委派默认关闭约定收窄 | `candidates/pending/…` | `candidates/archived/CAND-20261024-028-外部编码执行器委派默认关闭约定收窄.md` | active；sha 5b75441e…6664，补丁 4f145d8a…7027，Rocky t238u/t248u/t254u 指令批准（t252u 常设约定）（v0.1.26）；正文状态行未改 |
 
+## 追加归档（2026-10-25 Asia/Shanghai，任务 ACTIVATE-20261025-001，共 1 个文件）
+
+| 编号 | 文件 | 原路径 | 归档路径 | 已吸纳依据 |
+|---|---|---|---|---|
+| CAND-20261025-004 v16 | CAND-20261025-004-串行接力审查 | `candidates/pending/…` | `candidates/archived/CAND-20261025-004-串行接力审查.md` | Rocky 2026-10-25 10:57 批准 v16（sha256 bb80387567fbb6f5c3ea9bca3d1ddbeeb593dda246b6eecb1c424f553c1064e6，移动前后一致）；按 Rocky t349u 正文不纳入 Git，故以普通 mv 移动（无法 git mv），正文未改；已知缺口 A10-01（P2）、A10-02（P3）待后续修订 |
+
 ## 审查记录外置对照（MAINT-20261024-002 / ACTIVATE-20261024-005，共 25 份）
 
 以下审查记录已按 CAND-20261024-029 迁出仓库（`git rm`），迁移前后 sha256 逐份一致。旧引用按下表查找。
