@@ -2,6 +2,12 @@
 
 本文件只记录随包内容变化；工作流规则以 `skills/task-lifecycle/` 为准。
 
+## 0.1.41
+- FEAT-20261024-001 A05 批次 2 第 3 轮（上限）收敛：`references/校验脚本输出协议.md` 补全部原因码与 `fallback` 三键固定值（新增防漂移测试，77 项）。
+- 晋级 CAND-20261025-014 v2（sha256 `f3f98580…cdd6`）：`任务拆分并行与整合.md` 日志核对增两行——同字段多值冲突视同无法辨认（`log-unverifiable`），重复同值仍须与配置比较。
+- 已知缺口：充实 T7-T8「Codex 宿主沙箱限制」根因；新增 FEAT-20261024-001 E4 未测项与 Cursor 仅装 skills 两条，见 `docs/已知缺口.md`。
+- 批准：Rocky 2026-10-25 15:15、15:26 t405u、17:02（选 A）；ACTIVATE-20261025-014；候选正文按 t349u 不进仓库。
+
 ## 0.1.40
 - FEAT-20261024-001 执行（A05）批次 1＋2：新增 `scripts/validate-config.mjs`（零依赖 Node≥20 只读校验放权类配置 JSON，阶段 env/locate/parse/version/structure/merge，
   O_NOFOLLOW＋O_NONBLOCK＋整路径绑定读取，legacy 检测）、`scripts/validate-config.test.mjs`（76 项）、`assets/config.schema.json`（由常量生成）、`assets/config.example.json`；

@@ -434,6 +434,11 @@ test('B3-02 schema 类型由 FIELD_RULES 生成：改常量 type 即改变生成
     assert.equal(V.buildSchemaDefs()[def].type, old);
   }
 });
+test('A3-02(b2) 随包输出协议含全部原因码与 fallback 三键固定值', () => {
+  const t = fs.readFileSync(path.join(path.dirname(SCRIPT), '..', 'skills', 'task-lifecycle', 'references', '校验脚本输出协议.md'), 'utf8');
+  for (const c of Object.keys(V.REASON_CODES)) assert.ok(t.includes('`' + c + '`'), c);
+  for (const [k, v] of Object.entries(V.REVIEW_FALLBACK)) assert.ok(t.includes('`' + k + '`: `"' + v + '"`'), k);
+});
 test('B1-03 同名仅大小写不同的是普通文件 → 不算项目目录别名', () => {
   const f = mk(); writeG(f, G1(f)); fs.mkdirSync(path.join(f.ws, '.task-lifecycle', 'P1'), { recursive: true }); fs.writeFileSync(path.join(f.ws, '.task-lifecycle', 'p1'), '');
   const r = run(f, pargs(f)); assert.equal(r.status, 'valid', JSON.stringify(r.reasons)); assert.equal(r.layers.project.exists, false);
