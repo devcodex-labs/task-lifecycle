@@ -117,3 +117,8 @@
 | `candidates/archived/审查记录-CAND-20261024-021.md` | `/home/box/task-lifecycle-records/MAINT-20261024-002/migrated-review-records/审查记录-CAND-20261024-021.md` | `5f19d8e9a4435c896b27fbb95e8af4ba3c923a8fc9facf2a3c52ada5ef9c858c` |
 | `candidates/archived/审查记录-CAND-20261024-022.md` | `/home/box/task-lifecycle-records/MAINT-20261024-002/migrated-review-records/审查记录-CAND-20261024-022.md` | `989244c2911545edacbb9e6df7b17c9eacc5214c99f3a07946b70f9a912edcb3` |
 | `candidates/archived/审查记录-CAND-20261024-023.md` | `/home/box/task-lifecycle-records/MAINT-20261024-002/migrated-review-records/审查记录-CAND-20261024-023.md` | `36f3c57ed8ee787ae02435b6b823a59b7f2378bacd35d6b9019aff6ef5d46797` |
+## 追加归档（2026-10-25 Asia/Shanghai，任务 ACTIVATE-20261025-002，共 1 个文件）
+
+| 编号 | 文件 | 原路径 | 归档路径 | 已吸纳依据 |
+|---|---|---|---|---|
+| CAND-20261025-005 v4 | CAND-20261025-005-审查按风险分级收敛 | `candidates/pending/…` | `candidates/archived/CAND-20261025-005-审查按风险分级收敛.md` | Rocky 2026-10-25 11:26 批准 v4（sha256 f1c7c317918fbae911c4358c7b81da567294d791764ce3b61925736b673b68c0），正文按 t349u 不进 Git |
