@@ -8,7 +8,7 @@
 
 1. 读取当前用户允许的项目路径、现有 API/Schema 和 Git dirty，真实不具备工具时标 `unknown`，先不写任务文件。
 2. 分类 Feature；默认 Confirm；记录源码写入尚未授权。
-3. 用户没有选择 `workflowDepth`，展示 `fast/standard/thorough/custom` 四档及基于实际接口风险的推荐；**不直接选中 standard**。
+3. 用户没有选择 `workflowDepth`，且校验脚本无已批准的 depth 执行默认（本例 `配置：disabled（config-missing）`），展示 `fast/standard/thorough/custom` 四档及基于实际接口风险的推荐；**不直接选中 standard**。
 4. 用户明确选 `standard` 并授权在经过真实安全检查的仓库外目录写入过程文档后，才生成当前《任务描述》和《任务工作流方案》候选，自审并按确认记录合法生效。
 5. A01 审定公开目标 → A02 Usage Contract（真实 API、字段域、缺省/错误/权限、正反场景）→ A03 技术设计 → A04 Work Item 规划。期间即使发现更好的缓存方案，也先写 `suggested-unapproved`，不自动纳入。
 6. `.http` 默认 `suggest`：仅介绍可生成的样例和风险，不直接写 `.http`；用户明确选择 `generate` 且授予相应源码写入权时才创建变量化文件。

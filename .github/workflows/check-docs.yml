@@ -11,3 +11,4 @@ jobs:
         with:
           node-version: 20
       - run: node scripts/check-docs.mjs
+      - run: node --test scripts/

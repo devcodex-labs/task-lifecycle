@@ -1,0 +1,17 @@
+{
+  "approvalSource": {
+    "messageId": "t1u",
+    "quote": "示例：仓库内示例永不生效，真实写入须逐字摘录用户原话并经确认",
+    "record": "/home/user/task-lifecycle-records/EXAMPLE/00-任务记录.md"
+  },
+  "delegation": { "enabled": false },
+  "review": {
+    "enabled": false,
+    "fallback": {
+      "noIndependentSession": "blocked-needs-evidence",
+      "oneExternal": "host-fresh-session-else-isolated-sessions-of-external",
+      "zeroExternal": "isolated-host-sessions"
+    }
+  },
+  "schemaVersion": 1
+}

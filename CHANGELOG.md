@@ -2,6 +2,14 @@
 
 本文件只记录随包内容变化；工作流规则以 `skills/task-lifecycle/` 为准。
 
+## 0.1.40
+- FEAT-20261024-001 执行（A05）批次 1＋2：新增 `scripts/validate-config.mjs`（零依赖 Node≥20 只读校验放权类配置 JSON，阶段 env/locate/parse/version/structure/merge，
+  O_NOFOLLOW＋O_NONBLOCK＋整路径绑定读取，legacy 检测）、`scripts/validate-config.test.mjs`（76 项）、`assets/config.schema.json`（由常量生成）、`assets/config.example.json`；
+  CI 增加 `node --test scripts/` 一步；规则文本落入消费协议（`任务拆分并行与整合.md`）、写入流程（`文件目录版本与跨会话恢复.md` §9.1.1）、
+  选档（`任务识别与合法路由.md`）、入口速查、SKILL、模板、示例、README；新增 `references/校验脚本输出协议.md`。
+- 审查：批次 1 三轮（上限）收敛，零 P0/P1；批次 2 两轮，P2 已修，第 3 轮确认另行。CAND-20261025-013 并入 A02 v13 归档；CAND-20261025-014 草案登记。
+- 批准：Rocky 2026-10-25 15:15「全部放开，晋级也按推荐自动」、15:26 t405u 自动推进并提交推送。
+
 ## 0.1.39
 - 晋级 CAND-20261025-012 v2（晋级时 sha256 `6ea45745…9828`）：`正式专项审查与Finding.md` §7.10 第 9 条第 246 行改为 4 行，
   `scripts/check-citations.mjs` 按插件根定位（不按被审项目目录），无 `scripts/` 时用源仓库检出，都找不到记“脚本不可达”；调用用已有 `--root`/`--rev`。修 E4 T15。

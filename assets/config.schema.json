@@ -1,0 +1,318 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "task-lifecycle/config.schema.json",
+  "title": "task-lifecycle 放权类配置 schemaVersion 1（人读；scripts/validate-config.mjs 为权威）",
+  "$comment": "全局层：<账户 home>/.config/task-lifecycle/config.json；项目层：<workspace>/.task-lifecycle/<Project ID>/config.json（只收窄）。位置、Git 边界、批准核验、合并收窄判定由脚本与消费方执行，本文件不表达。 根用 anyOf：同时满足两层定义的配置（如仅 delegation.enabled:false）两层皆合法。$defs 由 scripts/validate-config.mjs buildSchemaDefs() 生成，测试逐字段比对。",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/globalConfig"
+    },
+    {
+      "$ref": "#/$defs/projectConfig"
+    }
+  ],
+  "$defs": {
+    "approvalSource": {
+      "type": "object",
+      "properties": {
+        "messageId": {
+          "type": "string",
+          "pattern": "^(t[0-9]+u|t[0-9]+s[0-9]+)$"
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500,
+          "pattern": "\\S"
+        },
+        "record": {
+          "type": "string",
+          "pattern": "^/.*\\.md$"
+        }
+      },
+      "required": [
+        "messageId",
+        "quote",
+        "record"
+      ],
+      "additionalProperties": false
+    },
+    "categories": {
+      "type": "object",
+      "properties": {
+        "drafting": {
+          "type": "string"
+        },
+        "implementation": {
+          "type": "string"
+        },
+        "readonly-investigation": {
+          "type": "string"
+        },
+        "test-run": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "executor": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9._-]{1,64}$"
+        },
+        "model": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9._:-]{1,64}$"
+        },
+        "reasoningEffort": {
+          "type": "string",
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        }
+      },
+      "required": [
+        "command"
+      ],
+      "additionalProperties": false
+    },
+    "globalDelegation": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "$ref": "#/$defs/categories"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "executors": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z][a-z0-9-]{1,31}$"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/executor"
+          }
+        }
+      },
+      "required": [
+        "enabled"
+      ],
+      "if": {
+        "properties": {
+          "enabled": {
+            "const": true
+          }
+        },
+        "required": [
+          "enabled"
+        ]
+      },
+      "then": {
+        "required": [
+          "categories",
+          "executors"
+        ]
+      },
+      "additionalProperties": false
+    },
+    "projectDelegation": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "$ref": "#/$defs/categories"
+        },
+        "enabled": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "globalWorkflowDepth": {
+      "type": "object",
+      "properties": {
+        "executionDefault": {
+          "enum": [
+            "fast",
+            "standard",
+            "thorough"
+          ]
+        }
+      },
+      "required": [
+        "executionDefault"
+      ],
+      "additionalProperties": false
+    },
+    "projectWorkflowDepth": {
+      "type": "object",
+      "properties": {
+        "executionDefault": {
+          "enum": [
+            "fast",
+            "standard",
+            "thorough",
+            null
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "reviewHost": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9._-]{1,64}$"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{1,31}$"
+        },
+        "model": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9._:-]{1,64}$"
+        },
+        "reasoningEffort": {
+          "type": "string",
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        }
+      },
+      "required": [
+        "command",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "reviewFallback": {
+      "type": "object",
+      "properties": {
+        "noIndependentSession": {
+          "const": "blocked-needs-evidence"
+        },
+        "oneExternal": {
+          "const": "host-fresh-session-else-isolated-sessions-of-external"
+        },
+        "zeroExternal": {
+          "const": "isolated-host-sessions"
+        }
+      },
+      "required": [
+        "noIndependentSession",
+        "oneExternal",
+        "zeroExternal"
+      ],
+      "additionalProperties": false
+    },
+    "globalReview": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "fallback": {
+          "$ref": "#/$defs/reviewFallback"
+        },
+        "hosts": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/reviewHost"
+          }
+        }
+      },
+      "required": [
+        "enabled",
+        "fallback"
+      ],
+      "if": {
+        "properties": {
+          "enabled": {
+            "const": true
+          }
+        },
+        "required": [
+          "enabled"
+        ]
+      },
+      "then": {
+        "required": [
+          "hosts"
+        ]
+      },
+      "additionalProperties": false
+    },
+    "projectReview": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "const": false
+        }
+      },
+      "required": [
+        "enabled"
+      ],
+      "additionalProperties": false
+    },
+    "globalConfig": {
+      "type": "object",
+      "properties": {
+        "approvalSource": {
+          "$ref": "#/$defs/approvalSource"
+        },
+        "delegation": {
+          "$ref": "#/$defs/globalDelegation"
+        },
+        "review": {
+          "$ref": "#/$defs/globalReview"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "workflowDepth": {
+          "$ref": "#/$defs/globalWorkflowDepth"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "approvalSource",
+        "delegation"
+      ],
+      "additionalProperties": false
+    },
+    "projectConfig": {
+      "type": "object",
+      "properties": {
+        "approvalSource": {
+          "$ref": "#/$defs/approvalSource"
+        },
+        "delegation": {
+          "$ref": "#/$defs/projectDelegation"
+        },
+        "review": {
+          "$ref": "#/$defs/projectReview"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "workflowDepth": {
+          "$ref": "#/$defs/projectWorkflowDepth"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "approvalSource"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

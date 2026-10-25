@@ -83,7 +83,7 @@ Owner无法读取、版本不适用或只定位到标题时，停止依赖该协
 
 流程深度**不定义第四条主流程**，仅作用在 `00` 和每个适用 A/B/DOC 阶段的动态子步骤、辅助记录和审查深度。
 - 必须在工作流方案中记录：`phaseId / status(required|conditional|N/A+reason) / depth / roles / requiredArtifacts / optionalArtifacts / mandatoryGates / verifiers / evidence / nextAction`，
-  可由现有 Markdown 表承载，不新增机器状态文件。
+  可由现有 Markdown 表承载，不新增机器状态文件（放权类配置 JSON 与校验脚本是例外，只承载放权设置，见 `任务拆分并行与整合.md`；任务状态仍无机器状态文件）。
 
 | 任务 | 选档影响 | 不可省略项/反例 |
 |---|---|---|

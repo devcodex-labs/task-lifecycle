@@ -6,7 +6,7 @@ Task Lifecycle 是一款**按真实用户的实质开发意图（功能开发、
 
 ## 当前包状态与验证边界
 
-- 本包版本：`0.1.39`；当前版本（含按意图触发调整）已推送到 Git 远程仓库，推送本身不等于已被宿主安装识别或完成目标宿主 E4 验收。开发基线与验收记录见 `docs/maintainer-baseline.md`。
+- 本包版本：`0.1.40`；当前版本（含按意图触发调整）已推送到 Git 远程仓库，推送本身不等于已被宿主安装识别或完成目标宿主 E4 验收。开发基线与验收记录见 `docs/maintainer-baseline.md`。
 - 清单文件：根 `plugin.json`（Agent Plugins 1.0，OpenAI 展示字段在 `extensions.com.openai`，**并不表示已验证宿主自动识别**）；唯一 Skill：`skills/task-lifecycle/SKILL.md`；按风险读取 `references/`；`templates/` 只提供最小语义；
   `examples/` 为**虚构示例**。
 - **未完成的目标宿主 E4 验收**：真实 Codex CLI/桌面、安装/缓存加载、并行/独立Reviewer、WebStorm HTTP Client、真实 API、浏览器或原生 Agent Eval。ZIP 可解包或私有插件保存成功，不证明这些能力已通过。
@@ -15,7 +15,7 @@ Task Lifecycle 是一款**按真实用户的实质开发意图（功能开发、
 ## 第一次使用（不虚构已验证命令）
 
 1. 在支持相应 Agent Plugins 格式且**实际完成安装/发现验证**的宿主中，**提出实质的开发意图或明确要求使用 Task Lifecycle**，例如：“使用 Task Lifecycle 为当前项目规划一个 Feature，先只读检查，不要修改源码”。
-2. 插件核实实际项目与已有任务，默认 `Confirm`；如没有已经生效的执行选档，会展示 `fast / standard / thorough / custom` 并给出推荐理由。**仅推荐 standard 不代表用户已选择**。
+2. 插件核实实际项目与已有任务，默认 `Confirm`；如没有已经生效的执行选档（当前选择，或放权类配置校验脚本 valid 且已批准的 depth 执行默认），会展示 `fast / standard / thorough / custom` 并给出推荐理由。**仅推荐 standard 不代表用户已选择**。
 3. 你选定深度并授予具体安全工作区写入权限之后，才生成仓库外可读的《任务描述》《任务工作流方案》候选，进行文件级 AI 自审，再等待真实适用确认。
 4. 后续按 Feature `A01～A10`、Bugfix `B01～B10`、Docs `DOC01～DOC10` 之一推进；每个流程的 `10` 是**任意阶段插入的变更处理**，不是每次必须最后运行。
 5. 对每项工作分开呈现已确认/待确认、设计E3/真实E4、测试失败/未验证与下一合法动作。`fast` 不代表可以跳过必要质量或用户决策。
