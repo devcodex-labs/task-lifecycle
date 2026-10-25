@@ -34,11 +34,15 @@
 | Source/Check/Artifact IDs & Versions | `{准确源和被审对象}` |
 | Facts / Expected / Actual / Severity | `{已观察事实、冻结期望、证据、P0/P1/P2}` |
 | `defectRootCause` | `{缺陷自身为何发生}` |
-| `controlFailure / whyMissed` | `{先前为何漏检，不能都写审查不严}` |
+| `controlFailure / whyMissed` | `{跨轮/本轮前棒分别：类别＋证据、不适用＋证据，或 unknown＋已查材料/缺证/影响/责任人/复查触发点；不猜测补类}` |
 | Impact, consumers, new regression | `{直接/间接、是否Bug A引入B及因果}` |
 | Actual changed files, new version, diff | `{真实修改或 resolved-in-candidate，未修改不得冒充}` |
 | Independent verification and re-review | `{适用真实结果，不能从父Finding复制}` |
 | State / remaining risk / next action | `open/investigating/repair-planned/repairing/verification-pending/re-review-pending/closed-verified/blocked/rejected-with-evidence/deferred-approved + 证据` |
+
+缺陷关闭与 whyMissed 调查分开：完整 unknown 可继续调查，不替代根因、复验或必要复审。提交不是关闭证据；同次提交仅能登记已真实满足的关闭条件，不预填未来提交号。
+完整性以冻结原始 Finding 快照＋本轮新增原始输出为分母，逐 ID 记录含部分采纳/重复/驳回等处置；不能由两个派生列表相等推断无遗漏。
+范围外已证重大风险完整转交，第四项以后也保留；只暂停依赖决定，不自动扩围、清零轮次或改变普通三条建议额度。
 
 ## D. 无效循环检查
 

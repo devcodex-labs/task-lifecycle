@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "task-lifecycle",
-  "version": "0.1.43",
+  "version": "0.1.44",
   "description": "An intent-triggered, Markdown-first lifecycle for governed Feature, Bugfix, and Docs work, with human approval, review evidence, and safe recovery.",
   "author": {
     "name": "Rocky shi",
@@ -24,7 +24,7 @@
         "websiteURL": "https://github.com/devcodex-labs/task-lifecycle",
         "supportURL": "https://github.com/devcodex-labs/task-lifecycle/issues",
         "defaultPrompt": [
-          "Use Task Lifecycle for this project. Inspect read-only; ask for depth and permission before writing.",
+          "Use Task Lifecycle for this project. Inspect read-only, reuse valid choices and host permissions, and ask for depth only when a formal task or plan requires it.",
           "Use Task Lifecycle to plan a bugfix: reproduce, find the root cause, then propose a fix.",
           "Use Task Lifecycle to review this PR read-only and list findings with evidence."
         ],

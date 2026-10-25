@@ -2,6 +2,7 @@
 
 > 由 MAINT-20261024-001 起草、ACTIVATE-20261024-003 按生效后状态更新， 2026-10-24 Asia/Shanghai 按真实文件生成（逐个读取 candidates/{pending,archived,rejected}/CAND-*.md 首行标题，状态取 archived/README.md 登记与 pending/rejected README）。新增、晋级、下架时须同步本表。不含审查记录文件。正文状态行多已过期，以本表来源为准。
 > 注意：这是候选库索引，不是已删除的外置 `.task-lifecycle/active-rules/INDEX.md`（生效规则 INDEX）的等价物；后者含 RULE 正文指针与 history，无法从现有文件完整恢复。
+> 本表的 active 是历史吸纳登记，不代表当前会话已启用进化或加载规则。可按用户请求只读复核；不因此写候选、晋级或恢复缺失的 active 原件。
 
 | ID | 标题 | 状态 | 位置 | 依据 |
 |---|---|---|---|---|

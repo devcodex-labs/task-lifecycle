@@ -94,7 +94,7 @@ export function buildSchemaDefs() {
   const ifEnabled = { if: { properties: { enabled: { const: true } }, required: ['enabled'] } };
   const G = FIELD_RULES_GLOBAL, P = FIELD_RULES_PROJECT;
   return {
-    approvalSource: { type: G.approvalSource.type, properties: pick(G.approvalSource.properties, { messageId: str('messageId'), quote: { type: 'string', minLength: 1, maxLength: QUOTE_MAX, pattern: '\\S' }, record: { type: 'string', pattern: '^/.*\\.md$' } }), required: [...G.approvalSource.required], additionalProperties: false },
+    approvalSource: { type: G.approvalSource.type, properties: pick(G.approvalSource.properties, { messageId: str('messageId'), quote: { type: 'string', minLength: 1, maxLength: QUOTE_MAX, pattern: '\\S' }, record: { type: 'string', pattern: '^(?:/|[A-Za-z]:[\\\\/]|\\\\).*\\.md$' } }), required: [...G.approvalSource.required], additionalProperties: false },
     categories: { type: 'object', properties: Object.fromEntries(CATEGORY_KEYS.map((k) => [k, { type: 'string' }])), additionalProperties: false },
     executor: { type: G.executor.type, properties: pick(G.executor.properties, { command: str('command'), model: str('model'), reasoningEffort: effort }), required: [...G.executor.required], additionalProperties: false },
     globalDelegation: { type: G.delegation.type, properties: pick(G.delegation.properties, { categories: { $ref: '#/$defs/categories' }, enabled: { type: 'boolean' }, executors: { type: 'object', propertyNames: { pattern: PATTERNS.executorId }, additionalProperties: { $ref: '#/$defs/executor' } } }), required: [...G.delegation.required], ...ifEnabled, then: { required: [...G.delegation.requiredIfEnabled] }, additionalProperties: false },
@@ -112,6 +112,7 @@ export function buildSchemaDefs() {
 
 const defaultDeps = () => ({
   fs,
+  platform: process.platform,
   userInfo: () => os.userInfo(),
   scriptPath: fileURLToPath(import.meta.url),
 });
@@ -211,7 +212,10 @@ export function parseArgs(argv) {
 
 // ---------- 定位辅助 ----------
 function lstatOrNull(fsx, p) { try { return fsx.lstatSync(p); } catch (e) { const c = errCode(e); if (c === 'ENOENT' || c === 'ENOTDIR') return null; throw e; } }
-function underPrefix(p, prefix) { return p === prefix || p.startsWith(prefix.endsWith('/') ? prefix : prefix + '/'); }
+export function underPrefix(p, prefix, paths = path) {
+  const relative = paths.relative(prefix, p);
+  return relative === '' || (!paths.isAbsolute(relative) && relative !== '..' && !relative.startsWith('..' + paths.sep));
+}
 function sha256(buf) { return crypto.createHash('sha256').update(buf).digest('hex'); }
 
 // 只读打开（O_NOFOLLOW）后用 fstat 绑定到先前 lstat 核验过的同一对象（dev+ino），再从该 fd 读取，防检查与读取之间被替换。
@@ -262,7 +266,7 @@ function locateGlobal(ctx, reasons) {
   try { rp = fsx.realpathSync(file); } catch (e) { reasons.push(reason('config-location-forbidden', 'locate', 'global', file, `realpath-failed:${errCode(e) ?? 'exception'}`)); return { out, bytes: null }; }
   out.realpath = rp;
   if (rp !== file || st.isSymbolicLink()) { reasons.push(reason('config-location-forbidden', 'locate', 'global', file, 'symlink-or-alias')); return { out, bytes: null }; }
-  if (underPrefix(rp, '/workspace')) { reasons.push(reason('config-location-forbidden', 'locate', 'global', file, 'workspace-subtree')); return { out, bytes: null }; }
+  if (underPrefix(rp, path.join(path.parse(rp).root, 'workspace'))) { reasons.push(reason('config-location-forbidden', 'locate', 'global', file, 'workspace-subtree')); return { out, bytes: null }; }
   const pluginDirs = [path.join(accountHome, '.codex', 'plugins'), path.join(accountHome, '.grok', 'installed-plugins'), path.join(accountHome, '.grok', 'bundled')];
   if (pluginRoot) pluginDirs.push(pluginRoot);
   for (const d of pluginDirs) if (underPrefix(rp, d)) { reasons.push(reason('config-location-forbidden', 'locate', 'global', file, 'plugin-directory')); return { out, bytes: null }; }
@@ -645,7 +649,8 @@ export function validate(argv, env, depsIn = {}) {
   try { const h = deps.userInfo().homedir; if (typeof h === 'string' && path.isAbsolute(h)) accountHome = h; } catch { /* home-unverifiable */ }
   result.env.accountHome = accountHome;
   if (accountHome === null) envReasons.push(reason('home-unverifiable', 'env', 'env', '', ''));
-  else if (env.HOME !== accountHome) envReasons.push(reason('config-location-forbidden', 'env', 'env', '', 'home-mismatch'));
+  else if (!(deps.platform === 'win32' && env.HOME === undefined) && env.HOME !== accountHome)
+    envReasons.push(reason('config-location-forbidden', 'env', 'env', '', 'home-mismatch'));
   const globalExpected = accountHome === null ? null : path.join(accountHome, '.config', 'task-lifecycle', 'config.json');
   if (envReasons.length) {
     result.layers.global = nullLayer(globalExpected);

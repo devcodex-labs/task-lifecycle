@@ -1,5 +1,5 @@
 // validate-config.mjs 夹具测试（node:test，零依赖；夹具在临时目录生成）。
-import { test } from 'node:test';
+import { test, after } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -12,9 +12,20 @@ import * as V from './validate-config.mjs';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.dirname(here);
 const SCRIPT = path.join(here, 'validate-config.mjs');
+const fixtureRoots = [];
+after(() => {
+  const parent = fs.realpathSync(os.tmpdir());
+  for (const base of fixtureRoots) {
+    assert.equal(fs.realpathSync(base), base);
+    assert.equal(path.dirname(base), parent);
+    assert.ok(path.basename(base).startsWith('tl-vc-'));
+    fs.rmSync(base, { recursive: true });
+  }
+});
 
 function mk() {
   const base = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'tl-vc-')));
+  fixtureRoots.push(base);
   const home = path.join(base, 'home');
   const ws = path.join(base, 'ws');
   const rec = path.join(base, 'rec');
@@ -22,6 +33,24 @@ function mk() {
   fs.writeFileSync(path.join(rec, '00-任务记录.md'), '# r\n');
   return { base, home, ws, record: path.join(rec, '00-任务记录.md') };
 }
+// 先实际探测系统夹具能力；只跳过不可构造的特殊对象，不改变产品断言。
+const probe = mk();
+function capability(label, fn) {
+  try { fn(); return false; } catch (e) {
+    if (!['EPERM', 'EACCES', 'ENOSYS', 'ENOTSUP', 'ENOENT'].includes(e.code)) throw e;
+    return `UNVERIFIED: ${label} 夹具不可用 (${e.code})`;
+  }
+}
+const fileLinkSkip = capability('文件符号链接', () => fs.symlinkSync(probe.record, path.join(probe.base, 'file-link'), 'file'));
+const dirLinkSkip = capability('目录符号链接', () => fs.symlinkSync(probe.home, path.join(probe.base, 'dir-link'), 'dir'));
+const renameOpenSkip = capability('打开文件后重命名父目录', () => {
+  const d = path.join(probe.base, 'open-dir'); fs.mkdirSync(d); const p = path.join(d, 'file'); fs.writeFileSync(p, 'x');
+  const fd = fs.openSync(p, 'r'); try { fs.renameSync(d, d + '-moved'); } finally { fs.closeSync(fd); }
+});
+fs.mkdirSync(path.join(probe.base, 'CaseProbe'));
+const caseSkip = fs.existsSync(path.join(probe.base, 'caseprobe')) ? 'UNVERIFIED: 文件系统不支持仅大小写不同的并存名称' : false;
+const fifoProbe = spawnSync('mkfifo', [path.join(probe.base, 'fifo-probe')], { encoding: 'utf8', timeout: 5000 });
+const fifoSkip = fifoProbe.status === 0 ? false : `UNVERIFIED: FIFO 夹具不可用 (${fifoProbe.error?.code ?? fifoProbe.status})`;
 const gpath = (f) => path.join(f.home, '.config', 'task-lifecycle', 'config.json');
 function writeG(f, obj) { fs.mkdirSync(path.dirname(gpath(f)), { recursive: true }); fs.writeFileSync(gpath(f), typeof obj === 'string' || Buffer.isBuffer(obj) ? obj : JSON.stringify(obj)); }
 const ppath = (f, id = 'P1') => path.join(f.ws, '.task-lifecycle', id, 'config.json');
@@ -114,22 +143,24 @@ test('E20 只给 --workspace → project-identity-unverified，project 层 path 
   assert.deepEqual(r.layers.project, { exists: null, path: null, readable: null, realpath: null, sha256: null });
   assert.equal(r.reasons[0].detail, 'missing --project-id');
 });
-test('E22 项目目录是 symlink → project-identity-unverified', () => {
-  const f = mk(); writeG(f, G1(f)); writeP(f, P1(f), 'B'); fs.symlinkSync(path.join(f.ws, '.task-lifecycle', 'B'), path.join(f.ws, '.task-lifecycle', 'A'));
+test('E22 项目目录是 symlink → project-identity-unverified', { skip: dirLinkSkip }, () => {
+  const f = mk(); writeG(f, G1(f)); writeP(f, P1(f), 'B'); fs.symlinkSync(path.join(f.ws, '.task-lifecycle', 'B'), path.join(f.ws, '.task-lifecycle', 'A'), 'dir');
   disabledWith(run(f, pargs(f, 'A')), 'project-identity-unverified');
 });
-test('大小写变体同名目录 / 非法 id / workspace 非绝对 → project-identity-unverified', () => {
+test('大小写变体同名目录 → project-identity-unverified', { skip: caseSkip }, () => {
   let f = mk(); writeG(f, G1(f)); fs.mkdirSync(path.join(f.ws, '.task-lifecycle', 'p1'), { recursive: true }); fs.mkdirSync(path.join(f.ws, '.task-lifecycle', 'P1'));
   disabledWith(run(f, pargs(f)), 'project-identity-unverified');
-  f = mk(); writeG(f, G1(f)); disabledWith(run(f, ['--workspace', f.ws, '--project-id', '../x']), 'project-identity-unverified');
+});
+test('非法 id / workspace 非绝对 → project-identity-unverified', () => {
+  let f = mk(); writeG(f, G1(f)); disabledWith(run(f, ['--workspace', f.ws, '--project-id', '../x']), 'project-identity-unverified');
   f = mk(); writeG(f, G1(f)); disabledWith(run(f, ['--workspace', 'rel', '--project-id', 'P1']), 'project-identity-unverified');
 });
-test('项目 config.json 是 symlink → project-identity-unverified', () => {
+test('项目 config.json 是 symlink → project-identity-unverified', { skip: fileLinkSkip }, () => {
   const f = mk(); writeG(f, G1(f)); fs.mkdirSync(path.join(f.ws, '.task-lifecycle', 'P1'), { recursive: true });
   fs.writeFileSync(path.join(f.base, 'other.json'), JSON.stringify(P1(f))); fs.symlinkSync(path.join(f.base, 'other.json'), ppath(f));
   disabledWith(run(f, pargs(f)), 'project-identity-unverified');
 });
-test('E23 《项目约定.md》越界 symlink → legacy-check-skipped unsafe-path，status valid', () => {
+test('E23 《项目约定.md》越界 symlink → legacy-check-skipped unsafe-path，status valid', { skip: fileLinkSkip }, () => {
   const f = mk(); writeG(f, G1(f)); writeP(f, P1(f));
   fs.writeFileSync(path.join(f.base, 'x.md'), '## 外部执行器委派\n'); fs.symlinkSync(path.join(f.base, 'x.md'), path.join(f.ws, '.task-lifecycle', 'P1', '项目约定.md'));
   const r = run(f, pargs(f)); assert.equal(r.status, 'valid');
@@ -157,24 +188,25 @@ test('home-unverifiable：userInfo 抛出 → global path null', () => {
 test('invalid-argument：未知参数（stage env）', () => { const f = mk(); writeG(f, G1(f)); const r = run(f, ['--config', '/x']); disabledWith(r, 'invalid-argument'); assert.equal(r.reasons[0].stage, 'env'); });
 // 路径映射 fs：把虚拟前缀 /workspace/tlvc-e18 映射到临时目录，不在真实 /workspace 写任何文件
 function mapFs(virt, real) {
-  const to = (p) => (typeof p === 'string' && (p === virt || p.startsWith(virt + '/')) ? real + p.slice(virt.length) : p);
-  const back = (p) => (typeof p === 'string' && (p === real || p.startsWith(real + '/')) ? virt + p.slice(real.length) : p);
+  const map = (p, from, to) => typeof p === 'string' && V.underPrefix(p, from) ? path.join(to, path.relative(from, p)) : p;
+  const to = p => map(p, virt, real);
+  const back = p => map(p, real, virt);
   return { ...fs, lstatSync: (p, ...a) => fs.lstatSync(to(p), ...a), statSync: (p, ...a) => fs.statSync(to(p), ...a), readFileSync: (p, ...a) => fs.readFileSync(to(p), ...a), openSync: (p, ...a) => fs.openSync(to(p), ...a), readdirSync: (p, ...a) => fs.readdirSync(to(p), ...a), realpathSync: (p) => back(fs.realpathSync(to(p))) };
 }
 test('E18 /workspace/.task-lifecycle/<ID>/config.json 合法项目层（虚拟 /workspace 路径）', () => {
   const f = mk(); writeG(f, G1(f)); writeP(f, P1(f));
-  const virt = '/workspace/tlvc-e18';
+  const virt = path.join(path.parse(f.ws).root, 'workspace', 'tlvc-e18');
   const r = run(f, ['--workspace', virt, '--project-id', 'P1'], { fs: mapFs(virt, f.ws) });
   assert.equal(r.status, 'valid', JSON.stringify(r.reasons));
-  assert.equal(r.layers.project.realpath, virt + '/.task-lifecycle/P1/config.json');
+  assert.equal(r.layers.project.realpath, path.join(virt, '.task-lifecycle', 'P1', 'config.json'));
 });
 test('全局 config 落在 /workspace 子树 → config-location-forbidden（workspace-subtree）', () => {
   const f = mk(); writeG(f, G1(f));
-  const virt = '/workspace/tlvc-home';
+  const virt = path.join(path.parse(f.home).root, 'workspace', 'tlvc-home');
   const r = V.validate([], { HOME: virt }, { userInfo: () => ({ homedir: virt }), scriptPath: SCRIPT, fs: mapFs(virt, f.home) });
   disabledWith(r, 'config-location-forbidden'); assert.equal(r.reasons[0].detail, 'workspace-subtree');
 });
-test('全局 config 是 symlink → config-location-forbidden', () => {
+test('全局 config 是 symlink → config-location-forbidden', { skip: fileLinkSkip }, () => {
   const f = mk(); fs.writeFileSync(path.join(f.base, 'g.json'), JSON.stringify(G1(f))); fs.mkdirSync(path.dirname(gpath(f)), { recursive: true }); fs.symlinkSync(path.join(f.base, 'g.json'), gpath(f));
   disabledWith(run(f), 'config-location-forbidden');
 });
@@ -218,13 +250,15 @@ test('approvalSource 子树只报 approval-source-missing', () => {
 test('E30 record 祖先命中 Git 标记 → approval-source-missing', () => {
   const f = mk(); fs.mkdirSync(path.join(path.dirname(f.record), '.git')); writeG(f, G1(f)); disabledWith(run(f), 'approval-source-missing');
 });
-test('E26 全局祖先四种标记 × 文件/目录/symlink，起点与上级', () => {
+test('E26 全局祖先四种标记 × 文件/目录/symlink，起点与上级', async t => {
   for (const m of V.GIT_MARKERS) for (const kind of ['file', 'dir', 'symlink']) for (const where of ['start', 'ancestor']) {
+    await t.test(`${m}/${kind}/${where}`, { skip: kind === 'symlink' ? fileLinkSkip : false }, () => {
     const f = mk(); writeG(f, G1(f));
     const d = where === 'start' ? path.dirname(gpath(f)) : f.home;
     const p = path.join(d, m);
     if (kind === 'file') fs.writeFileSync(p, ''); else if (kind === 'dir') fs.mkdirSync(p); else fs.symlinkSync('/nonexistent-target', p);
     const r = run(f); disabledWith(r, 'config-location-forbidden');
+    });
   }
 });
 test('E27 项目 config 祖先命中 → 整体 forbidden，不回退全局', () => {
@@ -235,12 +269,13 @@ test('E28 项目文件缺失、最近祖先命中 → forbidden', () => {
   const f = mk(); writeG(f, G1(f)); fs.mkdirSync(path.join(f.ws, '.git')); disabledWith(run(f, pargs(f)), 'config-location-forbidden');
 });
 test('E29 lstat 标记 EACCES/EIO/ELOOP/非 errno → forbidden；纯函数', () => {
+  const start = path.join(path.parse(os.tmpdir()).root, 'a', 'b');
   for (const c of ['EACCES', 'EIO', 'ELOOP', null]) {
-    const lstat = (p) => { if (p === '/a/b/HEAD') { if (c === null) throw 'weird'; const e = new Error(c); e.code = c; throw e; } const e = new Error('n'); e.code = 'ENOENT'; throw e; };
-    assert.equal(V.gitBoundary('/a/b', lstat).ok, false);
+    const lstat = (p) => { if (p === path.join(start, 'HEAD')) { if (c === null) throw 'weird'; const e = new Error(c); e.code = c; throw e; } const e = new Error('n'); e.code = 'ENOENT'; throw e; };
+    assert.equal(V.gitBoundary(start, lstat).ok, false);
   }
   const none = () => { const e = new Error('n'); e.code = 'ENOTDIR'; throw e; };
-  assert.equal(V.gitBoundary('/a/b', none).ok, true);
+  assert.equal(V.gitBoundary(start, none).ok, true);
   const f = mk(); writeG(f, G1(f));
   const fakeFs = { ...fs, lstatSync: (p, ...a) => { if (p === path.join(f.home, 'gitdir')) { const e = new Error('x'); e.code = 'EACCES'; throw e; } return fs.lstatSync(p, ...a); } };
   disabledWith(run(f, [], { fs: fakeFs }), 'config-location-forbidden');
@@ -351,9 +386,9 @@ test('sha256 为原始字节摘要（CO-A04-06 输出侧）', () => {
   fs.appendFileSync(gpath(f), ' '); const b = run(f).layers.global.sha256; assert.equal(b, sum(gpath(f))); assert.notEqual(a, b);
   writeG(f, '{"a":1,"a":2}'); const r = run(f); disabledWith(r, 'duplicate-key'); assert.equal(r.layers.global.sha256, sum(gpath(f)));
 });
-test('CLI 子进程可运行（真实账户 home，只断言形状与退出码）', () => {
-  const p = spawnSync(process.execPath, [SCRIPT], { env: { HOME: os.userInfo().homedir }, encoding: 'utf8' });
-  assert.ok(p.status === 0 || p.status === 2); assert.ok(['valid', 'disabled'].includes(JSON.parse(p.stdout).status));
+test('CLI 子进程可运行（HOME 冲突在读取真实账户配置前退出）', () => {
+  const p = spawnSync(process.execPath, [SCRIPT], { env: { ...process.env, HOME: os.userInfo().homedir + '-fixture-mismatch' }, encoding: 'utf8', timeout: 5000 });
+  assert.equal(p.status, 2); const r = JSON.parse(p.stdout); assert.equal(r.status, 'disabled'); assert.equal(r.reasons[0].detail, 'home-mismatch');
 });
 test('render 递归键排序，不依赖插入顺序', () => { assert.equal(V.render({ b: 1, a: { d: 1, c: [{ z: 1, y: 2 }] } }), V.render({ a: { c: [{ y: 2, z: 1 }], d: 1 }, b: 1 })); });
 test('内部异常 → 退出码 1、stdout 空', () => {
@@ -408,14 +443,14 @@ test('B2-02 Setext 标题命中；代码围栏内的 ATX 不命中', () => {
   assert.deepEqual(V.detectLegacyText('```\n## 外部执行器委派\n```\n'), []);
   assert.deepEqual(V.detectLegacyText('~~~md\n## 外部执行器委派\n~~~\n## 外部执行器委派\n').map((h) => h.line), [4]);
 });
-test('A3-01 约定与配置：打开后父目录被替换 → 读取前拒绝（readFileSync(fd) 调用零次）', () => {
+test('A3-01 约定与配置：打开后父目录被替换 → 读取前拒绝（readFileSync(fd) 调用零次）', { skip: dirLinkSkip || renameOpenSkip }, () => {
   for (const which of ['config', 'convention']) {
     const f = mk(); writeG(f, G1(f)); writeP(f, P1(f));
     const conv = path.join(f.ws, '.task-lifecycle', 'P1', '项目约定.md'); fs.writeFileSync(conv, '## 外部执行器委派\n');
     const target = which === 'config' ? ppath(f) : conv; const dir = path.dirname(target);
     let done = false; let fdTarget = null; let reads = 0;
     const spy = { ...fs,
-      openSync: (p, ...a) => { const fd = fs.openSync(p, ...a); if (p === target && !done) { done = true; fdTarget = fd; fs.renameSync(dir, dir + '-Moved'); fs.symlinkSync(dir + '-Moved', dir); } return fd; },
+      openSync: (p, ...a) => { const fd = fs.openSync(p, ...a); try { if (p === target && !done) { done = true; fdTarget = fd; fs.renameSync(dir, dir + '-Moved'); fs.symlinkSync(dir + '-Moved', dir, 'dir'); } return fd; } catch (e) { fs.closeSync(fd); throw e; } },
       readFileSync: (p, ...a) => { if (p === fdTarget) reads++; return fs.readFileSync(p, ...a); } };
     const r = run(f, pargs(f), { fs: spy }); assert.ok(done, which); assert.equal(reads, 0, which);
     if (which === 'config') disabledWith(r, 'config-location-forbidden');
@@ -439,9 +474,11 @@ test('A3-02(b2) 随包输出协议含全部原因码与 fallback 三键固定值
   for (const c of Object.keys(V.REASON_CODES)) assert.ok(t.includes('`' + c + '`'), c);
   for (const [k, v] of Object.entries(V.REVIEW_FALLBACK)) assert.ok(t.includes('`' + k + '`: `"' + v + '"`'), k);
 });
-test('B1-03 同名仅大小写不同的是普通文件 → 不算项目目录别名', () => {
+test('B1-03 同名仅大小写不同的是普通文件 → 不算项目目录别名', { skip: caseSkip }, () => {
   const f = mk(); writeG(f, G1(f)); fs.mkdirSync(path.join(f.ws, '.task-lifecycle', 'P1'), { recursive: true }); fs.writeFileSync(path.join(f.ws, '.task-lifecycle', 'p1'), '');
   const r = run(f, pargs(f)); assert.equal(r.status, 'valid', JSON.stringify(r.reasons)); assert.equal(r.layers.project.exists, false);
+});
+test('B1-03 大小写变体 symlink → project-identity-unverified', { skip: caseSkip || fileLinkSkip }, () => {
   const g = mk(); writeG(g, G1(g)); fs.mkdirSync(path.join(g.ws, '.task-lifecycle', 'P1'), { recursive: true }); fs.symlinkSync('/nonexistent', path.join(g.ws, '.task-lifecycle', 'p1'));
   disabledWith(run(g, pargs(g)), 'project-identity-unverified');
 });
@@ -489,17 +526,17 @@ test('类别表与永不委派清单与 任务拆分并行与整合.md 逐字一
   assert.notEqual(V.NEVER_DELEGATE_TEXT[1].replace('SelfReview/', ''), lines[i + 1]);
   assert.notDeepEqual({ ...rows, implementation: 'A05 全部内容' }, { ...V.CATEGORY_STAGE_LIMIT_TEXT });
 });
-test('A2-01 打开时父目录被换成指向原目录的 symlink（文件 inode 不变）→ config-location-forbidden', () => {
+test('A2-01 打开时父目录被换成指向原目录的 symlink（文件 inode 不变）→ config-location-forbidden', { skip: dirLinkSkip }, () => {
   for (const layer of ['global', 'project']) {
     const f = mk(); writeG(f, G1(f)); writeP(f, P1(f));
     const target = layer === 'global' ? gpath(f) : ppath(f);
     const dir = path.dirname(target); let done = false;
-    const swapFs = { ...fs, openSync: (p, ...a) => { if (p === target && !done) { done = true; fs.renameSync(dir, dir + '-Moved'); fs.symlinkSync(dir + '-Moved', dir); } return fs.openSync(p, ...a); } };
+    const swapFs = { ...fs, openSync: (p, ...a) => { if (p === target && !done) { done = true; fs.renameSync(dir, dir + '-Moved'); fs.symlinkSync(dir + '-Moved', dir, 'dir'); } return fs.openSync(p, ...a); } };
     const r = run(f, pargs(f), { fs: swapFs }); disabledWith(r, 'config-location-forbidden'); assert.ok(done);
     assert.equal(r.reasons[0].detail, 'changed-during-check');
   }
 });
-test('A2-02 配置或约定是 FIFO → 立即关闭/跳过，不阻塞', () => {
+test('A2-02 配置或约定是 FIFO → 立即关闭/跳过，不阻塞', { skip: fifoSkip }, () => {
   const f = mk(); fs.mkdirSync(path.dirname(gpath(f)), { recursive: true });
   assert.equal(spawnSync('mkfifo', [gpath(f)]).status, 0);
   const t0 = Date.now(); const r = run(f); assert.ok(Date.now() - t0 < 5000); disabledWith(r, 'config-unreadable');

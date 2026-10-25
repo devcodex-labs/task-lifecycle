@@ -27,7 +27,7 @@
         },
         "record": {
           "type": "string",
-          "pattern": "^/.*\\.md$"
+          "pattern": "^(?:/|[A-Za-z]:[\\\\/]|\\\\).*\\.md$"
         }
       },
       "required": [

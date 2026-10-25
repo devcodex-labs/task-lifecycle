@@ -4,11 +4,14 @@ on:
   pull_request:
 jobs:
   check:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
       - run: node scripts/check-docs.mjs
-      - run: node --test scripts/
+      - run: node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs

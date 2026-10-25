@@ -12,9 +12,10 @@
 //       排除：代码块内、含通配/占位符（* { } < >）的值；运行期目录与使用方项目路径不在检查范围。
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const MAX_LEN = 200;
-const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const targets = ['skills/task-lifecycle', 'docs', 'README.md', 'CHANGELOG.md'];
 const errors = [];
 const skillRoot = path.join(root, 'skills/task-lifecycle');
@@ -22,7 +23,6 @@ const PREFIX = /^(references|templates|examples|scripts|docs|assets|skills)\//;
 const inSkill = f => !path.relative(skillRoot, f).startsWith('..');
 
 function walk(p, out = []) {
-  if (!fs.existsSync(p)) return out;
   const st = fs.statSync(p);
   if (st.isFile()) { if (p.endsWith('.md')) out.push(p); return out; }
   for (const e of fs.readdirSync(p)) walk(path.join(p, e), out);
@@ -36,7 +36,7 @@ const anchorCache = new Map();
 function anchors(file) {
   if (anchorCache.has(file)) return anchorCache.get(file);
   const set = new Set(); const seen = {}; let inCode = false;
-  for (const l of fs.readFileSync(file, 'utf8').split('\n')) {
+  for (const l of fs.readFileSync(file, 'utf8').split(/\r?\n/)) {
     if (/^\s*```/.test(l)) { inCode = !inCode; continue; }
     const m = !inCode && /^#{1,6}\s+(.*)$/.exec(l);
     if (m) { let s = slug(m[1]); const n = seen[s] ?? 0; seen[s] = n + 1; set.add(n ? `${s}-${n}` : s); }
@@ -44,11 +44,28 @@ function anchors(file) {
   anchorCache.set(file, set); return set;
 }
 
-const files = targets.flatMap(t => walk(path.join(root, t)));
+const files = [];
+for (const t of targets) {
+  try {
+    const p = path.join(root, t), st = fs.statSync(p);
+    if (t.endsWith('.md') ? !st.isFile() : !st.isDirectory()) throw new Error('目标类型不符');
+    const found = walk(p);
+    if (!found.length) throw new Error('没有可检查的 Markdown');
+    files.push(...found);
+  } catch (e) { errors.push(`${t}: 必需目标不可检查 (${e.message})`); }
+}
+try {
+  const entry = path.join(skillRoot, 'SKILL.md');
+  if (!fs.statSync(entry).isFile() || !fs.readFileSync(entry).length) throw new Error('入口须为非空普通文件');
+} catch (e) { errors.push(`skills/task-lifecycle/SKILL.md: 必需入口不可检查 (${e.message})`); }
+if (!files.length) errors.push('未扫描任何 Markdown，不能报告成功');
 for (const f of files) {
   const rel = path.relative(root, f);
   let inCode = false; let inFm = false;
-  fs.readFileSync(f, 'utf8').split('\n').forEach((line, i) => {
+  let body;
+  try { body = fs.readFileSync(f, 'utf8'); } catch (e) { errors.push(`${rel}: 读取失败 (${e.message})`); continue; }
+  if (targets.includes(rel) && !body.length) errors.push(`${rel}: 必需文件为空`);
+  body.split(/\r?\n/).forEach((line, i) => {
     if (i === 0 && line === '---') { inFm = true; return; }
     if (inFm) { if (line === '---') inFm = false; return; }
     if (/^\s*```/.test(line)) { inCode = !inCode; return; }
