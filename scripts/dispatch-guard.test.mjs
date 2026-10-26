@@ -29,3 +29,11 @@ test('naming inside dispatch prompt does not admit CLI', () => {
   assert.match(read('references/正式专项审查与Finding.md'), /派发提示词.*中的点名.*不构成准入/);
   assert.match(read('references/任务拆分并行与整合.md'), /派发提示词中的点名不构成准入/);
 });
+
+test('delegation necessity triage only narrows (CAND-20261026-001 v7)', () => {
+  const r = read('references/任务拆分并行与整合.md');
+  assert.match(r, /必要性判定（CAND-20261026-001 v7，0\.1\.46；只收窄不放宽）/);
+  for (const k of ['纯确定性档', '宿主行为档', '灰区', '四类默认档', '成本原则只能缩小委派范围', '外部宿主行为验证准入']) assert.ok(r.includes(k), k);
+  assert.match(r, /不放宽也不覆盖第 1 条默认关闭、永不委派项与已批计划逐 WI 点名/);
+  assert.match(r, /各在仓库外任务记录留实测记录（记录路径、日期、结论）/);
+});
