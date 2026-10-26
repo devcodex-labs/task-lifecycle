@@ -33,7 +33,7 @@ export const CATEGORY_KEYS = Object.freeze(['drafting', 'implementation', 'reado
 export const CATEGORY_STAGE_LIMITS = Object.freeze({
   implementation: ['A05', 'B04', 'DOC05'],
   'readonly-investigation': ['A01', 'A02', 'A03', 'A10', 'B10', 'DOC10', 'B01', 'DOC02'],
-  'test-run': ['A05', 'A06', 'B02', 'B06', 'DOC07'],
+  'test-run': ['A06', 'B02', 'B06', 'DOC07'],
   drafting: ['A07', 'B07'],
 });
 // 任务拆分并行与整合.md「类别与上限」表逐字文本与永不委派两行（测试逐字比对，防漂移；改规则须同步）。
@@ -41,7 +41,7 @@ export const CATEGORY_STAGE_LIMIT_TEXT = Object.freeze({
   "drafting": "A07 按已生效契约起草使用文档与示例；B07 按已定修复起草文档与契约同步文本",
   "implementation": "A05 实现已批准 WI 的代码与测试；B04 实现已批准最小修复并补失败→修复测试；DOC05 按已批准内容契约和修改清单编写",
   "readonly-investigation": "A01 现有行为事实；A02 实际调用表面盘点；A03 依赖版本与源码结构核对；A10/B10/DOC10 受影响面收集；B01 环境/日志/消费者；DOC02 事实盘点",
-  "test-run": "A05 开工基线检查（既有测试/lint/类型检查）；A06 按冻结验证方案运行并交回原始输出；B02 编写并运行复现脚本；B06 原 Bug 与回归测试；DOC07 docs build/链接/`check-docs` 等脚本"
+  "test-run": "A06 按冻结验证方案运行并交回原始输出；B02 编写并运行复现脚本；B06 原 Bug 与回归测试；DOC07 无可交子步骤（静态脚本与该阶段其余子步骤均不在上限内）"
 });
 export const NEVER_DELEGATE_TEXT = Object.freeze([
   "- **永不委派**：00、A04、A08、A09、B03、B05、B08、B09、DOC01、DOC03、DOC04、DOC06、DOC08、DOC09 全部内容；",

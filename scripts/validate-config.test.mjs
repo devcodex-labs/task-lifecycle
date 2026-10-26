@@ -525,6 +525,11 @@ test('类别表与永不委派清单与 任务拆分并行与整合.md 逐字一
   // 反例：删职责或放宽上限必须被检出
   assert.notEqual(V.NEVER_DELEGATE_TEXT[1].replace('SelfReview/', ''), lines[i + 1]);
   assert.notDeepEqual({ ...rows, implementation: 'A05 全部内容' }, { ...V.CATEGORY_STAGE_LIMIT_TEXT });
+  assert.equal(rows['test-run'], 'A06 按冻结验证方案运行并交回原始输出；B02 编写并运行复现脚本；B06 原 Bug 与回归测试；DOC07 无可交子步骤（静态脚本与该阶段其余子步骤均不在上限内）');
+  assert.ok(!V.CATEGORY_STAGE_LIMITS['test-run'].includes('A05'));
+  assert.ok(![...rows['test-run'].matchAll(/\b(A\d\d|B\d\d|DOC\d\d)\b/g)].some((x) => x[1] === 'A05'));
+  for (const w of ['开工基线', 'docs build', 'check-docs', '真实浏览器', '读者任务', '示例']) assert.ok(!rows['test-run'].includes(w), w);
+  assert.notEqual(rows['test-run'], 'A05 开工基线检查（既有测试/lint/类型检查）；A06 按冻结验证方案运行并交回原始输出；B02 编写并运行复现脚本；B06 原 Bug 与回归测试；DOC07 docs build/链接/`check-docs` 等脚本');
 });
 test('A2-01 打开时父目录被换成指向原目录的 symlink（文件 inode 不变）→ config-location-forbidden', { skip: dirLinkSkip }, () => {
   for (const layer of ['global', 'project']) {
