@@ -37,3 +37,10 @@ test('delegation necessity triage only narrows (CAND-20261026-001 v7)', () => {
   assert.match(r, /不放宽也不覆盖第 1 条默认关闭、永不委派项与已批计划逐 WI 点名/);
   assert.match(r, /各在仓库外任务记录留实测记录（记录路径、日期、结论）/);
 });
+
+test('pending decisions prefer option controls, presentation only (CAND-20261026-003 v5)', () => {
+  const r = read('references/确认授权与变更.md');
+  assert.match(r, /待决事项优先用选项控件呈现\*\*（CAND-20261026-003 v5，0\.1\.47；只管呈现，不改变批准语义）/);
+  for (const k of ['逐题点选', '每回合一题', '短回复码带决定身份', '推荐项排第一并标“（推荐）”', '全部按推荐', '自由文本入口']) assert.ok(r.includes(k), k);
+  assert.match(r, /一律按 §6\.5、§6\.3\.1 与第 4、5 条及 SKILL\.md §0 第 2 条（第 34～35 行）执行/);
+});
