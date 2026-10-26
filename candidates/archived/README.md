@@ -150,6 +150,7 @@
 | CAND-20261025-016 v4 | CAND-20261025-016-按风险分级的审查强度 | `candidates/pending/…` | `candidates/archived/CAND-20261025-016-按风险分级的审查强度.md` | Rocky 2026-10-25 15:15「全部放开，晋级也按推荐自动」（sha256 373afeb4cbb78edca7082a116ae873f28ef2b7f60e5a9c79b6dec29b218901d3），正文按 t349u 不进 Git |
 | CAND-20261025-017 v2 | CAND-20261025-017-被派发审查方禁止再派发 | `candidates/pending/…` | `candidates/archived/CAND-20261025-017-被派发审查方禁止再派发.md` | Rocky 2026-10-25 t440u 低风险一轮审查通过后归档（正文 sha256 fec89a2a857c616164bcc1301a7991a8632327bb213057697c1c82d846432330），正文按 t349u 不进 Git；规则落地待 Codex 修复 |
 | CAND-20261026-001 v1 | CAND-20261026-001-委派场景按验证手段充分性分流 | `candidates/pending/…` | `candidates/archived/CAND-20261026-001-委派场景按验证手段充分性分流.md` | Rocky 2026-10-26 t452u 登记并要求立即吸纳（未送审；归档前 sha256 c866143c02465cb4e3199494ebd6c0b3b75e4802dd2dc980771452a0f2906c43，归档后 08c7d6654d13394c4a93c254926e7b21511f29e798e55a3772f99ed0449aa4d1），正文按 t349u 不进 Git |
+| CAND-20261026-003 v5 | CAND-20261026-003-待决事项优先用选项控件 | `candidates/pending/…` | `candidates/archived/CAND-20261026-003-待决事项优先用选项控件.md` | Rocky 2026-10-26 选项卡 t468s2461 批准 v5 晋级 0.1.47（commit 5d07a04；归档前 sha256 79f03dd3f0fb2eaee017e00442fe12b54f09a23a6ea1a833e176168a60b0acce，状态行更新后 b0ef333a9061ac1d78a035ba2d5961c618788d2f59373d910fb3f6d522e06afc），正文按 t349u 不进 Git |
 
 ## 补登记（2026-10-26 Asia/Shanghai，Rocky t462u，共 1 个文件；已在本目录、此前未逐文件登记）
 
