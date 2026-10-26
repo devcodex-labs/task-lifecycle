@@ -157,3 +157,9 @@
 | 编号 | 文件 | 原路径 | 归档路径 | 已吸纳依据 |
 |---|---|---|---|---|
 | CAND-20261025-001 v1-旧版 | CAND-20261025-001-whyMissed执行门禁与修订回读-v1-旧版 | 不详（未登记） | `candidates/archived/CAND-20261025-001-whyMissed执行门禁与修订回读-v1-旧版.md` | superseded，现行 v11；sha256 957a818adea878e2b0cbf29c71642b5a528c6fcf0693490108a66576853178d9；正文不进 Git |
+| CAND-20261026-013 | CAND-20261026-013-新建受管任务开工单题卡片同时补齐深度与模式 | `candidates/pending/…` | `candidates/archived/CAND-20261026-013-新建受管任务开工单题卡片同时补齐深度与模式.md` | 已落地 0.1.56（与 019 合并为 §4.4「开工卡片」）；Rocky t576u（2026-10-27 07:41 UTC+8），t587u 归位；未纳入 Git，用 mv |
+| CAND-20261026-014 | CAND-20261026-014-两个及以上选项各自带描述与建议档 | `candidates/pending/…` | `candidates/archived/CAND-20261026-014-两个及以上选项各自带描述与建议档.md` | 已转正 0.1.56；Rocky t576u（2026-10-27 07:41 UTC+8），t587u 归位；未纳入 Git，用 mv |
+| CAND-20261026-015 | CAND-20261026-015-跨仓库多助手协作的授权记录与状态同步 | `candidates/pending/…` | `candidates/archived/CAND-20261026-015-跨仓库多助手协作的授权记录与状态同步.md` | 已落地 0.1.56；Rocky t576u（2026-10-27 07:41 UTC+8），t587u 归位；未纳入 Git，用 mv |
+| CAND-20261026-017 | CAND-20261026-017-新增运行时依赖前列同类库并实测 | `candidates/pending/…` | `candidates/archived/CAND-20261026-017-新增运行时依赖前列同类库并实测.md` | 已落地 0.1.56；Rocky t576u（2026-10-27 07:41 UTC+8），t587u 归位；未纳入 Git，用 mv |
+| CAND-20261026-019 | CAND-20261026-019-选档卡写明模式为Confirm且不内置Auto | `candidates/pending/…` | `candidates/archived/CAND-20261026-019-选档卡写明模式为Confirm且不内置Auto.md` | 已落地 0.1.56（与 013 合并）；Rocky t576u（2026-10-27 07:41 UTC+8），t587u 归位；未纳入 Git，用 mv |
+| CAND-20261026-022 | CAND-20261026-022-审查会话来源按档分流与干净会话只读约束 | `candidates/pending/…` | `candidates/archived/CAND-20261026-022-审查会话来源按档分流与干净会话只读约束.md` | 内核已含于 0.1.56 §7.10 第 7 条；Rocky t576u（2026-10-27 07:41 UTC+8），t587u 归位；未纳入 Git，用 mv |
