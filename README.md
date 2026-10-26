@@ -6,7 +6,7 @@ Task Lifecycle 是一款**按真实用户的实质开发意图（功能开发、
 
 ## 当前包状态与验证边界
 
-- 当前包版本：`0.1.52`；在 `0.1.51` 基础上落地 CAND-20261026-009 v8r1（报告类产物以 .md 为正本，宿主为 Grok Bot 且直接面向用户时另做阅读版 Page，含目录、正文宽度、公开链接保底与按内容呈现）。
+- 当前包版本：`0.1.53`；在 `0.1.52` 基础上落地 CAND-20261026-016 v10（转述子代理或其他 Agent 结论时，源句含未验证、没测成、估计、有条件、部分之一的，转述须保留该限定词）。
   按用户决定以现有成果交付；完整 V1.2 验收仍有待补证项，见 [已知缺口](docs/已知缺口.md)。源码推送、账户保存与宿主实际加载分别核实；开发基线见 `docs/maintainer-baseline.md`。
 - 清单文件：根 `plugin.json`（Agent Plugins 1.0，OpenAI 展示字段在 `extensions.com.openai`，**并不表示已验证宿主自动识别**）；唯一 Skill：`skills/task-lifecycle/SKILL.md`；按风险读取 `references/`；`templates/` 只提供最小语义；
   `examples/` 为**虚构示例**。
