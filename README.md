@@ -6,7 +6,7 @@ Task Lifecycle 是一款**按真实用户的实质开发意图（功能开发、
 
 ## 当前包状态与验证边界
 
-- 当前包版本：`0.1.64`；在 `0.1.63` 基础上关闭 F09/F12/F13（锚点、三类命中、两套上限澄清）；F10 按 t615u 废弃不压缩。
+- 当前包版本：`0.1.65`；在 `0.1.64` 基础上晋级 CAND-20261027-002（核实裁决同遍 + 同根共用理由、状态仍逐条）。
   按用户决定以现有成果交付；完整 V1.2 验收仍有待补证项，见 [已知缺口](docs/已知缺口.md)。源码推送、账户保存与宿主实际加载分别核实；开发基线见 `docs/maintainer-baseline.md`。
 - 清单文件：根 `plugin.json`（Agent Plugins 1.0，OpenAI 展示字段在 `extensions.com.openai`，**并不表示已验证宿主自动识别**）；唯一 Skill：`skills/task-lifecycle/SKILL.md`；按风险读取 `references/`；`templates/` 只提供最小语义；
   `examples/` 为**虚构示例**。
