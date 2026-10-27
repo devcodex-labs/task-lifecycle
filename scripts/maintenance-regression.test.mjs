@@ -52,6 +52,23 @@ test('T49/T52 原长行、链接、锚点和内部引用断言保留',()=>{
     }
   }
 });
+test('T53 篇幅上限 SKILL≤180 references≤300',()=>{
+  const d=docs('limits');
+  // fixture SKILL 很短，references 不存在 → 应通过
+  assert.equal(checkDocs(d).status,0);
+  // 造超限 SKILL.md（181 行正文）
+  const skill=path.join(d,'skills/task-lifecycle/SKILL.md');
+  put(skill,'---\nname: sample\ndescription: ok\n---\n'+Array.from({length:177},(_,i)=>`# L${i}`).join('\n')+'\n');
+  let r=checkDocs(d);assert.equal(r.status,1);assert.match(r.stderr,/SKILL\.md: 行数/);
+  // 恢复合法 SKILL，造超限 reference
+  put(skill,'---\nname: sample\ndescription: ok\n---\n# Example\n');
+  const ref=path.join(d,'skills/task-lifecycle/references');fs.mkdirSync(ref,{recursive:true});
+  put(path.join(ref,'big.md'),Array.from({length:301},(_,i)=>`# R${i}`).join('\n')+'\n');
+  r=checkDocs(d);assert.equal(r.status,1);assert.match(r.stderr,/references\/big\.md: 行数/);
+  // 边界：300 行通过
+  put(path.join(ref,'big.md'),Array.from({length:300},(_,i)=>`# R${i}`).join('\n')+'\n');
+  assert.equal(checkDocs(d).status,0);
+});
 test('T51 compare保持字节/集合，缺参exit2，未知参数不夹带变化',()=>{
   const d=docs(),script=path.join(d,'scripts/check-docs.mjs'),other=dir('copy');
   fs.cpSync(path.join(d,'skills/task-lifecycle'),other,{recursive:true});assert.equal(run(script,['--compare',other]).status,0);

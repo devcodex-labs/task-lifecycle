@@ -10,6 +10,8 @@
 //   (c) 反引号内插件内引用必须存在：以 references/ templates/ examples/ scripts/ docs/ assets/ skills/ 开头的路径，
 //       或 skills/task-lifecycle 下的裸 *.md 文件名；按所在目录、技能根、仓库根（裸名另查 references/templates/examples）解析。
 //       排除：代码块内、含通配/占位符（* { } < >）的值；运行期目录与使用方项目路径不在检查范围。
+//   (d) 篇幅上限（§7.10 第 7 条）：skills/task-lifecycle/SKILL.md 行数 ≤180；
+//       skills/task-lifecycle/references/ 下每个 .md 行数 ≤300。
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -95,6 +97,32 @@ for (const f of files) {
   });
 }
 
+// (d) 篇幅上限：SKILL.md ≤180；references/*.md ≤300
+const SKILL_MAX_LINES = 180;
+const REF_MAX_LINES = 300;
+function countLines(text) {
+  if (!text.length) return 0;
+  return text.split(/\r?\n/).length - (text.endsWith('\n') || text.endsWith('\r\n') ? 1 : 0);
+}
+try {
+  const skillPath = path.join(skillRoot, 'SKILL.md');
+  const skillBody = fs.readFileSync(skillPath, 'utf8');
+  const n = countLines(skillBody);
+  if (n > SKILL_MAX_LINES) errors.push(`skills/task-lifecycle/SKILL.md: 行数 ${n} > ${SKILL_MAX_LINES}`);
+} catch (e) { /* 入口缺失已在上方报错 */ }
+const refDir = path.join(skillRoot, 'references');
+if (fs.existsSync(refDir) && fs.statSync(refDir).isDirectory()) {
+  for (const name of fs.readdirSync(refDir).sort()) {
+    if (!name.endsWith('.md')) continue;
+    const fp = path.join(refDir, name);
+    if (!fs.statSync(fp).isFile()) continue;
+    try {
+      const n = countLines(fs.readFileSync(fp, 'utf8'));
+      if (n > REF_MAX_LINES) errors.push(`skills/task-lifecycle/references/${name}: 行数 ${n} > ${REF_MAX_LINES}`);
+    } catch (e) { errors.push(`skills/task-lifecycle/references/${name}: 读取失败 (${e.message})`); }
+  }
+}
+
 const ci = process.argv.indexOf('--compare');
 if (ci > -1) {
   const other = process.argv[ci + 1];
@@ -110,4 +138,4 @@ if (ci > -1) {
 }
 
 if (errors.length) { console.error(errors.join('\n')); console.error(`\n共 ${errors.length} 处问题（检查 ${files.length} 个 .md）`); process.exit(1); }
-console.log(`OK：检查 ${files.length} 个 .md，无超长行/断链/悬空引用${ci > -1 ? '，技能目录一致' : ''}`);
+console.log(`OK：检查 ${files.length} 个 .md，无超长行/断链/悬空引用/篇幅超限${ci > -1 ? '，技能目录一致' : ''}`);
