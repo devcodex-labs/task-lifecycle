@@ -35,7 +35,8 @@ test('delegation necessity triage only narrows (CAND-20261026-001 v7)', () => {
   assert.match(r, /必要性判定（CAND-20261026-001 v7，0\.1\.46；只收窄不放宽）/);
   for (const k of ['纯确定性档', '宿主行为档', '灰区', '四类默认档', '成本原则只能缩小委派范围', '外部宿主行为验证准入']) assert.ok(r.includes(k), k);
   assert.match(r, /不放宽也不覆盖第 1 条默认关闭、永不委派项与已批计划逐 WI 点名/);
-  assert.match(r, /各在仓库外任务记录留实测记录（记录路径、日期、结论）/);
+  assert.match(r, /能力全放开、只留五条底线/);
+  for (const k of ['禁推送', '禁发布', '禁删除', '禁读凭据', '不签结论', '越界即停', 'Bash(git push:*)']) assert.ok(r.includes(k), k);
 });
 
 test('pending decisions prefer option controls, presentation only (CAND-20261026-003 v5)', () => {

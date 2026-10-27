@@ -2,7 +2,7 @@
 
 [English](README.md) · **简体中文**
 
-![version](https://img.shields.io/badge/version-0.1.71-2357C6) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
+![version](https://img.shields.io/badge/version-0.1.72-2357C6) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
 
 按真实开发意图进入的受管任务插件：用一个 `SKILL.md` 加按需读取的参考规则，带你逐阶段规划、审查并确认 Feature（功能）、Bugfix（缺陷修复）、Docs（文档）工作。
 

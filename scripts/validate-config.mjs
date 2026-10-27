@@ -45,7 +45,7 @@ export const CATEGORY_STAGE_LIMIT_TEXT = Object.freeze({
 });
 export const NEVER_DELEGATE_TEXT = Object.freeze([
   "- **永不委派**：00、A04、A08、A09、B03、B05、B08、B09、DOC01、DOC03、DOC04、DOC06、DOC08、DOC09 全部内容；",
-  "以及任何阶段的 SelfReview/FormalReview/Approval、Finding 关闭、E1～E4 判定与证据签署、根因与回归结论、整合、commit/push/发布/删除、最终验收。"
+  "以及任何阶段的 SelfReview/FormalReview/Approval、Finding 关闭、E1～E4 判定与证据签署、根因与回归结论、整合、push/发布/删除、最终验收。"
 ]);
 export const NEVER_DELEGATE_STAGES = Object.freeze(['00', 'A04', 'A08', 'A09', 'B03', 'B05', 'B08', 'B09', 'DOC01', 'DOC03', 'DOC04', 'DOC06', 'DOC08', 'DOC09']);
 const STAGE_NAMES = [];
