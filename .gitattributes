@@ -1,0 +1,5 @@
+# Exclude maintainer-only candidate ledger from `git archive` / ZIP packaging (D3=B, t720s4040).
+# export-ignore ONLY affects git archive output of committed trees; it does NOT affect clone-based
+# installs (Codex/Grok) or a repo placed in ~/.cursor/plugins/local. Those are excluded by
+# host-sync.sh (sparse-checkout, backed up and verified) — see docs/maintainer-baseline.md.
+candidates/ export-ignore

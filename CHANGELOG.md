@@ -1,3 +1,17 @@
+## 0.1.68 — Page 目录与宽度改为阅读效果＋宿主默认（2026-10-27）
+
+- 修复 BUG-20261027-Page像素条款卡死生成（大改动）：`验证与证据分流.md` 第 7、8 条由手写侧栏/fixed/IntersectionObserver/像素公式的实现义务，改为阅读效果验收＋「组件/宿主默认满足即可，不手写 fixed/观察器/像素计算」；968/248/960 降为参考实测值（非实现义务）；10b 删去 968px 判据。顶部目录与「↑ 目录」仍必做。
+- 第 12 条末句改正（t714s3996）：流程型图节点＝编号＋约 20 字摘要（超 22 字截 20 字加…），总览图写描述性阶段名；为 10c 特例，10c 对其他图不变。
+- 第 13 条（CAND-20261027-013，Page 规则改动出卡问是否真实生成）已撤回（t719u），未发布；留占位行，第 14 条不改号。
+- `正式专项审查与Finding.md` §7.10 第 7 条分流：须逐字引用小规则条文与第 5 条资格、写明净增行数，只按成文条件判；大改动＝不满足任一小规则条件（t690u、t690s3898）。
+- 第 12 条补两行（t712s3983）：总览/阶段/附录 tab 同一组分段、阶段按节点分组、附录二级 tab 先短说明；Steps 一步一节点、编号子步、「材料：」行、停点仅补未覆盖。
+- 第 14 条 Page 由 Grok Bot 自己生成（t706u、t707u）：WriteCanvas 生成，不派第三方 CLI；第三方产出不算 Page 或其真实生成证据。
+- `任务拆分并行与整合.md` 派发前适配分析（t709u、t709s3970）：派第三方前比较产出与必需工具，谁更合适；理由写入预检查第 6 项。
+- README 改版（D1～D5，t720u/t720s4033～4044）：README.md 英文、README.zh-CN.md 中文、只写安装/使用/配置；版本/Bug 说明进 CHANGELOG，验收计数进 `docs/已知缺口.md`，开发历史进 `docs/maintainer-baseline.md`；补配置与组件表；注明未上架。
+- 新增 `.cursor-plugin/plugin.json`，根 `plugin.json` 保留；`maintenance-regression.test.mjs` T60 比对共享字段；marketplace 分类统一为 Developer Tools；作者名统一 Rocky Shi（plugin.json、LICENSE、README）。
+- `candidates/` 不进分发：`.gitattributes` export-ignore；三处安装同步排除见 `docs/maintainer-baseline.md`；`check-docs.mjs` 另查 README.zh-CN.md（存在时）；`.gitignore` 收根目录杂项。
+- 批准：Rocky 卡片 t683s3862 选 A、standard（2026-10-27 13:38 UTC+8）。方式：大改动静审＋ grok-build 方案复审；门禁与隔离真生成回归见过程目录。
+
 ## 0.1.67 — 流程型 Page 版式（2026-10-27）
 
 - 落地 DIRECT-20261027-流程型Page-IA吸纳（大改动）：`验证与证据分流.md`「报告类产物与 Grok Bot 阅读版 Page」追加第 12 条「流程型 Page 版式（仅 Grok Bot 宿主）」。

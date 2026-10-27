@@ -1,0 +1,22 @@
+{
+  "name": "task-lifecycle",
+  "version": "0.1.68",
+  "description": "An intent-triggered, Markdown-first lifecycle for governed Feature, Bugfix, and Docs work, with human approval, review evidence, and safe recovery.",
+  "author": {
+    "name": "Rocky Shi",
+    "email": "rockyshi1993@gmail.com"
+  },
+  "homepage": "https://github.com/devcodex-labs/task-lifecycle",
+  "repository": "https://github.com/devcodex-labs/task-lifecycle",
+  "license": "MIT",
+  "keywords": [
+    "workflow",
+    "code-review",
+    "bugfix",
+    "feature",
+    "docs",
+    "governance"
+  ],
+  "logo": "assets/logo.png",
+  "skills": "./skills/"
+}

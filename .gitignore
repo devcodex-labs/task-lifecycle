@@ -1,2 +1,6 @@
 # Local Task Lifecycle process records (not part of the published plugin)
 /.task-lifecycle/
+# Stray local maintenance files at repo root (not part of the plugin)
+/02-提示词-r2-首棒.txt
+/HOSTSYNC-20261026-005/
+/HOSTSYNC-20261026-006/

@@ -209,3 +209,21 @@ test('T76 输入schema支持两平台绝对路径，仍拒绝相对路径',()=>{
   for(const p of ['/home/me/a.md','C:/Users/me/a.md','C:\\Users\\me\\a.md','\\\\server\\share\\a.md'])assert.ok(re.test(p),p);
   for(const p of ['relative.md','C:relative.md','/home/me/a.txt'])assert.ok(!re.test(p),p);
 });
+test('T60 清单共享字段一致：plugin.json / .cursor-plugin/plugin.json / marketplace.json（D4=A，M-08/M-09）',()=>{
+  const j=p=>JSON.parse(fs.readFileSync(path.join(root,p),'utf8'));
+  const a=j('plugin.json'),c=j('.cursor-plugin/plugin.json'),m=j('.agents/plugins/marketplace.json');
+  const ui=a.extensions['com.openai'].interface;
+  for(const k of ['name','version','description','license','homepage','repository','keywords'])assert.deepEqual(c[k],a[k],k);
+  assert.equal(c.author.name,a.author.name,'author.name');assert.equal(c.author.email,a.author.email,'author.email');
+  assert.equal(a.author.name,'Rocky Shi');assert.equal(ui.developerName,a.author.name,'developerName');
+  assert.match(c.name,/^[a-z0-9]+(-[a-z0-9]+)*$/);
+  // Cursor 官方文档字段表（cursor.com/docs/plugins/building，2026-10-27 核对）之外的键不得出现
+  const allowed=['name','description','version','author','homepage','repository','license','keywords','logo','rules','agents','skills','commands','hooks','mcpServers','variables'];
+  for(const k of Object.keys(c))assert.ok(allowed.includes(k),'cursor 未文档化字段 '+k);
+  for(const k of Object.keys(c.author))assert.ok(['name','email'].includes(k),'author.'+k);
+  for(const k of ['logo','skills']){assert.ok(c[k],k+' 缺失');assert.ok(fs.existsSync(path.join(root,c[k])),k);}
+  assert.ok(fs.existsSync(path.join(root,c.skills,'task-lifecycle/SKILL.md')),'skills/*/SKILL.md');
+  assert.equal(m.name,'devcodex-task-lifecycle','marketplace name');assert.equal(m.interface.displayName,ui.displayName,'displayName');
+  const e=m.plugins.find(p=>p.name===a.name);assert.ok(e,'marketplace entry');
+  assert.equal(e.category,ui.category,'category');
+});

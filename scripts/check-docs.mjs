@@ -12,6 +12,7 @@
 //       排除：代码块内、含通配/占位符（* { } < >）的值；运行期目录与使用方项目路径不在检查范围。
 //   (d) 篇幅上限（§7.10 第 7 条）：skills/task-lifecycle/SKILL.md 行数 ≤180；
 //       skills/task-lifecycle/references/ 下每个 .md 行数 ≤300。
+//   (e) README 一致性（M-12）：README.md 与 README.zh-CN.md 标题层级序列一致；两份徽章版本＝plugin.json version。
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -19,6 +20,7 @@ import { fileURLToPath } from 'node:url';
 const MAX_LEN = 200;
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const targets = ['skills/task-lifecycle', 'docs', 'README.md', 'CHANGELOG.md'];
+const optionalTargets = ['README.zh-CN.md']; // 存在才查（D2=B）
 const errors = [];
 const skillRoot = path.join(root, 'skills/task-lifecycle');
 const PREFIX = /^(references|templates|examples|scripts|docs|assets|skills)\//;
@@ -55,6 +57,17 @@ for (const t of targets) {
     if (!found.length) throw new Error('没有可检查的 Markdown');
     files.push(...found);
   } catch (e) { errors.push(`${t}: 必需目标不可检查 (${e.message})`); }
+}
+for (const t of optionalTargets) { const p = path.join(root, t); if (fs.existsSync(p) && fs.statSync(p).isFile()) files.push(p); }
+if (fs.existsSync(path.join(root, 'plugin.json')) && fs.existsSync(path.join(root, 'README.md'))) { // 清单或 README 缺失时由其他门禁报，不在此崩溃
+  const ver = JSON.parse(fs.readFileSync(path.join(root, 'plugin.json'), 'utf8')).version;
+  const heads = f => { let c = false; return fs.readFileSync(f, 'utf8').split(/\r?\n/).filter(l => { if (/^\s*```/.test(l)) { c = !c; return false; } return !c && /^#{1,6}\s/.test(l); }).map(l => l.match(/^#+/)[0].length); };
+  const en = path.join(root, 'README.md'), zh = path.join(root, 'README.zh-CN.md');
+  for (const f of [en, zh]) if (fs.existsSync(f)) {
+    const m = /badge\/version-([0-9][^-]*)-/.exec(fs.readFileSync(f, 'utf8'));
+    if (!m || m[1] !== ver) errors.push(`${path.relative(root, f)}: 版本徽章 ${m ? m[1] : '缺失'} ≠ plugin.json ${ver}`);
+  }
+  if (fs.existsSync(zh) && heads(en).join() !== heads(zh).join()) errors.push(`README.md 与 README.zh-CN.md 标题层级序列不一致`);
 }
 try {
   const entry = path.join(skillRoot, 'SKILL.md');
