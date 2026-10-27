@@ -50,7 +50,9 @@ const renameOpenSkip = capability('打开文件后重命名父目录', () => {
 fs.mkdirSync(path.join(probe.base, 'CaseProbe'));
 const caseSkip = fs.existsSync(path.join(probe.base, 'caseprobe')) ? 'UNVERIFIED: 文件系统不支持仅大小写不同的并存名称' : false;
 const fifoProbe = spawnSync('mkfifo', [path.join(probe.base, 'fifo-probe')], { encoding: 'utf8', timeout: 5000 });
-const fifoSkip = fifoProbe.status === 0 ? false : `UNVERIFIED: FIFO 夹具不可用 (${fifoProbe.error?.code ?? fifoProbe.status})`;
+// Windows Git Bash mkfifo exits 0 but creates no FIFO Node can see; require a real FIFO via lstat.
+const fifoReal = fifoProbe.status === 0 && (() => { try { return fs.lstatSync(path.join(probe.base, 'fifo-probe')).isFIFO(); } catch { return false; } })();
+const fifoSkip = fifoReal ? false : `UNVERIFIED: FIFO 夹具不可用 (${fifoProbe.error?.code ?? (fifoProbe.status === 0 ? 'not-a-fifo' : fifoProbe.status)})`;
 const gpath = (f) => path.join(f.home, '.config', 'task-lifecycle', 'config.json');
 function writeG(f, obj) { fs.mkdirSync(path.dirname(gpath(f)), { recursive: true }); fs.writeFileSync(gpath(f), typeof obj === 'string' || Buffer.isBuffer(obj) ? obj : JSON.stringify(obj)); }
 const ppath = (f, id = 'P1') => path.join(f.ws, '.task-lifecycle', id, 'config.json');

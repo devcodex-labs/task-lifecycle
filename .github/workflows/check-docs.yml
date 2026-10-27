@@ -5,6 +5,7 @@ on:
 jobs:
   check:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
@@ -14,4 +15,5 @@ jobs:
         with:
           node-version: 20
       - run: node scripts/check-docs.mjs
-      - run: node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs
+      - if: always()
+        run: node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs scripts/dispatch-guard.test.mjs

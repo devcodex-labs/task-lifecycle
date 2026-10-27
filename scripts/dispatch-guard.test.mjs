@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'skills', 'task-lifecycle');
-const read = (p) => readFileSync(path.join(root, p), 'utf8');
+const read = (p) => readFileSync(path.join(root, p), 'utf8').replace(/\r\n/g, '\n'); // CRLF-safe on Windows checkouts
 
 test('relay templates carry dispatch header and receiver ban', () => {
   for (const n of ['接力审查首棒提示词', '接力审查次棒提示词', '接力审查核验提示词']) {

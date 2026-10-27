@@ -22,7 +22,8 @@ Cursor 清单键是否在官方文档字段表内及 logo/skills 路径存在；
 - 表格行：以可选空白加 `|` 开头的行；Markdown 表格单元格不能折行。
 - 三反引号代码块内的行。
 
-维护调用 `node scripts/check-docs.mjs`、`node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs`；测试传准确文件，避免宿主把目录当入口模块。
+维护调用 `node scripts/check-docs.mjs`、`node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs scripts/dispatch-guard.test.mjs`（与 CI 一致）；
+测试传准确文件，避免宿主把目录当入口模块。
 文档检查使用脚本真实文件路径，与 cwd 无关，必需目标/主 SKILL 缺失、空入口或零扫描均失败；`--compare` 保持逐字节及文件集合比较。
 引用工具保持逐项 stdout，stderr 逐输入汇总 recognized/unchecked/failed；任何输入零识别失败，协调方另做预期清单对账。冻结引用只读取固定提交的文件 blob，不接受提交头/目录。见审查规则 §7.10 三种出口。
 配置为 Node ≥20；Windows HOME 缺省可使用可信系统账户 home，显式空/冲突仍关闭。Windows 30 秒包装入口、POSIX 命令与输出结构见配置消费/输出协议；能力缺失测试标 UNVERIFIED，不冒称跨平台通过。
@@ -48,6 +49,7 @@ Cursor 清单键是否在官方文档字段表内及 logo/skills 路径存在；
 执行主责见[审查规则§7.9](../skills/task-lifecycle/references/正式专项审查与Finding.md)和[验证规则§10.7](../skills/task-lifecycle/references/验证与证据分流.md)，对应模板和Bugfix示例提供用法；这些规则不承诺一次找齐所有Bug或自动替代真实测试/真人验收。
 
 README 只写安装、使用、配置（D1=A）；`README.md`（英文）与 `README.zh-CN.md`（中文）章节一一对应，每次发版两份同步（D2=B）。
+发版前现查本次推送提交在 ubuntu、windows 双平台的 CI 结果；红则在发版记录与转告中写明原因，由 Rocky 决定是否照发。不另立门禁制度，不以 run URL 作为发版硬条件。
 
 ## candidates/ 不进分发与三处安装（D3=B，t720s4040）
 

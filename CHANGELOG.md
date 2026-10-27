@@ -1,3 +1,13 @@
+## 0.1.73 — CI 恢复与九项清单（2026-10-27）
+
+- `docs/已知缺口.md`：L18/L71/L73 超长行仅分句折行；顶部加「当前 open 索引」（含待确认项）；FEAT-20261026-001 随 0.1.72 关闭；记录 Page 条款暂不拆。
+- `scripts/validate-config.test.mjs`：FIFO 探针加 `lstatSync().isFIFO()`，Windows 上伪 FIFO 标 UNVERIFIED 跳过（Linux 行为不变）。
+- `.github/workflows/check-docs.yml`：`fail-fast: false`；测试步 `if: always()`；显式跑三个测试文件含 `dispatch-guard.test.mjs`。
+- `scripts/dispatch-guard.test.mjs`：读文件时归一 CRLF，避免 Windows 检出失败。
+- `docs/maintainer-baseline.md` 与 `任务拆分并行与整合.md` L156：测试命令与 CI 一致；发版前现查双平台 CI，红则写明并由 Rocky 拍板。
+- 仓库外 `host-sync.sh`：同步成功后写「加载验收」占位表（Cursor/Codex/Grok）。
+- 批准：Rocky t783s4386「9 项全部修」、t783s4393「提交推送并发 0.1.73」。
+
 ## 0.1.72 — Grok Build 无人值守能力全放开，只留五条底线（2026-10-27）
 
 - `任务拆分并行与整合.md` 外部编码执行器委派第 2～5 条与 grok 1.0.70 版本表重写：grok 读取、写入、git、联网、解释器、包管理、子代理均不限；
