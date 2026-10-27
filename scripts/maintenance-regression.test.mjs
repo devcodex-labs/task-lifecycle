@@ -1,4 +1,4 @@
-// V1.2 确定性回归；隔离夹具与现有仓库只读 Git 对象，不提交或调用模型。
+// V1.2 deterministic regression; isolated fixtures and read-only Git objects of the existing repo; no commits, no model calls.
 import { test, after } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -27,12 +27,12 @@ function docs(label='plain',newline='\n',omit=''){
   return d;
 }
 const checkDocs=d=>run(path.join(d,'scripts/check-docs.mjs'),[],temp);
-test('T43/T49/T50 特殊路径和LF/CRLF，cwd不影响4文件扫描',()=>{
+test('T43/T49/T50 special paths and LF/CRLF, cwd does not affect the 4-file scan',()=>{
   for(const name of ['ascii','with space','中文','percent%','hash#'])for(const nl of ['\n','\r\n']){
-    const r=checkDocs(docs(name,nl));assert.equal(r.status,0,r.stderr);assert.match(r.stdout,/检查 4 个/);
+    const r=checkDocs(docs(name,nl));assert.equal(r.status,0,r.stderr);assert.match(r.stdout,/checked 4 \.md/);
   }
 });
-test('T44 必需目标及入口缺失不能零扫描假绿',()=>{
+test('T44 missing required targets or entry cannot pass green with zero scanned',()=>{
   for(const absent of ['skills/task-lifecycle','docs','README.md','CHANGELOG.md','skills/task-lifecycle/SKILL.md']){
     const r=checkDocs(docs('missing','\n',absent));assert.notEqual(r.status,0,absent);assert.doesNotMatch(r.stdout,/^OK/);
   }
@@ -42,34 +42,34 @@ test('T44 必需目标及入口缺失不能零扫描假绿',()=>{
   const d=docs('unreadable'),target=path.join(d,'README.md'),preload=path.join(d,'deny-read.mjs');
   put(preload,'import fs from "node:fs";const read=fs.readFileSync;fs.readFileSync=(p,...a)=>{if(p==='+JSON.stringify(target)+'){const e=Error("fixture EACCES");e.code="EACCES";throw e;}return read(p,...a);};');
   const denied=run('--import',[pathToFileURL(preload).href,path.join(d,'scripts/check-docs.mjs')]);
-  assert.equal(denied.status,1);assert.match(denied.stderr,/读取失败/);assert.doesNotMatch(denied.stdout,/^OK/);
+  assert.equal(denied.status,1);assert.match(denied.stderr,/read failed/);assert.doesNotMatch(denied.stdout,/^OK/);
 });
-test('T49/T52 原长行、链接、锚点和内部引用断言保留',()=>{
+test('T49/T52 original long-line, link, anchor and internal-reference assertions kept',()=>{
   for(const nl of ['\n','\r\n']){
     const d=docs('boundaries',nl);put(path.join(d,'docs/a.md'),'a'.repeat(200)+nl);assert.equal(checkDocs(d).status,0);
-    for(const bad of ['a'.repeat(201),'[bad](missing.md)','[bad](#absent)','\`references/不存在.md\`']){
+    for(const bad of ['a'.repeat(201),'[bad](missing.md)','[bad](#absent)','\`references/does-not-exist.md\`']){
       put(path.join(d,'docs/a.md'),bad+nl);assert.equal(checkDocs(d).status,1,bad);
     }
   }
 });
-test('T53 篇幅上限 SKILL≤180 references≤300',()=>{
+test('T53 length caps SKILL≤300 references≤500',()=>{
   const d=docs('limits');
-  // fixture SKILL 很短，references 不存在 → 应通过
+  // fixture SKILL is short and references are absent → should pass
   assert.equal(checkDocs(d).status,0);
-  // 造超限 SKILL.md（181 行正文）
+  // build an over-limit SKILL.md (301 lines)
   const skill=path.join(d,'skills/task-lifecycle/SKILL.md');
-  put(skill,'---\nname: sample\ndescription: ok\n---\n'+Array.from({length:177},(_,i)=>`# L${i}`).join('\n')+'\n');
-  let r=checkDocs(d);assert.equal(r.status,1);assert.match(r.stderr,/SKILL\.md: 行数/);
-  // 恢复合法 SKILL，造超限 reference
+  put(skill,'---\nname: sample\ndescription: ok\n---\n'+Array.from({length:297},(_,i)=>`# L${i}`).join('\n')+'\n');
+  let r=checkDocs(d);assert.equal(r.status,1);assert.match(r.stderr,/SKILL\.md: line count/);
+  // restore a valid SKILL, build an over-limit reference
   put(skill,'---\nname: sample\ndescription: ok\n---\n# Example\n');
   const ref=path.join(d,'skills/task-lifecycle/references');fs.mkdirSync(ref,{recursive:true});
-  put(path.join(ref,'big.md'),Array.from({length:301},(_,i)=>`# R${i}`).join('\n')+'\n');
-  r=checkDocs(d);assert.equal(r.status,1);assert.match(r.stderr,/references\/big\.md: 行数/);
-  // 边界：300 行通过
-  put(path.join(ref,'big.md'),Array.from({length:300},(_,i)=>`# R${i}`).join('\n')+'\n');
+  put(path.join(ref,'big.md'),Array.from({length:501},(_,i)=>`# R${i}`).join('\n')+'\n');
+  r=checkDocs(d);assert.equal(r.status,1);assert.match(r.stderr,/references\/big\.md: line count/);
+  // boundary: 500 lines passes
+  put(path.join(ref,'big.md'),Array.from({length:500},(_,i)=>`# R${i}`).join('\n')+'\n');
   assert.equal(checkDocs(d).status,0);
 });
-test('T51 compare保持字节/集合，缺参exit2，未知参数不夹带变化',()=>{
+test('T51 compare keeps bytes/sets, missing arg exits 2, unknown args carry no change',()=>{
   const d=docs(),script=path.join(d,'scripts/check-docs.mjs'),other=dir('copy');
   fs.cpSync(path.join(d,'skills/task-lifecycle'),other,{recursive:true});assert.equal(run(script,['--compare',other]).status,0);
   put(path.join(other,'extra.md'),'# extra\n');assert.equal(run(script,['--compare',other]).status,1);
@@ -79,59 +79,72 @@ test('T51 compare保持字节/集合，缺参exit2，未知参数不夹带变化
   assert.notEqual(run(script,['--compare',path.join(temp,'absent')]).status,0);assert.equal(run(script,['--unknown']).status,0);
 });
 const cite=path.join(root,'scripts/check-citations.mjs');
-const rel='skills/task-lifecycle/references/任务识别与合法路由.md';
-const rev=execFileSync('git',['-C',root,'rev-parse','HEAD'],{encoding:'utf8'}).trim();
+const rel='skills/task-lifecycle/references/task-recognition-and-routing.md';
+// Frozen-mode tests need a commit containing the current files. Use HEAD when it already has them; otherwise build an
+// unreferenced snapshot commit (temp index, HEAD tree + working-tree blobs of the files used here). No ref, index or branch changes.
+function frozenRev(){
+  const git=(a,env)=>execFileSync('git',['-C',root,...a],{encoding:'utf8',env:{...process.env,...env}}).trim();
+  const head=git(['rev-parse','HEAD']);
+  const need=[rel,'README.md'];
+  if(need.every(f=>{try{git(['cat-file','-e',head+':'+f]);return git(['rev-parse',head+':'+f])===git(['hash-object',f]);}catch{return false;}}))return head;
+  const idx=path.join(temp,'snapshot-index'),env={GIT_INDEX_FILE:idx};
+  git(['read-tree',head],env);
+  for(const f of need)git(['update-index','--add','--cacheinfo','100644,'+git(['hash-object','-w',f])+','+f],env);
+  const tree=git(['write-tree'],env);
+  return git(['commit-tree',tree,'-p',head,'-m','check-citations frozen-mode test snapshot (unreferenced)'],{GIT_AUTHOR_NAME:'test',GIT_AUTHOR_EMAIL:'test@example.invalid',GIT_COMMITTER_NAME:'test',GIT_COMMITTER_EMAIL:'test@example.invalid'});
+}
+const rev=frozenRev();
 function cited(text){const p=path.join(citationTemp,String(++serial)+'.md');fs.writeFileSync(p,text);return p;}
-test('T61 标准格式和UNCHECKED不改变逐项stdout，汇总写stderr',()=>{
-  const f=cited('\`'+rel+':1\` 「# 任务识别与合法路由」\n\`'+rel+'\` 第 1 行\n');
+test('T61 standard format and UNCHECKED keep per-item stdout, summary to stderr',()=>{
+  const f=cited('\`'+rel+':1\` 「# task-recognition-and-routing」\n\`'+rel+'\` 第 1 行\n');
   const r=run(cite,['--root',root,f]);assert.equal(r.status,0,r.stderr);
   assert.match(r.stdout,/^OK\t/);assert.match(r.stdout,/\nUNCHECKED\t/);assert.match(r.stderr,/recognized=2/);assert.match(r.stderr,/unchecked=1/);
 });
-test('T61 每个输入零识别都失败，不以其他文件命中抵消',()=>{
-  const good=cited('\`'+rel+':1\` 「# 任务识别与合法路由」\n'),plain=cited(rel+':999 「bad」\n');
+test('T61 each input with zero recognized fails, not offset by hits in other files',()=>{
+  const good=cited('\`'+rel+':1\` 「# task-recognition-and-routing」\n'),plain=cited(rel+':999 「bad」\n');
   const r=run(cite,['--root',root,good,plain]);assert.equal(r.status,1);assert.match(r.stderr,/recognized=0/);
   assert.equal(run(cite,['--root',root,plain]).status,1);
 });
-test('T62 冻结路径只读文件blob，正确相对引用通过而commit头伪引文失败',()=>{
+test('T62 frozen paths read only file blobs; correct relative refs pass, fake quotes from the commit header fail',()=>{
   const f=cited(''),relative=path.relative(path.dirname(f),path.join(root,rel)).split(path.sep).join('/');
-  put(f,'\`'+relative+':1\` 「# 任务识别与合法路由」\n');
+  put(f,'\`'+relative+':1\` 「# task-recognition-and-routing」\n');
   assert.equal(run(cite,['--root',root,'--rev',rev,f]).status,0);
   put(f,'\`'+relative+':1\` 「commit '+rev+'」\n');assert.equal(run(cite,['--root',root,'--rev',rev,f]).status,1);
   for(const p of ['skills','../../outside']){put(f,'\`'+p+':1\` 「x」\n');assert.equal(run(cite,['--root',root,'--rev',rev,f]).status,1);}
 });
-test('T62 工作区模式与无效参数保持',()=>{
-  const f=cited('\`'+rel+':1\` 「# 任务识别与合法路由」\n');
+test('T62 working-tree mode and invalid arguments unchanged',()=>{
+  const f=cited('\`'+rel+':1\` 「# task-recognition-and-routing」\n');
   assert.equal(run(cite,['--root',root,f],temp).status,0);
   assert.equal(run(cite,['--rev','not-a-real-ref',f]).status,2);assert.equal(run(cite,['--root']).status,2);
 });
-test('T62 冻结引用拒收绝对/父级路径与合法技能回退目标的碰撞',()=>{
-  for(const [p,s] of [['/references/任务识别与合法路由.md','# 任务识别与合法路由'],['../../README.md','# DevCodex Task Lifecycle'],['templates/../../../README.md','# DevCodex Task Lifecycle']]){
-    // 多一层目录，使 ../../README.md 不再恰好是合法的仓库根引用。
+test('T62 frozen refs reject collisions of absolute/parent paths with valid skill fallback targets',()=>{
+  for(const [p,s] of [['/references/task-recognition-and-routing.md','# task-recognition-and-routing'],['../../README.md','# DevCodex Task Lifecycle'],['templates/../../../README.md','# DevCodex Task Lifecycle']]){
+    // one extra directory level so ../../README.md is no longer exactly a valid repo-root reference.
     const f=path.join(citationTemp,'nested',String(++serial)+'.md');put(f,'`'+p+':1` 「'+s+'」\n');
     const r=run(cite,['--root',root,'--rev',rev,f]);
     assert.equal(r.status,1,r.stdout);assert.match(r.stdout,/^NOFILE\t/);
-    // 只收紧冻结模式，既有工作区别名查找行为保持。
+    // tighten only frozen mode; existing working-tree alias lookup unchanged.
     assert.equal(run(cite,['--root',root,f]).status,0);
   }
 });
-test('T62 冻结引用保留根相对、报告相对、技能短名和POSIX仓库内绝对路径',()=>{
+test('T62 frozen refs keep root-relative, report-relative, skill short names and POSIX in-repo absolute paths',()=>{
   const f=cited(''),relative=path.relative(path.dirname(f),path.join(root,rel)).split(path.sep).join('/');
-  const paths=[rel,relative,'references/任务识别与合法路由.md','任务识别与合法路由.md'];
-  paths.push('templates/../references/任务识别与合法路由.md','templates/../references/./任务识别与合法路由.md');
-  if(process.platform==='win32')paths.push('templates\\..\\references\\任务识别与合法路由.md');
-  // 现有引用语法不支持含盘符冒号；不借此测试扩展该语法。
+  const paths=[rel,relative,'references/task-recognition-and-routing.md','task-recognition-and-routing.md'];
+  paths.push('templates/../references/task-recognition-and-routing.md','templates/../references/./task-recognition-and-routing.md');
+  if(process.platform==='win32')paths.push('templates\\..\\references\\task-recognition-and-routing.md');
+  // the existing reference syntax does not support drive-letter colons; this test does not extend it.
   if(process.platform!=='win32')paths.push(path.join(root,rel));
   for(const p of paths){
-    put(f,'`'+p+':1` 「# 任务识别与合法路由」\n');
+    put(f,'`'+p+':1` 「# task-recognition-and-routing」\n');
     const r=run(cite,['--root',root,'--rev',rev,f]);assert.equal(r.status,0,r.stdout+r.stderr);
   }
 });
 function config(){
   const d=dir('config'),home=path.join(d,'home'),record=path.join(d,'evidence.md');put(record,'# Source\n');
-  const obj={schemaVersion:1,approvalSource:{messageId:'t1u',quote:'测试用设置',record},delegation:{enabled:false}};
+  const obj={schemaVersion:1,approvalSource:{messageId:'t1u',quote:'test setting',record},delegation:{enabled:false}};
   put(path.join(home,'.config/task-lifecycle/config.json'),JSON.stringify(obj));return {d,home,record,obj};
 }
-test('T75/T76 HOME环境分支与真实输出；不读真实账户配置',()=>{
+test('T75/T76 HOME env branches and real output; real account config not read',()=>{
   const f=config(),deps={userInfo:()=>({homedir:f.home}),scriptPath:path.join(root,'scripts/validate-config.mjs')};
   const missing=V.validate([],{}, {...deps,platform:'win32'});assert.equal(missing.status,'valid',JSON.stringify(missing.reasons));assert.equal(missing.env.home,'');
   for(const platform of ['win32','linux']){
@@ -141,7 +154,7 @@ test('T75/T76 HOME环境分支与真实输出；不读真实账户配置',()=>{
   }
   assert.equal(V.validate([],{}, {...deps,platform:'linux'}).status,'disabled');
 });
-test('T77 插件内配置拒收、同级前缀可用、安全legacy可读',()=>{
+test('T77 in-plugin config rejected, sibling prefix usable, safe legacy readable',()=>{
   const f=config(),base={userInfo:()=>({homedir:f.home}),platform:process.platform};
   assert.equal(V.validate([],{HOME:f.home},{...base,scriptPath:path.join(f.home,'.config/scripts/validate-config.mjs')}).status,'disabled');
   assert.equal(V.validate([],{HOME:f.home},{...base,scriptPath:path.join(f.home+'.other','scripts/validate-config.mjs')}).status,'valid');
@@ -149,7 +162,7 @@ test('T77 插件内配置拒收、同级前缀可用、安全legacy可读',()=>{
   const r=V.validate(['--workspace',ws,'--project-id','P1'],{HOME:f.home},{...base,scriptPath:path.join(root,'scripts/validate-config.mjs')});
   assert.equal(r.status,'valid');assert.equal(r.legacy[0].kind,'depth-execution-default');
 });
-test('T77 路径组件边界：Windows与POSIX纯函数不代表跨平台实跑',()=>{
+test('T77 path component boundaries: Windows and POSIX pure functions do not mean cross-platform runs',()=>{
   for(const api of [path.win32,path.posix]){
     const prefix=api===path.win32?'C:\\project':'/project';
     assert.equal(V.underPrefix(prefix,prefix,api),true);assert.equal(V.underPrefix(api.join(prefix,'a'),prefix,api),true);
@@ -158,7 +171,7 @@ test('T77 路径组件边界：Windows与POSIX纯函数不代表跨平台实跑'
   }
   assert.equal(V.underPrefix('D:\\project\\a','C:\\project',path.win32),false);
 });
-test('T78 enabled结构及不同用途保持独立',()=>{
+test('T78 enabled structure and different purposes stay independent',()=>{
   const f=config();f.obj.review={enabled:true,fallback:{...V.REVIEW_FALLBACK},hosts:[{command:'codex',id:'codex-cli'}]};
   put(path.join(f.home,'.config/task-lifecycle/config.json'),JSON.stringify(f.obj));
   const r=V.validate([],{HOME:f.home},{userInfo:()=>({homedir:f.home})});
@@ -166,9 +179,9 @@ test('T78 enabled结构及不同用途保持独立',()=>{
   assert.deepEqual(r.effective.delegation.enabled,{sourceLayer:'global',value:false});
 });
 
-test('T75 包装器JavaScript逻辑：成功/失败/缺脚本/缺Node/真实30秒超时', {timeout:40000},()=>{
-  const protocol=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/任务拆分并行与整合.md'),'utf8');
-  const wrapper=protocol.match(/^node -e "([^"]+)" /m)?.[1];assert.ok(wrapper,'实际文档必须提供包装命令');
+test('T75 wrapper JavaScript logic: success/failure/missing script/missing Node/real 30-second timeout', {timeout:40000},()=>{
+  const protocol=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/task-split-parallel-and-integration.md'),'utf8');
+  const wrapper=protocol.match(/^node -e "([^"]+)" /m)?.[1];assert.ok(wrapper,'the actual doc must provide the wrapper command');
   const invoke=args=>spawnSync(process.execPath,['-e',wrapper,'--',...args],{encoding:'utf8',timeout:35000});
   const ok=invoke(['-e','process.stdout.write("ok");']);assert.equal(ok.status,0);assert.equal(ok.stdout,'ok');
   const failed=invoke(['-e','process.stderr.write("bad");process.exit(2);']);assert.equal(failed.status,2);assert.equal(failed.stderr,'bad');
@@ -177,17 +190,17 @@ test('T75 包装器JavaScript逻辑：成功/失败/缺脚本/缺Node/真实30�
   const start=Date.now(),timed=invoke(['-e','process.stdout.write(String(process.pid));setInterval(()=>{},1000);']);
   assert.equal(timed.status,1);assert.match(timed.stderr,/ETIMEDOUT/);assert.ok(Date.now()-start>=29000&&Date.now()-start<35000);
   const pid=Number(timed.stdout);assert.ok(pid>0);assert.throws(()=>process.kill(pid,0),e=>e.code==='ESRCH');
-  console.log('30秒包装验证：子进程 '+pid+' 已退出；未修改长期环境，未启动服务端口。');
+  console.log('30-second wrapper check: child process '+pid+' exited; long-term environment not modified, no service port started.');
 });
 
-test('T75 Windows PowerShell原样文档入口及30秒子进程清理', {skip:process.platform!=='win32',timeout:50000},()=>{
+test('T75 Windows PowerShell verbatim doc entry and 30-second child process cleanup', {skip:process.platform!=='win32',timeout:50000},()=>{
   const shell=path.join(process.env.SystemRoot,'System32/WindowsPowerShell/v1.0/powershell.exe');
-  assert.ok(fs.existsSync(shell),'Windows支持面必须提供实际PowerShell入口');
-  const protocol=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/任务拆分并行与整合.md'),'utf8');
+  assert.ok(fs.existsSync(shell),'the Windows support surface must provide an actual PowerShell entry');
+  const protocol=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/task-split-parallel-and-integration.md'),'utf8');
   const line=protocol.match(/^node -e .+$/m)?.[0];assert.ok(line);
   const d=dir('PowerShell with space 中文'),script=path.join(d,'scripts/validate-config.mjs');
   const ws=path.join(d,'workspace with space'),project='fixture-project';
-  const entry=line.replace('<插件根>',d.replaceAll('\\','/')).replace('<绑定项目根的父目录>',ws.replaceAll('\\','/')).replace('<绑定 Project ID>',project);
+  const entry=line.replace('<plugin root>',d.replaceAll('\\','/')).replace('<parent dir of the bound project root>',ws.replaceAll('\\','/')).replace('<bound Project ID>',project);
   const env={...process.env};for(const key of Object.keys(env))if(key.toLowerCase()==='path')delete env[key];
   env.Path=path.dirname(process.execPath)+path.delimiter+(process.env.Path??process.env.PATH??'');
   const invoke=(missingNode=false)=>spawnSync(shell,['-NoLogo','-NoProfile','-NonInteractive','-Command',entry+(missingNode?'':'\nexit $LASTEXITCODE')],
@@ -201,15 +214,15 @@ test('T75 Windows PowerShell原样文档入口及30秒子进程清理', {skip:pr
   const started=Date.now(),timed=invoke();assert.equal(timed.status,1);assert.match(timed.stderr,/ETIMEDOUT/);
   assert.ok(Date.now()-started>=29000&&Date.now()-started<40000);const pid=Number(timed.stdout.trim());
   assert.ok(pid>0);assert.throws(()=>process.kill(pid,0),e=>e.code==='ESRCH');
-  console.log('PowerShell原文命令：成功/exit2/缺脚本/缺Node/30秒超时通过，子进程 '+pid+' 已退出。');
+  console.log('PowerShell verbatim command: success/exit2/missing script/missing Node/30-second timeout passed, child process '+pid+' exited.');
 });
 
-test('T76 输入schema支持两平台绝对路径，仍拒绝相对路径',()=>{
+test('T76 input schema supports absolute paths on both platforms, still rejects relative paths',()=>{
   const re=new RegExp(V.buildSchemaDefs().approvalSource.properties.record.pattern);
   for(const p of ['/home/me/a.md','C:/Users/me/a.md','C:\\Users\\me\\a.md','\\\\server\\share\\a.md'])assert.ok(re.test(p),p);
   for(const p of ['relative.md','C:relative.md','/home/me/a.txt'])assert.ok(!re.test(p),p);
 });
-test('T60 清单共享字段一致：plugin.json / .cursor-plugin/plugin.json / marketplace.json（D4=A，M-08/M-09）',()=>{
+test('T60 manifest shared fields match: plugin.json / .cursor-plugin/plugin.json / marketplace.json (D4=A, M-08/M-09)',()=>{
   const j=p=>JSON.parse(fs.readFileSync(path.join(root,p),'utf8'));
   const a=j('plugin.json'),c=j('.cursor-plugin/plugin.json'),m=j('.agents/plugins/marketplace.json');
   const ui=a.extensions['com.openai'].interface;
@@ -217,13 +230,67 @@ test('T60 清单共享字段一致：plugin.json / .cursor-plugin/plugin.json / 
   assert.equal(c.author.name,a.author.name,'author.name');assert.equal(c.author.email,a.author.email,'author.email');
   assert.equal(a.author.name,'Rocky Shi');assert.equal(ui.developerName,a.author.name,'developerName');
   assert.match(c.name,/^[a-z0-9]+(-[a-z0-9]+)*$/);
-  // Cursor 官方文档字段表（cursor.com/docs/plugins/building，2026-10-27 核对）之外的键不得出现
+  // keys outside the official Cursor doc field table (cursor.com/docs/plugins/building, checked 2026-10-27) must not appear
   const allowed=['name','description','version','author','homepage','repository','license','keywords','logo','rules','agents','skills','commands','hooks','mcpServers','variables'];
-  for(const k of Object.keys(c))assert.ok(allowed.includes(k),'cursor 未文档化字段 '+k);
+  for(const k of Object.keys(c))assert.ok(allowed.includes(k),'cursor undocumented field '+k);
   for(const k of Object.keys(c.author))assert.ok(['name','email'].includes(k),'author.'+k);
-  for(const k of ['logo','skills']){assert.ok(c[k],k+' 缺失');assert.ok(fs.existsSync(path.join(root,c[k])),k);}
+  for(const k of ['logo','skills']){assert.ok(c[k],k+' missing');assert.ok(fs.existsSync(path.join(root,c[k])),k);}
   assert.ok(fs.existsSync(path.join(root,c.skills,'task-lifecycle/SKILL.md')),'skills/*/SKILL.md');
   assert.equal(m.name,'devcodex-task-lifecycle','marketplace name');assert.equal(m.interface.displayName,ui.displayName,'displayName');
   const e=m.plugins.find(p=>p.name===a.name);assert.ok(e,'marketplace entry');
   assert.equal(e.category,ui.category,'category');
+});
+test('T79 CJK gate: only allowlisted exact literals, scoped per file; stale entries fail',()=>{
+  const d=docs('cjk'),f=path.join(d,'skills/task-lifecycle/references/x.md'),al=path.join(d,'scripts/cjk-allowlist.json');
+  const allow=(entries)=>put(al,JSON.stringify({entries}));
+  put(f,'# X\n\nRuntime file 项目约定.md here.\n');
+  let r=checkDocs(d);assert.equal(r.status,1);assert.match(r.stderr,/x\.md:3: CJK outside allowlist: 项目约定/);
+  allow([{literal:'项目约定.md',bucket:'RUNTIME_NAMES',reason:'fixture',files:['skills/task-lifecycle/references/x.md']}]);
+  r=checkDocs(d);assert.equal(r.status,0,r.stderr);
+  put(f,'# X\n\nRuntime file 项目约定.md and 中文 prose.\n');
+  r=checkDocs(d);assert.equal(r.status,1);assert.match(r.stderr,/CJK outside allowlist: 中文/);
+  put(f,'# X\n');
+  r=checkDocs(d);assert.equal(r.status,1);assert.match(r.stderr,/stale entry 项目约定\.md/);
+  allow([{literal:'项目约定.md',bucket:'RUNTIME_NAMES',reason:'fixture',files:['CHANGELOG.md']}]);put(f,'项目约定.md\n');
+  r=checkDocs(d);assert.equal(r.status,1);assert.match(r.stderr,/x\.md:1: CJK outside allowlist/);
+  allow([]);put(f,'# X\n');put(path.join(d,'docs/a.md'),'# 文档\n');
+  assert.equal(checkDocs(d).status,0);
+  put(path.join(d,'CHANGELOG.md'),'# 更新\n');assert.equal(checkDocs(d).status,1);
+});
+test('T80 SKILL.md frontmatter description must be a single line',()=>{
+  const d=docs('desc'),skill=path.join(d,'skills/task-lifecycle/SKILL.md');
+  assert.equal(checkDocs(d).status,0);
+  for(const bad of ['description: >\n  folded text\n','description: |\n  literal\n','description: first line\n  continued\n','description:\n','name2: x\n']){
+    put(skill,'---\nname: sample\n'+bad+'---\n# Example\n');
+    const r=checkDocs(d);assert.equal(r.status,1,bad);assert.match(r.stderr,/description must be a single non-empty line/);
+  }
+  put(skill,'---\nname: sample\ndescription: one line only\n---\n# Example\n');assert.equal(checkDocs(d).status,0);
+});
+test('T81 English citation form: `path` line N passes',()=>{
+  const r=run(cite,['--root',root,cited('`'+rel+'` line 1 「# task-recognition-and-routing」\n')]);
+  assert.equal(r.status,0,r.stdout+r.stderr);assert.match(r.stdout,/^OK\t/);assert.match(r.stderr,/recognized=1/);
+});
+test('T81 English citation form: `path` lines N-M passes (with "…" fragment too)',()=>{
+  const r=run(cite,['--root',root,cited('`'+rel+'` lines 1-3 「# task-recognition-and-routing」\n`'+rel+'` lines 1-2 "# task-recognition-and-routing"\n')]);
+  assert.equal(r.status,0,r.stdout+r.stderr);assert.match(r.stderr,/recognized=2/);for(const l of r.stdout.trim().split('\n'))assert.match(l,/^OK\t/);
+});
+test('T81 English citation form out of range fails with RANGE',()=>{
+  const r=run(cite,['--root',root,cited('`'+rel+'` lines 1-999999 「# task-recognition-and-routing」\n')]);
+  assert.equal(r.status,1);assert.match(r.stdout,/^RANGE\t/);
+  const n=run(cite,['--root',root,cited('`references/no-such-file.md` line 1 「x」\n')]);assert.equal(n.status,1);assert.match(n.stdout,/^NOFILE\t/);
+});
+test('T81 legacy Chinese citation form 第 N～M 行 still passes',()=>{
+  const r=run(cite,['--root',root,cited('`'+rel+'` 第 1～2 行 「# task-recognition-and-routing」\n`'+rel+'` 第 1 行\n')]);
+  assert.equal(r.status,0,r.stdout+r.stderr);assert.match(r.stderr,/recognized=2/);
+});
+test('T82 SKILL.md inline label map matches entry-quickref LABELS verbatim (D8)',()=>{
+  const sk=path.join(root,'skills/task-lifecycle');
+  const rows=t=>t.split(/\r?\n/).filter(l=>/^\| [^|]+ \| [^|]/.test(l)&&!/^\|\s*(Category|---)/.test(l)).map(l=>l.slice(1,-1).split(' | ').map(c=>c.trim()));
+  const s=fs.readFileSync(path.join(sk,'SKILL.md'),'utf8'),q=fs.readFileSync(path.join(sk,'references/entry-quickref.md'),'utf8');
+  const i=s.indexOf('**Inline label map (D8)**');assert.ok(i>=0,'inline label map missing');
+  const tbl=s.slice(i).split(/\n\n(?!\|)/)[0];const mine=rows(tbl.slice(tbl.indexOf('| Category')));
+  const qs=q.slice(q.indexOf('## LABELS'));const labels=new Map(rows(qs.slice(0,qs.indexOf('`PHASE_NAMES`'))).map(r=>[r[0],r]));
+  assert.ok(mine.length>=12,'expected at least 12 rows, got '+mine.length);
+  for(const r of mine){assert.ok(labels.has(r[0]),'unknown category '+r[0]);assert.deepEqual(r,labels.get(r[0]),'pair differs: '+r[0]);}
+  for(const c of ['Entry notice','Light items','Status (three states)','Progress card (4 lines)',...[1,2,3,4,5,6,7].map(n=>'Execution item '+n)])assert.ok(mine.some(r=>r[0]===c),'missing '+c);
 });

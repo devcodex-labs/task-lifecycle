@@ -28,7 +28,7 @@ Cursor 清单键是否在官方文档字段表内及 logo/skills 路径存在；
 引用工具保持逐项 stdout，stderr 逐输入汇总 recognized/unchecked/failed；任何输入零识别失败，协调方另做预期清单对账。冻结引用只读取固定提交的文件 blob，不接受提交头/目录。见审查规则 §7.10 三种出口。
 配置为 Node ≥20；Windows HOME 缺省可使用可信系统账户 home，显式空/冲突仍关闭。Windows 30 秒包装入口、POSIX 命令与输出结构见配置消费/输出协议；能力缺失测试标 UNVERIFIED，不冒称跨平台通过。
 
-## 本插件开发基线覆盖映射（原 references/验证与证据分流.md §10.5）
+## 本插件开发基线覆盖映射（原 references/verification-and-evidence-routing.md §10.5）
 
 **适用范围**：以下两段的566、旧527及新增39等数字，只属于开发Task Lifecycle自身时相应R9/旧版批准来源的身份与历史差异，不是使用本插件的一般项目必须套用的覆盖分母。一般项目按自己的有效批准来源、实际版本与适用子条件建立映射；下述逐源、消费者、正反断言和证据等级方法仍通用。后续维护按真实影响核对来源与可复用证据，不把历史统计当成新候选已通过，也不删除或改写原审查记录。
 
@@ -41,12 +41,14 @@ Cursor 清单键是否在官方文档字段表内及 logo/skills 路径存在；
 
 ## 开发历史与方法论（0.1.68 自 README 移入）
 
-**本插件开发历史的适用性**：[验证规则§10.5](../skills/task-lifecycle/references/验证与证据分流.md#105-真实进度验收追踪和证据等级分离)中的566、旧527及新增39等数字仅追溯开发Task Lifecycle自身的对应批准基线；普通项目使用自己的有效来源集合和适用子条件。
+**本插件开发历史的适用性**：[验证规则§10.5](../skills/task-lifecycle/references/verification-and-evidence-routing.md#105-separating-real-progress-acceptance-tracking-and-evidence-levels)
+中的566、旧527及新增39等数字仅追溯开发Task Lifecycle自身的对应批准基线；普通项目使用自己的有效来源集合和适用子条件。
 原批准、失败和审查历史保留在维护过程记录中，不作为每个使用者的固定覆盖任务，也不因新包版本自动变成新验证结果。
 
 **集中发现、成批修复、分层回归**：固定版本和有限清单完成本轮问题收集，再按真实根因/依赖修复；每项做最小验证、每批做消费者影响面回归，最后统一完成适用验收。
 前置阻断先最小处置并保留版本边界；未受影响的合格证据保留原版本复用，每次重跑说明改动及失效依据。
-执行主责见[审查规则§7.9](../skills/task-lifecycle/references/正式专项审查与Finding.md)和[验证规则§10.7](../skills/task-lifecycle/references/验证与证据分流.md)，对应模板和Bugfix示例提供用法；这些规则不承诺一次找齐所有Bug或自动替代真实测试/真人验收。
+执行主责见[审查规则§7.9](../skills/task-lifecycle/references/formal-review-and-findings.md)和[验证规则§10.7](../skills/task-lifecycle/references/verification-and-evidence-routing.md)，对应模板和Bugfix示例提供用法；
+这些规则不承诺一次找齐所有Bug或自动替代真实测试/真人验收。
 
 README 只写安装、使用、配置（D1=A）；`README.md`（英文）与 `README.zh-CN.md`（中文）章节一一对应，每次发版两份同步（D2=B）。
 发版前现查本次推送提交在 ubuntu、windows 双平台的 CI 结果；红则在发版记录与转告中写明原因，由 Rocky 决定是否照发。不另立门禁制度，不以 run URL 作为发版硬条件。

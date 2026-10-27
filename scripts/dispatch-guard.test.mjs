@@ -8,40 +8,42 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'skil
 const read = (p) => readFileSync(path.join(root, p), 'utf8').replace(/\r\n/g, '\n'); // CRLF-safe on Windows checkouts
 
 test('relay templates carry dispatch header and receiver ban', () => {
-  for (const n of ['接力审查首棒提示词', '接力审查次棒提示词', '接力审查核验提示词']) {
+  for (const n of ['relay-review-first-leg-prompt', 'relay-review-second-leg-prompt', 'relay-review-verifier-prompt']) {
     const t = read(`templates/${n}.md`);
     const body = t.slice(t.indexOf('```text\n') + 8);
     assert.match(body.split('\n')[0], /^\[TL-DISPATCHED depth=/, n);
-    assert.match(body, /不是真实用户消息/, n);
-    assert.match(body, /禁止再派发/, n);
-    assert.match(body, /普通只读命令/, n);
+    for (const k of ['not a real user message', 'No further dispatch', 'ordinary read-only commands']) {
+      assert.equal(body.split(k).length - 1, 1, `${n}: ${k}`);
+    }
   }
 });
 
 test('SKILL.md receiver gate precedes admission and only tightens', () => {
   const s = read('SKILL.md');
-  assert.match(s, /接收方门禁（派发标记，先于点名/);
-  assert.match(s, /只能收紧不能放宽/);
-  assert.match(s, /depth≥1 一律不得派发/);
+  assert.match(s, /Receiver gate \(dispatch marker; evaluated before naming/);
+  assert.match(s, /can only tighten, never loosen/);
+  assert.match(s, /depth≥1 may never dispatch/);
 });
 
 test('naming inside dispatch prompt does not admit CLI', () => {
-  assert.match(read('references/正式专项审查与Finding.md'), /派发提示词.*中的点名.*不构成准入/);
-  assert.match(read('references/任务拆分并行与整合.md'), /派发提示词中的点名不构成准入/);
+  assert.match(read('references/formal-review-and-findings.md'), /naming, reviewer pools or config wording in a dispatch prompt.*grants no admission/);
+  assert.match(read('references/task-split-parallel-and-integration.md'), /naming in a dispatch prompt grants no admission/);
 });
 
 test('delegation necessity triage only narrows (CAND-20261026-001 v7)', () => {
-  const r = read('references/任务拆分并行与整合.md');
-  assert.match(r, /必要性判定（CAND-20261026-001 v7，0\.1\.46；只收窄不放宽）/);
-  for (const k of ['纯确定性档', '宿主行为档', '灰区', '四类默认档', '成本原则只能缩小委派范围', '外部宿主行为验证准入']) assert.ok(r.includes(k), k);
-  assert.match(r, /不放宽也不覆盖第 1 条默认关闭、永不委派项与已批计划逐 WI 点名/);
-  assert.match(r, /能力全放开、只留五条底线/);
-  for (const k of ['禁推送', '禁发布', '禁删除', '禁读凭据', '不签结论', '越界即停', 'Bash(git push:*)']) assert.ok(r.includes(k), k);
+  const r = read('references/task-split-parallel-and-integration.md');
+  assert.match(r, /Necessity judgment \(CAND-20261026-001 v7, 0\.1\.46; only narrows, never loosens\)/);
+  for (const k of ['deterministic tier', 'host-behavior tier', 'gray zone', 'Default tiers of the four categories',
+    'the cost principle can only narrow delegation scope', 'Admission for external host behavior verification']) assert.ok(r.includes(k), k);
+  assert.match(r, /neither loosens nor overrides item 1's default-off, the never-delegate items and per-WI naming in the approved plan/);
+  assert.match(r, /Capabilities fully open, only five baselines remain/);
+  for (const k of ['no push', 'no release', 'no delete', 'no credential reads', 'no signing conclusions', 'Stop on crossing', 'Bash(git push:*)']) assert.ok(r.includes(k), k);
 });
 
 test('pending decisions prefer option controls, presentation only (CAND-20261026-003 v5)', () => {
-  const r = read('references/确认授权与变更.md');
-  assert.match(r, /待决事项优先用选项控件呈现\*\*（CAND-20261026-003 v5，0\.1\.47；只管呈现，不改变批准语义）/);
-  for (const k of ['逐题点选', '每回合一题', '短回复码带决定身份', '推荐项排第一并标“（推荐）”', '全部按推荐', '自由文本入口']) assert.ok(r.includes(k), k);
-  assert.match(r, /一律按 §6\.5、§6\.3\.1 与第 4、5 条及 SKILL\.md §0 第 2 条执行/);
+  const r = read('references/confirmation-authorization-and-change.md');
+  assert.match(r, /Pending decisions preferably use a choice widget\*\* \(CAND-20261026-003 v5, 0\.1\.47; governs presentation only, not approval semantics\)/);
+  for (const k of ['can click question by question', 'one question per turn', 'short reply codes carrying the decision identity',
+    'the recommended option\n     comes first with "(recommended)"', 'MERGED_OPTION_TEXT', 'free-text entry']) assert.ok(r.includes(k), k);
+  assert.match(r, /all follow §6\.5, §6\.3\.1, items 4 and 5 and SKILL\.md §0 item 2/);
 });

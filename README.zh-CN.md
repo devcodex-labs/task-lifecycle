@@ -2,7 +2,7 @@
 
 [English](README.md) · **简体中文**
 
-![version](https://img.shields.io/badge/version-0.1.73-2357C6) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
+![version](https://img.shields.io/badge/version-0.2.0-2357C6) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
 
 按真实开发意图进入的受管任务插件：用一个 `SKILL.md` 加按需读取的参考规则，带你逐阶段规划、审查并确认 Feature（功能）、Bugfix（缺陷修复）、Docs（文档）工作。
 
@@ -62,14 +62,14 @@ codex plugin add task-lifecycle@devcodex-task-lifecycle
 ## 关键行为要点
 
 以下为摘要，完整规则与禁止项以所链 reference 为准。
-- Confirm 默认；Auto（只自动验收你委托范围内的中间文件）不批准范围、重要方案、规则晋级、最终验收、发布或宿主操作。见 [确认授权与变更](skills/task-lifecycle/references/确认授权与变更.md)。
+- Confirm 默认；Auto（只自动验收你委托范围内的中间文件）不批准范围、重要方案、规则晋级、最终验收、发布或宿主操作。见 [confirmation-authorization-and-change](skills/task-lifecycle/references/confirmation-authorization-and-change.md)。
 - 权限归宿主：文件/命令/网络权限由宿主决定，插件只管内容与质量。见 [SKILL.md](skills/task-lifecycle/SKILL.md)。
-- 自审与正式专项审查分开；Finding（审查发现的问题）须有根因与复验。见 [正式专项审查与Finding](skills/task-lifecycle/references/正式专项审查与Finding.md)。
-- 证据分级：E3 与 E4 分开报告，未运行不标 passed；`fast` 不跳过必要质量。见 [验证与证据分流](skills/task-lifecycle/references/验证与证据分流.md)。
-- 过程文档默认放项目同级外置的 `.task-lifecycle/`（核实 realpath/Git/worktree），不进交付目录。见 [文件目录版本与跨会话恢复](skills/task-lifecycle/references/文件目录版本与跨会话恢复.md)。
-- HTTP 辅助 `off/suggest/generate`，默认 `suggest`；生成 `.http` 不等于已请求；真实生产/敏感 HTTP 永远需独立授权。见 [HTTP辅助验证](skills/task-lifecycle/references/HTTP辅助验证.md)。
-- 并行与委派只在宿主真正支持且许可满足时进行，否则回退或阻断。见 [任务拆分并行与整合](skills/task-lifecycle/references/任务拆分并行与整合.md)。
-- 自我进化机制默认关闭；新规则须你逐条晋级。见 [通用规范吸纳与自我进化](skills/task-lifecycle/references/通用规范吸纳与自我进化.md)。
+- 自审与正式专项审查分开；Finding（审查发现的问题）须有根因与复验。见 [formal-review-and-findings](skills/task-lifecycle/references/formal-review-and-findings.md)。
+- 证据分级：E3 与 E4 分开报告，未运行不标 passed；`fast` 不跳过必要质量。见 [verification-and-evidence-routing](skills/task-lifecycle/references/verification-and-evidence-routing.md)。
+- 过程文档默认放项目同级外置的 `.task-lifecycle/`（核实 realpath/Git/worktree），不进交付目录。见 [workspace-versioning-and-recovery](skills/task-lifecycle/references/workspace-versioning-and-recovery.md)。
+- HTTP 辅助 `off/suggest/generate`，默认 `suggest`；生成 `.http` 不等于已请求；真实生产/敏感 HTTP 永远需独立授权。见 [http-assisted-verification](skills/task-lifecycle/references/http-assisted-verification.md)。
+- 并行与委派只在宿主真正支持且许可满足时进行，否则回退或阻断。见 [task-split-parallel-and-integration](skills/task-lifecycle/references/task-split-parallel-and-integration.md)。
+- 自我进化机制默认关闭；新规则须你逐条晋级。见 [rule-evolution](skills/task-lifecycle/references/rule-evolution.md)。
 
 ## 配置
 
@@ -82,7 +82,8 @@ codex plugin add task-lifecycle@devcodex-task-lifecycle
 timeout 30 node scripts/validate-config.mjs [--workspace <项目根的父目录> --project-id <Project ID>]
 ```
 
-只认本次 stdout 的 `status: "valid"`，退出码只作辅助；否则或没有配置时，委派、审查宿主池与深度执行默认都关闭。Windows 不要用 `timeout.exe`，改用 [任务拆分并行与整合](skills/task-lifecycle/references/任务拆分并行与整合.md) 中的 Node 30 秒包装调用。
+只认本次 stdout 的 `status: "valid"`，退出码只作辅助；否则或没有配置时，委派、审查宿主池与深度执行默认都关闭。Windows 不要用 `timeout.exe`，改用
+[task-split-parallel-and-integration](skills/task-lifecycle/references/task-split-parallel-and-integration.md) 中的 Node 30 秒包装调用。
 
 ## 组件一览
 

@@ -2,7 +2,7 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-![version](https://img.shields.io/badge/version-0.1.73-2357C6) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
+![version](https://img.shields.io/badge/version-0.2.0-2357C6) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
 
 An intent-triggered governed-task plugin: one `SKILL.md` plus on-demand reference rules guide you stage by stage to plan, review, and confirm Feature, Bugfix, and Docs work.
 
@@ -62,14 +62,20 @@ When it does enter by intent it tells you first and you can switch back to ordin
 ## Key behaviors
 
 Each point is a summary; the linked reference (Chinese) holds the full rules and prohibitions.
-- Confirm by default; Auto (only delegated in-scope interim files) never approves scope, key plans, promotion, sign-off, release, host ops: [确认授权与变更](skills/task-lifecycle/references/确认授权与变更.md).
+- Confirm by default; Auto (only delegated in-scope interim files) never approves scope, key plans, promotion, sign-off, release, host ops:
+  [confirmation-authorization-and-change](skills/task-lifecycle/references/confirmation-authorization-and-change.md).
 - Permissions belong to the host: file/command/network permissions are the host's; the plugin governs content and quality. See [SKILL.md](skills/task-lifecycle/SKILL.md).
-- Self-review and formal review are separate; a Finding (an issue found in review) needs a root cause and re-verification. See [正式专项审查与Finding](skills/task-lifecycle/references/正式专项审查与Finding.md).
-- Graded evidence: E3 and E4 are reported separately; nothing unrun is marked passed; `fast` never skips required quality. See [验证与证据分流](skills/task-lifecycle/references/验证与证据分流.md).
-- Process docs default to a sibling `.task-lifecycle/` beside the project (realpath/Git/worktree checked), not the delivery dir. See [文件目录版本与跨会话恢复](skills/task-lifecycle/references/文件目录版本与跨会话恢复.md).
-- HTTP helper `off/suggest/generate` (default `suggest`); a generated `.http` is not sent; prod/sensitive HTTP needs its own approval. [HTTP辅助验证](skills/task-lifecycle/references/HTTP辅助验证.md).
-- Parallelism and delegation run only when the host truly supports them and permissions allow; otherwise fall back or block. See [任务拆分并行与整合](skills/task-lifecycle/references/任务拆分并行与整合.md).
-- The self-evolution mechanism is off by default; new rules need your item-by-item promotion. See [通用规范吸纳与自我进化](skills/task-lifecycle/references/通用规范吸纳与自我进化.md).
+- Self-review and formal review are separate; a Finding (an issue found in review) needs a root cause and re-verification. See
+  [formal-review-and-findings](skills/task-lifecycle/references/formal-review-and-findings.md).
+- Graded evidence: E3 and E4 are reported separately; nothing unrun is marked passed; `fast` never skips required quality. See
+  [verification-and-evidence-routing](skills/task-lifecycle/references/verification-and-evidence-routing.md).
+- Process docs default to a sibling `.task-lifecycle/` beside the project (realpath/Git/worktree checked), not the delivery dir. See
+  [workspace-versioning-and-recovery](skills/task-lifecycle/references/workspace-versioning-and-recovery.md).
+- HTTP helper `off/suggest/generate` (default `suggest`); a generated `.http` is not sent; prod/sensitive HTTP needs its own approval.
+  [http-assisted-verification](skills/task-lifecycle/references/http-assisted-verification.md).
+- Parallelism and delegation run only when the host truly supports them and permissions allow; otherwise fall back or block. See
+  [task-split-parallel-and-integration](skills/task-lifecycle/references/task-split-parallel-and-integration.md).
+- The self-evolution mechanism is off by default; new rules need your item-by-item promotion. See [rule-evolution](skills/task-lifecycle/references/rule-evolution.md).
 
 ## Configuration
 
@@ -82,7 +88,8 @@ Delegation-type settings (executor delegation, depth execution default, read-onl
 timeout 30 node scripts/validate-config.mjs [--workspace <parent of project root> --project-id <Project ID>]
 ```
 
-Only `status: "valid"` in this run's stdout counts, not the exit code; else all three settings stay off. Windows: [Node wrapper, no `timeout.exe`](skills/task-lifecycle/references/任务拆分并行与整合.md).
+Only `status: "valid"` in this run's stdout counts, not the exit code; else all three settings stay off. Windows: [Node wrapper, no
+`timeout.exe`](skills/task-lifecycle/references/task-split-parallel-and-integration.md).
 
 ## Components
 

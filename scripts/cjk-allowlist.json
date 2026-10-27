@@ -1,0 +1,1126 @@
+{
+ "description": "Exact CJK literals allowed in skills/task-lifecycle/** and CHANGELOG.md (check-docs gate g). Each entry is scoped to the listed files; stale entries fail the gate.",
+ "entries": [
+  {
+   "literal": "《任务描述》",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime process document name (《…》) in user workspaces",
+   "files": [
+    "skills/task-lifecycle/examples/feature-api-managed-first-start.md",
+    "skills/task-lifecycle/templates/workflow-and-handoff-record.md"
+   ]
+  },
+  {
+   "literal": "《任务工作流方案》",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime process document name (《…》) in user workspaces",
+   "files": [
+    "skills/task-lifecycle/examples/feature-api-managed-first-start.md",
+    "skills/task-lifecycle/references/task-split-parallel-and-integration.md",
+    "skills/task-lifecycle/templates/workflow-and-handoff-record.md"
+   ]
+  },
+  {
+   "literal": "临时/",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/artifact-content-and-self-review-contract.md",
+    "skills/task-lifecycle/references/entry-quickref.md",
+    "skills/task-lifecycle/references/workspace-versioning-and-recovery.md"
+   ]
+  },
+  {
+   "literal": "审查/",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/artifact-content-and-self-review-contract.md",
+    "skills/task-lifecycle/references/entry-quickref.md",
+    "skills/task-lifecycle/references/workspace-versioning-and-recovery.md"
+   ]
+  },
+  {
+   "literal": "修订/",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/artifact-content-and-self-review-contract.md",
+    "skills/task-lifecycle/references/entry-quickref.md",
+    "skills/task-lifecycle/references/workspace-versioning-and-recovery.md"
+   ]
+  },
+  {
+   "literal": "变更影响分析.md",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/confirmation-authorization-and-change.md",
+    "skills/task-lifecycle/references/entry-quickref.md",
+    "skills/task-lifecycle/references/task-recognition-and-routing.md"
+   ]
+  },
+  {
+   "literal": "进入 Task Lifecycle（可改为普通协助）",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "执行前预检查",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "意图与路由",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "落点",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "步骤",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "现场状态",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "验证计划",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "授权与停点",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "歧义",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "意图 / 落点 / 下一步 / 歧义",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "已核实 / 待核实 / 不适用（理由）",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "项 \\",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "状态 \\",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "内容",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "不适用（非受管）；无 Git，不虚构 HEAD；其后按某计划第 n 步起；不适用＋原因",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "配置：valid / 配置：disabled（<码>）；旧约定未检测（<detail>）；配置已在批准后被改动",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "推荐，未选",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "同上回合",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "阶段 / 已完成 / 待你决定（无则写“无”） / 下一步",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "（推荐）；建议采用 / 可选 / 不建议；其他",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "D1=A，D2=B",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "技术方案（A03）",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "E4 实测 / E3 静态 / 未验证",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "高 / 中 / 低",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "推测（附原因）；已实测（附命令/输出）",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "核验中新增；待核验；同一模型（X）两个独立会话，无跨模型互补；同一模型两个独立会话；缺失；已删；首版，无上一版；采纳 / 驳回 / 补充 / OPEN",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "未选用/替补",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "例外：… / 未写明 / 动作已完整 / — / 同上",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "材料：… / 停点：…",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "状态：",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "已下架",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "有效 / 有害 / 证据不足",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "放权类配置",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "来源与有效性",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "字段 / 实际值 / 真实证据 / 内容",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "覆盖清单 / 问题清单 / 新问题清单",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "同意 / 异议 / 补充",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "采纳 / 驳回 / 补充 / OPEN",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "[Task Lifecycle 恢复块] / 阶段 / 已批准版本 / 下一步",
+   "bucket": "LABELS",
+   "reason": "zh column of the bilingual LABELS table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "需求评审",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "技术方案",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "实施计划",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "开发与代码审查",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "真实验证",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "交付审查",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "有授权才发布",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "完成与反馈",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "任意阶段插入式变更",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "缺陷分析",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "复现/根因",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "修复方案",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "执行修复",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "专项代码审查",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "回归验证",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "关联交付",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "仅合法发布",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "完成",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "任意阶段变更",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "读者/目标",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "事实盘点",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "内容契约/信息架构",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "修订计划",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "修订",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "专项审查",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "真实读者/站点验证",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "条件发布",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "交接",
+   "bucket": "PHASE_NAMES",
+   "reason": "zh column of the bilingual PHASE_NAMES table (D2)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "任务描述.md",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md",
+    "skills/task-lifecycle/references/workspace-versioning-and-recovery.md"
+   ]
+  },
+  {
+   "literal": "任务工作流方案.md",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md",
+    "skills/task-lifecycle/references/workspace-versioning-and-recovery.md"
+   ]
+  },
+  {
+   "literal": "需求与契约等正式过程文档.md",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md",
+    "skills/task-lifecycle/references/workspace-versioning-and-recovery.md"
+   ]
+  },
+  {
+   "literal": "人工确认记录.md",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md",
+    "skills/task-lifecycle/references/workspace-versioning-and-recovery.md"
+   ]
+  },
+  {
+   "literal": "任务交接说明.md",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md",
+    "skills/task-lifecycle/references/workspace-versioning-and-recovery.md"
+   ]
+  },
+  {
+   "literal": "证据/",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md",
+    "skills/task-lifecycle/references/workspace-versioning-and-recovery.md"
+   ]
+  },
+  {
+   "literal": "历史/",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md",
+    "skills/task-lifecycle/references/workspace-versioning-and-recovery.md"
+   ]
+  },
+  {
+   "literal": "能力缺口索引.md",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md",
+    "skills/task-lifecycle/references/workspace-versioning-and-recovery.md"
+   ]
+  },
+  {
+   "literal": "工作区约定.md",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md",
+    "skills/task-lifecycle/references/workspace-versioning-and-recovery.md"
+   ]
+  },
+  {
+   "literal": "项目约定.md",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md",
+    "skills/task-lifecycle/references/workspace-versioning-and-recovery.md"
+   ]
+  },
+  {
+   "literal": "`未验证`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`没测成`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`估计`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`有条件`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`部分`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`没测成功`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`所有条件`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`第`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`。`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`？`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`！`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`「…」`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`只读`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`同上`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`同上回合`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`见上`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`无`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "`全部按推荐`",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "Chinese literal of a language-neutral matching constant (verbatim)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "《已确认需求》",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime process document name (《…》) in user workspaces",
+   "files": [
+    "skills/task-lifecycle/references/feature-flow.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261024-010-修改后联动残留与缺席检查",
+   "bucket": "RECORD_ID",
+   "reason": "record/candidate/bug ID containing Chinese; IDs are kept verbatim",
+   "files": [
+    "skills/task-lifecycle/references/formal-review-and-findings.md"
+   ]
+  },
+  {
+   "literal": "docs/已知缺口.md",
+   "bucket": "REPO_PATH",
+   "reason": "repository or attachment path with a Chinese filename (not renamed in step 2)",
+   "files": [
+    "skills/task-lifecycle/references/formal-review-and-findings.md",
+    "CHANGELOG.md"
+   ]
+  },
+  {
+   "literal": "《工作流方案》",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime process document name (《…》) in user workspaces",
+   "files": [
+    "skills/task-lifecycle/references/rule-evolution.md",
+    "skills/task-lifecycle/references/task-split-parallel-and-integration.md"
+   ]
+  },
+  {
+   "literal": "《交接说明》",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime process document name (《…》) in user workspaces",
+   "files": [
+    "skills/task-lifecycle/references/rule-evolution.md"
+   ]
+  },
+  {
+   "literal": "《规则退役/回滚记录》",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime process document name (《…》) in user workspaces",
+   "files": [
+    "skills/task-lifecycle/references/rule-evolution.md"
+   ]
+  },
+  {
+   "literal": "《审查报告》",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime process document name (《…》) in user workspaces",
+   "files": [
+    "skills/task-lifecycle/references/skill-discovery-matching-and-degradation.md"
+   ]
+  },
+  {
+   "literal": "《任务交接说明》",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime process document name (《…》) in user workspaces",
+   "files": [
+    "skills/task-lifecycle/references/skill-discovery-matching-and-degradation.md",
+    "skills/task-lifecycle/templates/workflow-and-handoff-record.md"
+   ]
+  },
+  {
+   "literal": "《能力缺口索引.md》",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime process document name (《…》) in user workspaces",
+   "files": [
+    "skills/task-lifecycle/references/skill-discovery-matching-and-degradation.md"
+   ]
+  },
+  {
+   "literal": "以后默认采用",
+   "bucket": "LEGACY_LITERAL",
+   "reason": "legacy Chinese config wording detected by validate-config (literal rules L13/L14)",
+   "files": [
+    "skills/task-lifecycle/references/task-recognition-and-routing.md",
+    "skills/task-lifecycle/references/workspace-versioning-and-recovery.md"
+   ]
+  },
+  {
+   "literal": "子任务记录.md",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/task-split-parallel-and-integration.md"
+   ]
+  },
+  {
+   "literal": "《项目约定.md》",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime process document name (《…》) in user workspaces",
+   "files": [
+    "skills/task-lifecycle/references/task-split-parallel-and-integration.md"
+   ]
+  },
+  {
+   "literal": "外部执行器委派",
+   "bucket": "LEGACY_LITERAL",
+   "reason": "legacy Chinese config wording detected by validate-config (literal rules L13/L14)",
+   "files": [
+    "skills/task-lifecycle/references/task-split-parallel-and-integration.md"
+   ]
+  },
+  {
+   "literal": "DIRECT-20261027-GrokBuild放权",
+   "bucket": "RECORD_ID",
+   "reason": "record/candidate/bug ID containing Chinese; IDs are kept verbatim",
+   "files": [
+    "skills/task-lifecycle/references/task-split-parallel-and-integration.md"
+   ]
+  },
+  {
+   "literal": "《实施计划》",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime process document name (《…》) in user workspaces",
+   "files": [
+    "skills/task-lifecycle/references/task-split-parallel-and-integration.md"
+   ]
+  },
+  {
+   "literal": "工作区约定",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime file/dir name in user workspaces; must stay verbatim",
+   "files": [
+    "skills/task-lifecycle/references/validator-output-protocol.md"
+   ]
+  },
+  {
+   "literal": "执行时默认采用",
+   "bucket": "LEGACY_LITERAL",
+   "reason": "legacy Chinese config wording detected by validate-config (literal rules L13/L14)",
+   "files": [
+    "skills/task-lifecycle/references/workspace-versioning-and-recovery.md"
+   ]
+  },
+  {
+   "literal": "BUG-20261027-Page像素条款卡死生成",
+   "bucket": "RECORD_ID",
+   "reason": "record/candidate/bug ID containing Chinese; IDs are kept verbatim",
+   "files": [
+    "CHANGELOG.md"
+   ]
+  },
+  {
+   "literal": "DIRECT-20261027-流程型Page-IA吸纳",
+   "bucket": "RECORD_ID",
+   "reason": "record/candidate/bug ID containing Chinese; IDs are kept verbatim",
+   "files": [
+    "CHANGELOG.md"
+   ]
+  },
+  {
+   "literal": "/workspace/attach/四候选-直接吸纳分析.md",
+   "bucket": "REPO_PATH",
+   "reason": "repository or attachment path with a Chinese filename (not renamed in step 2)",
+   "files": [
+    "CHANGELOG.md"
+   ]
+  },
+  {
+   "literal": "DIRECT-20261027-CAND014-试行",
+   "bucket": "RECORD_ID",
+   "reason": "record/candidate/bug ID containing Chinese; IDs are kept verbatim",
+   "files": [
+    "CHANGELOG.md"
+   ]
+  },
+  {
+   "literal": "/workspace/attach/审查验证方式规则-草稿.md",
+   "bucket": "REPO_PATH",
+   "reason": "repository or attachment path with a Chinese filename (not renamed in step 2)",
+   "files": [
+    "CHANGELOG.md"
+   ]
+  },
+  {
+   "literal": "`` `path` 第 N～M 行 ``",
+   "bucket": "LEGACY_LITERAL",
+   "reason": "legacy Chinese citation syntax still accepted by check-citations (D2 L18)",
+   "files": [
+    "skills/task-lifecycle/references/formal-review-and-findings.md"
+   ]
+  },
+  {
+   "literal": "「…」",
+   "bucket": "LITERAL_CONSTANTS",
+   "reason": "QUOTE_PAIRS Chinese quote pair accepted as a citation fragment delimiter (D2 L18)",
+   "files": [
+    "skills/task-lifecycle/references/formal-review-and-findings.md"
+   ]
+  },
+  {
+   "literal": "进入 Task Lifecycle（可改为普通协助）",
+   "bucket": "LABELS",
+   "reason": "zh column of the inline SKILL.md label map, copied from entry-quickref LABELS (D8)",
+   "files": [
+    "skills/task-lifecycle/SKILL.md"
+   ]
+  },
+  {
+   "literal": "执行前预检查",
+   "bucket": "LABELS",
+   "reason": "zh column of the inline SKILL.md label map, copied from entry-quickref LABELS (D8)",
+   "files": [
+    "skills/task-lifecycle/SKILL.md"
+   ]
+  },
+  {
+   "literal": "意图与路由",
+   "bucket": "LABELS",
+   "reason": "zh column of the inline SKILL.md label map, copied from entry-quickref LABELS (D8)",
+   "files": [
+    "skills/task-lifecycle/SKILL.md"
+   ]
+  },
+  {
+   "literal": "落点",
+   "bucket": "LABELS",
+   "reason": "zh column of the inline SKILL.md label map, copied from entry-quickref LABELS (D8)",
+   "files": [
+    "skills/task-lifecycle/SKILL.md"
+   ]
+  },
+  {
+   "literal": "步骤",
+   "bucket": "LABELS",
+   "reason": "zh column of the inline SKILL.md label map, copied from entry-quickref LABELS (D8)",
+   "files": [
+    "skills/task-lifecycle/SKILL.md"
+   ]
+  },
+  {
+   "literal": "现场状态",
+   "bucket": "LABELS",
+   "reason": "zh column of the inline SKILL.md label map, copied from entry-quickref LABELS (D8)",
+   "files": [
+    "skills/task-lifecycle/SKILL.md"
+   ]
+  },
+  {
+   "literal": "验证计划",
+   "bucket": "LABELS",
+   "reason": "zh column of the inline SKILL.md label map, copied from entry-quickref LABELS (D8)",
+   "files": [
+    "skills/task-lifecycle/SKILL.md"
+   ]
+  },
+  {
+   "literal": "授权与停点",
+   "bucket": "LABELS",
+   "reason": "zh column of the inline SKILL.md label map, copied from entry-quickref LABELS (D8)",
+   "files": [
+    "skills/task-lifecycle/SKILL.md"
+   ]
+  },
+  {
+   "literal": "歧义",
+   "bucket": "LABELS",
+   "reason": "zh column of the inline SKILL.md label map, copied from entry-quickref LABELS (D8)",
+   "files": [
+    "skills/task-lifecycle/SKILL.md"
+   ]
+  },
+  {
+   "literal": "意图 / 落点 / 下一步 / 歧义",
+   "bucket": "LABELS",
+   "reason": "zh column of the inline SKILL.md label map, copied from entry-quickref LABELS (D8)",
+   "files": [
+    "skills/task-lifecycle/SKILL.md"
+   ]
+  },
+  {
+   "literal": "已核实 / 待核实 / 不适用（理由）",
+   "bucket": "LABELS",
+   "reason": "zh column of the inline SKILL.md label map, copied from entry-quickref LABELS (D8)",
+   "files": [
+    "skills/task-lifecycle/SKILL.md"
+   ]
+  },
+  {
+   "literal": "阶段 / 已完成 / 待你决定（无则写“无”） / 下一步",
+   "bucket": "LABELS",
+   "reason": "zh column of the inline SKILL.md label map, copied from entry-quickref LABELS (D8)",
+   "files": [
+    "skills/task-lifecycle/SKILL.md"
+   ]
+  }
+ ]
+}

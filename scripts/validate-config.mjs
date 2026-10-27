@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-// task-lifecycle 放权类配置校验（只读、零依赖、Node >= 20）。
-// 契约：使用契约（A02）§1–§4；结构：技术方案（A03）§2–§4、§11.3。
-// 不写文件、不联网、不启动任何子进程；只读两层 config.json、两份约定 Markdown 与路径元数据。
+// task-lifecycle delegation config validator (read-only, zero dependencies, Node >= 20).
+// Contract: Usage Contract (A02) §1–§4; structure: Technical design (A03) §2–§4, §11.3.
+// Writes no files, no network, starts no child processes; reads only the two config.json layers, the two convention Markdown files and path metadata.
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -29,23 +29,23 @@ export const REASON_CODES = Object.freeze({
   'project-layer-widening': 'merge',
 });
 export const CATEGORY_KEYS = Object.freeze(['drafting', 'implementation', 'readonly-investigation', 'test-run']);
-// 任务拆分并行与整合.md 类别上限表（阶段代号）；测试对照该文件解析结果。
+// Category ceiling table (phase codes) from task-split-parallel-and-integration.md; tests compare against that file's parsed result.
 export const CATEGORY_STAGE_LIMITS = Object.freeze({
   implementation: ['A05', 'B04', 'DOC05'],
   'readonly-investigation': ['A01', 'A02', 'A03', 'A10', 'B10', 'DOC10', 'B01', 'DOC02'],
   'test-run': ['A06', 'B02', 'B06', 'DOC07'],
   drafting: ['A07', 'B07'],
 });
-// 任务拆分并行与整合.md「类别与上限」表逐字文本与永不委派两行（测试逐字比对，防漂移；改规则须同步）。
+// Verbatim text of the "Categories and ceilings" table and the two never-delegate lines in task-split-parallel-and-integration.md (tests compare verbatim to prevent drift; keep in sync when rules change).
 export const CATEGORY_STAGE_LIMIT_TEXT = Object.freeze({
-  "drafting": "A07 按已生效契约起草使用文档与示例；B07 按已定修复起草文档与契约同步文本",
-  "implementation": "A05 实现已批准 WI 的代码与测试；B04 实现已批准最小修复并补失败→修复测试；DOC05 按已批准内容契约和修改清单编写",
-  "readonly-investigation": "A01 现有行为事实；A02 实际调用表面盘点；A03 依赖版本与源码结构核对；A10/B10/DOC10 受影响面收集；B01 环境/日志/消费者；DOC02 事实盘点",
-  "test-run": "A06 按冻结验证方案运行并交回原始输出；B02 编写并运行复现脚本；B06 原 Bug 与回归测试；DOC07 无可交子步骤（静态脚本与该阶段其余子步骤均不在上限内）"
+  "drafting": "A07 draft usage docs and examples per the effective contract; B07 draft doc and contract sync text per the decided fix",
+  "implementation": "A05 implement code and tests of approved WIs; B04 implement the approved minimal fix and add failure→fix tests; DOC05 write per the approved content contract and change list",
+  "readonly-investigation": "A01 existing behavior facts; A02 actual call surface inventory; A03 dependency version and source structure check; A10/B10/DOC10 affected surface collection; B01 environment/logs/consumers; DOC02 fact inventory",
+  "test-run": "A06 run per the frozen verification plan and return raw output; B02 write and run the repro script; B06 original Bug and regression tests; DOC07 no sub-step may be handed over (static scripts and the phase's other sub-steps are all outside the ceiling)"
 });
 export const NEVER_DELEGATE_TEXT = Object.freeze([
-  "- **永不委派**：00、A04、A08、A09、B03、B05、B08、B09、DOC01、DOC03、DOC04、DOC06、DOC08、DOC09 全部内容；",
-  "以及任何阶段的 SelfReview/FormalReview/Approval、Finding 关闭、E1～E4 判定与证据签署、根因与回归结论、整合、push/发布/删除、最终验收。"
+  "- **Never delegate**: all content of 00, A04, A08, A09, B03, B05, B08, B09, DOC01, DOC03, DOC04, DOC06, DOC08, DOC09;",
+  "plus any phase's SelfReview/FormalReview/Approval, Finding closure, E1–E4 judgment and evidence sign-off, root-cause and regression verdicts, integration, push/release/delete, final acceptance."
 ]);
 export const NEVER_DELEGATE_STAGES = Object.freeze(['00', 'A04', 'A08', 'A09', 'B03', 'B05', 'B08', 'B09', 'DOC01', 'DOC03', 'DOC04', 'DOC06', 'DOC08', 'DOC09']);
 const STAGE_NAMES = [];
@@ -67,7 +67,7 @@ export const REVIEW_FALLBACK = Object.freeze({
 });
 export const REVIEW_HOSTS_MAX = 4;
 export const QUOTE_MAX = 500;
-// 逐字段规则（单一来源）；schema 一致性测试逐项对照 assets/config.schema.json。
+// Per-field rules (single source); the schema consistency test compares each item with assets/config.schema.json.
 export const FIELD_RULES_GLOBAL = Object.freeze({
   root: { type: 'object', required: ['schemaVersion', 'approvalSource', 'delegation'], properties: ['approvalSource', 'delegation', 'review', 'schemaVersion', 'workflowDepth'] },
   approvalSource: { type: 'object', required: ['messageId', 'quote', 'record'], properties: ['messageId', 'quote', 'record'] },
@@ -86,8 +86,8 @@ export const FIELD_RULES_PROJECT = Object.freeze({
   review: { type: 'object', onlyAllowed: { enabled: false } },
 });
 
-// 人读 schema 的 $defs 由上列常量生成；测试断言 assets/config.schema.json 的 $defs（去掉 $comment）与之逐字段相等。
-const pick = (names, map) => Object.fromEntries(names.map((k) => { if (!(k in map)) throw new Error(`FIELD_RULES 字段 ${k} 无 schema 定义`); return [k, map[k]]; }));
+// The human-readable schema $defs are generated from the constants above; tests assert assets/config.schema.json $defs (minus $comment) equal them field by field.
+const pick = (names, map) => Object.fromEntries(names.map((k) => { if (!(k in map)) throw new Error(`FIELD_RULES field ${k} has no schema definition`); return [k, map[k]]; }));
 export function buildSchemaDefs() {
   const str = (pattern) => (pattern ? { type: 'string', pattern: PATTERNS[pattern] } : { type: 'string' });
   const effort = { type: 'string', enum: [...REASONING_EFFORT_VALUES] };
@@ -123,7 +123,7 @@ const re = (k) => new RegExp(PATTERNS[k]);
 const reason = (code, stage, layer, p = '', detail = '') => ({ code, detail, layer, path: p, stage });
 const errCode = (e) => (e && typeof e === 'object' && typeof e.code === 'string' ? e.code : null);
 
-// ---------- Git 边界（纯函数，lstat 可注入；只取 err.code，不 open/read） ----------
+// ---------- Git boundary (pure functions, injectable lstat; uses only err.code, no open/read) ----------
 export const GIT_MARKERS = Object.freeze(['.git', 'HEAD', 'commondir', 'gitdir']);
 export function gitBoundary(startDir, lstat) {
   let d = startDir;
@@ -142,7 +142,7 @@ export function gitBoundary(startDir, lstat) {
   }
 }
 
-// ---------- 重复键 / 尾随内容词法扫描 ----------
+// ---------- Duplicate key / trailing content lexical scan ----------
 export function scanJson(text) {
   let i = 0; const n = text.length;
   const ws = () => { while (i < n && ' \t\n\r'.includes(text[i])) i++; };
@@ -194,7 +194,7 @@ export function scanJson(text) {
   return dup;
 }
 
-// ---------- 参数 ----------
+// ---------- Arguments ----------
 export function parseArgs(argv) {
   const out = { workspace: undefined, projectId: undefined, sawProjectFlag: false, errors: [] };
   for (let i = 0; i < argv.length; i++) {
@@ -210,7 +210,7 @@ export function parseArgs(argv) {
   return out;
 }
 
-// ---------- 定位辅助 ----------
+// ---------- Location helpers ----------
 function lstatOrNull(fsx, p) { try { return fsx.lstatSync(p); } catch (e) { const c = errCode(e); if (c === 'ENOENT' || c === 'ENOTDIR') return null; throw e; } }
 export function underPrefix(p, prefix, paths = path) {
   const relative = paths.relative(prefix, p);
@@ -218,9 +218,9 @@ export function underPrefix(p, prefix, paths = path) {
 }
 function sha256(buf) { return crypto.createHash('sha256').update(buf).digest('hex'); }
 
-// 只读打开（O_NOFOLLOW）后用 fstat 绑定到先前 lstat 核验过的同一对象（dev+ino），再从该 fd 读取，防检查与读取之间被替换。
-// 返回 { ok:true, bytes } / { ok:false, kind:'changed'|'unreadable', detail }
-// 另在打开前拒绝非普通文件、以 O_NONBLOCK 打开（FIFO 不阻塞），读取后复核整条路径：realpath 仍等于先前核验值、lstat 仍指向同一对象（防父目录被换成 symlink）。
+// After a read-only open (O_NOFOLLOW), bind via fstat to the same object (dev+ino) previously verified by lstat, then read from that fd, preventing replacement between check and read.
+// Returns { ok:true, bytes } / { ok:false, kind:'changed'|'unreadable', detail }
+// Also rejects non-regular files before opening, opens with O_NONBLOCK (FIFO does not block), and re-checks the whole path after reading: realpath still equals the verified value and lstat still points to the same object (guards against a parent swapped for a symlink).
 export function readBound(fsx, file, expectSt, expectReal) {
   if (!expectSt || !expectSt.isFile()) return { ok: false, kind: 'unreadable', detail: 'not-regular-file' };
   const pathStill = () => {
@@ -234,12 +234,12 @@ export function readBound(fsx, file, expectSt, expectReal) {
     const st = fsx.fstatSync(fd);
     if (!expectSt || st.dev !== expectSt.dev || st.ino !== expectSt.ino) return { ok: false, kind: 'changed', detail: 'changed-during-check' };
     if (!st.isFile()) return { ok: false, kind: 'unreadable', detail: 'not-regular-file' };
-    if (!pathStill()) return { ok: false, kind: 'changed', detail: 'changed-during-check' }; // A3-01：读取前再核整路径
+    if (!pathStill()) return { ok: false, kind: 'changed', detail: 'changed-during-check' }; // A3-01: re-check the whole path before reading
     const bytes = fsx.readFileSync(fd);
     if (!pathStill()) return { ok: false, kind: 'changed', detail: 'changed-during-check' };
     return { ok: true, bytes };
   } catch (e) { return { ok: false, kind: 'unreadable', detail: errCode(e) ?? 'exception' }; }
-  finally { try { fsx.closeSync(fd); } catch { /* 只读 fd，关闭失败不影响结论 */ } }
+  finally { try { fsx.closeSync(fd); } catch { /* read-only fd; a close failure does not affect the verdict */ } }
 }
 function readLayerFile(fsx, file, layer, out, reasons, expectSt) {
   const r = readBound(fsx, file, expectSt, out.realpath);
@@ -256,7 +256,7 @@ function locateGlobal(ctx, reasons) {
   let st;
   try { st = lstatOrNull(fsx, file); } catch (e) { const r0 = reason('config-unreadable', 'locate', 'global', file, errCode(e) ?? 'exception'); PRE_SAFETY.add(r0); reasons.push(r0); out.exists = null; return { out, bytes: null }; }
   if (!st) {
-    // 缺失时仍不得经 symlink 链离开：组件存在且是 symlink 视为 forbidden 不必要；按原规则 config-missing。
+    // When missing, still must not leave via a symlink chain: treating an existing symlink component as forbidden is unnecessary; config-missing per the original rule.
     out.exists = false; out.readable = false;
     reasons.push(reason('config-missing', 'locate', 'global', file, ''));
     return { out, bytes: null };
@@ -276,7 +276,7 @@ function locateGlobal(ctx, reasons) {
   return { out, bytes };
 }
 
-// 项目身份核实（使用契约 §4「身份责任分工」）；返回 { ok, detail, exists, start, projDir, wsReal }
+// Project identity verification (Usage Contract §4 "identity responsibilities"); returns { ok, detail, exists, start, projDir, wsReal }
 function verifyProjectIdentity(fsx, ws, id) {
   const bad = (detail) => ({ ok: false, detail });
   if (typeof ws !== 'string' || !path.isAbsolute(ws)) return bad('workspace-not-absolute');
@@ -337,7 +337,7 @@ function locateProject(ctx, args, reasons) {
   return { out, bytes, id };
 }
 
-// ---------- 解析 ----------
+// ---------- Parse ----------
 function parseLayer(bytes, layer, file, reasons) {
   if (bytes.length >= 3 && bytes[0] === 0xef && bytes[1] === 0xbb && bytes[2] === 0xbf) { reasons.push(reason('config-parse-error', 'parse', layer, file, 'bom')); return undefined; }
   let text;
@@ -349,7 +349,7 @@ function parseLayer(bytes, layer, file, reasons) {
   return JSON.parse(text);
 }
 
-// ---------- 版本 ----------
+// ---------- Version ----------
 function checkVersion(doc, layer, reasons) {
   if (!isObj(doc)) { reasons.push(reason('invalid-type', 'version', layer, '', `root:${typeName(doc)}`)); return; }
   if (!('schemaVersion' in doc)) reasons.push(reason('missing-field', 'version', layer, 'schemaVersion', ''));
@@ -357,7 +357,7 @@ function checkVersion(doc, layer, reasons) {
   else if (doc.schemaVersion !== 1) reasons.push(reason('schema-version-unknown', 'version', layer, 'schemaVersion', String(doc.schemaVersion)));
 }
 
-// ---------- 结构 ----------
+// ---------- Structure ----------
 function checkApprovalSource(ctx, doc, layer, reasons) {
   const a = doc.approvalSource; const probs = [];
   if (a === undefined) probs.push('missing');
@@ -509,7 +509,7 @@ function checkProjectStructure(ctx, doc, reasons) {
   if ('review' in doc && !isObj(doc.review)) reasons.push(reason('invalid-type', 'structure', L, 'review', typeName(doc.review)));
 }
 
-// ---------- 合并 ----------
+// ---------- Merge ----------
 function mergeLayers(g, p, reasons) {
   if (p) {
     const L = 'project';
@@ -557,10 +557,10 @@ function mergeLayers(g, p, reasons) {
   return { delegation: { categories, enabled: { sourceLayer: enabledSrc, value: enabledVal }, executors }, review, workflowDepth: { executionDefault: ed } };
 }
 
-// 安全核实前失败的 reason（B2-01）：该层约定不得读取
+// Reasons that fail before safety verification (B2-01): that layer's convention must not be read
 const PRE_SAFETY = new WeakSet();
 
-// ---------- legacy 检测 ----------
+// ---------- Legacy detection (Chinese literals below are runtime-compatibility literals; keep verbatim) ----------
 const LEGACY_DEPTH_RE = /(执行时默认采用|以后默认采用|默认采用)\s*(fast|standard|thorough|custom)?/g;
 function matchLegacyDepth(line) {
   for (const m of line.matchAll(LEGACY_DEPTH_RE)) if (m[1] === '执行时默认采用' || m[2]) return { tier: m[2] ?? null };
@@ -624,7 +624,7 @@ function detectLegacy(ctx, args, projectLocate, locateReasons) {
   return out;
 }
 
-// ---------- 稳定序列化 ----------
+// ---------- Stable serialization ----------
 export function render(v) {
   const sortRec = (x) => (Array.isArray(x) ? x.map(sortRec) : isObj(x) ? Object.fromEntries(Object.keys(x).sort().map((k) => [k, sortRec(x[k])])) : x);
   return JSON.stringify(sortRec(v), null, 2) + '\n';
@@ -633,7 +633,7 @@ const cmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 const sortReasons = (rs) => rs.sort((a, b) => cmp(a.stage, b.stage) || cmp(a.code, b.code) || cmp(a.layer, b.layer) || cmp(a.path, b.path) || cmp(a.detail, b.detail));
 const sortLegacy = (ls) => ls.sort((a, b) => cmp(a.layer, b.layer) || cmp(a.file, b.file) || a.line - b.line || cmp(a.kind, b.kind));
 
-// ---------- 主流程 ----------
+// ---------- Main flow ----------
 export function validate(argv, env, depsIn = {}) {
   const deps = { ...defaultDeps(), ...depsIn };
   const fsx = deps.fs;
