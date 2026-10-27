@@ -280,7 +280,7 @@ This section refines §7.9 and does not change the plan, closure and stop condit
      out all instances of that class with a script or search, fix them in one batch,
      and record the scan command and hit list. Classify each hit: revise only authorized current consumers; historical instances such as historical versions, signed originals, backups and failure
      evidence stay unchanged,
-     recording the exclusion basis (consistent with `candidates/archived/CAND-20261024-010-修改后联动残留与缺席检查.md`).
+     recording the exclusion basis (consistent with adopted candidate CAND-20261024-010, kept in the maintainer's local candidate library).
    - **Information-boundary evidence**: the first leg may not read any other review session's output (reports, verification, task records of this or earlier rounds); the second leg (beyond its
      inlined list) and the final verification (beyond its inlined items) likewise read no other review output files,
      to avoid reading unverified originals, whyMissed or overall conclusions. Each call restores or inherits no history or summary containing other reports; record the session ID, the actual input

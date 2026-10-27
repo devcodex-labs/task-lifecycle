@@ -839,14 +839,6 @@
    ]
   },
   {
-   "literal": "CAND-20261024-010-修改后联动残留与缺席检查",
-   "bucket": "RECORD_ID",
-   "reason": "record/candidate/bug ID containing Chinese; IDs are kept verbatim",
-   "files": [
-    "skills/task-lifecycle/references/formal-review-and-findings.md"
-   ]
-  },
-  {
    "literal": "docs/已知缺口.md",
    "bucket": "REPO_PATH",
    "reason": "historical file name kept in past CHANGELOG entries (renamed to docs/known-gaps.md)",

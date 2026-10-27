@@ -97,7 +97,8 @@ release anyway. No separate gate process; a run URL is not a hard release condit
 
 ## candidates/ excluded from distribution and the three installs (D3=B, t720s4040)
 
-`candidates/` stays in git but does not go into distribution packages or the three installs on the box:
+`candidates/` is local-only after 0.2.2: untracked with `git rm --cached` and listed in `.gitignore` (Rocky t805s4538); older commits still contain it in history.
+The exclusions below stay as a second line of defence, so it never goes into distribution packages or the three installs on the box:
 - Packaging: the root `.gitattributes` has `candidates/ export-ignore`, which only affects `git archive`/ZIP of committed trees; clone installs (Codex/Grok) and a repo
   placed in `~/.cursor/plugins/local` are not affected.
   Read-only archive check: `git archive HEAD | tar -t | grep -c '^candidates/'` must be 0; `.gitattributes` must be in the same commit as the change.

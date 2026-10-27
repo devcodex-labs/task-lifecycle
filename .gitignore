@@ -4,3 +4,5 @@
 /02-提示词-r2-首棒.txt
 /HOSTSYNC-20261026-005/
 /HOSTSYNC-20261026-006/
+# Maintainer-only rule-candidate library: kept locally, never committed (Rocky t805s4538)
+/candidates/
