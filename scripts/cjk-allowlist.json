@@ -849,9 +849,8 @@
   {
    "literal": "docs/已知缺口.md",
    "bucket": "REPO_PATH",
-   "reason": "repository or attachment path with a Chinese filename (not renamed in step 2)",
+   "reason": "historical file name kept in past CHANGELOG entries (renamed to docs/known-gaps.md)",
    "files": [
-    "skills/task-lifecycle/references/formal-review-and-findings.md",
     "CHANGELOG.md"
    ]
   },
@@ -1120,6 +1119,702 @@
    "reason": "zh column of the inline SKILL.md label map, copied from entry-quickref LABELS (D8)",
    "files": [
     "skills/task-lifecycle/SKILL.md"
+   ]
+  },
+  {
+   "literal": "“docs/已知缺口.md”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "「」",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "DIRECT-20261027-已知缺口处置/03-优先抽测计划.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "DIRECT-20261027-英文正本迁移/50-第5步实测.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“第”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“部分”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“第 2 部分”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“第　2　部分”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“第（2）部分”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“引号内的不算”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“编号”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“十”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“第10部分”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“第十一部分”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“没有条件”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“组成部分”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“有条件”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“合为一句”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“输出摘录（含报错）”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“报错输出摘录”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“关键输出”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "「A：6 条全部保持停审，P1 留在已知缺口，以后先实测再改」",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“。？！”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“第…部分”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“给出该结论的每一句”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "「011 和 012 选 A：两条都缩小范围重来，011 只管转述保留原限定，012 只管新增依赖前列同类库并实测，其余记进已知缺口」",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“没测成，所以不支持”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“xlsx 没测成。所以不支持。”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "「013 选 B…」",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "「010 选 A：缩小范围，作为新的低风险候选重来，只管两个以上的选项，单选项和消歧记进已知缺口」",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "REVIEW-20261026-002/00-审查报告.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "REVIEW-20261026-001/r3-00-审查报告.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261025-002/r1/第1轮裁决.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261025-004/rounds/v16-r10/whyMissed-协调方补写.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261025-007/r1/第1轮裁决.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261025-008/r1/第1轮裁决.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261025-001/v11-外置叙述.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261025-001/v11-改动映射表.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261025-001/r3/第3轮裁决.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261025-009/r2/第2轮裁决.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261025-009/r1/第1轮裁决.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“停在‘存在’”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "“存”",
+   "bucket": "EVIDENCE_QUOTE",
+   "reason": "verbatim Chinese quote kept as evidence in a maintainer doc, with an English gloss next to it",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261025-010/r2/第2轮裁决.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261025-010/v4-改动映射.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261025-011/r1/第1轮裁决.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261025-012/r1/第1轮裁决.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "E4-实测结果-codex-0.1.37.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "FEAT-20261024-001/evidence-E4/E4-实测结果-FEAT-001-0.1.40.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "FEAT-20261024-001/00-任务记录.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261025-014/第1轮裁决.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "CAND-20261025-016/冻结件修订独立核查.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "03-自审与复审.md",
+   "bucket": "RECORD_PATH",
+   "reason": "external maintainer record path or record name with Chinese characters, quoted as data",
+   "files": [
+    "docs/known-gaps.md"
+   ]
+  },
+  {
+   "literal": "docs/已知缺口.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "examples/Bugfix-A引出B-同责任回归.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "examples/Docs-README与现有站点分流.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "examples/Feature-API-受管首次启动.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "examples/安全与权限-非受管触发反例.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/Bugfix流程.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/Docs受众与站点质量.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/Docs流程.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/Feature流程.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/HTTP辅助验证.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/Skill发现匹配与能力降级.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/产物内容与自审契约.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/任务拆分并行与整合.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/任务识别与合法路由.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/入口速查.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/文件目录版本与跨会话恢复.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/校验脚本输出协议.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/正式专项审查与Finding.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/确认授权与变更.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/角色与专业审查.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/通用规范吸纳与自我进化.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "references/验证与证据分流.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "templates/实质变更影响分析最小记录.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "templates/审查计划与Finding最小记录.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "templates/工作流与交接最小记录.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "templates/接力审查核验提示词.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "templates/接力审查次棒提示词.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "templates/接力审查首棒提示词.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "templates/正式产物最小记录.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "templates/确认及自动验收记录.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "templates/通用规范吸纳候选.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "templates/通用规范吸纳审查记录.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "templates/通用规范有效性反馈.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
+   ]
+  },
+  {
+   "literal": "templates/验证与建议隔离最小记录.md",
+   "bucket": "OLD_PATH",
+   "reason": "old Chinese file name kept as data in the old-path map",
+   "files": [
+    "docs/old-path-map.md"
    ]
   }
  ]

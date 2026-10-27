@@ -354,10 +354,10 @@ This section refines §7.9 and does not change the plan, closure and stop condit
      with the plan stating each one's arrangement this round (seat held or not selected/standby).
 7. **Land on evidence** (Rocky t571u; replaces the former "risk-tiered convergence", "Case-Driven Convergence" and "review intensity tiers"):
    - **Registration**: a candidate must have a real event source (an error that happened in a real task, e.g. an issue the user pointed out or a miss found in a retrospective), stating the event and
-     its source; speculative edge cases are not registered but recorded in `docs/已知缺口.md`. Add no candidates about the review process itself; review issues are revised per this item or recorded as
-     gaps.
+     its source; speculative edge cases are not registered but recorded in `docs/known-gaps.md`. Add no candidates about the review process itself; review issues are revised per this item or recorded
+     as gaps.
    - **P1 threshold**: P0/P1 must attach a concrete failure scenario (in what situation the Agent would do what wrong); anything that cannot be written is P2 and does not block landing. Ambiguous
-     wording, line-number drift and inconsistent format default to P2. When P2/P3 land, register each in `docs/已知缺口.md`.
+     wording, line-number drift and inconsistent format default to P2. When P2/P3 land, register each in `docs/known-gaps.md`.
    - **Triage** (t690u, t690s3898): quote verbatim this item's "small rule (net addition ≤5 lines, revertible)" and the small-rule eligibility of `rule-evolution.md` item 5, "single check action,
      does not change public behavior, does not lower verification level,
      does not expand permissions, does not touch ABS, not one of the three exception classes", state the net added lines, and judge only by these written conditions;
@@ -377,8 +377,8 @@ This section refines §7.9 and does not change the plan, closure and stop condit
      Two steps: first give independent opinions from the requirement and plan alone, then look for holes against the self-review report. Dimensions are derived by the coordinator from requirement
      goals, acceptance criteria and known risks and approved with the plan, with the fixed baseline "requirement drift"; reviewers may add dimensions with reasons.
      Failures are revised by the original author; default 1 round, only remaining P1 leads to rounds 2 and 3; later rounds check only the previous round's issues, this round's changed parts
-     (including direct consumers and impact area, consistent with items 5 and 8) and newly added dimensions, without re-reviewing unchanged parts; no P1 with P2 fixed or registered in `docs/已知缺口.md`
-     passes and may end early.
+     (including direct consumers and impact area, consistent with items 5 and 8) and newly added dimensions, without re-reviewing unchanged parts; no P1 with P2 fixed or registered in
+     `docs/known-gaps.md` passes and may end early.
      When Rocky names relay, run per items 1–5, 8, 9; relay and review share the same cap: default 1 time (first leg → second leg → final verification), at most 3, no time cap; before the 2nd time
      state the reason for re-review (t580s3334, t601s3463).
      FormalReview's "stop after two rounds of the same method without progress" and relay's "at most 3" apply to different objects; whichever comes first stops, neither replaces the other.

@@ -1,67 +1,111 @@
-# 维护者基线（不随 Skill 运行加载）
+# Maintainer baseline (not loaded when the Skill runs)
 
-本文件保存 Task Lifecycle 插件自身开发的基线与历史数字，供维护者参考；不是使用本插件的一般项目必须套用的规则。
+This file keeps the baselines and historical numbers of developing the Task Lifecycle plugin itself, for maintainers; it is not a set of rules that ordinary projects
+using the plugin must apply.
 
-## 包版本与批准基线（原 README）
+**Codes used in this file** (defined once here): **E3** = design or static evidence (reading files, static scripts); **E4** = real-environment evidence (a fresh
+session on a real host). **REQ/AC/PAC/SC/UC** = requirement, acceptance criterion, process acceptance criterion, scenario and use-case IDs of the plugin's own
+approved development baseline. **D/A/I/H** = verification routes (demonstration, analysis, inspection, human). **D1=A, D3=B, M-02 …** and **tNNNu/tNNNsNNNN** =
+decision and review IDs and the owner's message/card IDs in the maintainer's history, kept as approval sources. **CAND-*** = a rule candidate in `candidates/`.
 
-- 历史源码基线：`0.1.43`，沿用正式批准的开发需求 V0.18-R2、Usage Contract V0.5-R2、技术方案 R9-R2、实施方案 V0.1-R2基线，在既有共同协议引用和示例基础上，修订上下文语言继承、计划与实际动作的对应以及实质性受管回复的下一步指引；该基线（含按意图触发调整）已推送到 Git 远程仓库，推送本身不等于已保存到账户、
-  已被宿主安装识别或完成目标宿主 E4 验收。当前包版本以 `plugin.json` 为准，纳入 V1.2 维护修订，仍保留 [已知缺口](已知缺口.md) 中的未证状态。各历史“候选”的批准身份以用户独立记录为准。
+## Package version and approval baseline (formerly in README)
 
-## 维护检查（原 README）
+- Historical source baseline: `0.1.43`, continuing the formally approved development requirements V0.18-R2, Usage Contract V0.5-R2, technical design R9-R2 and
+  implementation plan V0.1-R2 baselines; on top of the existing shared-protocol references and examples it revised context-language inheritance, the mapping between
+  plan and actual actions, and next-step guidance in substantive managed replies. That baseline (including intent-triggering changes) was pushed to the Git remote;
+  a push alone does not mean it was saved to an account, recognized by a host install, or passed target-host E4 acceptance. The current package version is whatever
+  `plugin.json` says; it includes the V1.2 maintenance revision and keeps the unproven states in [known gaps](known-gaps.md). The approval identity of each historical
+  "candidate" follows the user's independent records.
 
-源码检查与分发包检查分开：本仓库的根 `plugin.json` 为插件内容清单，`.cursor-plugin/plugin.json` 为 Cursor 清单（0.1.68 起，D4=A t720s4044），`.agents/plugins/marketplace.json` 为 Codex 市场入口；
-`scripts/maintenance-regression.test.mjs` T60 只比对列出的共享字段（name/version/description/license/homepage/repository/keywords、author.name/email、developerName、marketplace 名称/displayName/category）、
-Cursor 清单键是否在官方文档字段表内及 logo/skills 路径存在；未列字段与宿主实际装载不在其覆盖内。
-构建具体分发包时按该宿主包契约核清单数量、允许内容及实际消费路径，不将源码仓库的全部文件照搬入包；过程材料与历史审查证据不进入分发包。
-若目标分发格式确实包含兼容插件清单，须逐字段核对其版本及 interface 与根清单对应的展示配置一致；版本或展示字段不一致即拒收该包，不能用源码场景没有兼容清单来豁免。
-另核 frontmatter、三份通用规范进化模板、三份接力模板、Reference 消费者/路径、版本与未经批准的功能。任务的 active/INDEX/history 是外置数据，真实验收按原批准 PoC-A～M 单独记录。
-不能在此 README 承诺尚无 E4 结果的系统兼容能力。
+## Maintenance checks (formerly in README)
 
-**行长豁免（G1-F09 历史按文档化豁免关闭，2026-10-25）**：`scripts/check-docs.mjs` 每行限 200 个 Unicode 码点；LF/CRLF 均按逻辑行处理，以下三类不检查：
-- 文件开头 YAML frontmatter 整段（首行 `---` 至闭合 `---`）；SKILL.md 的 description 须单行，故可超长。
-- 表格行：以可选空白加 `|` 开头的行；Markdown 表格单元格不能折行。
-- 三反引号代码块内的行。
+Source checks and distribution-package checks are separate: the root `plugin.json` is the plugin content manifest, `.cursor-plugin/plugin.json` the Cursor manifest
+(since 0.1.68, D4=A t720s4044), and `.agents/plugins/marketplace.json` the Codex marketplace entry.
+`scripts/maintenance-regression.test.mjs` T60 only compares the listed shared fields (name/version/description/license/homepage/repository/keywords,
+author.name/email, developerName, marketplace name/displayName/category), whether Cursor manifest keys are in the official docs field table, and that logo/skills
+paths exist; unlisted fields and actual host loading are outside its coverage.
+When building a concrete distribution package, check manifest count, allowed content and actual consumption paths against that host's package contract; do not copy
+every source file into the package; process materials and historical review evidence do not go into packages.
+If the target format really includes a compatibility manifest, check field by field that its version and interface match the root manifest's display config; a
+mismatch rejects the package, and "the source has no compatibility manifest" is no exemption.
+Also check frontmatter, the three general-rule evolution templates, the three relay templates, reference consumers/paths, versions and unapproved features. A task's
+active/INDEX/history are external data; real acceptance is recorded separately per the originally approved PoC-A–M.
+This README must not promise system compatibility that has no E4 result.
 
-维护调用 `node scripts/check-docs.mjs`、`node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs scripts/dispatch-guard.test.mjs`（与 CI 一致）；
-测试传准确文件，避免宿主把目录当入口模块。
-文档检查使用脚本真实文件路径，与 cwd 无关，必需目标/主 SKILL 缺失、空入口或零扫描均失败；`--compare` 保持逐字节及文件集合比较。
-引用工具保持逐项 stdout，stderr 逐输入汇总 recognized/unchecked/failed；任何输入零识别失败，协调方另做预期清单对账。冻结引用只读取固定提交的文件 blob，不接受提交头/目录。见审查规则 §7.10 三种出口。
-配置为 Node ≥20；Windows HOME 缺省可使用可信系统账户 home，显式空/冲突仍关闭。Windows 30 秒包装入口、POSIX 命令与输出结构见配置消费/输出协议；能力缺失测试标 UNVERIFIED，不冒称跨平台通过。
+**Line-length exemptions (G1-F09 closed by documented exemption, 2026-10-25)**: `scripts/check-docs.mjs` limits each line to 200 Unicode code points; LF/CRLF are
+handled as logical lines; three kinds are not checked:
+- The whole YAML frontmatter at the file start (from the first `---` to the closing `---`); SKILL.md's description must be one line, so it may be long.
+- Table rows: lines starting with optional whitespace and `|`; Markdown table cells cannot wrap.
+- Lines inside triple-backtick code blocks.
 
-## 本插件开发基线覆盖映射（原 references/verification-and-evidence-routing.md §10.5）
+Maintenance runs `node scripts/check-docs.mjs` and `node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs scripts/dispatch-guard.test.mjs`
+(same as CI); tests are passed as exact files so the host does not treat a directory as the entry module.
+The doc check uses the script's real file path, independent of cwd; missing required targets/main SKILL, an empty entry or zero scanned files all fail; `--compare`
+keeps byte-for-byte and file-set comparison.
+The citation tool keeps per-item stdout and per-input recognized/unchecked/failed summaries on stderr; any input with zero recognized fails, and the coordinator
+reconciles against an expected list. Frozen citations read only file blobs of a fixed commit, never commit headers/directories. See review rules §7.10, three exits.
+Config needs Node ≥20; on Windows a missing HOME may use the trusted system account home, while an explicit empty/conflicting value still closes. For the Windows
+30-second wrapper entry, POSIX commands and output structure see the config consumption/output protocols; tests for missing capabilities are marked UNVERIFIED and
+do not claim cross-platform passes.
 
-**适用范围**：以下两段的566、旧527及新增39等数字，只属于开发Task Lifecycle自身时相应R9/旧版批准来源的身份与历史差异，不是使用本插件的一般项目必须套用的覆盖分母。一般项目按自己的有效批准来源、实际版本与适用子条件建立映射；下述逐源、消费者、正反断言和证据等级方法仍通用。后续维护按真实影响核对来源与可复用证据，不把历史统计当成新候选已通过，也不删除或改写原审查记录。
+**No-CJK gate (since 0.2.0; docs/ added in 0.2.2)**: `scripts/check-docs.mjs` gate (g) rejects CJK characters in `skills/task-lifecycle/**`, `CHANGELOG.md` and
+`docs/**` except exact literals listed in `scripts/cjk-allowlist.json` (each scoped to its files, with a bucket and reason; stale entries fail). In docs/, allowed
+literals are verbatim evidence: quotes of the owner's words, Chinese record paths and IDs, and the old file names in `old-path-map.md`.
 
-**本插件开发基线覆盖映射（仅对应 R9 基线）**：按 §18 的当前获批 83 REQ、130 AC、105 PAC、192 SC 和 56 UC 组成 566 项源身份；每项应独立建立 `ID → 适用子条件 → 真实消费者/具体设计 → 正反断言/失败出口 → D/A/I/H 验证路线 → 证据与设计签署状态`。
- 历史 79/122/100/180 和 16 U/18 N 仅为旧版本审查范围；不能从正向关系复制反向关系充当专业判断。适用项证据不足标 `needs-evidence`，不能宣称全量通过。
+## Plugin development baseline coverage mapping (formerly references/verification-and-evidence-routing.md §10.5)
 
-**REV-00 现行覆盖总表 / REV-10 反假性收敛**：技术候选及后续审查对象使用已经批准的 **510 REQ/AC/PAC/SC + 56 UC = 566** 个源身份（`REQ-001～083 / AC-001～130 / PAC-01～105 / SC-01～192`；
- `U-01～17 / N-UC-01～27 / N-DP-01～06 / N-RG-01～06`）。旧 481+46 仅是历史范围；现行 566 项源身份齐全不等于逐子条件已通过。审查底稿允许一项共享设计验证多条要求，但每条的触发、消费者、正反例和判断必须独立。初次创建新候选时，旧 527 项的章节链接只是 `historical-evidence-candidate`，
- 其统计中曾出现 `covered+pending` 的记录必须重新审；新增 39 项由当前新上游逐项消费，不能默认“新 R9 写到了就全部通过”。当前技术正式专业审查只有独立批准的新版本计划执行后才可形成真实签署。
+**Scope**: the numbers below (566, the former 527, the 39 added, etc.) belong only to the identities and historical differences of the R9/older approval sources used
+when developing Task Lifecycle itself; they are not a coverage denominator that ordinary projects must apply. An ordinary project builds its mapping from its own
+valid approval sources, actual version and applicable sub-conditions; the per-source, consumer, positive/negative assertion and evidence-level method still applies.
+Later maintenance checks sources and reusable evidence by real impact, does not treat historical statistics as a new candidate's pass, and does not delete or
+rewrite the original review records.
 
-## 开发历史与方法论（0.1.68 自 README 移入）
+**Plugin development baseline coverage mapping (R9 baseline only)**: per §18, the currently approved 83 REQ, 130 AC, 105 PAC, 192 SC and 56 UC form 566 source
+identities; each needs its own `ID → applicable sub-condition → real consumer/concrete design → positive/negative assertion/failure exit → D/A/I/H verification route
+→ evidence and design sign-off state`.
+ The historical 79/122/100/180 and 16 U/18 N are only older review scopes; reverse relations must not be copied from forward ones as professional judgment.
+Applicable items with insufficient evidence are marked `needs-evidence`; a full pass must not be claimed.
 
-**本插件开发历史的适用性**：[验证规则§10.5](../skills/task-lifecycle/references/verification-and-evidence-routing.md#105-separating-real-progress-acceptance-tracking-and-evidence-levels)
-中的566、旧527及新增39等数字仅追溯开发Task Lifecycle自身的对应批准基线；普通项目使用自己的有效来源集合和适用子条件。
-原批准、失败和审查历史保留在维护过程记录中，不作为每个使用者的固定覆盖任务，也不因新包版本自动变成新验证结果。
+**REV-00 current coverage table / REV-10 anti-false-convergence**: technical candidates and later review objects use the approved **510 REQ/AC/PAC/SC + 56 UC = 566**
+source identities (`REQ-001–083 / AC-001–130 / PAC-01–105 / SC-01–192`; `U-01–17 / N-UC-01–27 / N-DP-01–06 / N-RG-01–06`). The former 481+46 is only historical
+scope; having all 566 current identities does not mean every sub-condition passed. A review worksheet may verify several requirements with one shared design, but
+each one's trigger, consumer, positive/negative cases and judgment must be independent. When a new candidate is first created, section links of the former 527
+items are only `historical-evidence-candidate`, and records that once showed `covered+pending` must be re-reviewed; the 39 added items are consumed one by one by the
+new upstream, with no default "the new R9 says it, so everything passes". A real sign-off of the current technical formal review only comes from executing a new,
+independently approved plan.
 
-**集中发现、成批修复、分层回归**：固定版本和有限清单完成本轮问题收集，再按真实根因/依赖修复；每项做最小验证、每批做消费者影响面回归，最后统一完成适用验收。
-前置阻断先最小处置并保留版本边界；未受影响的合格证据保留原版本复用，每次重跑说明改动及失效依据。
-执行主责见[审查规则§7.9](../skills/task-lifecycle/references/formal-review-and-findings.md)和[验证规则§10.7](../skills/task-lifecycle/references/verification-and-evidence-routing.md)，对应模板和Bugfix示例提供用法；
-这些规则不承诺一次找齐所有Bug或自动替代真实测试/真人验收。
+## Development history and method (moved from README in 0.1.68)
 
-README 只写安装、使用、配置（D1=A）；`README.md`（英文）与 `README.zh-CN.md`（中文）章节一一对应，每次发版两份同步（D2=B）。
-发版前现查本次推送提交在 ubuntu、windows 双平台的 CI 结果；红则在发版记录与转告中写明原因，由 Rocky 决定是否照发。不另立门禁制度，不以 run URL 作为发版硬条件。
+**Applicability of this plugin's development history**: the 566, former 527 and 39 added in
+[verification rules §10.5](../skills/task-lifecycle/references/verification-and-evidence-routing.md#105-separating-real-progress-acceptance-tracking-and-evidence-levels)
+only trace the matching approval baselines of developing Task Lifecycle itself; ordinary projects use their own valid source sets and applicable sub-conditions.
+Original approvals, failures and review history stay in the maintenance process records; they are not a fixed coverage task for every user and do not become new
+verification results with a new package version.
 
-## candidates/ 不进分发与三处安装（D3=B，t720s4040）
+**Collect findings together, fix in batches, regress in layers**: a fixed version and a bounded list complete this round's issue collection; then fix by real root
+cause/dependency; each item gets minimal verification, each batch a consumer-impact regression, and finally applicable acceptance is done together.
+Blocking prerequisites get a minimal fix first while keeping version boundaries; unaffected qualified evidence is reused at its original version, and every rerun
+states what changed and why the old evidence is invalid.
+Ownership is in [review rules §7.9](../skills/task-lifecycle/references/formal-review-and-findings.md) and
+[verification rules §10.7](../skills/task-lifecycle/references/verification-and-evidence-routing.md); the matching templates and the Bugfix example show usage;
+these rules do not promise finding every bug at once or replacing real tests/human acceptance.
 
-`candidates/` 留在 git，但不进分发包与三处 box 安装：
-- 打包：仓库根 `.gitattributes` 写 `candidates/ export-ignore`，只对已提交树的 `git archive`/ZIP 生效；克隆安装（Codex/Grok）与放进 `~/.cursor/plugins/local` 的仓库都不受它影响。
-  归档只读核对：`git archive HEAD | tar -t | grep -c '^candidates/'` 应为 0；`.gitattributes` 须与本次改动同一提交。
-- Cursor 安装：`host-sync.sh` 只 `git archive HEAD skills/task-lifecycle`，本来就不含 `candidates/`。
-- Codex / Grok 安装是 git 克隆：`host-sync.sh`（`/home/box/task-lifecycle-records/host-sync.sh`，不在仓库内）末尾对两处安装执行
-  `git sparse-checkout set --no-cone '/*' '!/candidates/'`。M-02（t723s4066）起：改前带时间戳备份到 `<ACTDIR>/backups/excl-<ts>-<名>`；目标不是 git 仓库根即报错并非 0 退出；
-  成功须同时满足 `candidates/` 不存在、`skills/task-lifecycle/SKILL.md` 存在、文件数与 `git archive` 源一致且 `diff -rq` 无差异（输出 `EXCL ok`）。
-  回退：`rm -rf <目标> && cp -a <备份> <目标>`（脚本失败时打印具体命令），或 `git -C <目标> sparse-checkout disable`。真实安装上尚未运行（E3，临时目录模拟见 README 审查 04-修订记录）。
-- 候选库只在源仓库：安装后的插件不含 `candidates/`；候选的创建、晋级、下架只在源仓库检出中进行。
+The README covers installation, usage and configuration (D1=A); `README.md` (English) and `README.zh-CN.md` (Chinese) correspond section by section and are synced at
+every release (D2=B).
+Before a release, check this push's CI result on both ubuntu and windows; if red, state the cause in the release record and relay, and the owner decides whether to
+release anyway. No separate gate process; a run URL is not a hard release condition.
 
+## candidates/ excluded from distribution and the three installs (D3=B, t720s4040)
+
+`candidates/` stays in git but does not go into distribution packages or the three installs on the box:
+- Packaging: the root `.gitattributes` has `candidates/ export-ignore`, which only affects `git archive`/ZIP of committed trees; clone installs (Codex/Grok) and a repo
+  placed in `~/.cursor/plugins/local` are not affected.
+  Read-only archive check: `git archive HEAD | tar -t | grep -c '^candidates/'` must be 0; `.gitattributes` must be in the same commit as the change.
+- Cursor install: `host-sync.sh` only runs `git archive HEAD skills/task-lifecycle`, which never contains `candidates/`.
+- Codex / Grok installs are git clones: `host-sync.sh` (`/home/box/task-lifecycle-records/host-sync.sh`, outside the repo) ends by running
+  `git sparse-checkout set --no-cone '/*' '!/candidates/'` on both. Since M-02 (t723s4066): back up first with a timestamp to `<ACTDIR>/backups/excl-<ts>-<name>`; a
+  target that is not a git repo root is an error with non-zero exit; success requires `candidates/` absent, `skills/task-lifecycle/SKILL.md` present, the file count
+  equal to the `git archive` source and `diff -rq` clean (prints `EXCL ok`).
+  Rollback: `rm -rf <target> && cp -a <backup> <target>` (the script prints the exact command on failure), or `git -C <target> sparse-checkout disable`. Ran on the
+  real Codex and Grok installs from 0.2.0 on (HOSTSYNC-20261027-0200/0201, `EXCL ok`); earlier it was only simulated in a temp directory.
+- The candidate pool lives only in the source repo: installed plugins contain no `candidates/`; candidates are created, promoted and retired only in a source checkout.

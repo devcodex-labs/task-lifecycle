@@ -1,116 +1,140 @@
+<div align="center">
+
 # DevCodex Task Lifecycle
 
-**English** · [简体中文](README.zh-CN.md)
+**Plan, review, confirm: governed Feature, Bugfix and Docs work for AI coding hosts.**
 
-![version](https://img.shields.io/badge/version-0.2.1-2357C6) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
+[![version](https://img.shields.io/badge/version-0.2.2-2357C6)](CHANGELOG.md)
+[![CI](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml/badge.svg)](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml)
+[![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
-An intent-triggered governed-task plugin: one `SKILL.md` plus on-demand reference rules guide you stage by stage to plan, review, and confirm Feature, Bugfix, and Docs work.
+English | [Chinese](README.zh-CN.md)
+
+</div>
 
 ## What it is / is not
 
-- Is: a Skills-only (no server component), Markdown-first (all artifacts are Markdown) governance flow with explicit approvals and graded evidence; also read-only review of code, PRs, plans.
-- Is not: a resident agent, test service, file lock, security sandbox, or host runtime plugin; no MCP, background service, remote API, database, automatic Git, automatic rule promotion, or UI.
-- What it can do depends on the tools your host actually provides and the permissions you grant.
+Task Lifecycle is a skills-only plugin for AI coding agents. When you ask for real development work (a feature, a bug fix or a
+documentation change), it turns the request into a governed task: clear stages, written artifacts, your explicit confirmation at each
+key point, and verification that says honestly what was and was not run.
 
-## Quick start
+The problem it solves: coding agents tend to jump straight to edits, mix plans with guesses, and report "done" without evidence. Task
+Lifecycle makes the agent say what it is about to do before doing it, keeps you in control of scope and approvals, and separates
+"checked by reading" from "proven by running".
 
-What you'll see:
-1. Every reply starts with a pre-check (4 items in a light round, 7 in an execution round: intent, where the work lands, next step, and so on).
-2. Only substantive development intent enters a governed task, and it tells you first; the default is Confirm mode (every formal artifact waits for your confirmation).
-3. Only when a formal plan needs it are you asked to choose a depth `fast / standard / thorough / custom`; a recommended depth is not your choice.
+It is one `SKILL.md` plus reference rules loaded on demand. There is no server, background service, database or remote API.
 
-What you do: in a host where the plugin is installed, state your development intent or ask for Task Lifecycle by name. Example prompts (from `defaultPrompt` in `plugin.json`):
+It is not a resident agent, test service, file lock or security sandbox, and it never runs Git or promotes new rules on its own.
+What it can do depends on the tools and permissions your host provides.
 
-- `Use Task Lifecycle to plan a bugfix: reproduce, find the root cause, then propose a fix.`
-- `Use Task Lifecycle to review this PR read-only and list findings with evidence.`
-- `Use Task Lifecycle for this project. Inspect read-only, reuse valid choices and host permissions, and ask for depth only when a formal task or plan requires it.`
+## Key features
 
-## Installation
+- **Pre-check on every reply**: 4 short items on a light turn, 7 on an execution turn (intent, where the work lands, next step and so on).
+- **Intent-triggered, not intrusive**: only substantive development work enters a governed task, and it tells you first. Plain
+  questions, lookups and trivial edits get ordinary help.
+- **Three task flows**: Feature (stages `A01–A10`), Bugfix (`B01–B10`) and Docs (`DOC01–DOC10`).
+- **Confirm mode by default**: formal artifacts wait for your confirmation. Auto mode applies only to what you delegate.
+- **Depth on demand**: when a formal plan needs it, you choose `fast / standard / thorough / custom`. No depth skips required quality checks.
+- **Honest evidence**: design or static checks are reported separately from real-environment evidence; nothing that was not run is marked as passed.
+- **Read-only review** of code, pull requests and plans, with findings backed by evidence.
+- **Process docs kept out of your delivery**: by default they go in a sibling `.task-lifecycle/` folder beside the project.
+- **Follows your language**: labels render in the conversation language (English or Chinese).
+- **Optional JSON config**, checked by a validator script.
 
-Manifests: Cursor uses `.cursor-plugin/plugin.json`; the root `plugin.json` follows Agent Plugins 1.0 (OpenAI display fields are under `extensions.com.openai`).
-Steps follow the hosts' docs, not E4-verified on a real host (E4 = real-environment evidence; E3 = design/static); see [已知缺口](docs/已知缺口.md) (Chinese).
-**Not published to any marketplace** (Cursor or the OpenAI directory); install locally or from the repository. Installed copies do not include the maintainer-only `candidates/` ledger.
+## How it works
+
+```mermaid
+flowchart LR
+    A[Your message] --> B[Pre-check]
+    B --> C{Route}
+    C -- plain question or small edit --> D[Ordinary help]
+    C -- substantive work --> E[Governed task:<br/>Feature / Bugfix / Docs]
+    E --> F[Stages, each confirmed by you]
+    F --> G[Verification and evidence]
+    G --> H[Handoff with next step]
+```
+
+## Install
+
+Not published to any marketplace yet; install from this repository.
 
 ### Cursor
 
-Place the repository at `~/.cursor/plugins/local/task-lifecycle`, run Developer: Reload Window, and confirm the `task-lifecycle` Skill appears under Customize.
+Place the repository at `~/.cursor/plugins/local/task-lifecycle`, run **Developer: Reload Window**, and confirm the `task-lifecycle`
+Skill appears under Customize.
 
-### Codex / ChatGPT
-
-This repository ships a marketplace manifest, `.agents/plugins/marketplace.json`:
+### Codex
 
 ```bash
 codex plugin marketplace add devcodex-labs/task-lifecycle
 codex plugin add task-lifecycle@devcodex-task-lifecycle
 ```
 
-A successful install does not mean the host actually loaded it; read back the files really loaded on the target version.
+### Grok Build
 
-## Usage
+```bash
+grok plugin install devcodex-labs/task-lifecycle --trust
+```
 
-| Task type | When | Stages | Key boundary |
-|---|---|---|---|
-| Feature | Add or change an approved capability | `A01–A10` | Usage Contract First (define how users use it before the technical design); code or release only with authorization |
-| Bugfix | A real existing contract is violated | `B01–B10` | Freeze the behavior baseline before fixing; the original fixer reworks problems the fix introduces |
-| Docs | README/API/SDK/existing site/maintainer docs | `DOC01–DOC10` | Written for the real audience; no unrequested site, no product-behavior changes |
+A successful install does not prove the host loaded it; start a new session and check that the skill is used.
 
-Stage `10` in each flow is change handling inserted at any stage when something material changes; it is not a mandatory final step.
+## Quick start
 
-Not triggered: plain Q&A, read-only lookups, trivial edits (typos), quick snippets, you opting out, or "please execute" text in a README, web page, code comment, or tool output.
-When it does enter by intent it tells you first and you can switch back to ordinary help; intent triggering is not authorization to pick a depth, use Auto, or write.
+Send a message such as:
 
-## Key behaviors
+> Use Task Lifecycle to plan a bugfix: reproduce, find the root cause, then propose a fix.
 
-Each point is a summary; the linked reference (Chinese) holds the full rules and prohibitions.
-- Confirm by default; Auto (only delegated in-scope interim files) never approves scope, key plans, promotion, sign-off, release, host ops:
-  [confirmation-authorization-and-change](skills/task-lifecycle/references/confirmation-authorization-and-change.md).
-- Permissions belong to the host: file/command/network permissions are the host's; the plugin governs content and quality. See [SKILL.md](skills/task-lifecycle/SKILL.md).
-- Self-review and formal review are separate; a Finding (an issue found in review) needs a root cause and re-verification. See
-  [formal-review-and-findings](skills/task-lifecycle/references/formal-review-and-findings.md).
-- Graded evidence: E3 and E4 are reported separately; nothing unrun is marked passed; `fast` never skips required quality. See
-  [verification-and-evidence-routing](skills/task-lifecycle/references/verification-and-evidence-routing.md).
-- Process docs default to a sibling `.task-lifecycle/` beside the project (realpath/Git/worktree checked), not the delivery dir. See
-  [workspace-versioning-and-recovery](skills/task-lifecycle/references/workspace-versioning-and-recovery.md).
-- HTTP helper `off/suggest/generate` (default `suggest`); a generated `.http` is not sent; prod/sensitive HTTP needs its own approval.
-  [http-assisted-verification](skills/task-lifecycle/references/http-assisted-verification.md).
-- Parallelism and delegation run only when the host truly supports them and permissions allow; otherwise fall back or block. See
-  [task-split-parallel-and-integration](skills/task-lifecycle/references/task-split-parallel-and-integration.md).
-- The self-evolution mechanism is off by default; new rules need your item-by-item promotion. See [rule-evolution](skills/task-lifecycle/references/rule-evolution.md).
+What you see: the reply opens with the pre-check, tells you it is entering a governed Bugfix task, and stops at the first point that
+needs your confirmation. Other example prompts:
+
+- `Use Task Lifecycle to review this PR read-only and list findings with evidence.`
+- `Use Task Lifecycle for this project. Inspect read-only, reuse valid choices and host permissions, and ask for depth only when a formal task or plan requires it.`
+
+## Host support
+
+| Host | Status |
+|---|---|
+| Cursor | Tested |
+| Codex | Tested |
+| Grok Build | Tested |
+
+What the plugin can do still depends on the tools and permissions your host provides.
 
 ## Configuration
 
-Delegation-type settings (executor delegation, depth execution default, read-only review host pool) are JSON only; a validator script decides validity.
-- Location: global `~/.config/task-lifecycle/config.json`; optional narrow-only `<workspace>/.task-lifecycle/<Project ID>/config.json`, `<workspace>` = the `--workspace` value.
-- [assets/config.example.json](assets/config.example.json) never takes effect (both `enabled` are `false`); fields: [assets/config.schema.json](assets/config.schema.json) (script wins).
-- Validate from the plugin root (Node ≥ 20, read-only, no network); a governed project task must pass both `--workspace` and `--project-id`:
+Optional. Settings for executor delegation, a default depth and a read-only review host pool are JSON only:
+global `~/.config/task-lifecycle/config.json`, optionally narrowed per project. See [assets/config.example.json](assets/config.example.json)
+(never takes effect) and [assets/config.schema.json](assets/config.schema.json). Validate from the plugin root (Node ≥ 20, read-only, no network):
 
 ```bash
 timeout 30 node scripts/validate-config.mjs [--workspace <parent of project root> --project-id <Project ID>]
 ```
 
-Only `status: "valid"` in this run's stdout counts, not the exit code; else all three settings stay off. Windows: [Node wrapper, no
-`timeout.exe`](skills/task-lifecycle/references/task-split-parallel-and-integration.md).
+Only `status: "valid"` in the output counts; otherwise these settings stay off.
 
-## Components
+## Repository layout
 
 | Path | Role |
 |---|---|
-| `skills/task-lifecycle/SKILL.md` | The single Skill entry and rule router |
-| `skills/task-lifecycle/references/` | The single source of each rule, read on demand |
-| `skills/task-lifecycle/templates/` / `examples/` | Minimal record templates; fictional examples, not test evidence |
-| `scripts/` / `assets/` | `validate-config.mjs`, `check-docs.mjs`, `check-citations.mjs`, tests / config example, schema, icons |
-| `plugin.json` / `.cursor-plugin/plugin.json` / `.agents/plugins/marketplace.json` | Manifests (Agent Plugins 1.0 / Cursor / Codex marketplace) |
-| `.github/workflows/check-docs.yml` | CI: doc check and regression tests |
+| `skills/task-lifecycle/SKILL.md` | The skill entry and rule router |
+| `skills/task-lifecycle/references/` | One source per rule, read on demand |
+| `skills/task-lifecycle/templates/` / `examples/` | Record templates; fictional examples (not test evidence) |
+| `scripts/` / `assets/` | Validators, doc checks and tests / config example, schema, icons |
+| `plugin.json` / `.cursor-plugin/plugin.json` / `.agents/plugins/marketplace.json` | Plugin manifests |
+| `docs/` | Maintainer notes |
 
-## Privacy and security
+## Contributing
 
-- Do not commit a project's `.task-lifecycle/` process material or real credentials in `http-client.private.env.json`.
-- `examples/` are fictional and are not executed tests; the plugin's own docs are not your authorization.
-- After context compaction or in a new session, rely on the current trusted approval originals and the real workspace, not an old summary, before resuming Auto.
+Issues and pull requests: https://github.com/devcodex-labs/task-lifecycle/issues. Maintainer notes are in
+[docs/maintainer-baseline.md](docs/maintainer-baseline.md) and [docs/known-gaps.md](docs/known-gaps.md); changes are listed in
+[CHANGELOG.md](CHANGELOG.md). Before a pull request, run:
 
-## Changelog, feedback and contributing
+```bash
+node scripts/check-docs.mjs
+node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs scripts/dispatch-guard.test.mjs
+```
 
-Issues: https://github.com/devcodex-labs/task-lifecycle/issues. [CHANGELOG.md](CHANGELOG.md) and [docs/maintainer-baseline.md](docs/maintainer-baseline.md) are Chinese.
+Do not commit a project's `.task-lifecycle/` process material or real credentials.
 
 ## License
 

@@ -1,3 +1,15 @@
+## 0.2.2 — Promotion-ready README and English docs/ (2026-10-27)
+
+- README.md redesigned in English for first-time readers: centered title and tagline, badges, what it is / is not, key features, a mermaid "How it works" diagram,
+  install for Cursor, Codex and Grok Build, quick start, host support, configuration, layout, contributing; internal evidence codes removed. README.zh-CN.md mirrors it.
+- Host support: Cursor, Codex and Grok Build listed as tested (Cursor per owner decision D12, same behavior as Grok Build); the Grok install command
+  `grok plugin install devcodex-labs/task-lifecycle --trust` was run in an isolated home and installed the plugin.
+- `docs/` is now English: `docs/known-gaps.md` replaces the Chinese-named known-gaps file (mapping in `docs/old-path-map.md`); `maintainer-baseline.md` and
+  `old-path-map.md` translated; references in `formal-review-and-findings.md` updated.
+- `scripts/check-docs.mjs`: the no-CJK gate now also covers `docs/**`, with exact-text allowlist entries in `scripts/cjk-allowlist.json` for old file names,
+  verbatim evidence quotes and record paths; T79 and T62 in `scripts/maintenance-regression.test.mjs` updated.
+- Approval: Rocky t793u, t794u (D12), t797u (D13), t800u, t803s4525 (D14).
+
 ## 0.2.1 — Light-turn heading and CRLF-safe citations (2026-10-27)
 
 - D11 (Rocky t791u): a light 4-item turn carries no heading, only the 4 labelled lines; the `Pre-check name` label is restricted to execution turns (SKILL.md top map,
@@ -36,7 +48,7 @@
 
 ## 0.1.73 — CI recovery and nine-item list (2026-10-27)
 
-- `docs/已知缺口.md`: overlong lines L18/L71/L73 only wrapped at clause boundaries; added a "current open index" at the top (including pending-confirmation items); FEAT-20261026-001 closed with 0.1.72;
+- docs/已知缺口.md: overlong lines L18/L71/L73 only wrapped at clause boundaries; added a "current open index" at the top (including pending-confirmation items); FEAT-20261026-001 closed with 0.1.72;
   the record Page clause is not split for now.
 - `scripts/validate-config.test.mjs`: FIFO probe adds `lstatSync().isFIFO()`; a fake FIFO on Windows is marked UNVERIFIED and skipped (Linux behavior unchanged).
 - `.github/workflows/check-docs.yml`: `fail-fast: false`; test step `if: always()`; explicitly runs the three test files including `dispatch-guard.test.mjs`.
@@ -59,7 +71,7 @@
 - `NEVER_DELEGATE_TEXT` in `scripts/validate-config.mjs` synced with the `scripts/dispatch-guard.test.mjs` assertions.
 - Approval: Rocky t781s4369 ("open all capabilities, keep only the push, publish, delete, credential and conclusion-signing baselines"), t782u (live-test waiver), t783u ("after the changes,
   commit and push first, then release and update the plugin").
-- Known: 3 overlong lines in `docs/已知缺口.md` (brought in by a0cd520) still keep check-docs and CI red; out of scope for this version.
+- Known: 3 overlong lines in docs/已知缺口.md (brought in by a0cd520) still keep check-docs and CI red; out of scope for this version.
 
 ## 0.1.71 — Flow Page main-flow tabs, second-level sub-flow tabs and line-by-line Steps (2026-10-27)
 
@@ -115,7 +127,7 @@
 - `task-split-parallel-and-integration.md` pre-dispatch fit analysis (t709u, t709s3970): before dispatching to a third party, compare output and required tools to see who fits better; the reason
   goes into pre-check item 6.
 - README redesign (D1–D5, t720u/t720s4033–4044): README.md in English, README.zh-CN.md in Chinese, covering only install/use/config; version/bug notes go to CHANGELOG, acceptance counts to
-  `docs/已知缺口.md`, development history to `docs/maintainer-baseline.md`; added config and component tables; noted as not listed.
+  docs/已知缺口.md, development history to `docs/maintainer-baseline.md`; added config and component tables; noted as not listed.
 - Added `.cursor-plugin/plugin.json`, root `plugin.json` kept; `maintenance-regression.test.mjs` T60 compares shared fields; marketplace category unified as Developer Tools; author name unified as
   Rocky Shi (plugin.json, LICENSE, README).
 - `candidates/` excluded from distribution: `.gitattributes` export-ignore; exclusion from the three install syncs in `docs/maintainer-baseline.md`; `check-docs.mjs` also checks README.zh-CN.md
@@ -221,7 +233,7 @@ This file records only changes to packaged content; workflow rules are defined b
 - Added: `task-recognition-and-routing.md` §4.4 "Start card" (013+019 merged); `artifact-content-and-self-review-contract.md` "before adding a runtime dependency, list similar libraries and test
   them" (017); `task-split-parallel-and-integration.md` "cross-repo sub-tasks and joint push" (015),
   pointers added to `entry-quickref.md`.
-- 022 core and 002 already included in item 7; 003, 004 recorded in `docs/已知缺口.md`; 018, 021, 023, 006 withdrawn.
+- 022 core and 002 already included in item 7; 003, 004 recorded in docs/已知缺口.md; 018, 021, 023, 006 withdrawn.
 - Approval: Rocky 2026-10-27 07:41 (UTC+8) t576u ("adopt all directly, don't run test cases"). Method: static review + automated checks, no real run.
 
 ## 0.1.55 — Per-option descriptions and suggested level (trial, 2026-10-27)
@@ -247,7 +259,7 @@ This file records only changes to packaged content; workflow rules are defined b
 - Promotes CAND-20261026-016 v10 (sha256 8725907b…9186, review copy): `skills/task-lifecycle/SKILL.md` §4 inserts 4 lines "relaying keeps original qualifiers" after line 131 (the "which to choose"
   item); rule text landed per v10, unchanged.
 - Approval: Rocky 2026-10-27 06:14 (UTC+8) card t561s3242 chose A (continued review r10 relay level first leg, second leg, final verification zero P0/P1). Remaining P2×8, P3×1 recorded in
-  `docs/已知缺口.md` KG-016-01–09. Unverified: E4 host live test.
+  docs/已知缺口.md KG-016-01–09. Unverified: E4 host live test.
 
 ## 0.1.52 — Report artifact .md is canonical, Grok Bot additionally makes a reading-version Page (2026-10-26)
 
@@ -260,9 +272,9 @@ This file records only changes to packaged content; workflow rules are defined b
 ## 0.1.51 — test-run cap narrowed (2026-10-26)
 
 - Promotes CAND-20261026-004 v6 (sha256 a49d8d97…f711): `task-split-parallel-and-integration.md` cap table `test-run` cell and line 171,
-  two constants in `validate-config.mjs`, five assertion lines in `validate-config.test.mjs`, `docs/已知缺口.md` line 16 and a new 0.1.51 retained section; four files, seven places, original text only.
+  two constants in `validate-config.mjs`, five assertion lines in `validate-config.test.mjs`, docs/已知缺口.md line 16 and a new 0.1.51 retained section; four files, seven places, original text only.
 - Narrows only, never loosens: A05 start baseline and DOC07 static scripts are now run locally by the main session. Approval: Rocky t492s2745 (REVIEW-20261026-006 r4 relay zero P0/P1).
-- Same batch adds the CAND-20261026-005 (0.1.48) retained section to `docs/已知缺口.md`. Unverified: E4 new-session live test; small fixes after v6 convergence not re-reviewed.
+- Same batch adds the CAND-20261026-005 (0.1.48) retained section to docs/已知缺口.md. Unverified: E4 new-session live test; small fixes after v6 convergence not re-reviewed.
 
 ## 0.1.50 — Single question when controls lack display evidence; numbered options when feedback is not shown (2026-10-26)
 
@@ -326,7 +338,7 @@ This file records only changes to packaged content; workflow rules are defined b
 - After independent re-review, fixed frozen references' absolute/parent path fallback misbinding and Windows PowerShell entry quoting; regression keeps valid references and actually passes through
   PowerShell argument passing.
 - Kept the existing three review levels, escalation, coverage and three-round cap; historical A02/G1/E4 missing evidence not back-signed. Per the user's explicit instruction, committed and pushed
-  existing results and updated the private plugin; 57 acceptance items passed, 25 not fully verified and 8 issues pending verification kept for follow-up, see `docs/已知缺口.md`. This update does not
+  existing results and updated the private plugin; 57 acceptance items passed, 25 not fully verified and 8 issues pending verification kept for follow-up, see docs/已知缺口.md. This update does not
   represent full model behavior acceptance or host install success.
 
 ## 0.1.43
@@ -339,14 +351,14 @@ This file records only changes to packaged content; workflow rules are defined b
   blocks that round); mechanical reference check and its exits unchanged.
 - Promotes CAND-20261025-016 v3 (sha256 `4527148e…22b0`): §7.10 item 7 adds "review intensity levels" (relay level / self-review level / single-session level, judged in order, take the higher when
   unsure, only escalate never de-escalate, single-session convergence conditions; A04 class defaults to single-session level).
-- Known gaps: adds the CAND-20261025-014 contract lead gap (A02 to be merged next version), see `docs/已知缺口.md`.
+- Known gaps: adds the CAND-20261025-014 contract lead gap (A02 to be merged next version), see docs/已知缺口.md.
 - Approval: Rocky raised it in t413u–t416u, approved drafting at 17:16 t416u; promotion per Rocky 2026-10-25 15:15 (ACTIVATE-20261025-015, 016); candidate text not in the repo per t349u.
 
 ## 0.1.41
 - FEAT-20261024-001 A05 batch 2 round 3 (cap) converged: `references/validator-output-protocol.md` completes all reason codes and the three fixed `fallback` keys (new anti-drift test, 77 items).
 - Promotes CAND-20261025-014 v2 (sha256 `f3f98580…cdd6`): `task-split-parallel-and-integration.md` log checking adds two lines — multiple conflicting values for the same field count as
   unrecognizable (`log-unverifiable`); repeated identical values must still be compared with config.
-- Known gaps: expanded the root cause of T7-T8 "Codex host sandbox limits"; added two entries, FEAT-20261024-001 E4 untested items and Cursor installing only skills, see `docs/已知缺口.md`.
+- Known gaps: expanded the root cause of T7-T8 "Codex host sandbox limits"; added two entries, FEAT-20261024-001 E4 untested items and Cursor installing only skills, see docs/已知缺口.md.
 - Approval: Rocky 2026-10-25 15:15, 15:26 t405u, 17:02 (chose A); ACTIVATE-20261025-014; candidate text not in the repo per t349u.
 
 ## 0.1.40
@@ -363,40 +375,40 @@ This file records only changes to packaged content; workflow rules are defined b
 - Promotes CAND-20261025-012 v2 (sha256 at promotion `6ea45745…9828`): `formal-review-and-findings.md` §7.10 item 9 line 246 becomes 4 lines,
   `scripts/check-citations.mjs` located by plugin root (not the reviewed project directory); without `scripts/` use the source repo checkout; if neither is found record "script unreachable";
   invocation uses existing `--root`/`--rev`. Fixes E4 T15.
-- Known gaps: 8 (P2×6, P3×2) + 1 T7/T8 host limit, see `docs/已知缺口.md`.
+- Known gaps: 8 (P2×6, P3×2) + 1 T7/T8 host limit, see docs/已知缺口.md.
 - Approval: Rocky 2026-10-25 15:15 ("open everything, promotion also automatic per recommendation") (ACTIVATE-20261025-012); candidate text not in the repo per t349u.
 
 ## 0.1.38
 - Promotes CAND-20261025-011 v2 (sha256 at promotion `89400026…d978`): `formal-review-and-findings.md` §7.10 rejection paragraph adds line 274,
   landing verbatim the line 14 rejection sentence of CAND-20261025-001 v11 (missed in 0.1.35).
-- Known gaps: 2 (P3×2), see `docs/已知缺口.md`.
+- Known gaps: 2 (P3×2), see docs/已知缺口.md.
 - Approval: Rocky 2026-10-25 14:59 (ACTIVATE-20261025-011); candidate text not in the repo per t349u.
 
 ## 0.1.37
 - Promotes CAND-20261025-010 v4 (sha256 at promotion `1a3e63dc…094b`): added `scripts/check-citations.mjs` (mechanical reference check, verifying `path:N` references against the quoted snippets);
   `formal-review-and-findings.md` §7.10 item 9 lines 246–247 now point to that script; UNCHECKED does not count as passing, reading back is still required.
-- Known gaps: 3 (P3×2, process×1), see `docs/已知缺口.md`.
+- Known gaps: 3 (P3×2, process×1), see docs/已知缺口.md.
 - Approval: Rocky 2026-10-25 14:25 (ACTIVATE-20261025-010); candidate text not in the repo per t349u.
 
 ## 0.1.36
 - Promotes CAND-20261025-009 v4 (sha256 at promotion `9f5e3cc6…8cee`): `confirmation-authorization-and-change.md` pending items must carry a recommendation (former lines 30–31 → lines 30–34) —
   with two or more options, each option carries a suggestion and the recommended option and reason are output; in control scenarios per-option suggestions go in the same reply body; §3 "disambiguate
   first" exception.
-- Known gaps: 4 (P3×4), see `docs/已知缺口.md`.
+- Known gaps: 4 (P3×4), see docs/已知缺口.md.
 - Approval: Rocky 2026-10-25 14:14 (ACTIVATE-20261025-009); candidate text not in the repo per t349u.
 
 ## 0.1.35
 - Promotes CAND-20261025-001 v11 (sha256 at promotion `281dfcda…8c09`): `formal-review-and-findings.md` §7.10 item 9 adds "Terminology" after "author self-check",
   defining miss-cause categories, constraint ledger, constraint deletion list, and per-item back-verification of last round's Findings; lines 187 and 236 drop references to non-effective candidates
   and point to that terminology instead.
-- Known gaps: 4 (remaining: 2 pending verification, 2 process), see `docs/已知缺口.md`.
+- Known gaps: 4 (remaining: 2 pending verification, 2 process), see docs/已知缺口.md.
 - Approval: Rocky 2026-10-25 13:29 (ACTIVATE-20261025-008); candidate text not in the repo per t349u.
 
 ## 0.1.34
-- Promotes CAND-20261025-008 v3 (sha256 at promotion `3461353c…dcd`): `formal-review-and-findings.md` §7.10 item 7 line 213 — known gaps are now registered item by item in `docs/已知缺口.md` in the
+- Promotes CAND-20261025-008 v3 (sha256 at promotion `3461353c…dcd`): `formal-review-and-findings.md` §7.10 item 7 line 213 — known gaps are now registered item by item in docs/已知缺口.md in the
   promotion commit,
   INDEX rows and CHANGELOG state only counts and point to that ledger, and fix commits mark the corresponding rows closed; added the ledger, containing 24 items from 002, 004, 007, 008.
-- Known gaps: 9 (P2×7, P3×2), see `docs/已知缺口.md`.
+- Known gaps: 9 (P2×7, P3×2), see docs/已知缺口.md.
 - Approval: Rocky 2026-10-25 13:26 (ACTIVATE-20261025-007); candidate text not in the repo per t349u.
 
 ## 0.1.33

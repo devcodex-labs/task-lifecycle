@@ -13,7 +13,7 @@
 //   (d) Length limits (§7.10 item 7): skills/task-lifecycle/SKILL.md at most 300 lines;
 //       each .md under skills/task-lifecycle/references/ at most 500 lines (D7).
 //   (f) the SKILL.md frontmatter must contain a description written on a single line (no block scalar, no continuation lines).
-//   (g) no CJK in skills/task-lifecycle/**/*.md and CHANGELOG.md, except exact literals listed in scripts/cjk-allowlist.json
+//   (g) no CJK in skills/task-lifecycle/**/*.md, docs/**/*.md and CHANGELOG.md, except exact literals listed in scripts/cjk-allowlist.json
 //       (each entry scoped to its files, with bucket and reason); allowlist entries no longer found in their files also fail.
 //   (e) README consistency (M-12): README.md and README.zh-CN.md have the same heading-level sequence; both badge versions = plugin.json version.
 import fs from 'node:fs';
@@ -158,7 +158,8 @@ if (fs.existsSync(allowPath)) {
   try { allow = JSON.parse(fs.readFileSync(allowPath, 'utf8')).entries; if (!Array.isArray(allow)) throw new Error('entries must be an array'); }
   catch (e) { errors.push(`scripts/cjk-allowlist.json: unreadable (${e.message})`); allow = []; }
 }
-const cjkFiles = files.filter(f => inSkill(f) || path.relative(root, f) === 'CHANGELOG.md');
+const cjkRel = f => path.relative(root, f).split(path.sep).join('/');
+const cjkFiles = files.filter(f => inSkill(f) || cjkRel(f) === 'CHANGELOG.md' || cjkRel(f).startsWith('docs/'));
 const used = new Set();
 for (const f of cjkFiles) {
   const rel = path.relative(root, f).split(path.sep).join('/');

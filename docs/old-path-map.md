@@ -1,6 +1,18 @@
-# Old path map (0.1.73 → 0.2.0)
+# Old path map
 
-Skill files were renamed to English in 0.2.0. Paths are relative to `skills/task-lifecycle/`; `SKILL.md` is unchanged.
+Files with Chinese names were renamed to English. The old Chinese paths are kept below as data so old links, records and CHANGELOG entries can be traced.
+
+## Repository docs (renamed in 0.2.2)
+
+Paths are relative to the repository root.
+
+| Old path | New path |
+|---|---|
+| docs/已知缺口.md | `docs/known-gaps.md` |
+
+## Skill files (renamed in 0.2.0)
+
+Paths are relative to `skills/task-lifecycle/`; `SKILL.md` is unchanged.
 Old paths are plain text on purpose: they no longer exist, so they are not checked as links.
 
 | Old path (≤ 0.1.73) | New path (0.2.0) |

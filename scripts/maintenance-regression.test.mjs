@@ -120,7 +120,8 @@ test('T62 working-tree mode and invalid arguments unchanged',()=>{
 test('T62 frozen refs reject collisions of absolute/parent paths with valid skill fallback targets',()=>{
   for(const [p,s] of [['/references/task-recognition-and-routing.md','# task-recognition-and-routing'],['../../README.md','# DevCodex Task Lifecycle'],['templates/../../../README.md','# DevCodex Task Lifecycle']]){
     // one extra directory level so ../../README.md is no longer exactly a valid repo-root reference.
-    const f=path.join(citationTemp,'nested',String(++serial)+'.md');put(f,'`'+p+':1` 「'+s+'」\n');
+    const ln=p.endsWith('README.md')?fs.readFileSync(path.join(root,'README.md'),'utf8').replace(/\r\n/g,'\n').split('\n').indexOf(s)+1:1;
+    const f=path.join(citationTemp,'nested',String(++serial)+'.md');put(f,'`'+p+':'+ln+'` 「'+s+'」\n');
     const r=run(cite,['--root',root,'--rev',rev,f]);
     assert.equal(r.status,1,r.stdout);assert.match(r.stdout,/^NOFILE\t/);
     // tighten only frozen mode; existing working-tree alias lookup unchanged.
@@ -240,7 +241,7 @@ test('T60 manifest shared fields match: plugin.json / .cursor-plugin/plugin.json
   const e=m.plugins.find(p=>p.name===a.name);assert.ok(e,'marketplace entry');
   assert.equal(e.category,ui.category,'category');
 });
-test('T79 CJK gate: only allowlisted exact literals, scoped per file; stale entries fail',()=>{
+test('T79 CJK gate: only allowlisted exact literals, scoped per file (skills, docs, CHANGELOG); stale entries fail',()=>{
   const d=docs('cjk'),f=path.join(d,'skills/task-lifecycle/references/x.md'),al=path.join(d,'scripts/cjk-allowlist.json');
   const allow=(entries)=>put(al,JSON.stringify({entries}));
   put(f,'# X\n\nRuntime file 项目约定.md here.\n');
@@ -254,6 +255,7 @@ test('T79 CJK gate: only allowlisted exact literals, scoped per file; stale entr
   allow([{literal:'项目约定.md',bucket:'RUNTIME_NAMES',reason:'fixture',files:['CHANGELOG.md']}]);put(f,'项目约定.md\n');
   r=checkDocs(d);assert.equal(r.status,1);assert.match(r.stderr,/x\.md:1: CJK outside allowlist/);
   allow([]);put(f,'# X\n');put(path.join(d,'docs/a.md'),'# 文档\n');
+  r=checkDocs(d);assert.equal(r.status,1);assert.match(r.stderr,/docs\/a\.md:1: CJK outside allowlist/);put(path.join(d,'docs/a.md'),'# Docs\n');
   assert.equal(checkDocs(d).status,0);
   put(path.join(d,'CHANGELOG.md'),'# 更新\n');assert.equal(checkDocs(d).status,1);
 });
