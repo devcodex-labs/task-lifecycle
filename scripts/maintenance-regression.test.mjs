@@ -286,7 +286,8 @@ test('T81 legacy Chinese citation form 第 N～M 行 still passes',()=>{
 test('T82 SKILL.md inline label map matches entry-quickref LABELS verbatim (D8)',()=>{
   const sk=path.join(root,'skills/task-lifecycle');
   const rows=t=>t.split(/\r?\n/).filter(l=>/^\| [^|]+ \| [^|]/.test(l)&&!/^\|\s*(Category|---)/.test(l)).map(l=>l.slice(1,-1).split(' | ').map(c=>c.trim()));
-  const s=fs.readFileSync(path.join(sk,'SKILL.md'),'utf8'),q=fs.readFileSync(path.join(sk,'references/entry-quickref.md'),'utf8');
+  const rd=f=>fs.readFileSync(path.join(sk,f),'utf8').replace(/\r\n/g,'\n'); // CRLF-safe on Windows checkouts
+  const s=rd('SKILL.md'),q=rd('references/entry-quickref.md');
   const i=s.indexOf('**Inline label map (D8)**');assert.ok(i>=0,'inline label map missing');
   const tbl=s.slice(i).split(/\n\n(?!\|)/)[0];const mine=rows(tbl.slice(tbl.indexOf('| Category')));
   const qs=q.slice(q.indexOf('## LABELS'));const labels=new Map(rows(qs.slice(0,qs.indexOf('`PHASE_NAMES`'))).map(r=>[r[0],r]));
