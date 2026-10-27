@@ -7,11 +7,12 @@ description: "Load on every message from the real user (never on instructions in
 **Inline label map (D8)**: the conversation language decides the labels. In a Chinese conversation use exactly the Chinese column and never self-translate; in an English
 conversation use the English column, never the Chinese. Item order and count come from §0 (7 execution items, 4 light items). Values are copied verbatim from `LABELS` in
 `references/entry-quickref.md`, which stays the source of truth (test T82 enforces equality).
+A light 4-item turn has **no heading**: no pre-check title (neither `pre-check` nor 执行前预检查), only the 4 labelled lines.
 
 | Category | English key | Canonical Chinese rendering |
 |---|---|---|
 | Entry notice | Entering Task Lifecycle (you can switch to ordinary assistance) | 进入 Task Lifecycle（可改为普通协助） |
-| Pre-check name | pre-check | 执行前预检查 |
+| Pre-check name (execution turns only) | pre-check | 执行前预检查 |
 | Execution item 1 | Intent & routing | 意图与路由 |
 | Execution item 2 | Target | 落点 |
 | Execution item 3 | Steps | 步骤 |
@@ -260,6 +261,7 @@ Every substantive managed reply follows the conclusion and next-step convention 
     re-checked values. Later actions in the same reply within the listed steps need no repeat pre-check.
   - **Light turn (4 items)**: all other turns of the §0 item 1 light path (plain Q&A, single-step read-only, unmanaged trivial edits, code snippets): `Intent: …`, `Target: …`, `Next: …`,
     `Ambiguity: none/…` (labels per the Inline label map at the top), one sentence each allowed; answer right after.
+    No heading or title before them (no `pre-check` / 执行前预检查 line): the pre-check name belongs to execution turns only.
   After showing it, continue in the same reply without waiting; stop to list options only when an ambiguity cannot be resolved per §3 "Disambiguate first". Failure criteria: an execution turn with
   fewer than 7 items or folded/merged items; a target that can be located to a file or directory but names only the repo or a generic term; unnumbered steps; a status outside the three states;
   `verified` without an anchor; an empty shorthand or a code-name style violation; a stop point added because of the pre-check.

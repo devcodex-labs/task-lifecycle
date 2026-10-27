@@ -295,3 +295,11 @@ test('T82 SKILL.md inline label map matches entry-quickref LABELS verbatim (D8)'
   for(const r of mine){assert.ok(labels.has(r[0]),'unknown category '+r[0]);assert.deepEqual(r,labels.get(r[0]),'pair differs: '+r[0]);}
   for(const c of ['Entry notice','Light items','Status (three states)','Progress card (4 lines)',...[1,2,3,4,5,6,7].map(n=>'Execution item '+n)])assert.ok(mine.some(r=>r[0]===c),'missing '+c);
 });
+test('T83 check-citations is CRLF-safe: English and legacy forms on CRLF files',()=>{
+  const tgt=path.join(citationTemp,'t83-target.md');fs.writeFileSync(tgt,'# T83 target\r\nalpha line\r\nbeta end\r\n');
+  const f=cited('`t83-target.md` line 3 「beta end」\r\n`t83-target.md` lines 2-3 "alpha line…beta end"\r\n`t83-target.md` 第 2～3 行 「beta end」\r\n`t83-target.md` 第 3 行\r\n');
+  const r=run(cite,['--root',root,f]);
+  assert.equal(r.status,0,r.stdout+r.stderr);assert.match(r.stderr,/recognized=4/);
+  for(const l of r.stdout.trim().split('\n'))assert.match(l,/^(OK|UNCHECKED)\t/);
+  const o=run(cite,['--root',root,cited('`t83-target.md` lines 2-9 「beta end」\r\n')]);assert.equal(o.status,1);assert.match(o.stdout,/^RANGE\t/);
+});

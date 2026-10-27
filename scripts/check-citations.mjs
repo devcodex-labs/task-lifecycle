@@ -38,6 +38,7 @@ function load(p) {
       t = git(['cat-file', 'blob', object]);
     } else t = fs.readFileSync(path.resolve(root, p), 'utf8');
   } catch { t = null; }
+  if (t !== null) t = t.replace(/\r\n/g, '\n');   // CRLF-safe (Windows checkouts)
   let v = null; if (t !== null) { v = t.split('\n'); if (t.endsWith('\n')) v.pop(); }   // a trailing newline is not a line; a zero-byte file has 0 lines (split gives [''], empty after pop)
   if (t === '') v = [];
   cache.set(p, v); return v;
@@ -68,7 +69,7 @@ function ends(text, sg) {
 let bad = 0;
 for (const f of files) {
   let recognized = 0, unchecked = 0, failed = 0;
-  fs.readFileSync(f, 'utf8').split('\n').forEach((line, i) => {
+  fs.readFileSync(f, 'utf8').split(/\r?\n/).forEach((line, i) => {
     for (const m of line.matchAll(RE)) {
       recognized++;
       const p = m[1], n = +(m[2] ?? m[4] ?? m[6]), e = m[3] ?? m[5] ?? m[7], snip = m[8] ?? m[9] ?? m[10]; const mEnd = e ? +e : n;

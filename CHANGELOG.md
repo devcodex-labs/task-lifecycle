@@ -1,3 +1,11 @@
+## 0.2.1 — Light-turn heading and CRLF-safe citations (2026-10-27)
+
+- D11 (Rocky t791u): a light 4-item turn carries no heading, only the 4 labelled lines; the `Pre-check name` label is restricted to execution turns (SKILL.md top map,
+  §4 light turn, and `LABELS` in `references/entry-quickref.md`, kept equal by T82). Evidence: on the live Grok Build install of 0.2.0 the light turn was headed with the
+  Chinese pre-check name in 3/3 runs (isolated b, live b and b2).
+- `scripts/check-citations.mjs` normalises CRLF when reading cited and target files; test T83 runs the English and legacy citation forms on CRLF files.
+- Approval: Rocky t791u (D11).
+
 ## 0.2.0 — English as the single source of truth (2026-10-27)
 
 - D1 (Rocky t784s4403): `skills/task-lifecycle/` and this CHANGELOG (full history) are now written in English as the single source of truth; `docs/` stays Chinese for now.

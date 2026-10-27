@@ -43,7 +43,7 @@ translated.
 | Category | English key | Canonical Chinese rendering |
 |---|---|---|
 | Entry notice | Entering Task Lifecycle (you can switch to ordinary assistance) | 进入 Task Lifecycle（可改为普通协助） |
-| Pre-check name | pre-check | 执行前预检查 |
+| Pre-check name (execution turns only) | pre-check | 执行前预检查 |
 | Execution item 1 | Intent & routing | 意图与路由 |
 | Execution item 2 | Target | 落点 |
 | Execution item 3 | Steps | 步骤 |
