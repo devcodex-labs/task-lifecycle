@@ -2,7 +2,7 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-![version](https://img.shields.io/badge/version-0.1.68-2357C6) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
+![version](https://img.shields.io/badge/version-0.1.69-2357C6) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
 
 An intent-triggered governed-task plugin: one `SKILL.md` plus on-demand reference rules guide you stage by stage to plan, review, and confirm Feature, Bugfix, and Docs work.
 
