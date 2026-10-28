@@ -305,3 +305,10 @@ test('T83 check-citations is CRLF-safe: English and legacy forms on CRLF files',
   for(const l of r.stdout.trim().split('\n'))assert.match(l,/^(OK|UNCHECKED)\t/);
   const o=run(cite,['--root',root,cited('`t83-target.md` lines 2-9 「beta end」\r\n')]);assert.equal(o.status,1);assert.match(o.stdout,/^RANGE\t/);
 });
+test('T84 10c and 10f forbid number-only flowchart nodes and Page labels',()=>{
+  const t=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/verification-and-evidence-routing.md'),'utf8').replace(/\s+/g,' ');
+  const c=t.match(/- 10c .*?(?= - 10[d-z] )/);assert.ok(c,'10c item missing');
+  assert.match(c[0],/number-only nodes are forbidden/);
+  const f=t.match(/- 10f .*?Reason:/);assert.ok(f,'10f item missing');
+  assert.match(f[0],/number-only labels .*are forbidden/);
+});

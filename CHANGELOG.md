@@ -1,3 +1,13 @@
+## 0.2.3 — Readable flowchart nodes and Page labels (2026-10-28)
+
+- `verification-and-evidence-routing.md` §7.10 item 10: 10c now requires flowchart nodes to carry the number + a summary of about 20 characters (over 22 truncated
+  to 20 plus …), followed by the "number—description" table; number-only nodes are forbidden. Item 12 no longer calls its node rule a special case of 10c; it points to 10c.
+- New 10f: Segmented tab labels and segment names on any Page are readable names, a number prefix is allowed, number-only labels are forbidden; item 12's tab-label line
+  (formerly "about 2–4 characters") now follows 10f.
+- Out of scope: whether requirement specs are report-type artifacts (item 2) is unchanged.
+- Regression test T84 locks the two "number-only ... forbidden" sentences in 10c and 10f (whitespace-normalized).
+- Approval: Rocky 2026-10-28 07:42 (option A plus label rule) and 07:48 (t17s2: 10f, relaxed labels, regression test, release), relayed by Knowledge-runtime.
+
 ## 0.2.2 — Promotion-ready README and English docs/ (2026-10-27)
 
 - README.md redesigned in English for first-time readers: centered title and tagline, badges, what it is / is not, key features, a mermaid "How it works" diagram,

@@ -248,11 +248,13 @@ automated checks (stating gates/tests run and results), real runs (stating host/
         details expand on demand.
       - 10b The top contents are always kept (item 7); no "↑ Contents" in each section; contents do not grow or shrink with length or section count; in-app sidebars or drawers are left to
         component/host defaults per item 7. Reason: contents always usable; floating forms are not hand-written by the Agent.
-      - 10c Processes use flowcharts with only short numbers inside nodes, immediately followed by a "number—description" table. Reason: long node text squeezes and distorts; tables are readable and
-        checkable.
+      - 10c Processes use flowcharts whose nodes carry the number + a summary of about 20 characters (over 22 truncated to 20 plus …), immediately followed by a "number—description" table; number-only
+        nodes are forbidden. Reason: long node text squeezes and distorts, bare numbers are unreadable; the summary keeps the diagram readable and the table keeps it checkable.
+      - 10f Page labels (Segmented tab labels and segment names on any Page) are readable names; a number prefix is allowed (e.g. "F1 Intake and validation"), number-only labels (e.g. "F0"–"F7")
+        are forbidden. Reason: readers must tell tabs apart without opening each one or looking up a table.
       - 10d Comparisons use tables; risks and blocks are marked with color plus a text label. Reason: tables ease side-by-side comparison; color plus text does not rely on color vision.
       - 10e Table cell letter spacing 0; tables and flowcharts as wide as the body. Reason: better readability in v0.15 practice; an implementation detail.
-      - Criterion: if the same content contains process/comparison/pending items, the Page shows them as 10c/10d/10a respectively; do not force them in when there is no such content.
+      - Criterion: if the same content contains process/comparison/pending items, the Page shows them as 10c/10d/10a respectively (labels per 10f); do not force them in when there is no such content.
     - Item 11 **Delivery self-check (Grok Bot user-facing only)**: when this session delivers a report-type artifact directly to the user, the Page must be written before claiming "delivered", and
       the user-visible reply contains an openable Page link (or the WriteCanvas success url); a hit that requires a Page but has no link/no Page → reject that delivery claim, make it first, then
       deliver.
@@ -276,7 +278,8 @@ automated checks (stating gates/tests run and results), real runs (stating host/
         chapter); directly above each flow segment's Segmented at most one short navigation line; never put materials / ordering notes / long Callouts above the control or in the overview tab (such
         content goes in the Steps materials line of the corresponding phase tab); never write "phase-level overview / step tables in each phase" synonymous with the navigation above inside the
         overview;
-        tab labels should be short (about 2–4 characters), with the full name in the tab's first sentence; flow chapter headings and top contents items carry only the chapter name (e.g. "3. Flow"),
+        tab labels follow 10f and stay short (a readable name, optionally number-prefixed), with the full name in the tab's first sentence;
+        flow chapter headings and top contents items carry only the chapter name (e.g. "3. Flow"),
         without listing tab/node names in parentheses (t772u); multiple flow segments may not mechanically copy the same navigation boilerplate (at most one sentence each; the "back to overview"
         catchphrase may be omitted).
         The whole page has only one set of first-level segmented tabs (t758u / t762u, aligned with Feature Page 5c9e0cb3): "overview + main-flow phases (+ appendix)"; tab labels = main-flow
@@ -298,11 +301,12 @@ automated checks (stating gates/tests run and results), real runs (stating host/
         invent; materials go on the node's first row, stop points on its last row; implementation/flow/basis at node level go on the first row with later rows "same as above" (t733u, t738s4158).
         WI diagrams without numbered sub-steps may use a four-column table with localized headers WI / how / downstream / acceptance basis, the skeleton still diagram + Steps + table. Flow-type
         diagram nodes carry the number + a summary of about 20 characters (over 22 truncated to 20 plus …), overview diagram nodes carry descriptive phase names (e.g. "Large change: material
-        package + static"); this is a special case of 10c, which is unchanged for other diagrams (t714s3996).
+        package + static"); node text follows 10c (t714s3996, Rocky 2026-10-28).
         Labels written into Pages ("Materials: …", "Stop point: …", "Exception: …", "not stated", "action complete", "same as above") follow the Page cells and Page step lines rows of the `LABELS`
         table in `entry-quickref.md`.
-      - **Relation to item 10**: this item specializes how **flow segments** arrange 10c; non-flow chapters in mixed content (including the body's first-section conclusions/pending items) still
-        follow item 10 (10a/10b/10d/10e); for purely flow-type content with no pending items, do not invent a conclusion section because of item 4's parenthetical "the body's first section per 10a".
+      - **Relation to item 10**: this item specializes how **flow segments** arrange 10c; non-flow chapters in mixed content (including the body's first-section conclusions/pending
+        items) still follow item 10 (10a/10b/10d/10e/10f); for purely flow-type content with no pending items, do not invent
+        a conclusion section because of item 4's parenthetical "the body's first section per 10a".
         10b contents and item 7, 10d comparison tables and 10e letter spacing still apply; phase tabs may not replace the top contents.
     - Item 13 (withdrawn, CAND-20261027-013, t719u: Pages are generated only by Grok Bot and accepted by Rocky; this item added a stop point without new evidence; hitting the three classes follows
       the original clause of §7.10 item 7).
