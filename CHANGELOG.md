@@ -1,4 +1,4 @@
-## 0.2.8 — End-to-end Auto card, host-native parallel config, review intensity (Unreleased)
+## 0.2.8 — End-to-end Auto card, host-native parallel config, review intensity (2026-10-28)
 
 - New reference `end-to-end-auto-card.md` (pointer `confirmation-authorization-and-change.md` §6.3.2): Auto form (ii), an end-to-end Auto card with ten required keys,
   shown only after A01 and A02 are human-confirmed, phases `A03..A07` at most, only `local-commit` pre-authorizable; `noStop: true` adopts recommendations as
@@ -14,7 +14,7 @@
   not in config; no tier skips a required gate and every tier stays under the §7.10 item 7 General review cap. Tests T109–T111.
 - `entry-quickref.md`: LABELS rows, a RUNTIME_NAMES row with the fixed-English-name exception for the three record files, and an action-map line; `cjk-allowlist.json`
   entries. Test T103 guards zero deletions and SKILL.md unchanged (≤600 lines).
-- Task FEAT-20261028-001 (Rocky D1–D42); release approval pending.
+- Task FEAT-20261028-001 (Rocky D1–D48); acceptance card t949s5392, release approval t950u.
 
 ## 0.2.7 — Untruncated status evidence, control request before blaming upstream, user-chosen re-review performer (2026-10-28)
 
