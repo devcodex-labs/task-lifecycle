@@ -11,7 +11,7 @@
 //       or bare *.md names under skills/task-lifecycle; resolved against the containing dir, skill root, repo root (bare names also in references/templates/examples).
 //       Excluded: inside code blocks, values with wildcards/placeholders (* { } < >); runtime directories and consumer project paths are out of scope.
 //   (d) Length limits (§7.10 item 7): skills/task-lifecycle/SKILL.md at most 300 lines;
-//       each .md under skills/task-lifecycle/references/ at most 500 lines (D7).
+//       each .md under skills/task-lifecycle/references/ at most 600 lines (D7; Rocky t948u raised it from 500).
 //   (f) the SKILL.md frontmatter must contain a description written on a single line (no block scalar, no continuation lines).
 //   (g) no CJK in skills/task-lifecycle/**/*.md, docs/**/*.md and CHANGELOG.md, except exact literals listed in scripts/cjk-allowlist.json
 //       (each entry scoped to its files, with bucket and reason); allowlist entries no longer found in their files also fail.
@@ -113,9 +113,9 @@ for (const f of files) {
   });
 }
 
-// (d) Length limits: SKILL.md <= 300 lines; references/*.md <= 500 lines (D4 raised SKILL.md from 180, D7 references from 300)
+// (d) Length limits: SKILL.md <= 300 lines; references/*.md <= 600 lines (D4 raised SKILL.md from 180, D7 references from 300, t948u to 600)
 const SKILL_MAX_LINES = 300;
-const REF_MAX_LINES = 500;
+const REF_MAX_LINES = 600;
 function countLines(text) {
   if (!text.length) return 0;
   return text.split(/\r?\n/).length - (text.endsWith('\n') || text.endsWith('\r\n') ? 1 : 0);

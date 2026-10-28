@@ -52,7 +52,7 @@ test('T49/T52 original long-line, link, anchor and internal-reference assertions
     }
   }
 });
-test('T53 length caps SKILL≤300 references≤500',()=>{
+test('T53 length caps SKILL≤300 references≤600',()=>{
   const d=docs('limits');
   // fixture SKILL is short and references are absent → should pass
   assert.equal(checkDocs(d).status,0);
@@ -63,10 +63,10 @@ test('T53 length caps SKILL≤300 references≤500',()=>{
   // restore a valid SKILL, build an over-limit reference
   put(skill,'---\nname: sample\ndescription: ok\n---\n# Example\n');
   const ref=path.join(d,'skills/task-lifecycle/references');fs.mkdirSync(ref,{recursive:true});
-  put(path.join(ref,'big.md'),Array.from({length:501},(_,i)=>`# R${i}`).join('\n')+'\n');
+  put(path.join(ref,'big.md'),Array.from({length:601},(_,i)=>`# R${i}`).join('\n')+'\n');
   r=checkDocs(d);assert.equal(r.status,1);assert.match(r.stderr,/references\/big\.md: line count/);
-  // boundary: 500 lines passes
-  put(path.join(ref,'big.md'),Array.from({length:500},(_,i)=>`# R${i}`).join('\n')+'\n');
+  // boundary: 600 lines passes
+  put(path.join(ref,'big.md'),Array.from({length:600},(_,i)=>`# R${i}`).join('\n')+'\n');
   assert.equal(checkDocs(d).status,0);
 });
 test('T51 compare keeps bytes/sets, missing arg exits 2, unknown args carry no change',()=>{

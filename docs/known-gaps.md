@@ -347,7 +347,7 @@ Columns: ID, severity, source candidate/commit, issue, whyMissed summary or link
   for isolation needs the owner's approval. Method: static review, not run for real. (Since 0.2.0, isolated runs use a separate `GROK_HOME`; see the 0.2.0 records.)
 
 ## F11 length caps (closed)
-check-docs checks SKILL.md ≤300 lines (raised from ≤180 in 0.2.0, D4) and references/*.md ≤500 lines (raised from ≤300 in 0.2.0, D7).
+check-docs checks SKILL.md ≤300 lines (raised from ≤180 in 0.2.0, D4) and references/*.md ≤600 lines (raised from ≤300 in 0.2.0, D7; to ≤600 by Rocky t948u).
 
 ## F09 / F12 / F13 (closed) and F10 (dropped)
 - F09 closed: absolute line numbers named in self-review were changed to content anchors (0.1.64).

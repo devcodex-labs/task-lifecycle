@@ -406,7 +406,7 @@ This section refines §7.9 and does not change the plan, closure and stop condit
      not block the others.
    - **Regression scenario library**: holds only cases of the three classes above that were really run; a release runs the scenarios related to this change, the full set runs every Sunday; scenario
      failures are graded per the P1 threshold above.
-   - **Length limits**: SKILL.md ≤300 lines, each reference ≤500 lines (anything over is first compressed within the limit); new rules may only replace or merge old clauses and may not push their
+   - **Length limits**: SKILL.md ≤300 lines, each reference ≤600 lines (anything over is first compressed within the limit); new rules may only replace or merge old clauses and may not push their
      file over the limit; each Sunday review also lists obsolete and duplicate clauses, deletion approved by Rocky.
    - **Citations**: candidates and rules always cite by content anchors (section name + sentence-opening fragment), never absolute line numbers. Promotion, deletion and narrowing at expiry are
      decided by Rocky.
