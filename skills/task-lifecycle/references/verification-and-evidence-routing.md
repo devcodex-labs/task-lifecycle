@@ -230,6 +230,17 @@ automated checks (stating gates/tests run and results), real runs (stating host/
       content and the approval object, not chapter order; keeping one order in both avoids confusing numbers (t848u, t848s4710).
       Report-type Pages are never deleted unless Rocky names the Page; deleting a Page (which removes it for everyone it was shared with) counts as an irreversible action needing his
       explicit confirmation; this also holds for same-page reuse under CAND-20261026-009. Reason: a reused Page is the one reading copy others rely on (t180s699).
+    - Item 4a **Page language, source line placement and conclusion order (Grok Bot host only; Rocky t872u, preview approved t878u)**:
+      (S1) A Page whose content is Chinese, Japanese or Korean sets the Page `lang` prop (`zh-Hans`, `zh-Hant`, `ja` or `ko`) as the canvas kit declares it; the
+      deprecated Page `sources` prop is not used, because it renders nothing.
+      (S2) The source line (source .md path, sha256 and line count) is the first line inside the collapsed document-header section, not the Page's top line.
+      Precedence: on the position of the source line only, S2 takes precedence over item 4's "the Page's top line states the source .md path and sha256 (page order:
+      source line → top table of contents → body …)" and over 10a's "after the source line and top contents"; the page order becomes top table of contents → body,
+      with the source line in the document-header section; item 4's other text (content of the source line, sha256 update, same-page reuse, chapter order, no
+      deletion) is unchanged.
+      (S3) In the conclusion section, Metrics come first, then the Callouts; a Callout lead states the conclusion directly and never repeats the section heading;
+      Metrics, leads and Callouts use only facts already in the content.
+      Reason: preview Page 7e0ddf45 with these changes was approved by Rocky (t872u, t878u).
     - Item 5 **Page scope**: report-type artifacts (review reports, plans, contract documents) always get a Page regardless of length; non-report artifacts (CHANGELOG, config notes and other
       artifacts) only get .md; length does not change classification (same as the scope definition).
     - Item 6 **Single-file HTML on demand**: when cross-host or local reading is needed, generate a self-contained single-file HTML on demand, not by default; generate only when the user explicitly

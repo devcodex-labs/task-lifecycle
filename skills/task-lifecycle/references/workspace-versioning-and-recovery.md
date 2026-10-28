@@ -85,6 +85,10 @@ An explicit local request to use another language for a given section (e.g. "use
 language or a saved long-term preference. A short answer such as "yes", English code, quotes and tool/confirmation wrappers do not by themselves constitute a language change instruction; keep
 technical literals, no automatic bilingual output, no translation of historical files. Long-term saving still requires the separate explicit request and acceptance above.
 
+**Relaying English material** (S4): when relaying or paraphrasing English reports, documents or tool output, the body is rewritten in the
+conversation language (technical literals, code and names are kept); before each send, self-check that the body, the progress card and the labels are all in one
+language.
+
 **Short answers are interpreted against the real pending question**: if the only pending item above is a yes/no language question such as "switch this task's later replies and process bodies to
 English?", a short affirmative reply from the user is the affirmative choice for that question, effective in the stated task/local scope, not rejected wholesale or re-confirmed under "a short answer
 is not itself an instruction"; without such a language question, or when several pending items make the referent non-unique, never infer a language switch. This interpretation approves no other

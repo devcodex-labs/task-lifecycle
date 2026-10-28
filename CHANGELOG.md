@@ -1,3 +1,12 @@
+## 0.2.5 — Page style rules and relay language self-check (2026-10-28)
+
+- `verification-and-evidence-routing.md` §7.10: new item 4a: CJK Pages set Page `lang`, the deprecated `sources` prop is not used; the source line moves to the first line of the
+  collapsed document-header section (precedence over item 4's top-line position only; item 4's original text unchanged); the conclusion section puts Metrics first and Callout
+  leads state the conclusion. Regression test T90.
+- `workspace-versioning-and-recovery.md`: relaying English material is rewritten in the conversation language (technical literals, code and names kept) with a one-language
+  self-check of body, progress card and labels before each send. Regression test T91.
+- Approval: Rocky t872u, t878u (preview Page 7e0ddf45), card t879s4804; release approval t880u.
+
 ## 0.2.4 — Layout plan before generating a Page (2026-10-28)
 
 - `verification-and-evidence-routing.md` §7.10 item 10: new 10g requires a layout plan before generating a Page: confirmed rules first, then the layout best for human reading,

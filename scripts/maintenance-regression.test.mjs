@@ -350,3 +350,15 @@ test('T89 commit identity before push: Rocky Shi author/committer, no bot co-aut
   const t=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/workspace-versioning-and-recovery.md'),'utf8').replace(/\s+/g,' ');
   assert.match(t,/before any push, verify every commit to be pushed has Author and Committer `Rocky Shi <rockyshi1993@gmail\.com>`; any `Co-authored-by:` trailer naming a bot or agent is removed before push \(amend only unpushed local commits; never rewrite pushed history without Rocky's confirmation\); on a mismatch stop and report/);
 });
+test('T90 item 4a Page lang, source line in document header, conclusion order',()=>{
+  const t=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/verification-and-evidence-routing.md'),'utf8').replace(/\s+/g,' ');
+  assert.match(t,/A Page whose content is Chinese, Japanese or Korean sets the Page `lang` prop \(`zh-Hans`, `zh-Hant`, `ja` or `ko`\)/);
+  assert.match(t,/the deprecated Page `sources` prop is not used, because it renders nothing/);
+  assert.match(t,/The source line \(source \.md path, sha256 and line count\) is the first line inside the collapsed document-header section, not the Page's top line/);
+  assert.match(t,/on the position of the source line only, S2 takes precedence over item 4's/);
+  assert.match(t,/In the conclusion section, Metrics come first, then the Callouts; a Callout lead states the conclusion directly and never repeats the section heading/);
+});
+test('T91 relaying English material in the conversation language with one-language self-check',()=>{
+  const t=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/workspace-versioning-and-recovery.md'),'utf8').replace(/\s+/g,' ');
+  assert.match(t,/when relaying or paraphrasing English reports, documents or tool output, the body is rewritten in the conversation language \(technical literals, code and names are kept\); before each send, self-check that the body, the progress card and the labels are all in one language/);
+});
