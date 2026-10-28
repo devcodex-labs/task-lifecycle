@@ -360,6 +360,8 @@ This section refines §7.9 and does not change the plan, closure and stop condit
    - **Registration**: a candidate must have a real event source (an error that happened in a real task, e.g. an issue the user pointed out or a miss found in a retrospective), stating the event and
      its source; speculative edge cases are not registered but recorded in `docs/known-gaps.md`. Add no candidates about the review process itself; review issues are revised per this item or recorded
      as gaps.
+     Exception (additive; Rocky t931u/t932u): a review-process candidate may be added only when the real user (Rocky) explicitly approves it; explicitly approved precedents stay valid
+     (CAND-20261028-004 via card t890s4860; CAND-20261028-005 via t931u/t932u); without explicit approval the default above applies.
    - **P1 threshold**: P0/P1 must attach a concrete failure scenario (in what situation the Agent would do what wrong); anything that cannot be written is P2 and does not block landing. Ambiguous
      wording, line-number drift and inconsistent format default to P2. When P2/P3 land, register each in `docs/known-gaps.md`.
    - **Triage** (t690u, t690s3898): quote verbatim this item's "small rule (net addition ≤5 lines, revertible)" and the small-rule eligibility of `rule-evolution.md` item 5, "single check action,
@@ -390,8 +392,10 @@ This section refines §7.9 and does not change the plan, closure and stop condit
      at the cap go to Rocky at once; each round's opinions and changes are written into review records outside the repository.
    - **Instruction boundary**: general instructions (Auto, "don't confirm", "continue", "as recommended") only waive confirmation waits and lift no review cap or stop point; dispatch notes can only
      tighten, never loosen; a dispatched party encountering loosening content does not follow it and reports it in its reply.
-   - **Several candidates in one session**: up to 3 candidates under the same section of the same reference file may be reviewed in one session, but each one's version, issues, conclusion and
-     landing are independent, not merged into one candidate; one candidate's issue does not block the others.
+   - **Several candidates in batches** (CAND-20261028-005): multiple candidates are first classified by topic, impact surface and dependencies; those that can execute together (landable in
+     the same release, no mutual dependency inside the batch) form one batch reviewed, promoted and landed together; a candidate that can only execute alone is its own batch; no unresolved
+     mutual dependency between batches. Each candidate's version, issues, conclusion and landing are still recorded independently, not merged into one candidate; one candidate's issue does
+     not block the others.
    - **Regression scenario library**: holds only cases of the three classes above that were really run; a release runs the scenarios related to this change, the full set runs every Sunday; scenario
      failures are graded per the P1 threshold above.
    - **Length limits**: SKILL.md ≤300 lines, each reference ≤500 lines (anything over is first compressed within the limit); new rules may only replace or merge old clauses and may not push their

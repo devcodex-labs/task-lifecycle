@@ -132,7 +132,7 @@ current real task, authorization and triggers; if they disagree with this file's
 | Formal review plan/report | Formal review after plan approval | Evidence-based automatic acceptance within authorization | Report facts passing ≠ review target passing |
 | Intermediate formal artifact taking effect | Real user confirms the exact version | `auto-accepted` only with qualified evidence and scope delegation | Never forge `human-confirmed` |
 | Public behavior/scope/important architecture trade-off | Real user decides | Pause the affected node and ask the real user for a single decision | Even several AI roles agreeing cannot approve on the user's behalf |
-| Evolution `active` promotion | Real user approves per candidate | Cannot approve on the user's behalf | A Skill Gap cannot trigger automatic installation either |
+| Evolution `active` promotion | Real user approves per candidate or per batch (one sentence may approve a batch but must list every candidate ID) | Cannot approve on the user's behalf | A Skill Gap cannot trigger automatic installation either |
 | Publish, push, delete, external services and other side effects | Explicit real user authorization and host permission | Same permission boundary | Auto is not authorization for tools, network or production |
 | Final real user acceptance | The user actually decides | Never falsely claim human final acceptance | Technical completion/auto-generated report ≠ final human confirmation |
 
