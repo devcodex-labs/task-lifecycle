@@ -88,6 +88,7 @@ candidate bodies cite them only by "task ID + record filename + sha256", and rec
 per §9.7 of the same file and say "no external record kept" in the reply; never write them into the repository instead.
 - Review checks item by item content, source evidence, applicable and non-applicable boundaries, conflicts, forward checkpoint, executable positive/negative criteria, cost and rollback; candidate
   issues revisable autonomously are fixed within existing write permission and re-reviewed; if they cannot converge, promotion is blocked.
+  Such re-review after fixes counts toward the General review 3-round cap (`formal-review-and-findings.md` §7.10 item 7, "Recheck counts toward the cap").
 - Bodies and review records not yet approved per candidate by the real user are not read by workflows as execution rules, and review report quality/fact acceptance is not active promotion; history
   and index management continue under this file's existing protocol.
 - Tests before a candidate takes effect (injecting rule text, sending on behalf) record only "disturbed evidence"; real verification after promotion follows the E4 paragraph of

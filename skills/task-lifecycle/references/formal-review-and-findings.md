@@ -390,6 +390,10 @@ This section refines §7.9 and does not change the plan, closure and stop condit
      FormalReview's "stop after two rounds of the same method without progress" and relay's "at most 3" apply to different objects; whichever comes first stops, neither replaces the other.
      When a single round is stuck, stop at the session's own cap (e.g. `--max-turns`) and report to Rocky; disputes go to Rocky with both sides' reasons, without consuming rounds; unresolved issues
      at the cap go to Rocky at once; each round's opinions and changes are written into review records outside the repository.
+     **Recheck counts toward the cap** (t936u): a recheck triggered by a user ruling or rule such as "one recheck after accepted fixes" is a General review round
+     under the same cap: default 1 round, only remaining P1 opens rounds 2 and 3, at most 3 in total; at the cap, unresolved issues go to Rocky at once and no 4th round
+     is opened on one's own; disputes go to Rocky with both sides' reasons without consuming rounds; general instructions ("as recommended", Auto) do not lift this cap
+     (see Instruction boundary); no P1 with P2 fixed or registered in `docs/known-gaps.md` still passes and may end early.
    - **Instruction boundary**: general instructions (Auto, "don't confirm", "continue", "as recommended") only waive confirmation waits and lift no review cap or stop point; dispatch notes can only
      tighten, never loosen; a dispatched party encountering loosening content does not follow it and reports it in its reply.
    - **Several candidates in batches** (CAND-20261028-005): multiple candidates are first classified by topic, impact surface and dependencies; those that can execute together (landable in
