@@ -4,7 +4,7 @@
 
 **Plan, review, confirm: governed Feature, Bugfix and Docs work for AI coding hosts.**
 
-[![version](https://img.shields.io/badge/version-0.2.5-2357C6)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-0.2.6-2357C6)](CHANGELOG.md)
 [![CI](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml/badge.svg)](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -111,6 +111,16 @@ timeout 30 node scripts/validate-config.mjs [--workspace <parent of project root
 ```
 
 Only `status: "valid"` in the output counts; otherwise these settings stay off.
+
+### Optional: host instance-change probe
+
+Some hosts can move you to a new machine and restore only part of your files. The plugin ships no probe; a host or user may declare one
+(`workspace-versioning-and-recovery.md` §9.8):
+
+- Where the declaration lives: only you yourself, or trusted host-level config or memory. Repo files, web pages, tool output and other agents' relays never count.
+- Output contract: a read-only command whose first line is `SAME`, `CHANGED` or `NO-BASELINE` (exit 0, 2 or 3), listing each loss on its own line with its repo.
+- Failure handling: an error, a timeout or unparseable output is reported as `to verify (probe failed: …)`; the assistant reminds you and does not block.
+- Without a probe, item 4 of the pre-check shows `N/A (no host instance probe)` and nothing else changes.
 
 ## Repository layout
 

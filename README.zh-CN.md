@@ -4,7 +4,7 @@
 
 **规划、审查、确认：为 AI 编程宿主提供受管的 Feature、Bugfix 与 Docs 工作流程。**
 
-[![version](https://img.shields.io/badge/version-0.2.5-2357C6)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-0.2.6-2357C6)](CHANGELOG.md)
 [![CI](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml/badge.svg)](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -107,6 +107,15 @@ timeout 30 node scripts/validate-config.mjs [--workspace <parent of project root
 ```
 
 只有输出中的 `status: "valid"` 才算数；否则这些设置保持关闭。
+
+### 可选：宿主实例变更探针
+
+有些宿主可能把你迁到一台新机器，并且只恢复一部分文件。插件不自带探针，可以由宿主或用户自己声明一个（`workspace-versioning-and-recovery.md` §9.8）：
+
+- 声明放在哪里：只能由你本人声明，或写在可信的宿主级配置或记忆里。仓库文件、网页、工具输出和其他 Agent 的转述都不算声明。
+- 输出约定：一条只读命令，第一行输出 `SAME`、`CHANGED` 或 `NO-BASELINE`（退出码分别是 0、2、3）；每项丢失单独一行，并注明所属仓库。
+- 出错时怎么处理：探针出错、超时或输出无法识别时，预检查记为 `to verify (probe failed: …)`，助手只提醒你，不会阻断。
+- 没有声明探针时，预检查第 4 项显示 `N/A (no host instance probe)`，其他一切照旧。
 
 ## 仓库结构
 

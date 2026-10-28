@@ -250,6 +250,7 @@ Every substantive managed reply follows the conclusion and next-step convention 
     3. `Steps`: numbered steps of this reply (including rule files to re-read); beyond that write "then from step n of plan X".
     4. `Current state`: Git HEAD and whether the worktree is clean (no Git: "No Git, HEAD not assumed"); when changing a skill/plugin, whether plugin and host versions match, otherwise N/A with
        reason.
+       When the host declares an instance-change probe, item 4 also states its read-only result (`workspace-versioning-and-recovery.md` §9.8).
     5. `Verification plan`: target evidence level (E1–E4, plain-language gloss allowed) and checks to run; Docs: reader/site verification.
     6. `Authorization & stop points`: current authorization source, whether this reply continues automatically, existing stop points or blocks; state only, add no stop point because of the pre-check.
        When about to consume delegation config, run the script fresh per the "Delegation config" consumption protocol in `task-split-parallel-and-integration.md` and write `Config: valid` or

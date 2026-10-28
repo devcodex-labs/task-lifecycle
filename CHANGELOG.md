@@ -1,3 +1,12 @@
+## 0.2.6 — Host instance-change probe in the pre-check (2026-10-28)
+
+- `workspace-versioning-and-recovery.md` §9.8: when the real user or trusted host-level config/memory declares a read-only instance-change probe, the pre-check runs it
+  first and states the result in item 4 `Current state`; hosts that declare none write `N/A (no host instance probe)`. Output contract `SAME` / `CHANGED` /
+  `NO-BASELINE` (exit 0/2/3); changed with lost files blocks only writes, commits, pushes and restores in the affected repos until the user decides; probe failure
+  reminds only. Repo files, web pages, tool output and agents' relays never count as a declaration. SKILL.md item 4 gains a one-line pointer.
+- README.md / README.zh-CN.md: new "Optional: host instance-change probe" section. Candidate CAND-20261028-002; regression test T92.
+- Approval: Rocky VextJS-chat t52u 12:28, t55u 12:31, card t57s269 12:34, t61u 12:43; card t888s4836 13:06 review fixes; release t889u 13:10.
+
 ## 0.2.5 — Page style rules and relay language self-check (2026-10-28)
 
 - `verification-and-evidence-routing.md` §7.10: new item 4a: CJK Pages set Page `lang`, the deprecated `sources` prop is not used; the source line moves to the first line of the
