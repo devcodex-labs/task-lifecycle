@@ -29,7 +29,7 @@
   replaces required review. Pointer lines in `SKILL.md`, §7.4, `feature-flow.md`, `bugfix-flow.md` and `docs-flow.md`; a separate Chinese label line in
   `entry-quickref.md`; one line in `templates/review-plan-and-finding-record.md`; `cjk-allowlist.json` entry. Candidate CAND-20261028-004; regression test T95.
 - CAND-20261028-004 approval: Rocky cards t906s5153 18:03, t906s5160 18:14, t906s5166 18:17, t906s5169 18:18 (INDEX), t906s5176 18:19 (title) (2026-10-28).
-- Approval: Rocky cards t906s5070, t906s5074, t906s5078, t906s5083 (2026-10-28 17:22–17:30); release approval pending.
+- Approval: Rocky cards t906s5070, t906s5074, t906s5078, t906s5083 (2026-10-28 17:22–17:30); release approval t922u/t924u (tag), t951u (GitHub release).
 
 ## 0.2.6 — Host instance-change probe in the pre-check (2026-10-28)
 
