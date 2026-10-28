@@ -141,6 +141,7 @@ node -e "const r=require('node:child_process').spawnSync(process.execPath,proces
    subtree); key points: `layers.global` is always present, and `layers.project` must be present when any project parameter is given; when valid `effective` is an object containing
    `delegation` / `review` / `workflowDepth`, with one `approvalSources` entry per existing layer; when disabled `effective` is `null` and `approvalSources` is `[]`; each `reasons` item contains
    `code` / `detail` / `layer` / `path` / `stage`.
+   Additive (FEAT-20261028-001): a valid `effective` also contains `parallel`; its consumers read the last section "Host-native parallel config (parallel)".
    No node, node < 20 or missing script → `validator-unavailable`; crash, 30 s timeout, empty/truncated/non-conforming stdout → `validator-failed`; exit codes 0/2/1 are only auxiliary.
 4. **Accept only this run's `status:"valid"`**: otherwise treat as off; pre-check item 6 writes `Config: disabled (<code>)`, and the depth execution default is invalidated too.
    Structural failures (e.g. duplicate key `duplicate-key`, `config-parse-error`) report only that code and do not proceed to item 5's sha verification.
@@ -341,6 +342,7 @@ estimate supported by project facts** outweighs the extra context, coordination,
 - without credible basis never claim time savings; prefer `serial-required` when needed. Mutually non-writing independent investigations may choose `parallel-analysis-only`;
 - shared config, lockfiles, approval ledgers, the same site navigation/database/port etc. without reliable isolation must be `serial-required`. Without capability or with unclear benefit, start no
   fictional sub-Agents or independent processes.
+- Additive (FEAT-20261028-001): the optional host-native `parallel` config narrows this judgment and never widens it; see "Host-native parallel config (parallel)".
 
 **Four parallel admission states and failure exits**:
 
@@ -390,3 +392,56 @@ and corresponding results was obtained;
 - `serial-required` only says it should be serial; if actually completed there should be serial execution/overall integration evidence; `blocked` cannot automatically cancel protected upstream gates
   just because parallelism is unavailable.
 - Parallel description docs from other devices or an Agent's text self-report cannot replace the target host's real results.
+
+---
+
+## Host-native parallel config (parallel)
+
+Added by FEAT-20261028-001 (Rocky D4, D5, D9, D18–D21, D26, D31, D32; R-2). Additive only: every sentence above, including "Four parallel admission states and failure exits" and
+§11.1 "Choose `parallel-eligible` only when", stays verbatim and still governs.
+
+- **Location and shape**: optional top-level key `parallel` in the same global and project `config.json` as `delegation`; `schemaVersion` stays `1`. Fields (all optional):
+  `enabled` (boolean, default `false`), `maxConcurrent` (integer 1–4, default `3`), `categories` (object of booleans keyed by the four category keys; defaults
+  `readonly-investigation: true`, `implementation: false`, `test-run: false`, `drafting: false`), `sameRepoWrites` (`disjoint-files-only` default,
+  `worktree-with-per-time-authorization`, `never`). `"parallel": {}` is valid and means off.
+- **Off is 0.2.6**: when `parallel` is omitted or the effective `enabled` is false, behavior is exactly that of 0.2.6; the existing `parallel-analysis-only` and
+  `parallel-eligible` judgments are unchanged.
+- **On adds only one thing**: for categories whose value is `true`, the main session may actually dispatch host-native sub-agents at the same time, at most `maxConcurrent`
+  running at once (counted across all categories, the main session excluded). Every dispatch still meets "Choose `parallel-eligible` only when" and its following bullets.
+- **Enabling grants no permission** (D32): `enabled: true` is not a standing authorization; every dispatch still needs that time's authorization. It only adds two limits:
+  a category whose value is `false` is never dispatched concurrently, and the `maxConcurrent` cap.
+- **Config is never authorization**: `readonly-investigation: true` allows only `parallel-analysis-only` and grants no write permission; a write category set to `true` still needs
+  the four-state conditions and current authorization for each dispatch.
+- **Not delegation**: `parallel.categories` (boolean: may this category be dispatched concurrently inside the host) and `delegation.categories` (external executor id) share key
+  names only; `parallel` enables no external executor and `delegation` enables no concurrency. "External coding executor delegation" does not apply to `parallel`.
+- **Same-repo writes** (`sameRepoWrites`):
+  - `disjoint-files-only`: write sub-tasks with disjoint write sets that touch none of the shared resources listed in §11.1 may run concurrently; overlapping write sets are
+    queued and run serially, automatically.
+  - `worktree-with-per-time-authorization`: when isolation is needed, ask the real user each time to authorize a worktree; without that authorization the write runs serially
+    and no worktree is created ("Default ban on branches for personal projects" unchanged).
+  - `never`: same-repo write sub-tasks always run serially.
+  - No value of this field authorizes creating a branch or worktree.
+- **Project layer only narrows** (D21, D26, R-2): `enabled` may be `false` or equal to the global value; `maxConcurrent` at most the global value; a category may go
+  from `true` to `false` or keep the global value; `sameRepoWrites` may only equal the global value or be `never`. Anything wider is `project-layer-widening` and the whole
+  config is disabled. A project layer without `parallel` inherits the global one; omitted sub-keys inherit the global effective value.
+- **Validator**: invalid values reuse existing codes (`invalid-type`, `invalid-value`, `unknown-field`, `forbidden-mapping`, `project-layer-widening`); no new code. When valid,
+  `effective.parallel` is always present (fields per [validator-output-protocol.md](validator-output-protocol.md)); when the effective `enabled` is false it is the fixed
+  default block with every `sourceLayer` `default` (D31). Consumers check `effective.parallel.enabled.value === true` first and otherwise ignore the other fields.
+- **Run fresh**: before each dispatch based on `parallel`, rerun the validator per "Delegation config" item 1 and accept only that run's `status:"valid"`; pre-check item 6
+  reports it as for any delegation config. A session under a dispatch marker (SKILL.md §0 item 1) never dispatches based on config.
+- **No inherited Auto**: sub-agents and dispatched sessions inherit no Auto form (task-level Auto, the end-to-end Auto card, `noStop`; see
+  `end-to-end-auto-card.md`); commits are made by the main session; the root task integrates and runs the overall regression (§11.2).
+- **Compatibility**: plugins up to 0.2.7 do not know `parallel`, report `unknown-field` and disable the whole config (delegation, review and workflowDepth too). Upgrade the
+  plugin before writing `parallel`. Writing or changing `parallel` is a config change and goes through "Delegation config writes".
+
+**Scenario rules** (status words are the four states, except the last row):
+
+| Scenario | Status | Conditions |
+|---|---|---|
+| Several repos, several tasks | `parallel-eligible` (conditional) | Cross-repo resident assistants follow "Cross-repo sub-tasks and joint push"; same-session sub-agents or dispatched sessions do not use that section and follow the other rows; that section grants no push; push needs the real user's confirmation at that time |
+| Read-only investigation | `parallel-analysis-only` | Grants no write permission |
+| Running tests per a frozen plan | `parallel-eligible` (conditional) | Shared resources (ports, databases, lockfiles) reliably isolated and §11.1 conditions met; otherwise `serial-required`; external executor test-run rules unchanged |
+| Review seats | `serial-required` | §7.10 relay legs run serially (`formal-review-and-findings.md`) |
+| Same repo, disjoint files | `parallel-eligible` (conditional) | Touches none of the §11.1 shared resources; §11.1 conditions met; commits by the main task only, with that time's authorization or the end-to-end Auto card's local-commit pre-authorization; a batch confirmation grants no commit |
+| Same file or shared interface | `serial-required` | §11.1 shared-resource rule |
+| Never-delegate list ("External coding executor delegation") | not dispatched (not one of the four states) | The A03 dependency and source-structure check may still run as a read-only investigation |

@@ -233,6 +233,7 @@ than triggering a question or switching mode automatically from the phrase alone
   several approvals.
 - `workflowDepth=fast` or task-level Auto does not loosen these judgments; the current task's protected human decisions, evolution active and final user acceptance still cannot be signed on the
   user's behalf.
+- Additive (FEAT-20261028-001): when the user picks Auto form (ii), the end-to-end Auto card (including `noStop`), read `end-to-end-auto-card.md`; form (i) above is unchanged.
 
 ---
 

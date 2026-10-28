@@ -4,7 +4,7 @@
 
 **规划、审查、确认：为 AI 编程宿主提供受管的 Feature、Bugfix 与 Docs 工作流程。**
 
-[![version](https://img.shields.io/badge/version-0.2.7-2357C6)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-0.2.8-2357C6)](CHANGELOG.md)
 [![CI](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml/badge.svg)](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -32,6 +32,9 @@ Task Lifecycle 是面向 AI 编程助手的纯 Skill 插件。当你提出真实
 - **三种任务流程**：Feature（阶段 `A01–A10`）、Bugfix（`B01–B10`）和 Docs（`DOC01–DOC10`）。
 - **默认 Confirm 模式**：正式产物等你确认；Auto 模式只适用于你委托的内容。
 - **按需选择深度**：正式方案需要时，由你选择 `fast / standard / thorough / custom`；任何深度都不跳过必需的质量检查。
+- **审查强度**：开工卡另问一题，审查怎么做：轻 / 标准 / 严格（`light / balanced / strict`，默认跟随深度）；任何一档都不省略必需关卡。
+- **全程 Auto 卡（需主动选择）**：你确认 A01、A02 之后，一张卡可以跑 A03–A07，卡上有 `noStop`（不停）开关，默认关。卡上只能预先放行本地提交；
+  推送、打标签、发版、更新插件、host-sync 和最终验收始终由你决定。
 - **证据如实**：设计或静态检查与真实环境证据分开报告；没运行的不标为通过。
 - **只读审查**代码、Pull Request 和方案，发现的问题附证据。
 - **过程文档不混入交付物**：默认放在项目旁边的同级 `.task-lifecycle/` 目录。
@@ -107,6 +110,13 @@ timeout 30 node scripts/validate-config.mjs [--workspace <parent of project root
 ```
 
 只有输出中的 `status: "valid"` 才算数；否则这些设置保持关闭。
+
+### 可选：宿主原生并行配置
+
+可选的 `parallel` 键让助手对你打开的类别同时派出宿主原生子智能体，最多 `maxConcurrent` 个（1–4，默认 3）。不写或 `enabled: false` 时与 0.2.6 完全一样。
+它不增加任何权限：每次派出仍要当次授权，写入文件有重叠的自动排队串行，没有你的授权不会开分支或工作树。项目层只能收窄。
+
+先升级插件再写 `parallel`。0.2.7 及更早的插件会把它报成 `unknown-field`，整份配置随之关闭。
 
 ### 可选：宿主实例变更探针
 

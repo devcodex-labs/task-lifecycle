@@ -209,6 +209,22 @@ User explicitly starts or enters managed Feature/Bugfix/Docs by intent
   never a second card. The task record writes `mode` and `modeSource`.
 - Rejection: a verbal Auto treated as mode source; a new managed task running Auto without the card; a record missing `mode`/`modeSource`.
 
+**Review intensity** (FEAT-20261028-001, Rocky D38; R-3, R-4, R-5, R-7, R-9; additive: the Kickoff card text above, `fast/standard/thorough/custom` and
+`formal-review-and-findings.md` §7.10 stay verbatim): the user picks how formal reviews are arranged for the task.
+- Tiers (fixed English keys, Chinese in `entry-quickref.md` LABELS):
+  - `light`: single-seat static review, adjacent phases reviewed together; one recheck after accepted fixes. About 1 review per merged group, plus 1 recheck.
+  - `balanced`: each phase that needs formal review gets a single-seat review plus one recheck. About 2 reviews per phase.
+  - `strict`: three-seat relay (§7.10). About 3 reviews per phase (first leg, second leg, final verification), more after revisions.
+- No tier skips a required gate: A01–A03 formal review, real verification (A06), final acceptance and the like stay; `light` merges review rounds only, never gates.
+- Every tier stays under the §7.10 item 7 General review cap ("Recheck counts toward the cap"), P1 threshold and Instruction boundary; picking `strict` is the user naming
+  relay. This is a per-task arrangement, not the former "review intensity tiers" that item 7 replaced.
+- Default follows the depth: `fast` → `light`, `standard` → `balanced`, `thorough` → `strict`, `custom` → `balanced`.
+- Kickoff card: a separate second question "Review intensity" with the default preselected; the first question is unchanged. Each option states its approximate review
+  count above and an approximate time per review taken from this project's recorded review durations, or "not estimated" when none exist; never invented.
+- The user may change the tier mid-task; a change applies only to later phases, never to finished ones. Not stored in `config.json`.
+- The task record writes `reviewIntensity` and `reviewIntensitySource`; under the end-to-end Auto card the tier is also recorded in the card confirmation event and an
+  auto-decision never changes it (`end-to-end-auto-card.md`).
+
 **Input and minimum record semantics**: `taskId`, `projectId`, `taskType`, `depthOptions`, `recommendedDepth` (optional, recommendation only), `selectedDepth` (filled only after a real decision),
 `preferenceIntent` (`execution-default` / `recommendation-only` / `none`, Markdown semantic words only, not a new API), `decisionSource` (current user / this run's valid, approval-verified JSON
 execution default, with sourceLayer/sha256), `riskFlags`, `mandatoryGates`,

@@ -465,3 +465,168 @@ test('T95 re-review performer choice v4 (CAND-20261028-004): §7.11 pointer, rul
   assert.doesNotMatch(sec,/No option means/);
   assert.ok(fs.readFileSync(path.join(root,'skills/task-lifecycle/SKILL.md'),'utf8').split('\n').filter((l,i,a)=>i<a.length-1||l).length<=600);
 });
+// ---------- FEAT-20261028-001: end-to-end Auto card, host-native parallel config, review intensity (T96–T103, T108–T111) ----------
+const rdN=f=>fs.readFileSync(path.join(root,f),'utf8').replace(/\s+/g,' ');
+const REF='skills/task-lifecycle/references/';
+const CARD=()=>rdN(REF+'end-to-end-auto-card.md');
+test('T96 end-to-end Auto card: admission, Rocky only, ten keys, allowedPhases range, local-commit only (AC1)',()=>{
+  const c=CARD();
+  assert.match(c,/A card may be shown only after the task's A01 and A02 are both `human-confirmed`; a card shown earlier is not in effect\./);
+  assert.match(c,/Only the real user \(Rocky\) confirming the card in person makes it effective; relays, old files and dispatch prompts never count\./);
+  assert.match(c,/All ten keys are required; a missing key, or any value outside these limits, means the card is not in effect\./);
+  for(const k of ['taskId','allowedObjects','allowedPhases','preAuthorizedSideEffects','commitIdentity','exclusions','endpoint','boundA02Sha256','boundPlanSha256','noStop'])assert.match(c,new RegExp('\\| `'+k+'` \\|'),k);
+  assert.match(c,/One closed range `A<m>\.\.A<n>` with A03 ≤ m ≤ n ≤ A07 \(for example `A03\.\.A07`\); no list form; never A01, A02, A08 or A09/);
+  assert.match(c,/Only `local-commit` or empty \(`\[\]`\); any other value \(push, tag, release, plugin-update, host-sync and the like\) means the card is not in effect/);
+  assert.match(c,/verbs only `read`, `write`, `test`, `local-commit`; `local-commit` requires the same value in `preAuthorizedSideEffects`/);
+  assert.match(c,/must lie inside `allowedPhases`/);
+  assert.match(c,/Push \(any branch\), tag, release, plugin update and host-sync can never be put on a card/);
+  assert.match(rdN(REF+'confirmation-authorization-and-change.md'),/user's behalf\. - Additive \(FEAT-20261028-001\): when the user picks Auto form \(ii\), the end-to-end Auto card \(including `noStop`\), read `end-to-end-auto-card\.md`; form \(i\) above is unchanged\. --- ### 6\.4/);
+});
+test('T97 noStop=false: one-question stops, item 9 not re-asked, objects listed but separate events, separate approvals kept (AC2)',()=>{
+  const c=CARD();
+  assert.match(c,/Inside the allowed phases, stop and ask exactly one question only for:/);
+  assert.match(c,/\(a\) a product or important architecture trade-off outside the requirements;/);
+  assert.match(c,/\(b\) a fix that still fails after two rounds with different methods/);
+  assert.match(c,/\(c\) the host refusing a permission;/);
+  assert.match(c,/revisions\) are not asked again\./);
+  assert.match(c,/Several formal objects may be listed together, but each keeps its own real human event\./);
+  assert.match(c,/Plan invalidation, product scope change, new side effects, active promotion and final acceptance still need separate approval\./);
+});
+test('T98 noStop=true: auto-decision fields, D14 scope, 11 triggers, 7 report sections, D27/D33 copies, fixed English names (AC3, AC4, AC16, AC18)',()=>{
+  const c=CARD();
+  assert.match(c,/adopt the recommended option, record an auto-decision \(section 7\) and continue/);
+  assert.match(c,/would change confirmed A01\/A02 content or its public behavior or defaults: never auto-adopted; record a suspended item/);
+  assert.match(c,/it enters only implementation \(Work Items, code, and tests that verify that code as evidence\); it never changes confirmed acceptance criteria and never becomes a test pass criterion\./);
+  for(const k of ['id','phase','question','options','chosen','reason','affectedArtifacts','state','marker','decisionType','scope'])assert.match(c,new RegExp('`'+k+'`'),k);
+  assert.match(c,/`state` fixed `suggested-unapproved`, `marker` fixed `auto-decision \(noStop, R1-7\)`, `decisionType` empty until final acceptance \(never `auto-accepted` or `human-confirmed`\)/);
+  const trig=['touches-confirmed-A01-A02','fix-two-rounds-failed','host-refused','missing-evidence','plan-invalidated','side-effect-not-on-card','never-on-card-side-effect','final-acceptance','active-promotion','human-confirmed-attempt','host-limit-cutoff'];
+  const tl=/`trigger` is one of: ([^.]+)\./.exec(c);assert.ok(tl);assert.deepEqual([...tl[1].matchAll(/`([a-z0-9A-Z-]+)`/g)].map(m=>m[1]),trig);
+  assert.match(c,/final acceptance; active candidate promotion; any `human-confirmed` mark; bypassing a host refusal\./);
+  const secs=['Card identity','Completion','All auto-decisions','All suspended items','Actions not on the card','Decisions the user must make','Final acceptance entry'];
+  let at=c.indexOf('sections in this fixed order');assert.ok(at>0);
+  secs.forEach((s,i)=>{const j=c.indexOf(`${i+1}. ${s}`,at);assert.ok(j>at,s);at=j;});
+  assert.match(c,/only a same-card "continue" that reaches the endpoint \(or a hard limit\) again starts a numbered copy endpoint-report-2\.md/);
+  assert.match(c,/sectioned by card with a heading that follows the conversation language like the card file name \(`## End-to-end Auto Card-v<n>`; Chinese sessions use the RUNTIME_NAMES Chinese card name\)/);
+  assert.match(c,/A new card's endpoint report is appended to the same endpoint-report\.md as a new section with its card id/);
+  assert.match(c,/always under these fixed English names in any conversation language: auto-decisions\.md, suspended-items\.md, endpoint-report\.md/);
+});
+test('T99 exceptions E1–E20 present; task-level, only when selected, original text unchanged (AC5)',()=>{
+  const c=CARD();
+  for(let i=1;i<=20;i++)assert.match(c,new RegExp('\\| E'+i+' \\|'),'E'+i);
+  assert.doesNotMatch(c,/\| E21 \|/);
+  // each E row: anchor cell and exception cell locked (review W-06)
+  const card=fs.readFileSync(path.join(root,REF+'end-to-end-auto-card.md'),'utf8');
+  const erows=[...card.matchAll(/^\| (E\d+) \| (.+) \| (.+) \|$/gm)];assert.equal(erows.length,20);
+  for(const [,id,anchor,exc] of erows){assert.ok(anchor.length>20,id);assert.ok(exc.length>4,id);}
+  assert.match(c,/\| E5 \| Same file §6\.3\.2 "New product trade-offs, scope changes, agreed final acceptance and operations the user explicitly excluded are handled separately" \| As E2, for new product trade-offs only; scope changes, final acceptance, excluded operations and the later "new product\/high-risk external decision" bullet keep their original duty \|/);
+  assert.match(c,/\| E2 \| Same file §6\.1 row "Public behavior\/scope\/important architecture trade-off" \| Adopt the recommendation; no pause \|/);
+  assert.match(c,/\| E16 \| `task-split-parallel-and-integration\.md` four-state row `blocked` \| Dependent actions still stop; the request moves to the endpoint report; "never interpret blocked as directly executable in series" is not excepted \|/);
+  assert.match(c,/\| E19 \| [^|]+ \| No pause for new trade-offs outside the requirements; approved-original changes, plan invalidation, high-risk host operations and final acceptance are not excepted \|/);
+  assert.match(c,/This list is a \*\*task-level\*\* ruling: it applies \*\*only when\*\* the real user selected `noStop: true` for that task/);
+  assert.match(c,/\*\*original text unchanged\*\*: every clause below keeps its wording and applies as written whenever the card is not selected\./);
+  assert.match(c,/Not excepted: final acceptance, active candidate promotion, `human-confirmed` marks, side effects not on the card or never allowed on a card, and host refusals\./);
+});
+test('T100 card SHA invalidation, new-session resume, same-session continue lifts no cap (AC6, AC17, AC19)',()=>{
+  const c=CARD();
+  assert.match(c,/resume only when all three are unchanged and the real user confirms in one sentence; if any SHA changed, a new card is needed\. Files alone never restore Auto\./);
+  assert.match(c,/when the card, A02 and plan SHAs are all unchanged, the real user's "continue" resumes the same card\. It only waives the confirmation wait; it lifts no review cap and no stop point/);
+  assert.match(c,/An effective card is never edited; any field change is a new card `v<n\+1>`/);
+  assert.match(c,/a different current A02 invalidates the card/);
+  assert.match(c,/a different current plan invalidates the card/);
+  assert.match(c,/The task's agreed commit identity; the card changes no identity rule; a mismatch means the card is not in effect/);
+  assert.match(c,/may be none but must be written \(`none`\)/);
+  assert.match(c,/missing counts as a missing field/);
+  assert.match(c,/The endpoint report's own SHA-256 is never written into its body; the main session records it in the task record\./);
+});
+test('T101 reply end, hard limit, compaction; final acceptance and A10; sub-agents inherit no Auto (AC7, AC8, AC9)',()=>{
+  const c=CARD();
+  assert.match(c,/no background work after a reply ends; at a host hard limit save real progress, write the endpoint report for what is done, record unfinished items as `host-limit-cutoff`/);
+  assert.match(c,/never continue a side-effecting action from an old summary, a progress percentage or "Auto started"/);
+  assert.match(c,/A rejected auto-decision goes to A10/);
+  assert.match(c,/Final acceptance is always the real user's own act and is never on a card\./);
+  assert.match(c,/Sub-agents and dispatched sessions inherit none of the Auto forms: not form \(i\), not form \(ii\), not `noStop`\./);
+  assert.match(c,/The card file, auto-decisions\.md, suspended-items\.md, endpoint-report\.md and config JSON never grant authorization\./);
+  // AC15 counter-proof sweep: each remaining rule line of the new reference is guarded verbatim (whitespace-normalized)
+  for(const x of ["Added by FEAT-20261028-001 (Rocky D1–D3, D8, D10, D11, D14, D22, D25,", "(pointer: `confirmation-authorization-and-change.md` §6.3.2). Additive", "form (ii) is not selected.", "Auto stays one mode with two forms: (i) existing task-level Auto, unch", "The card applies only to the task it names and only when the user expl", "| Key | Content and limits |", "Why not A08 or A09: A08 holds push, CI, tag, release and host-sync, no", "A09 holds final acceptance, which is never on a card and never auto-pa", "The card text is written to the task's process directory as `End-to-en", "The real user's confirmation event is appended to the task record with", "Artifact path, the card SHA as Content SHA-256, Auto Scope Ref with go", "\"Execute item by item when applicable\" item 7 applies unchanged;", "and the existing Auto pauses (missing evidence or host permission, pla", "Items that `confirmation-authorization-and-change.md` item 9 lists as", "Covers every phase listed in `allowedPhases` (D2).", "implementation; the real user reviews all auto-decisions at final acce", "report for the real user (D10).", "The recommended option must come from the main session's own analysis", "(b) a fix failing after two rounds with different methods (or no progr", "evidence, plan invalidation: suspend only that item or Work Item, writ", "independent work; the three choices of \"Retry limit\" move to the endpo", "**Never done under `noStop`; always recorded as a suspended item**: si", "ask / may not enter implementation\" part is satisfied instead by the r", "| # | Clause (content anchor) | Exception under `noStop: true` |", "the endpoint, when the reply ends and at a host hard limit.", "Several cards in one process directory still share one copy of each fi", "The task record holds the card confirmation event, the user's decision", "confirmed acceptance criteria or test pass criteria\".", "**Suspended item entry** (suspended-items.md): `id` (`SI-<nn>`), `item", "`userChoice` (for `fix-two-rounds-failed` the three \"Retry limit\" choi", "Task state still follows `confirmation-authorization-and-change.md` §6", "other rejections follow (a)/(b)/(c) there.", "cannot inherit unlimited Auto permission (`task-split-parallel-and-int", "card, A02 and plan SHAs (section 3).", "In-scope intermediate artifacts are recorded `auto-accepted` per §6.1;", "written to auto-decisions.md.", "widens scope. Only the real user's confirmation this run, with matchin"])assert.ok(c.includes(x),x);
+});
+test('T102 parallel rules: off = 0.2.6, no new permission, readonly analysis only, scenario rows, existing §11.1 text unchanged (AC10–AC13)',()=>{
+  const t=rdN(REF+'task-split-parallel-and-integration.md');
+  const sec=t.slice(t.indexOf('## Host-native parallel config (parallel)'));assert.ok(sec.length>100);
+  assert.match(sec,/when `parallel` is omitted or the effective `enabled` is false, behavior is exactly that of 0\.2\.6/);
+  assert.match(sec,/at most `maxConcurrent` running at once/);
+  assert.match(sec,/a category whose value is `false` is never dispatched concurrently/);
+  assert.match(sec,/`enabled: true` is not a standing authorization; every dispatch still needs that time's authorization/);
+  assert.match(sec,/`readonly-investigation: true` allows only `parallel-analysis-only` and grants no write permission/);
+  assert.match(sec,/overlapping write sets are queued and run serially, automatically/);
+  assert.match(sec,/without that authorization the write runs serially and no worktree is created/);
+  assert.match(sec,/`never`: same-repo write sub-tasks always run serially\./);
+  assert.match(sec,/No value of this field authorizes creating a branch or worktree\./);
+  assert.match(sec,/A project layer without `parallel` inherits the global one/);
+  assert.match(sec,/`sameRepoWrites` may only equal the global value or be `never`/);
+  for(const [row,st] of [['Several repos, several tasks','`parallel-eligible` \\(conditional\\)'],['Read-only investigation','`parallel-analysis-only`'],['Running tests per a frozen plan','`parallel-eligible` \\(conditional\\)'],['Review seats','`serial-required`'],['Same repo, disjoint files','`parallel-eligible` \\(conditional\\)'],['Same file or shared interface','`serial-required`'],['Never-delegate list \\("External coding executor delegation"\\)','not dispatched']])
+    assert.match(sec,new RegExp('\\| '+row+' \\| '+st),row);
+  assert.match(sec,/that section grants no push/);assert.match(sec,/a batch confirmation grants no commit/);
+  assert.match(t,/Choose `parallel-eligible` only when dependencies are met, writes can be isolated, the target host actually has the native capability, user and host authorizations are valid, and a \*\*benefit estimate supported by project facts\*\* outweighs/);
+  assert.match(t,/Mutually non-writing independent investigations may choose `parallel-analysis-only`;/);
+  assert.match(t,/Additive \(FEAT-20261028-001\): a valid `effective` also contains `parallel`; its consumers read the last section "Host-native parallel config \(parallel\)"\./);
+  for(const x of ["Additive (FEAT-20261028-001): the optional host-native `parallel` conf", "Added by FEAT-20261028-001 (Rocky D4, D5, D9, D18–D21, D26, D31, D32;", "§11.1 \"Choose `parallel-eligible` only when\", stays verbatim and still", "**Location and shape**: optional top-level key `parallel` in the same", "`enabled` (boolean, default `false`), `maxConcurrent` (integer 1–4, de", "`readonly-investigation: true`, `implementation: false`, `test-run: fa", "`worktree-with-per-time-authorization`, `never`). `\"parallel\": {}` is", "`parallel-eligible` judgments are unchanged.", "the four-state conditions and current authorization for each dispatch.", "**Not delegation**: `parallel.categories` (boolean: may this category", "names only; `parallel` enables no external executor and `delegation` e", "**Same-repo writes** (`sameRepoWrites`):", "**Project layer only narrows** (D21, D26, R-2): `enabled` may be `fals", "**Validator**: invalid values reuse existing codes (`invalid-type`, `i", "`effective.parallel` is always present (fields per [validator-output-p", "default block with every `sourceLayer` `default` (D31). Consumers chec", "**Run fresh**: before each dispatch based on `parallel`, rerun the val", "reports it as for any delegation config. A session under a dispatch ma", "**No inherited Auto**: sub-agents and dispatched sessions inherit no A", "`end-to-end-auto-card.md`); commits are made by the main session; the", "**Compatibility**: plugins up to 0.2.7 do not know `parallel`, report", "plugin before writing `parallel`. Writing or changing `parallel` is a", "**Scenario rules** (status words are the four states, except the last", "| Scenario | Status | Conditions |"])assert.ok(t.includes(x),x);
+  const vop=rdN(REF+'validator-output-protocol.md');for(const x of ["| `effective.parallel` | `{categories, enabled, maxConcurrent, sameRep"])assert.ok(vop.includes(x),x);
+});
+test('T103 additive only: no deleted lines in rule files vs ecedaba, SKILL.md unchanged and ≤600 lines, new reference has no CJK (AC0, AC15)',(t)=>{
+  const skill=fs.readFileSync(path.join(root,'skills/task-lifecycle/SKILL.md'),'utf8').split('\n');
+  assert.ok(skill.filter((l,i,a)=>i<a.length-1||l).length<=600);
+  assert.doesNotMatch(fs.readFileSync(path.join(root,REF+'end-to-end-auto-card.md'),'utf8'),/[\u3000-\u303f\u3400-\u4dbf\u4e00-\u9fff\uff00-\uffef]/);
+  const has=spawnSync('git',['-C',root,'cat-file','-e','ecedaba^{commit}'],{encoding:'utf8'});
+  if(has.status!==0){t.skip('UNVERIFIED: base commit ecedaba not in this checkout; AC0 zero-deletion check not run (T102/T110 verbatim asserts still run)');return;}
+  const ns=execFileSync('git',['-C',root,'diff','--numstat','ecedaba','--','skills/task-lifecycle','docs'],{encoding:'utf8'}).trim();
+  for(const l of ns.split('\n').filter(Boolean)){const [add,del,f]=l.split('\t');assert.equal(del,'0',`${f} deletes lines`);}
+  assert.equal(execFileSync('git',['-C',root,'diff','--stat','ecedaba','--','skills/task-lifecycle/SKILL.md'],{encoding:'utf8'}).trim(),'');
+});
+test('T108 compatibility note: upgrade the plugin before writing parallel (README.md, README.zh-CN.md, CHANGELOG.md) (AC14)',()=>{
+  assert.match(rdN('README.md'),/Upgrade the plugin before writing `parallel`\. Plugin versions up to 0\.2\.7 report it as `unknown-field` and switch the whole config off\./);
+  assert.match(rdN('README.zh-CN.md'),/先升级插件再写 `parallel`。0\.2\.7 及更早的插件会把它报成 `unknown-field`，整份配置随之关闭。/);
+  assert.match(rdN('CHANGELOG.md'),/Compatibility: upgrade the plugin before writing `parallel`; versions up to 0\.2\.7 report `unknown-field` and disable the whole config\./);
+  const en=rdN('README.md'),zh=rdN('README.zh-CN.md');for(const x of ["**Review intensity**: the start card also asks how reviews run, `light", "**End-to-end Auto card (opt-in)**: after you confirm A01 and A02, one", "commit; push, tag, release, plugin update, host-sync and final acceptance always", "An optional `parallel` key lets the assistant dispatch host-native sub", "(1–4, default 3). Omitted or `enabled: false` behaves exactly like 0.2", "writes run serially, and no branch or worktree is created without your"])assert.ok(en.includes(x),x);for(const x of ["**审查强度**：开工卡另问一题，审查怎么做：轻 / 标准 / 严格（`light / balanced / strict`，默认跟随深度）", "**全程 Auto 卡（需主动选择）**：你确认 A01、A02 之后，一张卡可以跑 A03–A07，卡上有 `noStop`（不停）开关，", "推送、打标签、发版、更新插件、host-sync 和最终验收始终由你决定。", "可选的 `parallel` 键让助手对你打开的类别同时派出宿主原生子智能体，最多 `maxConcurrent` 个（1–4，默认 3）。", "它不增加任何权限：每次派出仍要当次授权，写入文件有重叠的自动排队串行，没有你的授权不会开分支或工作树。项目层只能收窄。"])assert.ok(zh.includes(x),x);
+});
+test('T109 review intensity: three tiers, no gate skipped, default by depth, change affects later phases only (D38, R-3, R-4, R-5, R-7, R-9)',()=>{
+  const t=rdN(REF+'task-recognition-and-routing.md');
+  assert.match(t,/`light`: single-seat static review, adjacent phases reviewed together; one recheck after accepted fixes\./);
+  assert.match(t,/`balanced`: each phase that needs formal review gets a single-seat review plus one recheck\./);
+  assert.match(t,/`strict`: three-seat relay \(§7\.10\)\./);
+  assert.match(t,/No tier skips a required gate: A01–A03 formal review, real verification \(A06\), final acceptance and the like stay; `light` merges review rounds only, never gates\./);
+  assert.match(t,/Default follows the depth: `fast` → `light`, `standard` → `balanced`, `thorough` → `strict`, `custom` → `balanced`\./);
+  assert.match(t,/Kickoff card: a separate second question "Review intensity" with the default preselected; the first question is unchanged\./);
+  assert.match(t,/a change applies only to later phases, never to finished ones\. Not stored in `config\.json`\./);
+  assert.match(t,/Every tier stays under the §7\.10 item 7 General review cap \("Recheck counts toward the cap"\)/);
+  assert.match(t,/The task record writes `reviewIntensity` and `reviewIntensitySource`/);
+  assert.match(CARD(),/the confirmation event also records the review intensity in effect \(`light`, `balanced` or `strict`/);
+  assert.match(CARD(),/an auto-decision never changes it/);
+  assert.ok(!V.FIELD_RULES_GLOBAL.root.properties.some(k=>/intensity/i.test(k)));
+  for(const x of ["**Review intensity** (FEAT-20261028-001, Rocky D38; R-3, R-4, R-5, R-7", "`formal-review-and-findings.md` §7.10 stay verbatim): the user picks h", "Tiers (fixed English keys, Chinese in `entry-quickref.md` LABELS):", "relay. This is a per-task arrangement, not the former \"review intensit", "count above and an approximate time per review taken from this project", "auto-decision never changes it (`end-to-end-auto-card.md`)."])assert.ok(t.includes(x),x);
+});
+test('T110 Kickoff card and §7.10 item 7 text unchanged; fast/standard/thorough/custom unchanged (ecedaba baseline)',()=>{
+  const t=rdN(REF+'task-recognition-and-routing.md');
+  assert.match(t,/\*\*Kickoff card \(CAND-20261026-013\+019\)\*\*: on the first entry of a new managed task with no valid depth\/mode source, use one single-question card asking all missing items: missing depth gives fast\/standard\/thorough each paired with Confirm, Auto \(custom via "Other"\); missing only mode gives Confirm, Auto;/);
+  assert.match(t,/- Rejection: a verbal Auto treated as mode source; a new managed task running Auto without the card; a record missing `mode`\/`modeSource`\./);
+  const f=rdN(REF+'formal-review-and-findings.md');
+  assert.match(f,/7\. \*\*Land on evidence\*\* \(Rocky t571u; replaces the former "risk-tiered convergence", "Case-Driven Convergence" and "review intensity tiers"\):/);
+  assert.match(f,/Failures are revised by the original author; default 1 round, only remaining P1 leads to rounds 2 and 3; later rounds check only the previous round's issues/);
+  assert.match(f,/\*\*Recheck counts toward the cap\*\* \(t936u\): a recheck triggered by a user ruling or rule such as "one recheck after accepted fixes" is a General review round under the same cap: default 1 round, only remaining P1 opens rounds 2 and 3, at most 3 in total; at the cap, unresolved issues go to Rocky at once and no 4th round is opened on one's own;/);
+  assert.match(f,/\*\*Instruction boundary\*\*: general instructions \(Auto, "don't confirm", "continue", "as recommended"\) only waive confirmation waits and lift no review cap or stop point;/);
+  assert.match(rdN(REF+'entry-quickref.md'),/Already-English tokens \(`Confirm`\/`Auto`, `fast\/standard\/thorough\/custom`, `valid`, reason codes, IDs\) are never translated\./);
+  assert.deepEqual([...V.DEPTH_VALUES],['fast','standard','thorough']);
+});
+test('T111 LABELS rows for the card, records and review intensity match the CJK allowlist',()=>{
+  const q=fs.readFileSync(path.join(root,REF+'entry-quickref.md'),'utf8');
+  const al=JSON.parse(fs.readFileSync(path.join(root,'scripts/cjk-allowlist.json'),'utf8')).entries;
+  const keys=['End-to-end Auto card fields','End-to-end Auto card empty exclusions','Endpoint report sections','Auto-decision record keys','Suspended item record keys','Review intensity (Kickoff card second question)'];
+  for(const k of keys){
+    const m=new RegExp('^\\| '+k.replace(/[()]/g,'\\$&')+' \\| ([^|]+) \\| ([^|]+) \\|$','m').exec(q);assert.ok(m,k);
+    const zh=m[2].trim();assert.ok(al.some(e=>e.literal===zh&&e.bucket==='LABELS'&&e.files.includes(REF+'entry-quickref.md')),zh);
+    assert.equal(m[1].trim().split(' / ').length,zh.split(' / ').length,k);
+  }
+  assert.match(q,/\| Review intensity \(Kickoff card second question\) \| Review intensity; light \/ balanced \/ strict \| 审查强度；轻 \/ 标准 \/ 严格 \|/);
+  assert.match(q,/\| End-to-end Auto Card-v<n>\.md \(FEAT-20261028-001\) \| Auto卡-v<n>\.md \|/);
+  const qn=q.replace(/\s+/g,' ');for(const x of ["Additive (FEAT-20261028-001): Auto form (ii), the end-to-end Auto card", "(parallel)\" at the end of `task-split-parallel-and-integration.md`; re"])assert.ok(qn.includes(x),x);
+  assert.match(q.replace(/\s+/g,' '),/Exception \(D30\): the three end-to-end Auto record files auto-decisions\.md, suspended-items\.md and endpoint-report\.md \(including numbered copies endpoint-report-<n>\.md\) keep these fixed English names in every conversation language/);
+});

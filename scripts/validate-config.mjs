@@ -67,9 +67,18 @@ export const REVIEW_FALLBACK = Object.freeze({
 });
 export const REVIEW_HOSTS_MAX = 4;
 export const QUOTE_MAX = 500;
+// Host-native parallel config (`parallel`, FEAT-20261028-001; task-split-parallel-and-integration.md "Host-native parallel config (parallel)").
+export const PARALLEL_MAX_CONCURRENT = Object.freeze({ min: 1, max: 4, default: 3 });
+export const SAME_REPO_WRITES = Object.freeze(['disjoint-files-only', 'worktree-with-per-time-authorization', 'never']);
+export const PARALLEL_DEFAULTS = Object.freeze({
+  categories: Object.freeze({ drafting: false, implementation: false, 'readonly-investigation': true, 'test-run': false }),
+  enabled: false,
+  maxConcurrent: PARALLEL_MAX_CONCURRENT.default,
+  sameRepoWrites: 'disjoint-files-only',
+});
 // Per-field rules (single source); the schema consistency test compares each item with assets/config.schema.json.
 export const FIELD_RULES_GLOBAL = Object.freeze({
-  root: { type: 'object', required: ['schemaVersion', 'approvalSource', 'delegation'], properties: ['approvalSource', 'delegation', 'review', 'schemaVersion', 'workflowDepth'] },
+  root: { type: 'object', required: ['schemaVersion', 'approvalSource', 'delegation'], properties: ['approvalSource', 'delegation', 'parallel', 'review', 'schemaVersion', 'workflowDepth'] },
   approvalSource: { type: 'object', required: ['messageId', 'quote', 'record'], properties: ['messageId', 'quote', 'record'] },
   delegation: { type: 'object', required: ['enabled'], requiredIfEnabled: ['categories', 'executors'], properties: ['categories', 'enabled', 'executors'] },
   executor: { type: 'object', required: ['command'], properties: ['command', 'model', 'reasoningEffort'] },
@@ -77,13 +86,15 @@ export const FIELD_RULES_GLOBAL = Object.freeze({
   review: { type: 'object', required: ['enabled', 'fallback'], requiredIfEnabled: ['hosts'], properties: ['enabled', 'fallback', 'hosts'] },
   reviewHost: { type: 'object', required: ['command', 'id'], properties: ['command', 'id', 'model', 'reasoningEffort'] },
   reviewFallback: { type: 'object', required: ['noIndependentSession', 'oneExternal', 'zeroExternal'], properties: ['noIndependentSession', 'oneExternal', 'zeroExternal'] },
+  parallel: { type: 'object', required: [], properties: ['categories', 'enabled', 'maxConcurrent', 'sameRepoWrites'] },
 });
 export const FIELD_RULES_PROJECT = Object.freeze({
-  root: { type: 'object', required: ['schemaVersion', 'approvalSource'], properties: ['approvalSource', 'delegation', 'review', 'schemaVersion', 'workflowDepth'] },
+  root: { type: 'object', required: ['schemaVersion', 'approvalSource'], properties: ['approvalSource', 'delegation', 'parallel', 'review', 'schemaVersion', 'workflowDepth'] },
   approvalSource: FIELD_RULES_GLOBAL.approvalSource,
   delegation: { type: 'object', required: [], properties: ['categories', 'enabled', 'executors'] },
   workflowDepth: { type: 'object', required: [], properties: ['executionDefault'], executionDefaultNullable: true },
   review: { type: 'object', onlyAllowed: { enabled: false } },
+  parallel: { type: 'object', required: [], properties: ['categories', 'enabled', 'maxConcurrent', 'sameRepoWrites'] },
 });
 
 // The human-readable schema $defs are generated from the constants above; tests assert assets/config.schema.json $defs (minus $comment) equal them field by field.
@@ -93,6 +104,7 @@ export function buildSchemaDefs() {
   const effort = { type: 'string', enum: [...REASONING_EFFORT_VALUES] };
   const ifEnabled = { if: { properties: { enabled: { const: true } }, required: ['enabled'] } };
   const G = FIELD_RULES_GLOBAL, P = FIELD_RULES_PROJECT;
+  const parallelProps = { categories: { $ref: '#/$defs/parallelCategories' }, enabled: { type: 'boolean' }, maxConcurrent: { type: 'integer', minimum: PARALLEL_MAX_CONCURRENT.min, maximum: PARALLEL_MAX_CONCURRENT.max }, sameRepoWrites: { enum: [...SAME_REPO_WRITES] } };
   return {
     approvalSource: { type: G.approvalSource.type, properties: pick(G.approvalSource.properties, { messageId: str('messageId'), quote: { type: 'string', minLength: 1, maxLength: QUOTE_MAX, pattern: '\\S' }, record: { type: 'string', pattern: '^(?:/|[A-Za-z]:[\\\\/]|\\\\).*\\.md$' } }), required: [...G.approvalSource.required], additionalProperties: false },
     categories: { type: 'object', properties: Object.fromEntries(CATEGORY_KEYS.map((k) => [k, { type: 'string' }])), additionalProperties: false },
@@ -105,8 +117,11 @@ export function buildSchemaDefs() {
     reviewFallback: { type: G.reviewFallback.type, properties: Object.fromEntries(Object.entries(REVIEW_FALLBACK).map(([k, v]) => [k, { const: v }])), required: [...G.reviewFallback.required], additionalProperties: false },
     globalReview: { type: G.review.type, properties: pick(G.review.properties, { enabled: { type: 'boolean' }, fallback: { $ref: '#/$defs/reviewFallback' }, hosts: { type: 'array', minItems: 1, maxItems: REVIEW_HOSTS_MAX, items: { $ref: '#/$defs/reviewHost' } } }), required: [...G.review.required], ...ifEnabled, then: { required: [...G.review.requiredIfEnabled] }, additionalProperties: false },
     projectReview: { type: P.review.type, properties: { enabled: { const: false } }, required: ['enabled'], additionalProperties: false },
-    globalConfig: { type: G.root.type, properties: { approvalSource: { $ref: '#/$defs/approvalSource' }, delegation: { $ref: '#/$defs/globalDelegation' }, review: { $ref: '#/$defs/globalReview' }, schemaVersion: { const: 1 }, workflowDepth: { $ref: '#/$defs/globalWorkflowDepth' } }, required: [...G.root.required], additionalProperties: false },
-    projectConfig: { type: P.root.type, properties: { approvalSource: { $ref: '#/$defs/approvalSource' }, delegation: { $ref: '#/$defs/projectDelegation' }, review: { $ref: '#/$defs/projectReview' }, schemaVersion: { const: 1 }, workflowDepth: { $ref: '#/$defs/projectWorkflowDepth' } }, required: [...P.root.required], additionalProperties: false },
+    parallelCategories: { type: 'object', properties: Object.fromEntries(CATEGORY_KEYS.map((k) => [k, { type: 'boolean' }])), additionalProperties: false },
+    globalParallel: { type: G.parallel.type, properties: pick(G.parallel.properties, parallelProps), additionalProperties: false },
+    projectParallel: { type: P.parallel.type, properties: pick(P.parallel.properties, parallelProps), additionalProperties: false },
+    globalConfig: { type: G.root.type, properties: { approvalSource: { $ref: '#/$defs/approvalSource' }, delegation: { $ref: '#/$defs/globalDelegation' }, parallel: { $ref: '#/$defs/globalParallel' }, review: { $ref: '#/$defs/globalReview' }, schemaVersion: { const: 1 }, workflowDepth: { $ref: '#/$defs/globalWorkflowDepth' } }, required: [...G.root.required], additionalProperties: false },
+    projectConfig: { type: P.root.type, properties: { approvalSource: { $ref: '#/$defs/approvalSource' }, delegation: { $ref: '#/$defs/projectDelegation' }, parallel: { $ref: '#/$defs/projectParallel' }, review: { $ref: '#/$defs/projectReview' }, schemaVersion: { const: 1 }, workflowDepth: { $ref: '#/$defs/projectWorkflowDepth' } }, required: [...P.root.required], additionalProperties: false },
   };
 }
 
@@ -419,6 +434,31 @@ function checkWorkflowDepth(doc, layer, reasons, nullable, required) {
   checkString(w.executionDefault, 'workflowDepth.executionDefault', layer, reasons, null, DEPTH_VALUES);
 }
 
+// `parallel` structure (same shape in both layers; values are booleans, so checkCategories is not reused).
+function checkParallel(doc, layer, reasons) {
+  if (!('parallel' in doc)) return;
+  const x = doc.parallel;
+  if (!isObj(x)) { reasons.push(reason('invalid-type', 'structure', layer, 'parallel', typeName(x))); return; }
+  checkKeys(x, FIELD_RULES_GLOBAL.parallel.properties, 'parallel', layer, reasons);
+  if ('enabled' in x && typeof x.enabled !== 'boolean') reasons.push(reason('invalid-type', 'structure', layer, 'parallel.enabled', typeName(x.enabled)));
+  if ('maxConcurrent' in x) {
+    const m = x.maxConcurrent;
+    if (!Number.isInteger(m)) reasons.push(reason('invalid-type', 'structure', layer, 'parallel.maxConcurrent', typeName(m)));
+    else if (m < PARALLEL_MAX_CONCURRENT.min || m > PARALLEL_MAX_CONCURRENT.max) reasons.push(reason('invalid-value', 'structure', layer, 'parallel.maxConcurrent', ''));
+  }
+  if ('sameRepoWrites' in x) checkString(x.sameRepoWrites, 'parallel.sameRepoWrites', layer, reasons, null, SAME_REPO_WRITES);
+  if ('categories' in x) {
+    const c = x.categories;
+    if (!isObj(c)) { reasons.push(reason('invalid-type', 'structure', layer, 'parallel.categories', typeName(c))); return; }
+    for (const [k, v] of Object.entries(c)) {
+      const p = `parallel.categories.${k}`;
+      if (FORBIDDEN_MAPPING_KEYS.includes(k)) { reasons.push(reason('forbidden-mapping', 'structure', layer, p, '')); continue; }
+      if (!CATEGORY_KEYS.includes(k)) { reasons.push(reason('unknown-field', 'structure', layer, p, '')); continue; }
+      if (typeof v !== 'boolean') reasons.push(reason('invalid-type', 'structure', layer, p, typeName(v)));
+    }
+  }
+}
+
 function checkGlobalStructure(ctx, doc, reasons) {
   const L = 'global';
   checkKeys(doc, FIELD_RULES_GLOBAL.root.properties, '', L, reasons);
@@ -490,6 +530,7 @@ function checkGlobalStructure(ctx, doc, reasons) {
       }
     }
   }
+  checkParallel(doc, L, reasons);
 }
 
 function checkProjectStructure(ctx, doc, reasons) {
@@ -507,6 +548,44 @@ function checkProjectStructure(ctx, doc, reasons) {
   }
   checkWorkflowDepth(doc, L, reasons, true, false);
   if ('review' in doc && !isObj(doc.review)) reasons.push(reason('invalid-type', 'structure', L, 'review', typeName(doc.review)));
+  checkParallel(doc, L, reasons);
+}
+
+// `parallel` merge: not the delegation/review project rule. The project layer may only narrow; a value equal to the
+// global effective value is not widening (D21 + D26); sameRepoWrites may only equal the global value or be `never` (R-2).
+function globalParallel(g) {
+  const x = isObj(g.parallel) ? g.parallel : {};
+  const cats = isObj(x.categories) ? x.categories : {};
+  return {
+    categories: Object.fromEntries(CATEGORY_KEYS.map((k) => [k, k in cats ? { src: 'global', v: cats[k] } : { src: 'default', v: PARALLEL_DEFAULTS.categories[k] }])),
+    enabled: 'enabled' in x ? { src: 'global', v: x.enabled } : { src: 'default', v: PARALLEL_DEFAULTS.enabled },
+    maxConcurrent: 'maxConcurrent' in x ? { src: 'global', v: x.maxConcurrent } : { src: 'default', v: PARALLEL_DEFAULTS.maxConcurrent },
+    sameRepoWrites: 'sameRepoWrites' in x ? { src: 'global', v: x.sameRepoWrites } : { src: 'default', v: PARALLEL_DEFAULTS.sameRepoWrites },
+  };
+}
+function checkParallelWidening(g, p, reasons) {
+  if (!p || !isObj(p.parallel)) return;
+  const L = 'project'; const x = p.parallel; const ge = globalParallel(g);
+  if (x.enabled === true && ge.enabled.v !== true) reasons.push(reason('project-layer-widening', 'merge', L, 'parallel.enabled', ''));
+  if ('maxConcurrent' in x && x.maxConcurrent > ge.maxConcurrent.v) reasons.push(reason('project-layer-widening', 'merge', L, 'parallel.maxConcurrent', ''));
+  if ('sameRepoWrites' in x && x.sameRepoWrites !== 'never' && x.sameRepoWrites !== ge.sameRepoWrites.v) reasons.push(reason('project-layer-widening', 'merge', L, 'parallel.sameRepoWrites', ''));
+  if (isObj(x.categories)) for (const [k, v] of Object.entries(x.categories)) if (v === true && ge.categories[k].v !== true) reasons.push(reason('project-layer-widening', 'merge', L, `parallel.categories.${k}`, ''));
+}
+function mergeParallel(g, p) {
+  const ge = globalParallel(g);
+  const px = p && isObj(p.parallel) ? p.parallel : {};
+  const on = ge.enabled.v === true && px.enabled !== false;
+  const D = PARALLEL_DEFAULTS;
+  // D31: whenever the effective enabled is false, the output is the fixed default block with sourceLayer "default" everywhere.
+  if (!on) return { categories: Object.fromEntries(CATEGORY_KEYS.map((k) => [k, { sourceLayer: 'default', value: D.categories[k] }])), enabled: { sourceLayer: 'default', value: false }, maxConcurrent: { sourceLayer: 'default', value: D.maxConcurrent }, sameRepoWrites: { sourceLayer: 'default', value: D.sameRepoWrites } };
+  const pick1 = (has, pv, gv) => (has ? { sourceLayer: 'project', value: pv } : { sourceLayer: gv.src, value: gv.v });
+  const pc = isObj(px.categories) ? px.categories : {};
+  return {
+    categories: Object.fromEntries(CATEGORY_KEYS.map((k) => [k, pick1(k in pc, pc[k], ge.categories[k])])),
+    enabled: pick1('enabled' in px, px.enabled, ge.enabled),
+    maxConcurrent: pick1('maxConcurrent' in px, px.maxConcurrent, ge.maxConcurrent),
+    sameRepoWrites: pick1('sameRepoWrites' in px, px.sameRepoWrites, ge.sameRepoWrites),
+  };
 }
 
 // ---------- Merge ----------
@@ -527,6 +606,7 @@ function mergeLayers(g, p, reasons) {
       if (!('enabled' in p.review) || p.review.enabled !== false) reasons.push(reason('project-layer-widening', 'merge', L, 'review.enabled', ''));
     }
   }
+  checkParallelWidening(g, p, reasons);
   if (reasons.length) return null;
   const gd = g.delegation; const pd = p && isObj(p.delegation) ? p.delegation : {};
   const pEnabledFalse = pd.enabled === false;
@@ -554,7 +634,7 @@ function mergeLayers(g, p, reasons) {
   if (p && isObj(p.workflowDepth) && 'executionDefault' in p.workflowDepth) ed = { sourceLayer: 'project', value: p.workflowDepth.executionDefault };
   else if (isObj(g.workflowDepth)) ed = { sourceLayer: 'global', value: g.workflowDepth.executionDefault };
   else ed = { sourceLayer: 'default', value: null };
-  return { delegation: { categories, enabled: { sourceLayer: enabledSrc, value: enabledVal }, executors }, review, workflowDepth: { executionDefault: ed } };
+  return { delegation: { categories, enabled: { sourceLayer: enabledSrc, value: enabledVal }, executors }, parallel: mergeParallel(g, p), review, workflowDepth: { executionDefault: ed } };
 }
 
 // Reasons that fail before safety verification (B2-01): that layer's convention must not be read

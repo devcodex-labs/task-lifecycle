@@ -25,6 +25,8 @@ entering a concrete flow → load the flow file per the SKILL.md §2 table; read
 "Delegation config" in `task-split-parallel-and-integration.md`;
 dispatching to an external coding executor → re-read "External coding executor delegation" in `task-split-parallel-and-integration.md` (off by default; do the item 2 necessity check first; the
 deterministic tier closes locally with zero delegation).
+Additive (FEAT-20261028-001): Auto form (ii), the end-to-end Auto card → re-read `end-to-end-auto-card.md`; host-native `parallel` config → re-read "Host-native parallel config
+(parallel)" at the end of `task-split-parallel-and-integration.md`; review intensity → re-read "Review intensity" in `task-recognition-and-routing.md`.
 
 **Order and completion**: before the pre-check only a bounded bootstrap of required rules/versions/identity and config results is allowed; no early project traversal, writes or dispatch; still show
 the original 4/7 items, and each later config consumption reruns fresh.
@@ -80,6 +82,12 @@ translated.
 | Second-leg marks on first-leg items | agree / dissent / supplement | 同意 / 异议 / 补充 |
 | Verifier marks | accept / reject / supplement / OPEN | 采纳 / 驳回 / 补充 / OPEN |
 | Recovery block (§9.7) | [Task Lifecycle recovery block] / Phase / Approved version / Next | [Task Lifecycle 恢复块] / 阶段 / 已批准版本 / 下一步 |
+| End-to-end Auto card fields | taskId / allowedObjects / allowedPhases / preAuthorizedSideEffects / commitIdentity / exclusions / endpoint / boundA02Sha256 / boundPlanSha256 / noStop | 任务 ID / 允许的对象/操作 / 允许阶段 / 可预授权的副作用 / 提交身份 / 排除项 / 终点 / 绑定的 A02 sha256 / 绑定的工作流方案 sha256 / 不停 |
+| End-to-end Auto card empty exclusions | none | 无 |
+| Endpoint report sections | Card identity / Completion / All auto-decisions / All suspended items / Actions not on the card or never allowed on a card, awaiting your own confirmation / Decisions you must make / Final acceptance entry | 卡身份 / 完成情况 / 全部 auto-decision / 全部挂起项 / 卡上未列或不可上卡、待你当时亲口确认的动作 / 需你做的决定 / 最终验收入口 |
+| Auto-decision record keys | id / phase / question / options / chosen / reason / affectedArtifacts / state / marker / decisionType / scope | 编号 / 阶段 / 取舍问题 / 选项及影响 / 采纳的推荐项 / 推荐理由 / 受影响的产物 / 状态 / 标记 / 决定类型 / 范围 |
+| Suspended item record keys | id / item / trigger / evidence / dependents / status / userChoice | 编号 / 受影响项 / 触发原因 / 证据与已试步骤 / 同样挂起的下游项 / 状态 / 需你做的决定 |
+| Review intensity (Kickoff card second question) | Review intensity; light / balanced / strict | 审查强度；轻 / 标准 / 严格 |
 
 `PHASE_NAMES` (plain-language phase names, SKILL.md §1; used with codes per the code-name style):
 
@@ -136,6 +144,10 @@ Names follow the conversation language (`workspace-versioning-and-recovery.md` �
 | Workspace conventions.md (legacy detection keeps the Chinese name) | 工作区约定.md |
 | Project conventions.md (legacy detection keeps the Chinese name) | 项目约定.md |
 | Change impact analysis.md | 变更影响分析.md |
+| End-to-end Auto Card-v<n>.md (FEAT-20261028-001) | Auto卡-v<n>.md |
+
+Exception (D30): the three end-to-end Auto record files auto-decisions.md, suspended-items.md and endpoint-report.md (including numbered copies
+endpoint-report-<n>.md) keep these fixed English names in every conversation language; see `end-to-end-auto-card.md` section 7.
 
 ## Literal constants (language-neutral matching)
 

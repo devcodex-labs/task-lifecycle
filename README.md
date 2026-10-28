@@ -4,7 +4,7 @@
 
 **Plan, review, confirm: governed Feature, Bugfix and Docs work for AI coding hosts.**
 
-[![version](https://img.shields.io/badge/version-0.2.7-2357C6)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-0.2.8-2357C6)](CHANGELOG.md)
 [![CI](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml/badge.svg)](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -35,6 +35,9 @@ What it can do depends on the tools and permissions your host provides.
 - **Three task flows**: Feature (stages `A01–A10`), Bugfix (`B01–B10`) and Docs (`DOC01–DOC10`).
 - **Confirm mode by default**: formal artifacts wait for your confirmation. Auto mode applies only to what you delegate.
 - **Depth on demand**: when a formal plan needs it, you choose `fast / standard / thorough / custom`. No depth skips required quality checks.
+- **Review intensity**: the start card also asks how reviews run, `light / balanced / strict` (default follows the depth). No tier skips a required gate.
+- **End-to-end Auto card (opt-in)**: after you confirm A01 and A02, one card can run A03–A07 with a `noStop` switch (default off). It can pre-authorize only a local
+  commit; push, tag, release, plugin update, host-sync and final acceptance always stay with you.
 - **Honest evidence**: design or static checks are reported separately from real-environment evidence; nothing that was not run is marked as passed.
 - **Read-only review** of code, pull requests and plans, with findings backed by evidence.
 - **Process docs kept out of your delivery**: by default they go in a sibling `.task-lifecycle/` folder beside the project.
@@ -111,6 +114,14 @@ timeout 30 node scripts/validate-config.mjs [--workspace <parent of project root
 ```
 
 Only `status: "valid"` in the output counts; otherwise these settings stay off.
+
+### Optional: host-native parallel config
+
+An optional `parallel` key lets the assistant dispatch host-native sub-agents at the same time for the categories you switch on, at most `maxConcurrent`
+(1–4, default 3). Omitted or `enabled: false` behaves exactly like 0.2.6. It grants no permission: each dispatch still needs that time's authorization, overlapping
+writes run serially, and no branch or worktree is created without your authorization. A project layer may only narrow it.
+
+Upgrade the plugin before writing `parallel`. Plugin versions up to 0.2.7 report it as `unknown-field` and switch the whole config off.
 
 ### Optional: host instance-change probe
 

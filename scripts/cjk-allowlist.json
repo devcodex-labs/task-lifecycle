@@ -1816,6 +1816,62 @@
    "files": [
     "docs/old-path-map.md"
    ]
+  },
+  {
+   "literal": "任务 ID / 允许的对象/操作 / 允许阶段 / 可预授权的副作用 / 提交身份 / 排除项 / 终点 / 绑定的 A02 sha256 / 绑定的工作流方案 sha256 / 不停",
+   "bucket": "LABELS",
+   "reason": "zh column of the end-to-end Auto / review intensity LABELS rows (FEAT-20261028-001)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "无",
+   "bucket": "LABELS",
+   "reason": "zh column of the end-to-end Auto / review intensity LABELS rows (FEAT-20261028-001)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "卡身份 / 完成情况 / 全部 auto-decision / 全部挂起项 / 卡上未列或不可上卡、待你当时亲口确认的动作 / 需你做的决定 / 最终验收入口",
+   "bucket": "LABELS",
+   "reason": "zh column of the end-to-end Auto / review intensity LABELS rows (FEAT-20261028-001)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "编号 / 阶段 / 取舍问题 / 选项及影响 / 采纳的推荐项 / 推荐理由 / 受影响的产物 / 状态 / 标记 / 决定类型 / 范围",
+   "bucket": "LABELS",
+   "reason": "zh column of the end-to-end Auto / review intensity LABELS rows (FEAT-20261028-001)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "编号 / 受影响项 / 触发原因 / 证据与已试步骤 / 同样挂起的下游项 / 状态 / 需你做的决定",
+   "bucket": "LABELS",
+   "reason": "zh column of the end-to-end Auto / review intensity LABELS rows (FEAT-20261028-001)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "审查强度；轻 / 标准 / 严格",
+   "bucket": "LABELS",
+   "reason": "zh column of the end-to-end Auto / review intensity LABELS rows (FEAT-20261028-001)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
+   "literal": "Auto卡-v<n>.md",
+   "bucket": "RUNTIME_NAMES",
+   "reason": "runtime end-to-end Auto card file name in Chinese sessions (FEAT-20261028-001)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
   }
  ]
 }

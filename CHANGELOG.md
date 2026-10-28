@@ -1,3 +1,21 @@
+## 0.2.8 — End-to-end Auto card, host-native parallel config, review intensity (Unreleased)
+
+- New reference `end-to-end-auto-card.md` (pointer `confirmation-authorization-and-change.md` §6.3.2): Auto form (ii), an end-to-end Auto card with ten required keys,
+  shown only after A01 and A02 are human-confirmed, phases `A03..A07` at most, only `local-commit` pre-authorizable; `noStop: true` adopts recommendations as
+  auto-decisions (implementation only, never acceptance or test pass criteria) and suspends everything else into one endpoint report; exceptions E1–E20 are task-level,
+  only when selected, original text unchanged. Existing Auto is unchanged. Regression tests T96–T101.
+- `task-split-parallel-and-integration.md`: new last section "Host-native parallel config (parallel)" plus two additive pointer sentences; optional `parallel` key
+  (`enabled`, `maxConcurrent` 1–4, boolean `categories`, `sameRepoWrites`); omitted or off is identical to 0.2.6; enabling grants no permission; project layer only
+  narrows. Regression test T102.
+- `scripts/validate-config.mjs`, `assets/config.schema.json`, `assets/config.example.json`, `validator-output-protocol.md`: `parallel` checks with existing reason codes
+  only, `effective.parallel` always present when valid (fixed default block when off); `schemaVersion` stays 1. Tests T104–T107.
+- Compatibility: upgrade the plugin before writing `parallel`; versions up to 0.2.7 report `unknown-field` and disable the whole config. Test T108.
+- `task-recognition-and-routing.md`: new "Review intensity" after the Kickoff card: `light / balanced / strict`, default by depth, a separate second Kickoff question,
+  not in config; no tier skips a required gate and every tier stays under the §7.10 item 7 General review cap. Tests T109–T111.
+- `entry-quickref.md`: LABELS rows, a RUNTIME_NAMES row with the fixed-English-name exception for the three record files, and an action-map line; `cjk-allowlist.json`
+  entries. Test T103 guards zero deletions and SKILL.md unchanged (≤600 lines).
+- Task FEAT-20261028-001 (Rocky D1–D42); release approval pending.
+
 ## 0.2.7 — Untruncated status evidence, control request before blaming upstream, user-chosen re-review performer (2026-10-28)
 
 - `verification-and-evidence-routing.md`: new item 10: before stating a count or an only/all/none conclusion from command output, check whether the output was cut by

@@ -263,6 +263,75 @@
       ],
       "additionalProperties": false
     },
+    "parallelCategories": {
+      "$comment": "parallel.categories: boolean per category (host-native concurrent dispatch allowed or not); not the executor-id strings of delegation.categories",
+      "type": "object",
+      "properties": {
+        "drafting": {
+          "type": "boolean"
+        },
+        "implementation": {
+          "type": "boolean"
+        },
+        "readonly-investigation": {
+          "type": "boolean"
+        },
+        "test-run": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "globalParallel": {
+      "$comment": "Optional host-native parallel config; omitted or enabled:false behaves like 0.2.6. Older plugins report unknown-field for this key: upgrade the plugin before writing parallel.",
+      "type": "object",
+      "properties": {
+        "categories": {
+          "$ref": "#/$defs/parallelCategories"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "maxConcurrent": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "sameRepoWrites": {
+          "enum": [
+            "disjoint-files-only",
+            "worktree-with-per-time-authorization",
+            "never"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "projectParallel": {
+      "$comment": "Project layer may only narrow (enabled false, maxConcurrent <= global, categories true->false, sameRepoWrites equal to global or never); widening is reported by the validator merge stage as project-layer-widening",
+      "type": "object",
+      "properties": {
+        "categories": {
+          "$ref": "#/$defs/parallelCategories"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "maxConcurrent": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "sameRepoWrites": {
+          "enum": [
+            "disjoint-files-only",
+            "worktree-with-per-time-authorization",
+            "never"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
     "globalConfig": {
       "type": "object",
       "properties": {
@@ -280,6 +349,9 @@
         },
         "workflowDepth": {
           "$ref": "#/$defs/globalWorkflowDepth"
+        },
+        "parallel": {
+          "$ref": "#/$defs/globalParallel"
         }
       },
       "required": [
@@ -306,6 +378,9 @@
         },
         "workflowDepth": {
           "$ref": "#/$defs/projectWorkflowDepth"
+        },
+        "parallel": {
+          "$ref": "#/$defs/projectParallel"
         }
       },
       "required": [

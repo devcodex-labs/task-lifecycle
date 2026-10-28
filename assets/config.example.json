@@ -5,6 +5,7 @@
     "record": "/home/user/task-lifecycle-records/EXAMPLE/00-任务记录.md"
   },
   "delegation": { "enabled": false },
+  "parallel": { "enabled": false },
   "review": {
     "enabled": false,
     "fallback": {

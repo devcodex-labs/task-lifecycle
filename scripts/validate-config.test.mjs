@@ -6,7 +6,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import crypto from 'node:crypto';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import * as V from './validate-config.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -87,6 +87,7 @@ test('E4 G1+P1 → §4.2 output shape', () => {
   assert.equal(r.status, 'valid', JSON.stringify(r.reasons));
   assert.deepEqual(r.effective, {
     delegation: { categories: { drafting: { sourceLayer: 'default', value: 'none' }, implementation: { sourceLayer: 'default', value: 'none' }, 'readonly-investigation': { sourceLayer: 'global', value: 'codex-cli' }, 'test-run': { sourceLayer: 'project', value: 'none' } }, enabled: { sourceLayer: 'global', value: true }, executors: { 'codex-cli': { command: 'codex', model: null, reasoningEffort: null } } },
+    parallel: PAR_OFF(), // FEAT-20261028-001: effective.parallel is always present when valid (additive expectation)
     review: { enabled: { sourceLayer: 'default', value: false }, fallback: { ...V.REVIEW_FALLBACK }, hosts: [] },
     workflowDepth: { executionDefault: { sourceLayer: 'project', value: 'thorough' } },
   });
@@ -556,7 +557,7 @@ test('A2-03 compound sentence: invalid prefix + valid later sentence still yield
 });
 test('A2-04 FIELD_RULES allowed fields match schema properties keys one by one', () => {
   const d = schema.$defs, G = V.FIELD_RULES_GLOBAL;
-  const pairs = [[G.root, d.globalConfig], [G.approvalSource, d.approvalSource], [G.delegation, d.globalDelegation], [G.executor, d.executor], [G.review, d.globalReview], [G.reviewHost, d.reviewHost], [G.reviewFallback, d.reviewFallback], [G.workflowDepth, d.globalWorkflowDepth], [V.FIELD_RULES_PROJECT.root, d.projectConfig]];
+  const pairs = [[G.root, d.globalConfig], [G.approvalSource, d.approvalSource], [G.delegation, d.globalDelegation], [G.executor, d.executor], [G.review, d.globalReview], [G.reviewHost, d.reviewHost], [G.reviewFallback, d.reviewFallback], [G.workflowDepth, d.globalWorkflowDepth], [V.FIELD_RULES_PROJECT.root, d.projectConfig], [G.parallel, d.globalParallel], [V.FIELD_RULES_PROJECT.parallel, d.projectParallel]];
   for (const [rule, def] of pairs) assert.deepEqual([...rule.properties].sort(), Object.keys(def.properties).sort());
   const f = mk(); const g = G1(f); g.delegation.executors['codex-cli'].auto = true; writeG(f, g); disabledWith(run(f), 'unknown-field');
 });
@@ -571,6 +572,92 @@ test('A2-06 frozen §11.4 example: review enabled does not enable delegation', (
   assert.deepEqual(r.effective.review.enabled, { sourceLayer: 'global', value: true });
   assert.deepEqual(r.effective.delegation.enabled, { sourceLayer: 'global', value: false }); assert.deepEqual(r.effective.delegation.executors, {});
   for (const k of V.CATEGORY_KEYS) assert.equal(r.effective.delegation.categories[k].value, 'none');
+});
+// ---------- Host-native parallel config (FEAT-20261028-001, T104–T107) ----------
+function PAR_OFF() {
+  return { categories: { drafting: { sourceLayer: 'default', value: false }, implementation: { sourceLayer: 'default', value: false }, 'readonly-investigation': { sourceLayer: 'default', value: true }, 'test-run': { sourceLayer: 'default', value: false } }, enabled: { sourceLayer: 'default', value: false }, maxConcurrent: { sourceLayer: 'default', value: 3 }, sameRepoWrites: { sourceLayer: 'default', value: 'disjoint-files-only' } };
+}
+const GP = (f, parallel) => ({ ...G1(f), parallel });
+test('T104 parallel omitted, enabled:false and {} give byte-identical effective.parallel, all sourceLayer default (D31, AC10)', () => {
+  const outs = [];
+  for (const par of [undefined, { enabled: false }, {}, { enabled: false, maxConcurrent: 2, sameRepoWrites: 'never', categories: { implementation: true } }]) {
+    const f = mk(); writeG(f, par === undefined ? G1(f) : GP(f, par)); const r = run(f);
+    assert.equal(r.status, 'valid', JSON.stringify(r.reasons)); outs.push(r.effective.parallel);
+  }
+  for (const o of outs) assert.deepEqual(o, PAR_OFF());
+  // project layer enabled:false over a globally enabled config is also the fixed default block
+  const f = mk(); writeG(f, GP(f, { enabled: true, maxConcurrent: 4 })); writeP(f, { ...P1(f), parallel: { enabled: false } });
+  const r = run(f, pargs(f)); assert.equal(r.status, 'valid', JSON.stringify(r.reasons)); assert.deepEqual(r.effective.parallel, PAR_OFF());
+  // enabled: omitted fields take defaults, written fields carry global
+  const g = mk(); writeG(g, GP(g, { enabled: true, categories: { implementation: true } })); const r2 = run(g);
+  assert.deepEqual(r2.effective.parallel, { categories: { drafting: { sourceLayer: 'default', value: false }, implementation: { sourceLayer: 'global', value: true }, 'readonly-investigation': { sourceLayer: 'default', value: true }, 'test-run': { sourceLayer: 'default', value: false } }, enabled: { sourceLayer: 'global', value: true }, maxConcurrent: { sourceLayer: 'default', value: 3 }, sameRepoWrites: { sourceLayer: 'default', value: 'disjoint-files-only' } });
+  // enabling parallel does not enable delegation or review
+  const h = mk(); writeG(h, { approvalSource: src(h), delegation: { enabled: false }, parallel: { enabled: true }, schemaVersion: 1 }); const r3 = run(h);
+  assert.equal(r3.effective.delegation.enabled.value, false); assert.equal(r3.effective.review.enabled.value, false); assert.equal(r3.effective.parallel.enabled.value, true);
+});
+test('T105 invalid parallel values → invalid-type / invalid-value / unknown-field / forbidden-mapping, whole config disabled (AC10)', () => {
+  const cases = [
+    [true, 'invalid-type'], [[], 'invalid-type'], [{ enabled: 'true' }, 'invalid-type'], [{ maxConcurrent: '3' }, 'invalid-type'], [{ maxConcurrent: 2.5 }, 'invalid-type'],
+    [{ maxConcurrent: 0 }, 'invalid-value'], [{ maxConcurrent: 5 }, 'invalid-value'], [{ sameRepoWrites: 'always' }, 'invalid-value'], [{ sameRepoWrites: 1 }, 'invalid-type'],
+    [{ auto: true }, 'unknown-field'], [{ categories: { review: true } }, 'unknown-field'], [{ categories: 'all' }, 'invalid-type'], [{ categories: { implementation: 'codex-cli' } }, 'invalid-type'],
+    [{ categories: { A05: true } }, 'forbidden-mapping'], [{ categories: { Push: true } }, 'forbidden-mapping'],
+  ];
+  for (const [par, code] of cases) {
+    const f = mk(); writeG(f, GP(f, par)); const r = run(f); disabledWith(r, code); assert.equal(r.reasons[0].stage, 'structure', JSON.stringify(par));
+    const g = mk(); writeG(g, G1(g)); writeP(g, { ...P1(g), parallel: par }); disabledWith(run(g, pargs(g)), code);
+  }
+  for (const m of [1, 4]) { const f = mk(); writeG(f, GP(f, { enabled: true, maxConcurrent: m })); assert.equal(run(f).status, 'valid'); }
+  for (const w of V.SAME_REPO_WRITES) { const f = mk(); writeG(f, GP(f, { sameRepoWrites: w })); assert.equal(run(f).status, 'valid'); }
+  assert.deepEqual(V.SAME_REPO_WRITES, ['disjoint-files-only', 'worktree-with-per-time-authorization', 'never']);
+  assert.deepEqual(V.PARALLEL_MAX_CONCURRENT, { min: 1, max: 4, default: 3 });
+});
+test('T106 project layer may only narrow parallel; equal to global passes; omitted keys inherit; structure errors first (D21, D26, R-2)', () => {
+  const glob = { enabled: true, maxConcurrent: 3, categories: { implementation: true, 'test-run': false }, sameRepoWrites: 'disjoint-files-only' };
+  const ok = [{ enabled: true }, { enabled: false }, { maxConcurrent: 3 }, { maxConcurrent: 1 }, { categories: { implementation: false } }, { categories: { implementation: true } },
+    { sameRepoWrites: 'disjoint-files-only' }, { sameRepoWrites: 'never' }, {}];
+  for (const pp of ok) { const f = mk(); writeG(f, GP(f, glob)); writeP(f, { ...P1(f), parallel: pp }); const r = run(f, pargs(f)); assert.equal(r.status, 'valid', JSON.stringify([pp, r.reasons])); }
+  const wide = [[{ maxConcurrent: 4 }, 'parallel.maxConcurrent'], [{ categories: { 'test-run': true } }, 'parallel.categories.test-run'], [{ categories: { drafting: true } }, 'parallel.categories.drafting'],
+    [{ sameRepoWrites: 'worktree-with-per-time-authorization' }, 'parallel.sameRepoWrites']];
+  for (const [pp, at] of wide) {
+    const f = mk(); writeG(f, GP(f, glob)); writeP(f, { ...P1(f), parallel: pp }); const r = run(f, pargs(f));
+    disabledWith(r, 'project-layer-widening'); assert.equal(r.reasons[0].stage, 'merge'); assert.equal(r.reasons[0].path, at);
+  }
+  // R-2: with global worktree-with-per-time-authorization, the project layer may write only that value or never; disjoint-files-only is widening
+  for (const [w, okv] of [['worktree-with-per-time-authorization', true], ['never', true], ['disjoint-files-only', false]]) {
+    const f = mk(); writeG(f, GP(f, { enabled: true, sameRepoWrites: 'worktree-with-per-time-authorization' })); writeP(f, { ...P1(f), parallel: { sameRepoWrites: w } });
+    const r = run(f, pargs(f)); if (okv) assert.equal(r.status, 'valid', w); else disabledWith(r, 'project-layer-widening');
+  }
+  // global never: the project layer may only write never
+  { const f = mk(); writeG(f, GP(f, { enabled: true, sameRepoWrites: 'never' })); writeP(f, { ...P1(f), parallel: { sameRepoWrites: 'disjoint-files-only' } }); disabledWith(run(f, pargs(f)), 'project-layer-widening'); }
+  // global omitted or off: project enabled:true is widening
+  for (const gpar of [undefined, { enabled: false }]) {
+    const f = mk(); writeG(f, gpar === undefined ? G1(f) : GP(f, gpar)); writeP(f, { ...P1(f), parallel: { enabled: true } });
+    const r = run(f, pargs(f)); disabledWith(r, 'project-layer-widening'); assert.equal(r.reasons[0].path, 'parallel.enabled');
+  }
+  // omitted sub-keys inherit global; written ones are project
+  { const f = mk(); writeG(f, GP(f, glob)); writeP(f, { ...P1(f), parallel: { maxConcurrent: 2, categories: { implementation: false } } }); const r = run(f, pargs(f));
+    assert.deepEqual(r.effective.parallel.maxConcurrent, { sourceLayer: 'project', value: 2 }); assert.deepEqual(r.effective.parallel.enabled, { sourceLayer: 'global', value: true });
+    assert.deepEqual(r.effective.parallel.categories.implementation, { sourceLayer: 'project', value: false }); assert.deepEqual(r.effective.parallel.categories['test-run'], { sourceLayer: 'global', value: false });
+    assert.deepEqual(r.effective.parallel.sameRepoWrites, { sourceLayer: 'global', value: 'disjoint-files-only' }); }
+  // project layer without parallel inherits global
+  { const f = mk(); writeG(f, GP(f, glob)); writeP(f, P1(f)); const r = run(f, pargs(f)); assert.deepEqual(r.effective.parallel.maxConcurrent, { sourceLayer: 'global', value: 3 }); assert.equal(r.effective.parallel.enabled.value, true); }
+  // structure error reported before widening
+  { const f = mk(); writeG(f, GP(f, glob)); writeP(f, { ...P1(f), parallel: { enabled: true, maxConcurrent: 9 } }); const r = run(f, pargs(f)); disabledWith(r, 'invalid-value'); assert.ok(!codes(r).includes('project-layer-widening')); }
+});
+test('T107 schemaVersion stays 1; a 0.2.6-shaped root (no parallel key) reports parallel as unknown-field (AC14)', async () => {
+  const f = mk(); writeG(f, { ...GP(f, { enabled: false }), schemaVersion: 2 }); disabledWith(run(f), 'schema-version-unknown');
+  assert.equal(schema.$defs.globalConfig.properties.schemaVersion.const, 1);
+  const legacyRoot = ['approvalSource', 'delegation', 'review', 'schemaVersion', 'workflowDepth']; // FIELD_RULES_GLOBAL.root.properties at f47c527 (0.2.6)
+  assert.deepEqual(V.FIELD_RULES_GLOBAL.root.properties.filter((k) => k !== 'parallel'), legacyRoot);
+  // Build a 0.2.6-shaped validator: same script with `parallel` removed from both root key lists (f47c527 FIELD_RULES), then validate a config containing parallel
+  const legacyDir = mk(); const lp = path.join(legacyDir.base, 'plugin', 'scripts', 'validate-config-0.2.6-shape.mjs'); fs.mkdirSync(path.dirname(lp), { recursive: true });
+  const srcText = fs.readFileSync(SCRIPT, 'utf8').replaceAll("properties: ['approvalSource', 'delegation', 'parallel', 'review', 'schemaVersion', 'workflowDepth'] },", "properties: ['approvalSource', 'delegation', 'review', 'schemaVersion', 'workflowDepth'] },");
+  assert.notEqual(srcText, fs.readFileSync(SCRIPT, 'utf8')); fs.writeFileSync(lp, srcText);
+  const L = await import(pathToFileURL(lp).href);
+  assert.deepEqual([...L.FIELD_RULES_GLOBAL.root.properties], legacyRoot);
+  writeG(f, GP(f, { enabled: false }));
+  const lr = L.validate([], { HOME: f.home }, { userInfo: () => ({ homedir: f.home }), scriptPath: lp });
+  assert.equal(lr.status, 'disabled'); assert.ok(lr.reasons.some((x) => x.code === 'unknown-field' && x.path === 'parallel'), JSON.stringify(lr.reasons)); assert.equal(lr.effective, null);
 });
 test('T-A3 coverage gate (runs last): actually hit reason codes ⊇ REASON_CODES, with matching stage ownership', () => {
   for (const [code, stages] of Object.entries(V.REASON_CODES)) {
