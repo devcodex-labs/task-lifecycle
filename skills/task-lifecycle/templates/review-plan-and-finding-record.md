@@ -11,6 +11,7 @@
 - Roles/check methods: `{each role maps to concrete judgments, no empty titles}`
 - Host permissions, D/A/I/H applicability, frozen pass thresholds and real failure conditions: `{current facts}`
 - The plan's own self-review, pending valid human Confirm/legal in-task Auto result: `{never pre-fill approval}`
+- `reReviewPerformer` and its source, for A01–A04, B03, DOC03–DOC04 (`references/re-review-performer-choice.md`): `{user answer or no-card outcome}`
 
 | Check ID | Approved source ID / full duty and sub-conditions | Trigger preconditions and consumers | Actual positive/negative assertions | Method + permission + expected evidence level | Frozen pass/failure exit |
 |---|---|---|---|---|---|

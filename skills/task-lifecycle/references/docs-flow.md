@@ -91,3 +91,6 @@ rejected final acceptance and follow-up issues on terminated tasks".
 When the Owner cannot be read, its version does not apply, or only its heading can be located, stop change/recovery operations depending on that protocol and identify the current legal original
 before continuing; never fabricate the protocol or let things through from this section's summary. Unaffected task chains with grounded validity are judged per the Owner, without a full restart or
 expanding Auto authorization.
+
+**Extra re-review performer (DOC03–DOC04)**: before the review plan or, without one, the artifact of DOC03–DOC04 is confirmed, ask who performs the extra independent re-review per
+`re-review-performer-choice.md`.

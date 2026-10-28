@@ -146,6 +146,7 @@ other phases reference it rather than redefining a looser version.
 | Any-phase substantive change (A10/B10/DOC10) | `references/confirmation-authorization-and-change.md`, `templates/substantive-change-impact-analysis-record.md`, and re-read the current flow file |
 | New formal candidate, self-review, review roles | `references/artifact-content-and-self-review-contract.md`, `references/roles-and-specialist-review.md` |
 | Formal review plan, evidence sign-off, Finding closure | `references/formal-review-and-findings.md`, `references/confirmation-authorization-and-change.md`; multi-session relay review also `templates/relay-review-first-leg-prompt.md`, `templates/relay-review-second-leg-prompt.md`, `templates/relay-review-verifier-prompt.md` (§7.10) |
+| Extra re-review performer choice for A01–A04, B03, DOC03–DOC04 (ask before that plan or artifact is confirmed) | `references/re-review-performer-choice.md` |
 | Actual writes, recovery, dirty or cross-session | `references/workspace-versioning-and-recovery.md`, `references/confirmation-authorization-and-change.md` |
 | Tests, CI, flaky, independent Agent Eval | `references/verification-and-evidence-routing.md` |
 | Full delivery set of a real commit/package/release candidate (ABS-07) | `references/verification-and-evidence-routing.md`, `references/workspace-versioning-and-recovery.md` |

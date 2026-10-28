@@ -61,6 +61,8 @@ After generation the plan self-reviews first, then is validly accepted under the
 upstream, actual consumers or key project facts change substantively after plan approval, first analyze whether the original plan is invalid; if so redo affected items and re-confirm; never pass on
 an old report.
 
+Who performs the extra independent re-review of A01–A04, B03 and DOC03–DOC04 artifacts is asked per `re-review-performer-choice.md` (§7.11) before the plan or artifact is confirmed.
+
 **Ordinary file AI self-review and formal review are strictly separate**: ordinary self-review does not recursively generate new formal plans, which would cause endless generation; a failed formal
 review generates Findings, revisions and retests, and still presents the user two different conclusions: report facts and object quality.
 
@@ -478,3 +480,8 @@ records are not placeholders or whose non-mapped body changed; ad hoc rewriting 
 auto-renewing an expired exception.
 Reject: incomplete §7.10 miss records, ledger, removed-constraint list or proof; omitting this round's earlier-leg investigation by cross-round "not applicable"; unknown missing required fields,
 impersonating a proven miss cause or exempting other closures; writing "no previous round" from round two of the same version on.
+
+### 7.11 Independent re-review performer choice (CAND-20261028-004 v4, user-ruled)
+
+Scope: exactly A01–A04, B03 and DOC03–DOC04; §7.11 does not apply to rule or candidate revisions (§7.10 item 7).
+The rule body is in `re-review-performer-choice.md`; it governs only the extra re-review, and everything else follows §7.10.

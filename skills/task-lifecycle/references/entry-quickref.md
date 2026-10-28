@@ -66,6 +66,7 @@ translated.
 | Priority | High / Medium / Low | 高 / 中 / 低 |
 | Inference marks | inferred (reason); tested (command/output) | 推测（附原因）；已实测（附命令/输出） |
 | Review marks | new in verification; pending verification; same model (X), two independent sessions, no cross-model coverage; same model, two independent sessions; missing; deleted; first version, no previous; accepted / rejected / supplemented / OPEN | 核验中新增；待核验；同一模型（X）两个独立会话，无跨模型互补；同一模型两个独立会话；缺失；已删；首版，无上一版；采纳 / 驳回 / 补充 / OPEN |
+| Re-review performer marks (§7.11) | same model, one independent session; no independent session (user chose human review); no independent session (chosen reviewer unavailable); re-review mode not chosen; re-review mode not chosen (no session available) | 同一模型，一个独立会话；无独立会话（用户选择人工审查）；无独立会话（所选审查方不可用）；未选择复审方式；未选择复审方式（无可用会话） |
 | Seat arrangement | not selected / standby | 未选用/替补 |
 | Page cells | Exception: … / not stated / action complete / — / same as above | 例外：… / 未写明 / 动作已完整 / — / 同上 |
 | Page step lines | Materials: … / Stop point: … | 材料：… / 停点：… |

@@ -294,3 +294,6 @@ Flow depth **defines no fourth main flow**; it acts only on the dynamic sub-step
 **The approval contract is unaffected by depth**: triggered independent decision responsibilities such as the original A01/A02/A03, Bugfix root cause/verification, Docs readers/site and each formal
 specialist review still need applicable approval; the number of files may shrink only when truly not applicable or when existing confirmed originals remain legally reusable. A10/B10/DOC10 are change
 routes inserted at any phase and cannot be disabled by fast.
+
+**Extra re-review performer (A01–A04)**: before the review plan or, without one, the artifact of A01–A04 is confirmed, ask who performs the extra independent re-review per
+`re-review-performer-choice.md`.

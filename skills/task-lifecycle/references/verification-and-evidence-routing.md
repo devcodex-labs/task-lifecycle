@@ -40,6 +40,11 @@ verification of delivery sets and real consumers
      consumer results;
    - without authorization first record `unverified/blocked` and the action awaiting permission; never automatically `git add -f` or release. See the concrete inventory record in
      `workspace-versioning-and-recovery.md`.
+10. **Untruncated status evidence** (CAND-20261028-001): before stating a count or an only/all/none conclusion (dirty files, failing tests, search hits) from command output, check whether
+    that output was cut by `head`/`tail`/`sed -n` or display truncation; if so, rerun a full or counting command and state the total, otherwise the conclusion is `unverified` and is not sent.
+11. **Control request before blaming upstream** (CAND-20261028-003): before stating why a network, download or install step failed, send at least one same-protocol request to an unrelated
+    address, within the network scope item 7 and the host allow, and record its status code and key response headers (e.g. `Server`); a cause stated without this control is written as an
+    assumption, never as a finding.
 
 ## Counterexamples that must be rejected
 

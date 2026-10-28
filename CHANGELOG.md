@@ -1,3 +1,18 @@
+## 0.2.7 — Untruncated status evidence, control request before blaming upstream, user-chosen re-review performer (2026-10-28)
+
+- `verification-and-evidence-routing.md`: new item 10: before stating a count or an only/all/none conclusion from command output, check whether the output was cut by
+  `head`/`tail`/`sed -n` or display truncation; if so, rerun a full or counting command and state the total, otherwise the conclusion is `unverified` and is not sent.
+  Candidate CAND-20261028-001; regression test T93.
+- `verification-and-evidence-routing.md`: new item 11: before stating why a network, download or install step failed, send at least one same-protocol request to an unrelated
+  address within the item 7 network scope and the host allow, and record its status code and key response headers; a cause stated without this control is an assumption,
+  never a finding. Candidate CAND-20261028-003; regression test T94.
+- New reference `re-review-performer-choice.md` (pointer `formal-review-and-findings.md` §7.11): for the formal artifacts of A01–A04, B03 and DOC03–DOC04 the user
+  chooses who performs one extra independent re-review: (a) the user, (b) one fresh clean current-host session, or (c) a configured external CLI; additive only, never
+  replaces required review. Pointer lines in `SKILL.md`, §7.4, `feature-flow.md`, `bugfix-flow.md` and `docs-flow.md`; a separate Chinese label line in
+  `entry-quickref.md`; one line in `templates/review-plan-and-finding-record.md`; `cjk-allowlist.json` entry. Candidate CAND-20261028-004; regression test T95.
+- CAND-20261028-004 approval: Rocky cards t906s5153 18:03, t906s5160 18:14, t906s5166 18:17, t906s5169 18:18 (INDEX), t906s5176 18:19 (title) (2026-10-28).
+- Approval: Rocky cards t906s5070, t906s5074, t906s5078, t906s5083 (2026-10-28 17:22–17:30); release approval pending.
+
 ## 0.2.6 — Host instance-change probe in the pre-check (2026-10-28)
 
 - `workspace-versioning-and-recovery.md` §9.8: when the real user or trusted host-level config/memory declares a read-only instance-change probe, the pre-check runs it

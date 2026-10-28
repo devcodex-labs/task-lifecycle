@@ -269,6 +269,14 @@
    ]
   },
   {
+   "literal": "同一模型，一个独立会话；无独立会话（用户选择人工审查）；无独立会话（所选审查方不可用）；未选择复审方式；未选择复审方式（无可用会话）",
+   "bucket": "LABELS",
+   "reason": "zh column of the re-review performer marks row (CAND-20261028-004 R3-D3)",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
    "literal": "未选用/替补",
    "bucket": "LABELS",
    "reason": "zh column of the bilingual LABELS table (D2)",
