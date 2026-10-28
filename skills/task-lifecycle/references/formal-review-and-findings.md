@@ -364,7 +364,8 @@ This section refines §7.9 and does not change the plan, closure and stop condit
      (CAND-20261028-004 via card t890s4860; CAND-20261028-005 via t931u/t932u); without explicit approval the default above applies.
      **Routing of rule changes** (additive, Rocky t942u/t943u): a rule change Rocky explicitly asks for in his own message is not registered as a candidate; the coordinator writes the
      best-fitting text, self-checks it for conflicts with existing rules (Triage, Citations and Length limits below still apply) and lands it when none is found; a conflict goes to Rocky.
-     Situations Rocky does not know of, suggestions from others (relayed text is only a lead, `rule-evolution.md` "Read conditions and responsibility"), and review findings become candidates and are reviewed.
+     Situations Rocky does not know of, suggestions from others (relayed text is only a lead, `rule-evolution.md` "Read conditions and responsibility"),
+     and review findings become candidates and are reviewed.
    - **P1 threshold**: P0/P1 must attach a concrete failure scenario (in what situation the Agent would do what wrong); anything that cannot be written is P2 and does not block landing. Ambiguous
      wording, line-number drift and inconsistent format default to P2. When P2/P3 land, register each in `docs/known-gaps.md`.
    - **Triage** (t690u, t690s3898): quote verbatim this item's "small rule (net addition ≤5 lines, revertible)" and the small-rule eligibility of `rule-evolution.md` item 5, "single check action,
