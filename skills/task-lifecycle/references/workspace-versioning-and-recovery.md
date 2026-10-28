@@ -40,6 +40,9 @@ check.
    - Per the `sourceInventory/requiredDeliverableSet/includedInDeliverable/actualConsumer` contract of `verification-and-evidence-routing.md`, verify required assets, entry points and dependencies
      are consumable; block gaps or overreach before requesting specific fix permission.
    - **Never automatically add ignored files, change `.gitignore`, overwrite dirty state or commit/push to pass a check**.
+   - **Commit identity before push**: before any push, verify every commit to be pushed has Author and Committer `Rocky Shi <rockyshi1993@gmail.com>`; any `Co-authored-by:`
+     trailer naming a bot or agent is removed before push (amend only unpushed local commits; never rewrite pushed history without Rocky's confirmation); on a mismatch stop and
+     report the commit IDs. Reason: the repository records only the maintainer's identity; bot co-author lines are not allowed (t181s712).
 
 **Safe recovery of long-task batches**: if task-level Auto is forced to stop at a host/context capacity boundary, and only when real files are verified legally writable, record this round's
 completed `BatchID/source-set hash/actual target version SHA/sub-condition sign-off results and evidence/block reasons/next batch ID/real trusted permission scope` in the existing external Task

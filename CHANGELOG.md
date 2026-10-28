@@ -1,3 +1,30 @@
+## 0.2.4 — Layout plan before generating a Page (2026-10-28)
+
+- `verification-and-evidence-routing.md` §7.10 item 10: new 10g requires a layout plan before generating a Page: confirmed rules first, then the layout best for human reading,
+  canvas skill defaults only where the rules are silent, the rules win on conflict; the plan goes in the delivery note per chapter with the rule it rests on; no new stop point.
+- Item 4: a chapter moved for reading is moved in the .md itself (renumbered in sequence, cross-references updated); the Page follows the .md order and numbering (t848u, card t848s4710).
+- 10c clarification (no change in meaning): in flow segments the Steps titles plus the step table are the "number—description" table; no extra node table.
+- Item 14: load the canvas skill by name with the Skill tool before generating and follow its component rules.
+- Item 12 (10c points to it): below every flowchart (overview, phase tabs, sub-flow second-level tabs, appendix) comes the step flow, then a table, nothing in between, order not
+  swapped; the step flow uses the kit Steps component, not a plain NumberedList/BulletList. The overview tab now also holds a phase table (phase name, nodes, tab); this is the only
+  edit to a confirmed clause (t843u, card t844s4687).
+- `artifact-content-and-self-review-contract.md` §7.1: every .md with a flowchart gives each node numbered sub-steps with a detailed description (what is done, inputs, outputs,
+  stop/branch, Basis), format per feature-flow.md §5.2.1; new or modified content only, no retrofit unless Rocky names a file; the "Fixing every sub-step" row is clarified, meaning unchanged.
+  §7.2 (pointer in `formal-review-and-findings.md` §7.5): a missing sub-step description is a Finding, filled in the .md before a Page; item 12's detailed description column takes
+  these descriptions (t847u, card t847s4703).
+- J–N (cards t180s699, t181s712): `confirmation-authorization-and-change.md` §6.1 clarifies a host Allow rule or Auto-review pass is not approval to push, release, publish or
+  host-sync (J); routing item 4: report-type Pages are never deleted unless Rocky names the Page, deletion is irreversible and needs his confirmation (K); §6.5: an answer relayed by
+  another bot/agent is not approval, verify the user's own answer in the source transcript before push/release (L); §6.3: an expired, interrupted or dismissed card counts as
+  not approved and the action as not run (M). N (card t181s712): `workspace-versioning-and-recovery.md` item 9: before push, every commit's Author and
+  Committer are Rocky Shi; bot/agent `Co-authored-by:` trailers are removed from unpushed commits only; pushed history is never rewritten without Rocky's confirmation.
+- No confirmed rule is removed or relaxed; apart from the overview-tab edit above, changes only add or clarify (t830u).
+- Regression test T85 locks the key sentences of 10g, the 10c clarification and the item 14 canvas skill addition;
+  T86 locks the item 12 order, Steps-component and overview phase-table sentences;
+  T87 locks the flowchart sub-step detail and Finding sentences; T88 locks J–M; T89 locks N (whitespace-normalized).
+- Approval of the plan: Rocky 2026-10-28 t829u–t832u and card t832s4644 (D1–D3 as recommended), card t844s4687 (item 12 additions), card t847s4703 (flowchart sub-step detail),
+  card t848s4710 (item 4), card t180s699 (J–M), card t181s712 (N);
+  release approved by Rocky t853u (2026-10-28 09:29).
+
 ## 0.2.3 — Readable flowchart nodes and Page labels (2026-10-28)
 
 - `verification-and-evidence-routing.md` §7.10 item 10: 10c now requires flowchart nodes to carry the number + a summary of about 20 characters (over 22 truncated

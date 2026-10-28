@@ -126,6 +126,13 @@ current real task, authorization and triggers; if they disagree with this file's
 Each time first judge the type's Required, whether the task's Conditional hits, whether Optional has clear value, then organize the body dynamically; non-required auxiliary results may be merged
 into existing formal files, but a usage contract or review-approval duty with independent legal/product effect may not be merged away.
 
+**Flowchart sub-step detail**: every .md artifact that contains a flowchart (docs, plans/proposals, specs, implementation plans) gives each flow node numbered sub-steps, and each sub-step has a
+detailed description stating what is done, inputs, outputs, and when it stops or branches, with Basis when one exists; format follows feature-flow.md §5.2.1:
+"<node>-<n> <action>: <detail> (Basis: …)". This applies only to newly written or modified content; existing .md files are not retrofitted unless Rocky names one.
+Reason: Pages can only show the step detail the .md states, and retrofitting every old file is not requested (t847u, t847s4703).
+Clarification of the "Task description/workflow" row (meaning unchanged): "Fixing every sub-step" there concerns planning task-workflow sub-steps, which stay dynamic per project facts; the
+flowchart sub-step rule above only requires each sub-step that is written to carry a description. Reason: the two rules govern different objects (t847u, t847s4703).
+
 **Classification exit for temporary materials vs formal artifacts**: raw test logs, one-off investigation drafts, tool output and staged analysis files are by default citable **temporary materials
 or evidence**, which may record the real source, generation time/actual version and citation location;
 - ordinary read-only reports and their saving also do not automatically become a formal Task/plan or independent approval object; first judge tracking, saving and explicit report acceptance
@@ -145,6 +152,8 @@ Self-review must be readable in the file itself and match the current version. M
 project facts and unverified scope, applicable roles/check scope, summary of issues found/revision diffs, unresolved blocks,
 optional suggestions awaiting decision, whether converged/why not, next legal action. Full itemized history may cite `审查/`/`修订/`; public README/API docs should not carry internal self-review logs;
 public artifacts have their review evidence carried by external process records.
+**Flowchart sub-step check**: in self-review and formal review of a .md with a flowchart, any sub-step lacking a detailed description is a Finding; it must be filled in the .md before a Page is
+generated, and the Page never invents the missing content. Reason: missing detail is fixed at the source of truth, not on the reading copy (t847u, t847s4703).
 
 **Evidence layering**: a model playing tester ≠ a real user experiment; an independent Reviewer needs real host support and an independent record; symmetric static numbering/matrix relations ≠
 verified professional semantics and real consumers. Every artifact must let a reviewer state that "not applicable" differs from "unverified".

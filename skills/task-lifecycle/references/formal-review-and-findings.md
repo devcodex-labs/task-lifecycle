@@ -77,6 +77,8 @@ review generates Findings, revisions and retests, and still presents the user tw
 
 ### 7.5 Finding lifecycle and root-cause distinction
 
+Flowchart .md sub-steps without a detailed description are Findings per `artifact-content-and-self-review-contract.md` §7.2 "Flowchart sub-step check" (t847u, t847s4703).
+
 **Classification and consolidated handling protocol**: under safe conditions with no destructive side effects, formal review first collects all verifiable Findings of the same round and freezes a
 snapshot containing `Finding ID / reviewed object version / real evidence`;
 - then classifies (implementation defect, approved upstream or design defect, test design, delivery, independent historical Bug, new product requirement, duplicate, false positive) and checks

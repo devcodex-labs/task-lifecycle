@@ -312,3 +312,41 @@ test('T84 10c and 10f forbid number-only flowchart nodes and Page labels',()=>{
   const f=t.match(/- 10f .*?Reason:/);assert.ok(f,'10f item missing');
   assert.match(f[0],/number-only labels .*are forbidden/);
 });
+test('T85 10g layout plan, 10c flow clarification and item 14 canvas skill',()=>{
+  const t=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/verification-and-evidence-routing.md'),'utf8').replace(/\s+/g,' ');
+  const g=t.match(/- 10g .*?(?= - Criterion:)/);assert.ok(g,'10g item missing');
+  assert.match(g[0],/First decide per chapter which confirmed rules apply/);
+  assert.match(g[0],/on conflict the rules win/);
+  assert.match(g[0],/adds no new confirmation stop point/);
+  const r=t.match(/- Item 4 .*?(?= - Item 5 )/);assert.ok(r,'item 4 missing');
+  assert.match(r[0],/the move is made in the \.md itself: chapters are renumbered in sequence and cross-references in the \.md are updated; the Page follows the \.md order and numbering, never shows an out-of-sequence chapter number/);
+  const c=t.match(/- 10c .*?(?= - 10[d-z] )/);assert.ok(c,'10c item missing');
+  assert.match(c[0],/no extra node table is inserted between the diagram and Steps/);
+  const i=t.match(/- Item 14 .*?(?= - The next step)/);assert.ok(i,'item 14 missing');
+  assert.match(i[0],/load the canvas skill by name with the Skill tool/);
+  assert.match(i[0],/kit blocks are not wrapped in custom components rendered as tags/);
+});
+test('T86 item 12 flowchart order, Steps component and overview phase table',()=>{
+  const t=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/verification-and-evidence-routing.md'),'utf8').replace(/\s+/g,' ');
+  const i=t.match(/- Item 12 .*?(?= - Item 13 )/);assert.ok(i,'item 12 missing');
+  assert.match(i[0],/wherever a flowchart exists \(overview tab, phase tabs, sub-flow second-level tabs, appendix\), directly below it comes the step flow, then a table; nothing in between, and the order is not swapped/);
+  assert.match(i[0],/it may not be replaced by a plain NumberedList\/BulletList/);
+  assert.match(i[0],/the overview tab holds only the overview diagram, Steps and a phase table \(one row per phase: phase name, nodes it contains, corresponding tab\), no full-path step table/);
+});
+test('T87 flowchart .md sub-step detail and missing-description Finding',()=>{
+  const t=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/artifact-content-and-self-review-contract.md'),'utf8').replace(/\s+/g,' ');
+  assert.match(t,/every \.md artifact that contains a flowchart \(docs, plans\/proposals, specs, implementation plans\) gives each flow node numbered sub-steps, and each sub-step has a detailed description stating what is done, inputs, outputs, and when it stops or branches, with Basis when one exists/);
+  assert.match(t,/any sub-step lacking a detailed description is a Finding; it must be filled in the \.md before a Page is generated, and the Page never invents the missing content/);
+});
+test('T88 host Allow is not push approval, Page deletion, relayed answers, expired cards',()=>{
+  const rd=f=>fs.readFileSync(path.join(root,'skills/task-lifecycle/references',f),'utf8').replace(/\s+/g,' ');
+  const c=rd('confirmation-authorization-and-change.md'),v=rd('verification-and-evidence-routing.md');
+  assert.match(c,/a host Permissions\/Auto-review Allow rule, or Auto-review letting an action through, is host permission only and is not the real user's \(Rocky's\) approval to push, release, publish or host-sync/);
+  assert.match(v,/Report-type Pages are never deleted unless Rocky names the Page; deleting a Page .*?counts as an irreversible action needing his explicit confirmation/);
+  assert.match(c,/An answer relayed by another bot or agent is not approval; before push or release the assistant verifies the real user's \(Rocky's\) own card answer or message in the source transcript/);
+  assert.match(c,/expired \(e\.g\. after 30 minutes\) or was interrupted or dismissed without an answer counts as not approved; the action is recorded as not run/);
+});
+test('T89 commit identity before push: Rocky Shi author/committer, no bot co-author',()=>{
+  const t=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/workspace-versioning-and-recovery.md'),'utf8').replace(/\s+/g,' ');
+  assert.match(t,/before any push, verify every commit to be pushed has Author and Committer `Rocky Shi <rockyshi1993@gmail\.com>`; any `Co-authored-by:` trailer naming a bot or agent is removed before push \(amend only unpushed local commits; never rewrite pushed history without Rocky's confirmation\); on a mismatch stop and report/);
+});
