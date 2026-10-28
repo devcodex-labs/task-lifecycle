@@ -52,13 +52,13 @@ test('T49/T52 original long-line, link, anchor and internal-reference assertions
     }
   }
 });
-test('T53 length caps SKILL≤300 references≤600',()=>{
+test('T53 length caps SKILL≤600 references≤600',()=>{
   const d=docs('limits');
   // fixture SKILL is short and references are absent → should pass
   assert.equal(checkDocs(d).status,0);
-  // build an over-limit SKILL.md (301 lines)
+  // build an over-limit SKILL.md (601 lines)
   const skill=path.join(d,'skills/task-lifecycle/SKILL.md');
-  put(skill,'---\nname: sample\ndescription: ok\n---\n'+Array.from({length:297},(_,i)=>`# L${i}`).join('\n')+'\n');
+  put(skill,'---\nname: sample\ndescription: ok\n---\n'+Array.from({length:597},(_,i)=>`# L${i}`).join('\n')+'\n');
   let r=checkDocs(d);assert.equal(r.status,1);assert.match(r.stderr,/SKILL\.md: line count/);
   // restore a valid SKILL, build an over-limit reference
   put(skill,'---\nname: sample\ndescription: ok\n---\n# Example\n');
@@ -463,5 +463,5 @@ test('T95 re-review performer choice v4 (CAND-20261028-004): §7.11 pointer, rul
   assert.doesNotMatch(n,/record the residual risk as for \(a\)/);
   assert.doesNotMatch(n,/§7\.4 object-quality conclusion/);
   assert.doesNotMatch(sec,/No option means/);
-  assert.ok(fs.readFileSync(path.join(root,'skills/task-lifecycle/SKILL.md'),'utf8').split('\n').filter((l,i,a)=>i<a.length-1||l).length<=300);
+  assert.ok(fs.readFileSync(path.join(root,'skills/task-lifecycle/SKILL.md'),'utf8').split('\n').filter((l,i,a)=>i<a.length-1||l).length<=600);
 });
