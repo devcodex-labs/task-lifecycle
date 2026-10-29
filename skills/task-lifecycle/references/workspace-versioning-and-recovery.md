@@ -323,6 +323,9 @@ declares an instance-change probe (a single read-only command), the pre-check ru
   reinstall strictly from the existing lockfile; no lockfile change, no commit; report the restore with `git status` to the party the convention names.
   Modified tracked files, suspected loss of uncommitted or untracked content, or an install that must deviate from the lockfile still block as above
   until the real user decides; recording the new baseline still follows the local convention.
+- Broken empty-remote clone: when a repo's `.git` lacks `objects/` or `refs/` so git reports `not a git repository`, and the working tree holds nothing
+  but `.git`, it is restored without asking when the real user pre-authorizes it in the host's local convention: rename the directory as a backup, then
+  clone again from the remote. Any other file in the working tree blocks until the real user decides.
 - No baseline: report it; never create or accept a baseline on the probe's behalf; recording a new baseline is a separate write that only the party named by
   the local convention performs after the real user decides.
 - Dispatched sessions (receiver gate) may run the probe because it is read-only, but report the result only in their final reply: no notification, no
