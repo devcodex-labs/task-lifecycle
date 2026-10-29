@@ -318,6 +318,11 @@ declares an instance-change probe (a single read-only command), the pre-check ru
 - Changed with lost files (tracked files deleted, dependency directories missing, or other losses the probe reports): this is a fact, not a stop point added
   by the pre-check; it blocks only writes, commits, pushes and restores in the affected repos until the real user decides; read-only work continues.
 - Changed without any loss: a reminder only, no block (a host restart can change the fingerprint).
+- Pre-authorized narrow restore: when the real user themself pre-authorizes it in the host's local convention, a change whose only losses are
+  tracked files deleted (`git ls-files -d`) and missing dependency directories is restored without asking: check out the deleted tracked files and
+  reinstall strictly from the existing lockfile; no lockfile change, no commit; report the restore with `git status` to the party the convention names.
+  Modified tracked files, suspected loss of uncommitted or untracked content, or an install that must deviate from the lockfile still block as above
+  until the real user decides; recording the new baseline still follows the local convention.
 - No baseline: report it; never create or accept a baseline on the probe's behalf; recording a new baseline is a separate write that only the party named by
   the local convention performs after the real user decides.
 - Dispatched sessions (receiver gate) may run the probe because it is read-only, but report the result only in their final reply: no notification, no
