@@ -265,6 +265,21 @@ citing one README page does not imply approval of all its instructions.
 An answer relayed by another bot or agent is not approval; before push or release the assistant verifies the real user's (Rocky's) own card answer or message in the source transcript.
 Reason: a relay can misread or overstate what the user decided (t180s699).
 
+### 6.6 Merge method before an integration-to-release merge
+
+Before merging an integration branch into a release branch (both named by the host's local convention, e.g. `sit` into `master`), the executor sends the
+real user one option card for the merge method and acts only after they pick; it never chooses the method itself. The card marks a recommendation
+chosen for the case at hand and states each option's cost. Default options:
+- (a) Plain merge.
+- (b) Squash: first check that the release branch holds nothing the integration branch lacks, then take the integration branch's full content.
+- (c) Squash, then merge the release branch back into the integration branch (no file change, only records the merge base; pushes the integration branch).
+- (d) Pull the release branch, then cherry-pick only the user's commits (including assistant commits made for the user). Cost: commits that depend on
+  others' changes conflict or fail to run; the branches diverge and the combination on the release branch was never verified on the integration branch;
+  merge commits must be skipped or replaced by their original commits.
+
+Reason: a release branch built by earlier squash merges keeps a stale merge base, so another squash can report many false conflicts.
+Pushing the release branch still needs the real user's own authorization, as before.
+
 ---
 
 ### 5.5 Phase errors, stopping and recovery
