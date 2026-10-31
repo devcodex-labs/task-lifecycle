@@ -22,6 +22,9 @@ verification of delivery sets and real consumers
    source never invent `npm test`, browser or full compatibility passes.
 3. `D/A/I/H` each record `expected / actual / environment / version / commandOrAction / time / evidence / permission / status`. Without actual execution `unverified`; truly not applicable needs
    N/A+reason; blocked/failed/unknown are never mixed with passed.
+   **Unreleased external dependency**: an acceptance or verification item whose external dependency (package, service, upstream repo) is not yet released
+   at the version it needs stays `blocked`, naming the dependency and version; it is never reported as ready or passed; a claim that a repo already
+   implements something is checked against its actual code.
 4. `CI queued/running/cancelled/unknown` does not equal passed; flaky investigation keeps failure history and run parameters, rerun scope and stability conclusion, never erasing earlier real
    failures because of the last green.
 5. Agent Eval needs a frozen rubric, positive/negative samples, really supported CLI/model permissions, an isolated workspace/dirty snapshot, resource scope and an exit/cleanup plan; the same AI

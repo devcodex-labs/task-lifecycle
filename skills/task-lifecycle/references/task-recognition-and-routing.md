@@ -136,6 +136,8 @@ existing tests, Git HEAD/dirty, accessible docs and build/CI conventions, produc
      dedupe by root cause; before characterizing behavior as a defect/root cause apply "Verify before characterizing" in `bugfix-flow.md`; unverified is marked only "inferred".
    - **Scope before review**: when the user asks to review code or a project without a clear scope, first offer the scope as an option card (for example full
      file-by-file, core modules only, or chosen dimensions) instead of silently spot-checking; the report lists the files actually read and those not read.
+   - **Verified, reproducible issues; fix after confirmation**: every issue in a scan or review report carries reproducible evidence or reproduction steps;
+     the report gives root cause and a fix plan first, and no change is made until the user confirms it.
    - Re-review until convergence: per §7.5–7.6 of that file and its execution-order subsection, re-review only the affected scope, verify closure against the original pass criteria, and stop and
      report when there is no substantive progress.
    - Project analysis (to prepare or scope real development work): produce the minimal fact list of §4.2; defect judgments in it also apply "Verify before characterizing".

@@ -1,3 +1,11 @@
+## Unreleased
+
+- `verification-and-evidence-routing.md` item 3: new "Unreleased external dependency": acceptance depending on an unreleased dependency stays `blocked`. Test T123.
+- `confirmation-authorization-and-change.md`: new "A target date alone is not approval"; an explicit prior approval naming its date or trigger runs
+  without asking again. `end-to-end-auto-card.md` §2: matching exception to "confirmation at that time". Test T124.
+- `task-recognition-and-routing.md`: new "Verified, reproducible issues; fix after confirmation" for scan and review reports. Test T125.
+- `rule-evolution.md` item 9: "Simplification keeps the per-message pre-check". Test T126.
+
 ## 0.2.16 — Independent work starts at once, review scope first, sit scope approval, decision write-back (2026-11-01)
 
 - `verification-and-evidence-routing.md` item 7: new "Exception for shared test environments": re-tests on a shared test environment such as `sit` that

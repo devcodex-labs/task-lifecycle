@@ -700,3 +700,29 @@ test('T122 user decisions are written back into the draft and decision record at
   assert.ok(t.includes('**Write decisions back at once**'));
   assert.match(t,/record in the same turn, before continuing; a decision only noted in chat is not recorded\./);
 });
+
+test('T123 unreleased external dependency keeps acceptance blocked',()=>{
+  const t=rdN(REF+'verification-and-evidence-routing.md');
+  assert.ok(t.includes('**Unreleased external dependency**'));
+  assert.match(t,/stays `blocked`, naming the dependency and version; it is never reported as ready or passed/);
+});
+
+test('T124 target date is not approval; explicit prior approval with date or trigger runs without asking again',()=>{
+  const c=rdN(REF+'confirmation-authorization-and-change.md');
+  assert.ok(c.includes('**A target date alone is not approval**'));
+  assert.match(c,/carry it out when that date or trigger arrives without asking again\./);
+  const e=rdN(REF+'end-to-end-auto-card.md');
+  assert.match(e,/Exception: the real user's own explicit prior approval of that action, naming its date or trigger, counts as this confirmation/);
+});
+
+test('T125 review issues are reproducible; fix only after the user confirms',()=>{
+  const t=rdN(REF+'task-recognition-and-routing.md');
+  assert.ok(t.includes('**Verified, reproducible issues; fix after confirmation**'));
+  assert.match(t,/carries reproducible evidence or reproduction steps;/);
+  assert.match(t,/no change is made until the user confirms it\./);
+});
+
+test('T126 simplification never proposes removing the per-message pre-check',()=>{
+  const t=rdN(REF+'rule-evolution.md');
+  assert.match(t,/\*\*Simplification keeps the per-message pre-check\*\*: a proposal to simplify task-lifecycle never proposes removing the per-message pre-check\./);
+});

@@ -68,6 +68,7 @@ actual consumption of active/INDEX/history and safe rollback
 7. When later managed tasks really consume rules, record per `../templates/general-rule-effectiveness-feedback.md` actual hits, misses/false positives, cost and sample limits, giving a grounded
    verdict of effective / harmful / insufficient evidence (`LABELS` "Rule feedback verdict"); the existence of an index alone is not empirical proof of effect.
 8. Without a sufficient specialist Skill only record the Gap and suggestions; never automatically create Skills/DevCodex PRs; rule content may not contain production Tokens/private company data.
+9. **Simplification keeps the per-message pre-check**: a proposal to simplify task-lifecycle never proposes removing the per-message pre-check.
 
 ## Counterexamples that must be rejected
 

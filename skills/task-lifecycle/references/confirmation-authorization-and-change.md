@@ -151,6 +151,10 @@ current real task, authorization and triggers; if they disagree with this file's
 Clarification (no change in meaning): a host Permissions/Auto-review Allow rule, or Auto-review letting an action through, is host permission only and is not the real user's
 approval to push, release, publish or host-sync. Reason: host permission and user authorization are separate gates.
 
+**A target date alone is not approval**: a release date, milestone or schedule without the real user's approval is planning information, and the status
+reads "awaiting the user's release approval". When the real user has already explicitly approved the action and named its date or trigger,
+carry it out when that date or trigger arrives without asking again.
+
 ---
 
 ### 6.2 Proposed readable state model (document protocol, not a machine-enforced state machine)
