@@ -259,6 +259,11 @@ automated checks (stating gates/tests run and results), real runs (stating host/
     - Item 8 **Page body width (Grok Bot host only)**: acceptance looks at reading effect: the body is neither too narrow nor too wide, centered in the available space, tables and flowcharts as wide
       as the body; full width when available width is insufficient. Component/host defaults suffice; do not hand-write fixed/observers/pixel calculations; pick the kit width option (column, wide,
       full) closest to that effect. Reference measured value (not an implementation duty): body max about 960px.
+      **Width floor override (Rocky t242u)**: takes precedence over item 8's "closest to that effect" and its ~960px reference: set every Page width to "wide"
+      or "full", never "column"; on desktop the body must not be narrower than 1024px. Phones stay single-column, as expected.
+      Exception (platform limit, not a choice): public pages.grok.bot links are capped at 960px by the platform (item 9 measurement), so they are exempt from the
+      1024px floor. Sidebar contents threshold, both measurements kept with their sources: window >= 968px (item 7 measurement) and >= 1100px (Rocky's 2026-10-28
+      test). Phones always use the inline top contents per items 7 and 10b.
     - Item 9 **Known limits and fallback (public links)**: pages.grok.bot public links embed the Page in an iframe as tall as the content, scrolled by the outer page, so fixed, sticky and
       IntersectionObserver following do not work;
       therefore public links show no floating contents elements (left contents, buttons and drawers all hidden), only the always-visible top contents. The outer page does not limit width; at

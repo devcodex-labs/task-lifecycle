@@ -648,3 +648,7 @@ test('T114 default merge method (c) for integration -> release branches with pre
   const c=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/confirmation-authorization-and-change.md'),'utf8').replace(/\s+/g,' ');
   for(const x of ['**Default merge method for integration -> release branches (Rocky t193s1228, t202s1271, CAND-20261029-003)**','No merge-method card is sent before such a merge.','never discard release-branch content silently','Record the squash commit and the merge-back commit IDs in the task record.','First adoption: while the merge base is still the old one'])assert.ok(c.includes(x),x);
 });
+test('T115 Page width floor override 1024px, public-link exemption (Rocky t242u)',()=>{
+  const v=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/verification-and-evidence-routing.md'),'utf8').replace(/\s+/g,' ');
+  for(const x of ['**Width floor override (Rocky t242u)**','never "column"; on desktop the body must not be narrower than 1024px','exempt from the 1024px floor','>= 1100px (Rocky\'s 2026-10-28 test)'])assert.ok(v.includes(x),x);
+});

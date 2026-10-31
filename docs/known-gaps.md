@@ -205,6 +205,8 @@ Lists sections that still contain open or unverified items; line numbers drift w
 - Platform limit: public pages.grok.bot links do not support floating elements (fixed, sticky and IntersectionObserver have no effect), so only a top table of
   contents plus a per-section "↑ contents" link is possible; filed as product feedback, awaiting platform support.
 - The rule is a text constraint; no gate script checks whether a Page is generated or styled correctly.
+- Platform limit (Rocky t242u width floor): public pages.grok.bot links are capped at 960px, so the 1024px desktop floor cannot hold there and they are exempt;
+  the sidebar contents threshold has two measurements (968px item 7, 1100px Rocky 2026-10-28), not reconciled by a fresh live test.
 
 ## 0.1.51 narrowed test-run cap (CAND-20261026-004) retained items
 

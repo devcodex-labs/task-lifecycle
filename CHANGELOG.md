@@ -1,5 +1,7 @@
 ## Unreleased
 
+- `verification-and-evidence-routing.md` report-type Page list, item 8: new "Width floor override (Rocky t242u)": Page width "wide" or "full", never "column";
+  desktop body not narrower than 1024px; public pages.grok.bot links exempt (960px platform cap); sidebar contents thresholds 968px and 1100px both kept. Test T115.
 - `confirmation-authorization-and-change.md` §6.6: new paragraph "Default merge method for integration -> release branches": default (c) squash then
   no-file-change merge-back, no per-merge card; precondition check with a card fallback (former options and a recommendation), release-branch content never
   silently discarded; squash and merge-back commit IDs recorded; first adoption resets the base with push authorization. CAND-20261029-003 (Rocky t193s1228);
