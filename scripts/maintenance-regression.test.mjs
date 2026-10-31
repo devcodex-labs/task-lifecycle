@@ -688,3 +688,15 @@ test('T120 review without clear scope offers scope options first and reports rea
   assert.ok(t.includes('**Scope before review**'));
   assert.match(t,/instead of silently spot-checking; the report lists the files actually read and those not read\./);
 });
+
+test('T121 shared test environment side-effect re-tests need the user to approve scope first',()=>{
+  const t=rdN(REF+'verification-and-evidence-routing.md');
+  assert.ok(t.includes('**Exception for shared test environments**'));
+  assert.match(t,/starts only after the user approves its scope \(environment, data and operations\); this is the one per-operation approval here\./);
+});
+
+test('T122 user decisions are written back into the draft and decision record at once',()=>{
+  const t=rdN(REF+'confirmation-authorization-and-change.md');
+  assert.ok(t.includes('**Write decisions back at once**'));
+  assert.match(t,/record in the same turn, before continuing; a decision only noted in chat is not recorded\./);
+});

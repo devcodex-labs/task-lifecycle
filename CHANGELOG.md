@@ -1,5 +1,9 @@
 ## Unreleased
 
+- `verification-and-evidence-routing.md` item 7: new "Exception for shared test environments": re-tests on a shared test environment such as `sit` that
+  create drafts or other side effects start only after the user approves their scope; the one per-operation approval in item 7. Test T121.
+- `confirmation-authorization-and-change.md` §1: new "Write decisions back at once": the user's decision goes into the governing draft and the
+  decision record in the same turn; a decision only noted in chat is not recorded. Test T122.
 - `task-recognition-and-routing.md`: new "Scope before review": a review request without a clear scope first gets a scope option card (full, core modules,
   dimensions) instead of silent spot checks, and the report lists files read and not read. Test T120.
 - `task-split-parallel-and-integration.md`: new "Start independent work at once" under the parallel admission judgment: work with met dependencies that waits on

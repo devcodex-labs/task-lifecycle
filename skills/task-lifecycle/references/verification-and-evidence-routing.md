@@ -31,6 +31,8 @@ verification of delivery sets and real consumers
 7. HTTP `.http` generation, static parsing, actual requests and request assertions passed are recorded as four separate levels; actual requests must stay within the exact environment/data scope the
    current task and host allow. Releases, dependency downloads, starting services etc. likewise check real side effects and existing scope; this rule adds no per-operation approval and does not
    override host refusals.
+   **Exception for shared test environments**: on a shared test environment (for example `sit`), a re-test or verification run that creates drafts,
+   records or other side effects starts only after the user approves its scope (environment, data and operations); this is the one per-operation approval here.
 8. Finally verify on the same actual code/artifact/environment version after root-task integration, distinguishing design E3, real E4, raw CI status and human approval facts.
 9. **ABS-07/AC-106**: only when a real commit, packaging or release candidate needs a delivery set, first verify read-only the workspace and approved delivery scope, listing
    `working / staged / untracked / generated / ignored` source files, files referenced by formal artifacts and the actual package/commit target;

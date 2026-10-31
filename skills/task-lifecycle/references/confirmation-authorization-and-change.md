@@ -64,6 +64,8 @@ its user configuration
      marked) rather than asking them to type a free-text answer; free text is asked for only when the answer cannot be enumerated.
      **Report real progress proactively**: when there is real progress, report it to the user without
      waiting to be asked; report only real, verified progress and never fabricated or estimated background progress.
+     **Write decisions back at once**: when the user decides, write the decision into the governing rule or contract draft and the task's decision
+     record in the same turn, before continuing; a decision only noted in chat is not recorded.
    - **Pending decisions preferably use a choice widget** (CAND-20261026-003 v5, 0.1.47; governs presentation only, not approval semantics): applies when a managed reply has decided to ask the
      trusted current user to confirm or decide and the options are finite and enumerable;
      not applicable to the §0 light path, purely open questions (names, numbers, etc., where typing is allowed), or pure notices; a dispatched session (as the SKILL.md §0 receiver gate) sends no
