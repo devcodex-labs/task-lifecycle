@@ -1,4 +1,4 @@
-## Unreleased
+## 0.2.14 — Options before free text, real progress, Auto local commit, quota delegation, sync targets (2026-11-01)
 
 - Rocky t286u (card t284s1651), bot-skills absorption: "Options before free text" and "Report real progress proactively" (confirmation
   `Pending decisions`); "Auto defaults to local commit in every repo" (end-to-end-auto-card.md); "No delegation when quota is tight" (task-split delegation);
