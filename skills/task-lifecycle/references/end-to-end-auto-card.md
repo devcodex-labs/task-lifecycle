@@ -31,6 +31,8 @@ All ten keys are required; a missing key, or any value outside these limits, mea
 - Why not A08 or A09: A08 holds push, CI, tag, release and host-sync, none of which can go on a card; each step needs the real user's own confirmation at that time.
   A09 holds final acceptance, which is never on a card and never auto-passed. So the farthest endpoint is the A07 exit.
 - Push (any branch), tag, release, plugin update and host-sync can never be put on a card; they always need the real user's own confirmation at that time.
+- **Auto defaults to local commit in every repo** (Rocky t898u; t286u, card t284s1651): under any Auto form, in every repository the default side effect
+  stops at a local commit; push, PR and release are excluded. An exception for the bot-skills repository is governed by bot-skills' own rules, not by this plugin.
 
 ## 3. Card storage, identity, resume and continue
 

@@ -658,3 +658,11 @@ test('T116 intent-based immediate absorption of Rocky rules (t250u, t251u, t252u
   for(const x of ['**Intent-based immediate absorption** (additive, Rocky t250u, t251u, t252u)','with no confirmation card','tags/releases or host installs','Agent suggestions he did not state are not rules.','Existing candidates keep their current flow.'])assert.ok(f.includes(x),x);
   assert.ok(n('rule-evolution.md').includes('§7.10 item 7 "Intent-based immediate absorption" (Rocky t252u)'));
 });
+test('T117 bot-skills absorption rules (Rocky t286u, card t284s1651)',()=>{
+  const n=p=>fs.readFileSync(path.join(root,p),'utf8').replace(/\s+/g,' ');const R='skills/task-lifecycle/references/';
+  const c=n(R+'confirmation-authorization-and-change.md');
+  for(const x of ['**Options before free text** (Rocky t464u; t286u, card t284s1651)','**Report real progress proactively**','never fabricated or estimated background progress'])assert.ok(c.includes(x),x);
+  assert.ok(n(R+'end-to-end-auto-card.md').includes('**Auto defaults to local commit in every repo** (Rocky t898u; t286u, card t284s1651)'));
+  assert.ok(n(R+'task-split-parallel-and-integration.md').includes('**No delegation when quota is tight** (Rocky t323u; t286u, card t284s1651)'));
+  assert.ok(n('docs/maintainer-baseline.md').includes('new versions sync only to the bot hosts on the box'));
+});

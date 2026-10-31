@@ -103,6 +103,8 @@ The exclusions below stay as a second line of defence, so it never goes into dis
   placed in `~/.cursor/plugins/local` are not affected.
   Read-only archive check: `git archive HEAD | tar -t | grep -c '^candidates/'` must be 0; `.gitattributes` must be in the same commit as the change.
 - Cursor install: `host-sync.sh` only runs `git archive HEAD skills/task-lifecycle`, which never contains `candidates/`.
+- Sync targets (Rocky t585u, t590u; t286u, card t284s1651): new versions sync only to the bot hosts on the box (Cursor, Codex, Grok installs there), never
+  to Rocky's own computers.
 - Codex / Grok installs are git clones: `host-sync.sh` (`/home/box/task-lifecycle-records/host-sync.sh`, outside the repo) ends by running
   `git sparse-checkout set --no-cone '/*' '!/candidates/'` on both. Since M-02 (t723s4066): back up first with a timestamp to `<ACTDIR>/backups/excl-<ts>-<name>`; a
   target that is not a git repo root is an error with non-zero exit; success requires `candidates/` absent, `skills/task-lifecycle/SKILL.md` present, the file count

@@ -60,6 +60,10 @@ its user configuration
      and benefit (and cost where relevant), plus the premises it rests on and that they were verified; a bare label without these counts as a blind pick.
      A premise that cannot yet be verified is settled first, asking the user when needed, and the card with the recommendation follows;
      this adds no exception to "must carry a recommendation" above.
+     **Options before free text** (Rocky t464u; t286u, card t284s1651): when Rocky has to confirm or decide, offer an option card (recommended option
+     marked) rather than asking him to type a free-text answer; free text is asked for only when the answer cannot be enumerated.
+     **Report real progress proactively** (Intent-runtime t34u; Rocky t286u, card t284s1651): when there is real progress, report it to Rocky without
+     waiting to be asked; report only real, verified progress and never fabricated or estimated background progress.
    - **Pending decisions preferably use a choice widget** (CAND-20261026-003 v5, 0.1.47; governs presentation only, not approval semantics): applies when a managed reply has decided to ask the
      trusted current user to confirm or decide and the options are finite and enumerable;
      not applicable to the §0 light path, purely open questions (names, numbers, etc., where typing is allowed), or pure notices; a dispatched session (as the SKILL.md §0 receiver gate) sends no

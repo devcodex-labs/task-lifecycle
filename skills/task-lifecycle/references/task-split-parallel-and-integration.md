@@ -187,6 +187,9 @@ node -e "const r=require('node:child_process').spawnSync(process.execPath,proces
 
 ## External coding executor delegation (off by default, config narrows)
 
+**No delegation when quota is tight** (Rocky t323u; t286u, card t284s1651): when the host or executor usage quota is tight, do not delegate to an external
+executor even if delegation is enabled; do the work in the current session or ask.
+
 **Trigger**: an A04/B03/DOC04 approved plan intends to hand a work item to an external coding executor outside the host (a command-line coding agent such as `grok`), or the pre-check finds
 delegation config or this section's form in a legacy convention.
 Do not judge by host name: several hosts on the same machine may see the same executor; "the command exists" neither means "the current host is a certain product" nor that it is enabled.

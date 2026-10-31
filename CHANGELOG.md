@@ -1,3 +1,9 @@
+## Unreleased
+
+- Rocky t286u (card t284s1651), bot-skills absorption: "Options before free text" and "Report real progress proactively" (confirmation
+  `Pending decisions`); "Auto defaults to local commit in every repo" (end-to-end-auto-card.md); "No delegation when quota is tight" (task-split delegation);
+  host-sync targets only bot hosts on the box (maintainer-baseline.md). Page labels 10f unchanged. Test T117.
+
 ## 0.2.13 — Intent-based immediate rule absorption (2026-10-31)
 
 - `formal-review-and-findings.md` §7.10 item 7: new "Intent-based immediate absorption" (Rocky t250u, t251u, t252u): rules Rocky sets or corrects are written,
