@@ -366,6 +366,14 @@ This section refines §7.9 and does not change the plan, closure and stop condit
      best-fitting text, self-checks it for conflicts with existing rules (Triage, Citations and Length limits below still apply) and lands it when none is found; a conflict goes to Rocky.
      Situations Rocky does not know of, suggestions from others (relayed text is only a lead, `rule-evolution.md` "Read conditions and responsibility"),
      and review findings become candidates and are reviewed.
+     **Intent-based immediate absorption** (additive, Rocky t250u, t251u, t252u): a rule Rocky sets or corrects in his own message is absorbed by its intent the
+     same day. The receiving bot applies it that turn and forwards his original words with the message id; the maintainer verifies them in the source
+     transcript, writes the rule, commits as Rocky Shi, pushes, and reports one line (the changed rule sentence and the version), with no confirmation card.
+     Ask Rocky one question, with a recommendation, only when (a) it conflicts with an earlier rule of his and overturning is unclear (recommend overturn),
+     (b) one-off versus standing is unclear, or (c) it touches the Yingnuo (work) repos, tags/releases or host installs; task-lifecycle version bump, tag, GitHub Release
+     and host sync still need his own words each time. Agent suggestions he did not state are not rules. Precedence: for such rules this replaces the
+     "Rocky approves" step of Small rule and the approval step of Large change below; quality steps (self-check, gates, real case classes hit) still apply.
+     Existing candidates keep their current flow.
    - **P1 threshold**: P0/P1 must attach a concrete failure scenario (in what situation the Agent would do what wrong); anything that cannot be written is P2 and does not block landing. Ambiguous
      wording, line-number drift and inconsistent format default to P2. When P2/P3 land, register each in `docs/known-gaps.md`.
    - **Triage** (t690u, t690s3898): quote verbatim this item's "small rule (net addition ≤5 lines, revertible)" and the small-rule eligibility of `rule-evolution.md` item 5, "single check action,

@@ -652,3 +652,9 @@ test('T115 Page width floor override 1024px, public-link exemption (Rocky t242u)
   const v=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/verification-and-evidence-routing.md'),'utf8').replace(/\s+/g,' ');
   for(const x of ['**Width floor override (Rocky t242u)**','never "column"; on desktop the body must not be narrower than 1024px','exempt from the 1024px floor','>= 1100px (Rocky\'s 2026-10-28 test)'])assert.ok(v.includes(x),x);
 });
+test('T116 intent-based immediate absorption of Rocky rules (t250u, t251u, t252u)',()=>{
+  const n=p=>fs.readFileSync(path.join(root,'skills/task-lifecycle/references/'+p),'utf8').replace(/\s+/g,' ');
+  const f=n('formal-review-and-findings.md');
+  for(const x of ['**Intent-based immediate absorption** (additive, Rocky t250u, t251u, t252u)','with no confirmation card','tags/releases or host installs','Agent suggestions he did not state are not rules.','Existing candidates keep their current flow.'])assert.ok(f.includes(x),x);
+  assert.ok(n('rule-evolution.md').includes('§7.10 item 7 "Intent-based immediate absorption" (Rocky t252u)'));
+});

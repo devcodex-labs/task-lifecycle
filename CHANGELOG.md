@@ -1,3 +1,9 @@
+## Unreleased
+
+- `formal-review-and-findings.md` §7.10 item 7: new "Intent-based immediate absorption" (Rocky t250u, t251u, t252u): rules Rocky sets or corrects are written,
+  committed and pushed the same day with no confirmation card; one question only for conflict, one-off vs standing, or Yingnuo repos/tags/releases/host installs;
+  releases still need his words. `rule-evolution.md` relayed-correction bullet: transcript verification by message id counts as confirmation. Test T116.
+
 ## 0.2.12 — Page width floor, default merge method (2026-10-31)
 
 - `verification-and-evidence-routing.md` report-type Page list, item 8: new "Width floor override (Rocky t242u)": Page width "wide" or "full", never "column";
