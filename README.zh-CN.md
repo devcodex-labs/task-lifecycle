@@ -4,7 +4,7 @@
 
 **规划、审查、确认：为 AI 编程宿主提供受管的 Feature、Bugfix 与 Docs 工作流程。**
 
-[![version](https://img.shields.io/badge/version-0.2.11-2357C6)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-0.2.12-2357C6)](CHANGELOG.md)
 [![CI](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml/badge.svg)](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 

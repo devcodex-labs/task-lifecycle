@@ -1,4 +1,4 @@
-## Unreleased
+## 0.2.12 — Page width floor, default merge method (2026-10-31)
 
 - `verification-and-evidence-routing.md` report-type Page list, item 8: new "Width floor override (Rocky t242u)": Page width "wide" or "full", never "column";
   desktop body not narrower than 1024px; public pages.grok.bot links exempt (960px platform cap); sidebar contents thresholds 968px and 1100px both kept. Test T115.
