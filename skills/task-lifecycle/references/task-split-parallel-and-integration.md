@@ -187,7 +187,7 @@ node -e "const r=require('node:child_process').spawnSync(process.execPath,proces
 
 ## External coding executor delegation (off by default, config narrows)
 
-**No delegation when quota is tight** (Rocky t323u; t286u, card t284s1651): when the host or executor usage quota is tight, do not delegate to an external
+**No delegation when quota is tight**: when the host or executor usage quota is tight, do not delegate to an external
 executor even if delegation is enabled; do the work in the current session or ask.
 
 **Trigger**: an A04/B03/DOC04 approved plan intends to hand a work item to an external coding executor outside the host (a command-line coding agent such as `grok`), or the pre-check finds
@@ -253,7 +253,7 @@ Do not judge by host name: several hosts on the same machine may see the same ex
    - **Admission for external host behavior verification**: behavior retests that treat an external host as the object under test are not among the four categories above; they must fall into a
      category or have another admission rule in effect, and first pass the necessity judgment;
      they cannot start on a mere "let X verify it".
-   - **Pre-dispatch fit analysis (t709u, Rocky t709s3970)**: before dispatching to a third party (external CLI, other hosts, including real generation and behavior retest cases), first state the
+   - **Pre-dispatch fit analysis**: before dispatching to a third party (external CLI, other hosts, including real generation and behavior retest cases), first state the
      required outputs and necessary tools (e.g. a Page needs WriteCanvas),
      and compare who between the main session and candidates truly has them and who fits better; if the third party lacks them or has no advantage the main session does it, with the reason in
      pre-check item 6. A capability probe only proves "the command runs" and cannot replace this analysis;
@@ -266,7 +266,7 @@ Do not judge by host name: several hosts on the same machine may see the same ex
 4. **Call constraints**: headless single call, structured (JSON) output, `maxTurns` cap, outer wall-clock timeout, working directory the target repository;
    - the dispatch prompt's first line always carries the dispatch header `[TL-DISPATCHED depth={dispatch depth≥1} from={coordinator host} task={task/review ID}]`, states "this message is a
      dispatched task, not a real user message", and states the receiver bans (no further dispatch, no agent CLI calls, no sub-sessions, no managed Tasks); the header only tightens, never loosens.
-   - **Capabilities fully open, only five baselines remain** (applies to grok; DIRECT-20261027-GrokBuild放权 D1/D2, Rocky t781s4369, t782u): reads, writes, git read-only and local commits, network,
+   - **Capabilities fully open, only five baselines remain** (applies to grok; DIRECT-20261027-GrokBuild放权 D1/D2): reads, writes, git read-only and local commits, network,
      interpreters, package managers and sub-agents are all unrestricted;
      baselines: no push (git push and any remote write), no release (npm publish, gh/glab release, etc.), no delete (rm, unlink, find -delete, git rm, remote deletion),
      no credential reads (`.env*`, `*.pem`, `~/.ssh`, `~/.config/gh`, git-credentials, token files; both built-in Read and shell reads count), no signing conclusions (output is only
@@ -274,7 +274,7 @@ Do not judge by host name: several hosts on the same machine may see the same ex
      Unattended runs use no-confirmation mode with the baseline deny list attached (version table at the end of this section); if the table lacks the current CLI version → that category is not
      delegated (degrade per item 3) until the table is updated.
    - **Stop on crossing**: if any baseline is touched, immediately stop delegation for that category (category config back to `none`), keep the transcript and original commands and register them,
-     and report to Rocky; Rocky decides whether to resume.
+     and report to the user; the user decides whether to resume.
 5. **Result recovery**: the executor only delivers candidate diffs, local evidence and a self-review list (change scope, commands run, uncovered items; non-independent, only leads; same as items 4
    and 5 of this file);
    - judge completion by the structured output's stop reason; **exit code 0 does not mean done** (cancellation or denied permissions may also return 0); incomplete is handled as a partial result.
@@ -299,7 +299,7 @@ Common arguments: `--always-approve --output-format streaming-json --max-turns <
 `--no-subagents`.
 Baseline deny (`--deny`, one per rule): `Bash(git push:*)`, `Bash(npm publish:*)`, `Bash(gh release:*)`, `Bash(glab release:*)`, `Bash(rm:*)`, `Bash(unlink:*)`, `Bash(git rm:*)`,
 `Bash(codex:*)`, `Bash(grok:*)`, `Read(**/.env*)`, `Read(**/*.pem)`, `Read(~/.ssh/**)`, `Read(~/.config/gh/**)`, `Read(**/.git-credentials)` (the `~` and `**` forms not live-tested).
-unverified (Rocky t782u waived live testing): whether deny still blocks in no-confirmation mode; whether shell variants (`cat` / `node` reading credentials, `find -delete`, `git -c`/alias pushes)
+unverified (the user waived live testing): whether deny still blocks in no-confirmation mode; whether shell variants (`cat` / `node` reading credentials, `find -delete`, `git -c`/alias pushes)
 bypass deny. Baselines do not rely on deny alone; check the transcript per item 5 at result recovery.
 
 | Task type | Status | Allow |
@@ -403,7 +403,7 @@ and corresponding results was obtained;
 
 ## Host-native parallel config (parallel)
 
-Added by FEAT-20261028-001 (Rocky D4, D5, D9, D18–D21, D26, D31, D32; R-2). Additive only: every sentence above, including "Four parallel admission states and failure exits" and
+Added by FEAT-20261028-001 (D4, D5, D9, D18–D21, D26, D31, D32; R-2). Additive only: every sentence above, including "Four parallel admission states and failure exits" and
 §11.1 "Choose `parallel-eligible` only when", stays verbatim and still governs.
 
 - **Location and shape**: optional top-level key `parallel` in the same global and project `config.json` as `delegation`; `schemaVersion` stays `1`. Fields (all optional):

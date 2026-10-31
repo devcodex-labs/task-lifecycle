@@ -18,8 +18,8 @@ Exactly the formal artifacts of A01–A04, B03 and DOC03–DOC04 of a managed ta
 3. **One session, no relay**: (b) and (c) each open one session for one read-only review. The full §7.10 relay runs only when the artifact's review plan already requires an independent reviewer
    (§7.10 Trigger); the choice never starts one. `reReviewPerformer` never satisfies the §7.10 Trigger, never uses the two-seat rule of `task-split-parallel-and-integration.md` "Delegation config"
    item 9 and never uses `review.fallback`; (c) may still read the `review` config for its host list and checks.
-3a. **Re-review count cap** (additive, Rocky t941u): the extra re-review of rule 3 and every recheck after its accepted fixes count toward this artifact's review count: default 1,
-    at most 3; before the 2nd, state the reason for re-review. At the cap, unresolved issues go to Rocky at once, with no further round; a review by Rocky himself ((a)) also
+3a. **Re-review count cap** (additive): the extra re-review of rule 3 and every recheck after its accepted fixes count toward this artifact's review count: default 1,
+    at most 3; before the 2nd, state the reason for re-review. At the cap, unresolved issues go to the user at once, with no further round; a review by the user themself ((a)) also
     counts as 1. Keeping an independent re-review for high-risk changes means the §7.10 Trigger and §7.10 item 6, with no separate definition here; this item adds a count only,
     and never waives a review rule 1 keeps.
 4. **Checks and failure**: (b) runs no validator and only checks that the host can open a clean session. Each use of (c) reruns the validator fresh and §7.10 item 0 admission, including the
@@ -50,9 +50,9 @@ Exactly the formal artifacts of A01–A04, B03 and DOC03–DOC04 of a managed ta
 11. **Form**: a single-question card per "Two or more options" and "Pending decisions preferably use a choice widget" in `confirmation-authorization-and-change.md`; recommend (c) if shown, else
     (b); never recommend (a). On this card only, the reply "as recommended" is the explicit selection of the recommended option; the §7.10 item 7 instruction boundary still governs every other
     wait and every review cap.
-    - **Exception, explicit rotation** (additive, Rocky t941u): when Rocky has set a rotation sequence per rule 13, the card preselects the sequence's current option, which may be
-      (a); Rocky may still choose another. Under rule 9 the agent still picks nothing itself, but a sequence Rocky set counts as his explicit selection.
+    - **Exception, explicit rotation** (additive): when the user has set a rotation sequence per rule 13, the card preselects the sequence's current option, which may be
+      (a); the user may still choose another. Under rule 9 the agent still picks nothing itself, but a sequence the user set counts as their explicit selection.
 12. **Labels**: the Chinese forms of these labels are in `entry-quickref.md` LABELS.
-13. **Explicit rotation sequence** (additive, Rocky t941u): Rocky may explicitly set a reviewer rotation sequence (for example "third-party host → Rocky himself"). It is written into
+13. **Explicit rotation sequence** (additive): the user may explicitly set a reviewer rotation sequence (for example "third-party host → the user themself"). It is written into
     `reReviewPerformer` with its source, and the task record notes who performs this time and who performed last time. Within one task, rule 7 reuse still applies; the
     sequence advances only per its own setting. When no sequence is set, everything stays as before.

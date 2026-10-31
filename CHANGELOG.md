@@ -1,3 +1,11 @@
+## Unreleased
+
+- De-naming: rule text under `skills/task-lifecycle/` and `docs/` no longer names a person or carries message, card or dated attributions; "Rocky" became
+  "the user" with grammar fixed and meaning unchanged. `formal-review-and-findings.md` §7.10 item 7 "Citations": new "Sources outside rule text" (sources are
+  kept in the maintainer's private list outside the repository). Tag v0.2.14 preserves the former text. T103 allows only de-naming deletions; new test T118.
+  Released history entries below are unchanged. Remaining by design: the commit identity in `workspace-versioning-and-recovery.md`, plugin/LICENSE author,
+  and message-id format examples in config fixtures.
+
 ## 0.2.14 — Options before free text, real progress, Auto local commit, quota delegation, sync targets (2026-11-01)
 
 - Rocky t286u (card t284s1651), bot-skills absorption: "Options before free text" and "Report real progress proactively" (confirmation

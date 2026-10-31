@@ -10,13 +10,13 @@
 //   (c) in-plugin references inside backticks must exist: paths starting with references/ templates/ examples/ scripts/ docs/ assets/ skills/,
 //       or bare *.md names under skills/task-lifecycle; resolved against the containing dir, skill root, repo root (bare names also in references/templates/examples).
 //       Excluded: inside code blocks, values with wildcards/placeholders (* { } < >); runtime directories and consumer project paths are out of scope.
-//   (d) Length limits (§7.10 item 7): skills/task-lifecycle/SKILL.md at most 600 lines (t949u, from 300);
-//       each .md under skills/task-lifecycle/references/ at most 600 lines (D7; Rocky t948u raised it from 500).
+//   (d) Length limits (§7.10 item 7): skills/task-lifecycle/SKILL.md at most 600 lines (from 300);
+//       each .md under skills/task-lifecycle/references/ at most 600 lines (D7; the user raised it from 500).
 //   (f) the SKILL.md frontmatter must contain a description written on a single line (no block scalar, no continuation lines).
 //   (g) no CJK in skills/task-lifecycle/**/*.md, docs/**/*.md and CHANGELOG.md, except exact literals listed in scripts/cjk-allowlist.json
 //       (each entry scoped to its files, with bucket and reason); allowlist entries no longer found in their files also fail.
 //   (e) README consistency (M-12): README.md and README.zh-CN.md have the same heading-level sequence; both badge versions = plugin.json version.
-//   (h) skills/task-lifecycle/VERSION exists and its single line = plugin.json version = .cursor-plugin/plugin.json version (Rocky t181s1118).
+//   (h) skills/task-lifecycle/VERSION exists and its single line = plugin.json version = .cursor-plugin/plugin.json version.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -119,7 +119,7 @@ for (const f of files) {
   });
 }
 
-// (d) Length limits: SKILL.md <= 600 lines; references/*.md <= 600 lines (D4/t949u SKILL.md 180->300->600; D7/t948u refs 300->500->600)
+// (d) Length limits: SKILL.md <= 600 lines; references/*.md <= 600 lines (D4 SKILL.md 180->300->600; D7 refs 300->500->600)
 const SKILL_MAX_LINES = 600;
 const REF_MAX_LINES = 600;
 function countLines(text) {

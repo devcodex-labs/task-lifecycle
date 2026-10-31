@@ -41,8 +41,8 @@ check.
      are consumable; block gaps or overreach before requesting specific fix permission.
    - **Never automatically add ignored files, change `.gitignore`, overwrite dirty state or commit/push to pass a check**.
    - **Commit identity before push**: before any push, verify every commit to be pushed has Author and Committer `Rocky Shi <rockyshi1993@gmail.com>`; any `Co-authored-by:`
-     trailer naming a bot or agent is removed before push (amend only unpushed local commits; never rewrite pushed history without Rocky's confirmation); on a mismatch stop and
-     report the commit IDs. Reason: the repository records only the maintainer's identity; bot co-author lines are not allowed (t181s712).
+     trailer naming a bot or agent is removed before push (amend only unpushed local commits; never rewrite pushed history without the user's confirmation); on a mismatch stop and
+     report the commit IDs. Reason: the repository records only the maintainer's identity; bot co-author lines are not allowed.
 
 **Safe recovery of long-task batches**: if task-level Auto is forced to stop at a host/context capacity boundary, and only when real files are verified legally writable, record this round's
 completed `BatchID/source-set hash/actual target version SHA/sub-condition sign-off results and evidence/block reasons/next batch ID/real trusted permission scope` in the existing external Task
@@ -249,7 +249,7 @@ Trigger: new session / observable compaction / client restart / told of host swi
   -> resume affected writes/formal acceptance only with legal conditions, otherwise read-only and gather evidence
 ```
 
-**Self-write reconciliation and reply order after compaction (Rocky t185u, t187s1164, CAND-20261031-002)**: recovery is complete only when each listed write
+**Self-write reconciliation and reply order after compaction (CAND-20261031-002)**: recovery is complete only when each listed write
 or side effect is matched or marked unknown with evidence; until then work stays read-only. An unexplained write inside the task's write scope and time window
 is first investigated as possibly the session's or sub-task's own and may not be reported as external until checked. With a waiting user, after compaction or
 resume the first action is still the reply/pre-check required by SKILL.md §4; the recovery check follows it and never delays or replaces it.

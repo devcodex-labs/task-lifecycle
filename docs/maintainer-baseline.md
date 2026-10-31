@@ -20,7 +20,7 @@ decision and review IDs and the owner's message/card IDs in the maintainer's his
 ## Maintenance checks (formerly in README)
 
 Source checks and distribution-package checks are separate: the root `plugin.json` is the plugin content manifest, `.cursor-plugin/plugin.json` the Cursor manifest
-(since 0.1.68, D4=A t720s4044), and `.agents/plugins/marketplace.json` the Codex marketplace entry.
+(since 0.1.68, D4=A), and `.agents/plugins/marketplace.json` the Codex marketplace entry.
 `scripts/maintenance-regression.test.mjs` T60 only compares the listed shared fields (name/version/description/license/homepage/repository/keywords,
 author.name/email, developerName, marketplace name/displayName/category), whether Cursor manifest keys are in the official docs field table, and that logo/skills
 paths exist; unlisted fields and actual host loading are outside its coverage.
@@ -95,18 +95,18 @@ every release (D2=B).
 Before a release, check this push's CI result on both ubuntu and windows; if red, state the cause in the release record and relay, and the owner decides whether to
 release anyway. No separate gate process; a run URL is not a hard release condition.
 
-## candidates/ excluded from distribution and the three installs (D3=B, t720s4040)
+## candidates/ excluded from distribution and the three installs (D3=B)
 
-`candidates/` is local-only after 0.2.2: untracked with `git rm --cached` and listed in `.gitignore` (Rocky t805s4538); older commits still contain it in history.
+`candidates/` is local-only after 0.2.2: untracked with `git rm --cached` and listed in `.gitignore`; older commits still contain it in history.
 The exclusions below stay as a second line of defence, so it never goes into distribution packages or the three installs on the box:
 - Packaging: the root `.gitattributes` has `candidates/ export-ignore`, which only affects `git archive`/ZIP of committed trees; clone installs (Codex/Grok) and a repo
   placed in `~/.cursor/plugins/local` are not affected.
   Read-only archive check: `git archive HEAD | tar -t | grep -c '^candidates/'` must be 0; `.gitattributes` must be in the same commit as the change.
 - Cursor install: `host-sync.sh` only runs `git archive HEAD skills/task-lifecycle`, which never contains `candidates/`.
-- Sync targets (Rocky t585u, t590u; t286u, card t284s1651): new versions sync only to the bot hosts on the box (Cursor, Codex, Grok installs there), never
-  to Rocky's own computers.
+- Sync targets: new versions sync only to the bot hosts on the box (Cursor, Codex, Grok installs there), never
+  to the user's own computers.
 - Codex / Grok installs are git clones: `host-sync.sh` (`/home/box/task-lifecycle-records/host-sync.sh`, outside the repo) ends by running
-  `git sparse-checkout set --no-cone '/*' '!/candidates/'` on both. Since M-02 (t723s4066): back up first with a timestamp to `<ACTDIR>/backups/excl-<ts>-<name>`; a
+  `git sparse-checkout set --no-cone '/*' '!/candidates/'` on both. Since M-02: back up first with a timestamp to `<ACTDIR>/backups/excl-<ts>-<name>`; a
   target that is not a git repo root is an error with non-zero exit; success requires `candidates/` absent, `skills/task-lifecycle/SKILL.md` present, the file count
   equal to the `git archive` source and `diff -rq` clean (prints `EXCL ok`).
   Rollback: `rm -rf <target> && cp -a <backup> <target>` (the script prints the exact command on failure), or `git -C <target> sparse-checkout disable`. Ran on the

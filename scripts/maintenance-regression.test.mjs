@@ -341,14 +341,14 @@ test('T87 flowchart .md sub-step detail and missing-description Finding',()=>{
 test('T88 host Allow is not push approval, Page deletion, relayed answers, expired cards',()=>{
   const rd=f=>fs.readFileSync(path.join(root,'skills/task-lifecycle/references',f),'utf8').replace(/\s+/g,' ');
   const c=rd('confirmation-authorization-and-change.md'),v=rd('verification-and-evidence-routing.md');
-  assert.match(c,/a host Permissions\/Auto-review Allow rule, or Auto-review letting an action through, is host permission only and is not the real user's \(Rocky's\) approval to push, release, publish or host-sync/);
-  assert.match(v,/Report-type Pages are never deleted unless Rocky names the Page; deleting a Page .*?counts as an irreversible action needing his explicit confirmation/);
-  assert.match(c,/An answer relayed by another bot or agent is not approval; before push or release the assistant verifies the real user's \(Rocky's\) own card answer or message in the source transcript/);
+  assert.match(c,/a host Permissions\/Auto-review Allow rule, or Auto-review letting an action through, is host permission only and is not the real user's approval to push, release, publish or host-sync/);
+  assert.match(v,/Report-type Pages are never deleted unless the user names the Page; deleting a Page .*?counts as an irreversible action needing their explicit confirmation/);
+  assert.match(c,/An answer relayed by another bot or agent is not approval; before push or release the assistant verifies the real user's own card answer or message in the source transcript/);
   assert.match(c,/expired \(e\.g\. after 30 minutes\) or was interrupted or dismissed without an answer counts as not approved; the action is recorded as not run/);
 });
 test('T89 commit identity before push: Rocky Shi author/committer, no bot co-author',()=>{
   const t=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/workspace-versioning-and-recovery.md'),'utf8').replace(/\s+/g,' ');
-  assert.match(t,/before any push, verify every commit to be pushed has Author and Committer `Rocky Shi <rockyshi1993@gmail\.com>`; any `Co-authored-by:` trailer naming a bot or agent is removed before push \(amend only unpushed local commits; never rewrite pushed history without Rocky's confirmation\); on a mismatch stop and report/);
+  assert.match(t,/before any push, verify every commit to be pushed has Author and Committer `Rocky Shi <rockyshi1993@gmail\.com>`; any `Co-authored-by:` trailer naming a bot or agent is removed before push \(amend only unpushed local commits; never rewrite pushed history without the user's confirmation\); on a mismatch stop and report/);
 });
 test('T90 item 4a Page lang, source line in document header, conclusion order',()=>{
   const t=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/verification-and-evidence-routing.md'),'utf8').replace(/\s+/g,' ');
@@ -469,10 +469,10 @@ test('T95 re-review performer choice v4 (CAND-20261028-004): §7.11 pointer, rul
 const rdN=f=>fs.readFileSync(path.join(root,f),'utf8').replace(/\s+/g,' ');
 const REF='skills/task-lifecycle/references/';
 const CARD=()=>rdN(REF+'end-to-end-auto-card.md');
-test('T96 end-to-end Auto card: admission, Rocky only, ten keys, allowedPhases range, local-commit only (AC1)',()=>{
+test('T96 end-to-end Auto card: admission, real user only, ten keys, allowedPhases range, local-commit only (AC1)',()=>{
   const c=CARD();
   assert.match(c,/A card may be shown only after the task's A01 and A02 are both `human-confirmed`; a card shown earlier is not in effect\./);
-  assert.match(c,/Only the real user \(Rocky\) confirming the card in person makes it effective; relays, old files and dispatch prompts never count\./);
+  assert.match(c,/Only the real user confirming the card in person makes it effective; relays, old files and dispatch prompts never count\./);
   assert.match(c,/All ten keys are required; a missing key, or any value outside these limits, means the card is not in effect\./);
   for(const k of ['taskId','allowedObjects','allowedPhases','preAuthorizedSideEffects','commitIdentity','exclusions','endpoint','boundA02Sha256','boundPlanSha256','noStop'])assert.match(c,new RegExp('\\| `'+k+'` \\|'),k);
   assert.match(c,/One closed range `A<m>\.\.A<n>` with A03 ≤ m ≤ n ≤ A07 \(for example `A03\.\.A07`\); no list form; never A01, A02, A08 or A09/);
@@ -547,7 +547,7 @@ test('T101 reply end, hard limit, compaction; final acceptance and A10; sub-agen
   assert.match(c,/Sub-agents and dispatched sessions inherit none of the Auto forms: not form \(i\), not form \(ii\), not `noStop`\./);
   assert.match(c,/The card file, auto-decisions\.md, suspended-items\.md, endpoint-report\.md and config JSON never grant authorization\./);
   // AC15 counter-proof sweep: each remaining rule line of the new reference is guarded verbatim (whitespace-normalized)
-  for(const x of ["Added by FEAT-20261028-001 (Rocky D1–D3, D8, D10, D11, D14, D22, D25,", "(pointer: `confirmation-authorization-and-change.md` §6.3.2). Additive", "form (ii) is not selected.", "Auto stays one mode with two forms: (i) existing task-level Auto, unch", "The card applies only to the task it names and only when the user expl", "| Key | Content and limits |", "Why not A08 or A09: A08 holds push, CI, tag, release and host-sync, no", "A09 holds final acceptance, which is never on a card and never auto-pa", "The card text is written to the task's process directory as `End-to-en", "The real user's confirmation event is appended to the task record with", "Artifact path, the card SHA as Content SHA-256, Auto Scope Ref with go", "\"Execute item by item when applicable\" item 7 applies unchanged;", "and the existing Auto pauses (missing evidence or host permission, pla", "Items that `confirmation-authorization-and-change.md` item 9 lists as", "Covers every phase listed in `allowedPhases` (D2).", "implementation; the real user reviews all auto-decisions at final acce", "report for the real user (D10).", "The recommended option must come from the main session's own analysis", "(b) a fix failing after two rounds with different methods (or no progr", "evidence, plan invalidation: suspend only that item or Work Item, writ", "independent work; the three choices of \"Retry limit\" move to the endpo", "**Never done under `noStop`; always recorded as a suspended item**: si", "ask / may not enter implementation\" part is satisfied instead by the r", "| # | Clause (content anchor) | Exception under `noStop: true` |", "the endpoint, when the reply ends and at a host hard limit.", "Several cards in one process directory still share one copy of each fi", "The task record holds the card confirmation event, the user's decision", "confirmed acceptance criteria or test pass criteria\".", "**Suspended item entry** (suspended-items.md): `id` (`SI-<nn>`), `item", "`userChoice` (for `fix-two-rounds-failed` the three \"Retry limit\" choi", "Task state still follows `confirmation-authorization-and-change.md` §6", "other rejections follow (a)/(b)/(c) there.", "cannot inherit unlimited Auto permission (`task-split-parallel-and-int", "card, A02 and plan SHAs (section 3).", "In-scope intermediate artifacts are recorded `auto-accepted` per §6.1;", "written to auto-decisions.md.", "widens scope. Only the real user's confirmation this run, with matchin"])assert.ok(c.includes(x),x);
+  for(const x of ["Added by FEAT-20261028-001 (D1–D3, D8, D10, D11, D14, D22, D25,", "(pointer: `confirmation-authorization-and-change.md` §6.3.2). Additive", "form (ii) is not selected.", "Auto stays one mode with two forms: (i) existing task-level Auto, unch", "The card applies only to the task it names and only when the user expl", "| Key | Content and limits |", "Why not A08 or A09: A08 holds push, CI, tag, release and host-sync, no", "A09 holds final acceptance, which is never on a card and never auto-pa", "The card text is written to the task's process directory as `End-to-en", "The real user's confirmation event is appended to the task record with", "Artifact path, the card SHA as Content SHA-256, Auto Scope Ref with go", "\"Execute item by item when applicable\" item 7 applies unchanged;", "and the existing Auto pauses (missing evidence or host permission, pla", "Items that `confirmation-authorization-and-change.md` item 9 lists as", "Covers every phase listed in `allowedPhases` (D2).", "implementation; the real user reviews all auto-decisions at final acce", "report for the real user (D10).", "The recommended option must come from the main session's own analysis", "(b) a fix failing after two rounds with different methods (or no progr", "evidence, plan invalidation: suspend only that item or Work Item, writ", "independent work; the three choices of \"Retry limit\" move to the endpo", "**Never done under `noStop`; always recorded as a suspended item**: si", "ask / may not enter implementation\" part is satisfied instead by the r", "| # | Clause (content anchor) | Exception under `noStop: true` |", "the endpoint, when the reply ends and at a host hard limit.", "Several cards in one process directory still share one copy of each fi", "The task record holds the card confirmation event, the user's decision", "confirmed acceptance criteria or test pass criteria\".", "**Suspended item entry** (suspended-items.md): `id` (`SI-<nn>`), `item", "`userChoice` (for `fix-two-rounds-failed` the three \"Retry limit\" choi", "Task state still follows `confirmation-authorization-and-change.md` §6", "other rejections follow (a)/(b)/(c) there.", "cannot inherit unlimited Auto permission (`task-split-parallel-and-int", "card, A02 and plan SHAs (section 3).", "In-scope intermediate artifacts are recorded `auto-accepted` per §6.1;", "written to auto-decisions.md.", "widens scope. Only the real user's confirmation this run, with matchin"])assert.ok(c.includes(x),x);
 });
 test('T102 parallel rules: off = 0.2.6, no new permission, readonly analysis only, scenario rows, existing §11.1 text unchanged (AC10–AC13)',()=>{
   const t=rdN(REF+'task-split-parallel-and-integration.md');
@@ -569,17 +569,18 @@ test('T102 parallel rules: off = 0.2.6, no new permission, readonly analysis onl
   assert.match(t,/Choose `parallel-eligible` only when dependencies are met, writes can be isolated, the target host actually has the native capability, user and host authorizations are valid, and a \*\*benefit estimate supported by project facts\*\* outweighs/);
   assert.match(t,/Mutually non-writing independent investigations may choose `parallel-analysis-only`;/);
   assert.match(t,/Additive \(FEAT-20261028-001\): a valid `effective` also contains `parallel`; its consumers read the last section "Host-native parallel config \(parallel\)"\./);
-  for(const x of ["Additive (FEAT-20261028-001): the optional host-native `parallel` conf", "Added by FEAT-20261028-001 (Rocky D4, D5, D9, D18–D21, D26, D31, D32;", "§11.1 \"Choose `parallel-eligible` only when\", stays verbatim and still", "**Location and shape**: optional top-level key `parallel` in the same", "`enabled` (boolean, default `false`), `maxConcurrent` (integer 1–4, de", "`readonly-investigation: true`, `implementation: false`, `test-run: fa", "`worktree-with-per-time-authorization`, `never`). `\"parallel\": {}` is", "`parallel-eligible` judgments are unchanged.", "the four-state conditions and current authorization for each dispatch.", "**Not delegation**: `parallel.categories` (boolean: may this category", "names only; `parallel` enables no external executor and `delegation` e", "**Same-repo writes** (`sameRepoWrites`):", "**Project layer only narrows** (D21, D26, R-2): `enabled` may be `fals", "**Validator**: invalid values reuse existing codes (`invalid-type`, `i", "`effective.parallel` is always present (fields per [validator-output-p", "default block with every `sourceLayer` `default` (D31). Consumers chec", "**Run fresh**: before each dispatch based on `parallel`, rerun the val", "reports it as for any delegation config. A session under a dispatch ma", "**No inherited Auto**: sub-agents and dispatched sessions inherit no A", "`end-to-end-auto-card.md`); commits are made by the main session; the", "**Compatibility**: plugins up to 0.2.7 do not know `parallel`, report", "plugin before writing `parallel`. Writing or changing `parallel` is a", "**Scenario rules** (status words are the four states, except the last", "| Scenario | Status | Conditions |"])assert.ok(t.includes(x),x);
+  for(const x of ["Additive (FEAT-20261028-001): the optional host-native `parallel` conf", "Added by FEAT-20261028-001 (D4, D5, D9, D18–D21, D26, D31, D32;", "§11.1 \"Choose `parallel-eligible` only when\", stays verbatim and still", "**Location and shape**: optional top-level key `parallel` in the same", "`enabled` (boolean, default `false`), `maxConcurrent` (integer 1–4, de", "`readonly-investigation: true`, `implementation: false`, `test-run: fa", "`worktree-with-per-time-authorization`, `never`). `\"parallel\": {}` is", "`parallel-eligible` judgments are unchanged.", "the four-state conditions and current authorization for each dispatch.", "**Not delegation**: `parallel.categories` (boolean: may this category", "names only; `parallel` enables no external executor and `delegation` e", "**Same-repo writes** (`sameRepoWrites`):", "**Project layer only narrows** (D21, D26, R-2): `enabled` may be `fals", "**Validator**: invalid values reuse existing codes (`invalid-type`, `i", "`effective.parallel` is always present (fields per [validator-output-p", "default block with every `sourceLayer` `default` (D31). Consumers chec", "**Run fresh**: before each dispatch based on `parallel`, rerun the val", "reports it as for any delegation config. A session under a dispatch ma", "**No inherited Auto**: sub-agents and dispatched sessions inherit no A", "`end-to-end-auto-card.md`); commits are made by the main session; the", "**Compatibility**: plugins up to 0.2.7 do not know `parallel`, report", "plugin before writing `parallel`. Writing or changing `parallel` is a", "**Scenario rules** (status words are the four states, except the last", "| Scenario | Status | Conditions |"])assert.ok(t.includes(x),x);
   const vop=rdN(REF+'validator-output-protocol.md');for(const x of ["| `effective.parallel` | `{categories, enabled, maxConcurrent, sameRep"])assert.ok(vop.includes(x),x);
 });
-test('T103 additive only: no deleted lines in rule files vs ecedaba, SKILL.md unchanged and ≤600 lines, new reference has no CJK (AC0, AC15)',(t)=>{
+test('T103 additive only: no deleted lines in rule files vs ecedaba except de-naming, SKILL.md unchanged and ≤600 lines, new reference has no CJK (AC0, AC15)',(t)=>{
   const skill=fs.readFileSync(path.join(root,'skills/task-lifecycle/SKILL.md'),'utf8').split('\n');
   assert.ok(skill.filter((l,i,a)=>i<a.length-1||l).length<=600);
   assert.doesNotMatch(fs.readFileSync(path.join(root,REF+'end-to-end-auto-card.md'),'utf8'),/[\u3000-\u303f\u3400-\u4dbf\u4e00-\u9fff\uff00-\uffef]/);
   const has=spawnSync('git',['-C',root,'cat-file','-e','ecedaba^{commit}'],{encoding:'utf8'});
   if(has.status!==0){t.skip('UNVERIFIED: base commit ecedaba not in this checkout; AC0 zero-deletion check not run (T102/T110 verbatim asserts still run)');return;}
-  const ns=execFileSync('git',['-C',root,'diff','--numstat','ecedaba','--','skills/task-lifecycle','docs'],{encoding:'utf8'}).trim();
-  for(const l of ns.split('\n').filter(Boolean)){const [add,del,f]=l.split('\t');assert.equal(del,'0',`${f} deletes lines`);}
+  // De-naming exception (sources moved to the maintainer's private list): a deleted line is allowed only if it named the user or carried a message id.
+  const du=execFileSync('git',['-C',root,'diff','-U0','ecedaba','--','skills/task-lifecycle','docs'],{encoding:'utf8'});
+  for(const l of du.split(/\r?\n/)){if(l.startsWith('-')&&!l.startsWith('---'))assert.match(l,/Rocky|\bt\d+(?:u|s\d+)\b|\bhis\b|\bhe\b/,`deleted line without a name or message id: ${l.slice(0,120)}`);}
   assert.equal(execFileSync('git',['-C',root,'diff','--stat','ecedaba','--','skills/task-lifecycle/SKILL.md'],{encoding:'utf8'}).trim(),'');
 });
 test('T108 compatibility note: upgrade the plugin before writing parallel (README.md, README.zh-CN.md, CHANGELOG.md) (AC14)',()=>{
@@ -602,16 +603,16 @@ test('T109 review intensity: three tiers, no gate skipped, default by depth, cha
   assert.match(CARD(),/the confirmation event also records the review intensity in effect \(`light`, `balanced` or `strict`/);
   assert.match(CARD(),/an auto-decision never changes it/);
   assert.ok(!V.FIELD_RULES_GLOBAL.root.properties.some(k=>/intensity/i.test(k)));
-  for(const x of ["**Review intensity** (FEAT-20261028-001, Rocky D38; R-3, R-4, R-5, R-7", "`formal-review-and-findings.md` §7.10 stay verbatim): the user picks h", "Tiers (fixed English keys, Chinese in `entry-quickref.md` LABELS):", "relay. This is a per-task arrangement, not the former \"review intensit", "count above and an approximate time per review taken from this project", "auto-decision never changes it (`end-to-end-auto-card.md`)."])assert.ok(t.includes(x),x);
+  for(const x of ["**Review intensity** (FEAT-20261028-001, D38; R-3, R-4, R-5, R-7", "`formal-review-and-findings.md` §7.10 stay verbatim): the user picks h", "Tiers (fixed English keys, Chinese in `entry-quickref.md` LABELS):", "relay. This is a per-task arrangement, not the former \"review intensit", "count above and an approximate time per review taken from this project", "auto-decision never changes it (`end-to-end-auto-card.md`)."])assert.ok(t.includes(x),x);
 });
 test('T110 Kickoff card and §7.10 item 7 text unchanged; fast/standard/thorough/custom unchanged (ecedaba baseline)',()=>{
   const t=rdN(REF+'task-recognition-and-routing.md');
   assert.match(t,/\*\*Kickoff card \(CAND-20261026-013\+019\)\*\*: on the first entry of a new managed task with no valid depth\/mode source, use one single-question card asking all missing items: missing depth gives fast\/standard\/thorough each paired with Confirm, Auto \(custom via "Other"\); missing only mode gives Confirm, Auto;/);
   assert.match(t,/- Rejection: a verbal Auto treated as mode source; a new managed task running Auto without the card; a record missing `mode`\/`modeSource`\./);
   const f=rdN(REF+'formal-review-and-findings.md');
-  assert.match(f,/7\. \*\*Land on evidence\*\* \(Rocky t571u; replaces the former "risk-tiered convergence", "Case-Driven Convergence" and "review intensity tiers"\):/);
+  assert.match(f,/7\. \*\*Land on evidence\*\* \(replaces the former "risk-tiered convergence", "Case-Driven Convergence" and "review intensity tiers"\):/);
   assert.match(f,/Failures are revised by the original author; default 1 round, only remaining P1 leads to rounds 2 and 3; later rounds check only the previous round's issues/);
-  assert.match(f,/\*\*Recheck counts toward the cap\*\* \(t936u\): a recheck triggered by a user ruling or rule such as "one recheck after accepted fixes" is a General review round under the same cap: default 1 round, only remaining P1 opens rounds 2 and 3, at most 3 in total; at the cap, unresolved issues go to Rocky at once and no 4th round is opened on one's own;/);
+  assert.match(f,/\*\*Recheck counts toward the cap\*\*: a recheck triggered by a user ruling or rule such as "one recheck after accepted fixes" is a General review round under the same cap: default 1 round, only remaining P1 opens rounds 2 and 3, at most 3 in total; at the cap, unresolved issues go to the user at once and no 4th round is opened on one's own;/);
   assert.match(f,/\*\*Instruction boundary\*\*: general instructions \(Auto, "don't confirm", "continue", "as recommended"\) only waive confirmation waits and lift no review cap or stop point;/);
   assert.match(rdN(REF+'entry-quickref.md'),/Already-English tokens \(`Confirm`\/`Auto`, `fast\/standard\/thorough\/custom`, `valid`, reason codes, IDs\) are never translated\./);
   assert.deepEqual([...V.DEPTH_VALUES],['fast','standard','thorough']);
@@ -634,35 +635,44 @@ test('T112 skill VERSION file matches plugin.json; mode card at fixed points (CA
   const ver=JSON.parse(fs.readFileSync(path.join(root,'plugin.json'),'utf8')).version;
   assert.match(fs.readFileSync(path.join(root,'skills/task-lifecycle/VERSION'),'utf8'),new RegExp('^'+ver.replace(/\./g,'\\.')+'\\r?\\n$'));
   const c=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/confirmation-authorization-and-change.md'),'utf8').replace(/\s+/g,' ');
-  for(const x of ['**Mode card at fixed points** (Rocky t179s1106, CAND-20261031-001)','(a) **After A02**','(b) **On "auto" wording**','Only the option picked on the card is an Auto source'])assert.ok(c.includes(x),x);
+  for(const x of ['**Mode card at fixed points** (CAND-20261031-001)','(a) **After A02**','(b) **On "auto" wording**','Only the option picked on the card is an Auto source'])assert.ok(c.includes(x),x);
   assert.ok(fs.readFileSync(path.join(root,'skills/task-lifecycle/references/entry-quickref.md'),'utf8').includes('| 2 Mode card |'));
 });
 test('T113 self-write reconciliation after compaction and sub-task written-file report (CAND-20261031-002)',()=>{
   const n=p=>fs.readFileSync(path.join(root,p),'utf8').replace(/\s+/g,' ');
   const w=n('skills/task-lifecycle/references/workspace-versioning-and-recovery.md');
-  for(const x of ['-> self-write reconciliation: from file mtimes','**Self-write reconciliation and reply order after compaction (Rocky t185u, t187s1164, CAND-20261031-002)**','the recovery check follows it and never delays or replaces it'])assert.ok(w.includes(x),x);
+  for(const x of ['-> self-write reconciliation: from file mtimes','**Self-write reconciliation and reply order after compaction (CAND-20261031-002)**','the recovery check follows it and never delays or replaces it'])assert.ok(w.includes(x),x);
   const t=n('skills/task-lifecycle/references/task-split-parallel-and-integration.md');
   assert.ok(t.includes("A sub-task's return report lists every file it wrote")&&t.includes('a mismatch blocks acceptance until explained (CAND-20261031-002)'));
 });
 test('T114 default merge method (c) for integration -> release branches with precondition fallback (CAND-20261029-003)',()=>{
   const c=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/confirmation-authorization-and-change.md'),'utf8').replace(/\s+/g,' ');
-  for(const x of ['**Default merge method for integration -> release branches (Rocky t193s1228, t202s1271, CAND-20261029-003)**','No merge-method card is sent before such a merge.','never discard release-branch content silently','Record the squash commit and the merge-back commit IDs in the task record.','First adoption: while the merge base is still the old one'])assert.ok(c.includes(x),x);
+  for(const x of ['**Default merge method for integration -> release branches (CAND-20261029-003)**','No merge-method card is sent before such a merge.','never discard release-branch content silently','Record the squash commit and the merge-back commit IDs in the task record.','First adoption: while the merge base is still the old one'])assert.ok(c.includes(x),x);
 });
-test('T115 Page width floor override 1024px, public-link exemption (Rocky t242u)',()=>{
+test('T115 Page width floor override 1024px, public-link exemption',()=>{
   const v=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/verification-and-evidence-routing.md'),'utf8').replace(/\s+/g,' ');
-  for(const x of ['**Width floor override (Rocky t242u)**','never "column"; on desktop the body must not be narrower than 1024px','exempt from the 1024px floor','>= 1100px (Rocky\'s 2026-10-28 test)'])assert.ok(v.includes(x),x);
+  for(const x of ['**Width floor override**','never "column"; on desktop the body must not be narrower than 1024px','exempt from the 1024px floor','>= 1100px (the user\'s 2026-10-28'])assert.ok(v.includes(x),x);
 });
-test('T116 intent-based immediate absorption of Rocky rules (t250u, t251u, t252u)',()=>{
+test('T116 intent-based immediate absorption of the user\'s rules',()=>{
   const n=p=>fs.readFileSync(path.join(root,'skills/task-lifecycle/references/'+p),'utf8').replace(/\s+/g,' ');
   const f=n('formal-review-and-findings.md');
-  for(const x of ['**Intent-based immediate absorption** (additive, Rocky t250u, t251u, t252u)','with no confirmation card','tags/releases or host installs','Agent suggestions he did not state are not rules.','Existing candidates keep their current flow.'])assert.ok(f.includes(x),x);
-  assert.ok(n('rule-evolution.md').includes('§7.10 item 7 "Intent-based immediate absorption" (Rocky t252u)'));
+  for(const x of ['**Intent-based immediate absorption** (additive)','with no confirmation card','tags/releases or host installs','Agent suggestions they did not state are not rules.','Existing candidates keep their current flow.'])assert.ok(f.includes(x),x);
+  assert.ok(n('rule-evolution.md').includes('§7.10 item 7 "Intent-based immediate absorption".'));
 });
-test('T117 bot-skills absorption rules (Rocky t286u, card t284s1651)',()=>{
+test('T117 bot-skills absorption rules',()=>{
   const n=p=>fs.readFileSync(path.join(root,p),'utf8').replace(/\s+/g,' ');const R='skills/task-lifecycle/references/';
   const c=n(R+'confirmation-authorization-and-change.md');
-  for(const x of ['**Options before free text** (Rocky t464u; t286u, card t284s1651)','**Report real progress proactively**','never fabricated or estimated background progress'])assert.ok(c.includes(x),x);
-  assert.ok(n(R+'end-to-end-auto-card.md').includes('**Auto defaults to local commit in every repo** (Rocky t898u; t286u, card t284s1651)'));
-  assert.ok(n(R+'task-split-parallel-and-integration.md').includes('**No delegation when quota is tight** (Rocky t323u; t286u, card t284s1651)'));
+  for(const x of ['**Options before free text**: when the user has to confirm','**Report real progress proactively**','never fabricated or estimated background progress'])assert.ok(c.includes(x),x);
+  assert.ok(n(R+'end-to-end-auto-card.md').includes('**Auto defaults to local commit in every repo**: under any Auto form'));
+  assert.ok(n(R+'task-split-parallel-and-integration.md').includes('**No delegation when quota is tight**: when the host'));
   assert.ok(n('docs/maintainer-baseline.md').includes('new versions sync only to the bot hosts on the box'));
+});
+test('T118 de-naming: rule text names no person and carries no message ids; sources kept in a private list',()=>{
+  const walk=d=>fs.readdirSync(path.join(root,d),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(d+'/'+e.name):[d+'/'+e.name]);
+  for(const f of [...walk('skills/task-lifecycle'),...walk('docs')].filter(f=>/\.(md|json|txt)$/.test(f))){
+    const t=fs.readFileSync(path.join(root,f),'utf8');
+    assert.doesNotMatch(t,/\bt\d+(?:u|s\d+)\b/,f);
+    assert.doesNotMatch(t.replace(/`Rocky Shi <rockyshi1993@gmail\.com>`/g,''),/Rocky/,f);
+  }
+  assert.ok(rdN(REF+'formal-review-and-findings.md').includes("**Sources outside rule text**: rule text names no person and carries no message ids, card ids or dated attributions;"));
 });

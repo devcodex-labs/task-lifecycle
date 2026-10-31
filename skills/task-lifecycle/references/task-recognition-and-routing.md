@@ -202,14 +202,14 @@ User explicitly starts or enters managed Feature/Bugfix/Docs by intent
   missing depth gives fast/standard/thorough each paired with Confirm, Auto (custom via "Other"); missing only mode gives Confirm, Auto; write descriptions and the recommended option per the "Two or
   more options" item of `confirmation-authorization-and-change.md` (since 0.1.55); the recommended option may only be a Confirm option; Auto may not be marked recommended or be the default, and stop
   points such as commit
-  and push are not lifted by Auto (t581s3342).
+  and push are not lifted by Auto.
 - Mode defaults to Confirm; only Auto clicked on this card counts as an Auto source; a verbal Auto, an earlier general statement that everything from now on is auto, or a host auto-execute mode does
   not count and goes only into the description. The Auto option's description must state all five elements of item 1 of `confirmation-authorization-and-change.md`; if any cannot be fixed, offer no
   Auto and say why. Before the card is clicked, a new message about the same request replaces the content and resends the same card,
   never a second card. The task record writes `mode` and `modeSource`.
 - Rejection: a verbal Auto treated as mode source; a new managed task running Auto without the card; a record missing `mode`/`modeSource`.
 
-**Review intensity** (FEAT-20261028-001, Rocky D38; R-3, R-4, R-5, R-7, R-9; additive: the Kickoff card text above, `fast/standard/thorough/custom` and
+**Review intensity** (FEAT-20261028-001, D38; R-3, R-4, R-5, R-7, R-9; additive: the Kickoff card text above, `fast/standard/thorough/custom` and
 `formal-review-and-findings.md` §7.10 stay verbatim): the user picks how formal reviews are arranged for the task.
 - Tiers (fixed English keys, Chinese in `entry-quickref.md` LABELS):
   - `light`: single-seat static review, adjacent phases reviewed together; one recheck after accepted fixes. About 1 review per merged group, plus 1 recheck.

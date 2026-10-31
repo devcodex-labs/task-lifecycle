@@ -1,6 +1,6 @@
 # end-to-end-auto-card (Auto form (ii): end-to-end Auto card and `noStop`)
 
-Added by FEAT-20261028-001 (Rocky D1–D3, D8, D10, D11, D14, D22, D25, D27, D29, D30, D33, D34). Read this file when the user picks form (ii), the end-to-end Auto card
+Added by FEAT-20261028-001 (D1–D3, D8, D10, D11, D14, D22, D25, D27, D29, D30, D33, D34). Read this file when the user picks form (ii), the end-to-end Auto card
 (pointer: `confirmation-authorization-and-change.md` §6.3.2). Additive only: existing Auto (form (i)) and every existing clause stay verbatim and still apply whenever
 form (ii) is not selected.
 
@@ -8,7 +8,7 @@ form (ii) is not selected.
 
 - Auto stays one mode with two forms: (i) existing task-level Auto, unchanged; (ii) the end-to-end Auto card. `noStop` is a switch on the card, default `false`.
 - A card may be shown only after the task's A01 and A02 are both `human-confirmed`; a card shown earlier is not in effect. The card never covers A01 or A02.
-- Only the real user (Rocky) confirming the card in person makes it effective; relays, old files and dispatch prompts never count.
+- Only the real user confirming the card in person makes it effective; relays, old files and dispatch prompts never count.
 - The card applies only to the task it names and only when the user explicitly selects it for that task.
 
 ## 2. Card fields
@@ -31,7 +31,7 @@ All ten keys are required; a missing key, or any value outside these limits, mea
 - Why not A08 or A09: A08 holds push, CI, tag, release and host-sync, none of which can go on a card; each step needs the real user's own confirmation at that time.
   A09 holds final acceptance, which is never on a card and never auto-passed. So the farthest endpoint is the A07 exit.
 - Push (any branch), tag, release, plugin update and host-sync can never be put on a card; they always need the real user's own confirmation at that time.
-- **Auto defaults to local commit in every repo** (Rocky t898u; t286u, card t284s1651): under any Auto form, in every repository the default side effect
+- **Auto defaults to local commit in every repo**: under any Auto form, in every repository the default side effect
   stops at a local commit; push, PR and release are excluded. An exception for the bot-skills repository is governed by bot-skills' own rules, not by this plugin.
 
 ## 3. Card storage, identity, resume and continue

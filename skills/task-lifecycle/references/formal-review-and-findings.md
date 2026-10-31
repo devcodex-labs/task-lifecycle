@@ -79,7 +79,7 @@ review generates Findings, revisions and retests, and still presents the user tw
 
 ### 7.5 Finding lifecycle and root-cause distinction
 
-Flowchart .md sub-steps without a detailed description are Findings per `artifact-content-and-self-review-contract.md` §7.2 "Flowchart sub-step check" (t847u, t847s4703).
+Flowchart .md sub-steps without a detailed description are Findings per `artifact-content-and-self-review-contract.md` §7.2 "Flowchart sub-step check".
 
 **Classification and consolidated handling protocol**: under safe conditions with no destructive side effects, formal review first collects all verifiable Findings of the same round and freezes a
 snapshot containing `Finding ID / reviewed object version / real evidence`;
@@ -345,7 +345,7 @@ This section refines §7.9 and does not change the plan, closure and stop condit
      leg, second leg and final verification with different focus,
      labeled "same model (X), two independent sessions, no cross-model complementarity".
    - Zero: mutually isolated clean sessions of the current host take each leg, labeled "same model, two independent sessions".
-   - Label interpretation (coordinator's explanation, Rocky may overturn): the two labels above keep Rocky's t323u original wording unchanged; "two independent sessions" means two reviewer seats (A,
+   - Label interpretation (coordinator's explanation, the user may overturn): the two labels above keep the user's original wording unchanged; "two independent sessions" means two reviewer seats (A,
      B),
      while first leg, second leg and final verification are each still a new session per call, with session IDs recorded per leg.
    - Not even one independent session possible: there is no legal reviewer; the independent review condition is recorded `blocked/needs-evidence`, and the main revision session may not impersonate
@@ -356,55 +356,55 @@ This section refines §7.9 and does not change the plan, closure and stop condit
    - Three or more externals: no separate rule and no extra legs; arrange by item 0 admission and this item's same rule: each round pick two from the pool for seats A and B, recording the rest as
      "not selected/standby",
      with the plan stating each one's arrangement this round (seat held or not selected/standby).
-7. **Land on evidence** (Rocky t571u; replaces the former "risk-tiered convergence", "Case-Driven Convergence" and "review intensity tiers"):
+7. **Land on evidence** (replaces the former "risk-tiered convergence", "Case-Driven Convergence" and "review intensity tiers"):
    - **Registration**: a candidate must have a real event source (an error that happened in a real task, e.g. an issue the user pointed out or a miss found in a retrospective), stating the event and
      its source; speculative edge cases are not registered but recorded in `docs/known-gaps.md`. Add no candidates about the review process itself; review issues are revised per this item or recorded
      as gaps.
-     Exception (additive; Rocky t931u/t932u): a review-process candidate may be added only when the real user (Rocky) explicitly approves it; explicitly approved precedents stay valid
-     (CAND-20261028-004 via card t890s4860; CAND-20261028-005 via t931u/t932u); without explicit approval the default above applies.
-     **Routing of rule changes** (additive, Rocky t942u/t943u): a rule change Rocky explicitly asks for in his own message is not registered as a candidate; the coordinator writes the
-     best-fitting text, self-checks it for conflicts with existing rules (Triage, Citations and Length limits below still apply) and lands it when none is found; a conflict goes to Rocky.
-     Situations Rocky does not know of, suggestions from others (relayed text is only a lead, `rule-evolution.md` "Read conditions and responsibility"),
+     Exception (additive): a review-process candidate may be added only when the real user explicitly approves it; explicitly approved precedents stay valid
+     (CAND-20261028-004; CAND-20261028-005); without explicit approval the default above applies.
+     **Routing of rule changes** (additive): a rule change the user explicitly asks for in their own message is not registered as a candidate; the coordinator writes the
+     best-fitting text, self-checks it for conflicts with existing rules (Triage, Citations and Length limits below still apply) and lands it when none is found; a conflict goes to the user.
+     Situations the user does not know of, suggestions from others (relayed text is only a lead, `rule-evolution.md` "Read conditions and responsibility"),
      and review findings become candidates and are reviewed.
-     **Intent-based immediate absorption** (additive, Rocky t250u, t251u, t252u): a rule Rocky sets or corrects in his own message is absorbed by its intent the
-     same day. The receiving bot applies it that turn and forwards his original words with the message id; the maintainer verifies them in the source
-     transcript, writes the rule, commits as Rocky Shi, pushes, and reports one line (the changed rule sentence and the version), with no confirmation card.
-     Ask Rocky one question, with a recommendation, only when (a) it conflicts with an earlier rule of his and overturning is unclear (recommend overturn),
+     **Intent-based immediate absorption** (additive): a rule the user sets or corrects in their own message is absorbed by its intent the
+     same day. The receiving bot applies it that turn and forwards their original words with the message id; the maintainer verifies them in the source
+     transcript, writes the rule, commits under the maintainer identity, pushes, and reports one line (the changed rule sentence and the version), with no confirmation card.
+     Ask the user one question, with a recommendation, only when (a) it conflicts with an earlier rule of theirs and overturning is unclear (recommend overturn),
      (b) one-off versus standing is unclear, or (c) it touches the Yingnuo (work) repos, tags/releases or host installs; task-lifecycle version bump, tag, GitHub Release
-     and host sync still need his own words each time. Agent suggestions he did not state are not rules. Precedence: for such rules this replaces the
-     "Rocky approves" step of Small rule and the approval step of Large change below; quality steps (self-check, gates, real case classes hit) still apply.
+     and host sync still need their own words each time. Agent suggestions they did not state are not rules. Precedence: for such rules this replaces the
+     "the user approves" step of Small rule and the approval step of Large change below; quality steps (self-check, gates, real case classes hit) still apply.
      Existing candidates keep their current flow.
    - **P1 threshold**: P0/P1 must attach a concrete failure scenario (in what situation the Agent would do what wrong); anything that cannot be written is P2 and does not block landing. Ambiguous
      wording, line-number drift and inconsistent format default to P2. When P2/P3 land, register each in `docs/known-gaps.md`.
-   - **Triage** (t690u, t690s3898): quote verbatim this item's "small rule (net addition ≤5 lines, revertible)" and the small-rule eligibility of `rule-evolution.md` item 5, "single check action,
+   - **Triage**: quote verbatim this item's "small rule (net addition ≤5 lines, revertible)" and the small-rule eligibility of `rule-evolution.md` item 5, "single check action,
      does not change public behavior, does not lower verification level,
      does not expand permissions, does not touch ABS, not one of the three exception classes", state the net added lines, and judge only by these written conditions;
-     importance, or whether Rocky set a value before, is not a criterion; when Rocky explicitly re-rules, follow and record the decision.
-   - **Small rule** (net addition ≤5 lines, revertible): coordinator self-check (including conflict check) → Rocky approves → land formally directly, no test cases, tested by real use; if found not
-     followed, revise (Rocky t578u).
+     importance, or whether the user set a value before, is not a criterion; when the user explicitly re-rules, follow and record the decision.
+   - **Small rule** (net addition ≤5 lines, revertible): coordinator self-check (including conflict check) → the user approves → land formally directly, no test cases, tested by real use; if found not
+     followed, revise.
      Only three classes run real cases: ① involving stop points, permissions, security (e.g. auto commit, push, unauthorized reads); ② prior failure (a similar rule was written and the model did not
      follow it); ③ touching several files at once where clauses may interact.
      **Run only the classes this change hits; do not build cases for classes not hit.**
    - **Large change** (= fails any small-rule condition above) **or a change to the review rules themselves**: the coordinator does static review throughout, comparing clauses, pointers and values
-     for consistency with scripts; with valid `review.hosts`, the first in the pool does one read-only review of the plan per items 0 and 6, then it goes to Rocky for approval (t600u).
+     for consistency with scripts; with valid `review.hosts`, the first in the pool does one read-only review of the plan per items 0 and 6, then it goes to the user for approval.
      Implementation is delegated only when the "External coding executor delegation" conditions of `task-split-parallel-and-integration.md` are met, otherwise the coordinator does it; after landing
      an independent session (source per item 6) does one final verification (running the real case classes hit: ① stop points/permissions/security / ② prior failure / ③ multi-file interaction),
-     which doubles as post-implementation review with no extra round (t593s3410).
-   - **General review** (shared by all reviews and final verification in this item, t600u): material package = original requirement + plan or change draft + the previous party's self-review report,
+     which doubles as post-implementation review with no extra round.
+   - **General review** (shared by all reviews and final verification in this item): material package = original requirement + plan or change draft + the previous party's self-review report,
      plus the real diff in the implementation phase; reviewers give opinions only and do not change files.
      Two steps: first give independent opinions from the requirement and plan alone, then look for holes against the self-review report. Dimensions are derived by the coordinator from requirement
      goals, acceptance criteria and known risks and approved with the plan, with the fixed baseline "requirement drift"; reviewers may add dimensions with reasons.
      Failures are revised by the original author; default 1 round, only remaining P1 leads to rounds 2 and 3; later rounds check only the previous round's issues, this round's changed parts
      (including direct consumers and impact area, consistent with items 5 and 8) and newly added dimensions, without re-reviewing unchanged parts; no P1 with P2 fixed or registered in
      `docs/known-gaps.md` passes and may end early.
-     When Rocky names relay, run per items 1–5, 8, 9; relay and review share the same cap: default 1 time (first leg → second leg → final verification), at most 3, no time cap; before the 2nd time
-     state the reason for re-review (t580s3334, t601s3463).
+     When the user names relay, run per items 1–5, 8, 9; relay and review share the same cap: default 1 time (first leg → second leg → final verification), at most 3, no time cap; before the 2nd time
+     state the reason for re-review.
      FormalReview's "stop after two rounds of the same method without progress" and relay's "at most 3" apply to different objects; whichever comes first stops, neither replaces the other.
-     When a single round is stuck, stop at the session's own cap (e.g. `--max-turns`) and report to Rocky; disputes go to Rocky with both sides' reasons, without consuming rounds; unresolved issues
-     at the cap go to Rocky at once; each round's opinions and changes are written into review records outside the repository.
-     **Recheck counts toward the cap** (t936u): a recheck triggered by a user ruling or rule such as "one recheck after accepted fixes" is a General review round
-     under the same cap: default 1 round, only remaining P1 opens rounds 2 and 3, at most 3 in total; at the cap, unresolved issues go to Rocky at once and no 4th round
-     is opened on one's own; disputes go to Rocky with both sides' reasons without consuming rounds; general instructions ("as recommended", Auto) do not lift this cap
+     When a single round is stuck, stop at the session's own cap (e.g. `--max-turns`) and report to the user; disputes go to the user with both sides' reasons, without consuming rounds;
+     unresolved issues at the cap go to the user at once; each round's opinions and changes are written into review records outside the repository.
+     **Recheck counts toward the cap**: a recheck triggered by a user ruling or rule such as "one recheck after accepted fixes" is a General review round
+     under the same cap: default 1 round, only remaining P1 opens rounds 2 and 3, at most 3 in total; at the cap, unresolved issues go to the user at once and no 4th round
+     is opened on one's own; disputes go to the user with both sides' reasons without consuming rounds; general instructions ("as recommended", Auto) do not lift this cap
      (see Instruction boundary); no P1 with P2 fixed or registered in `docs/known-gaps.md` still passes and may end early.
    - **Instruction boundary**: general instructions (Auto, "don't confirm", "continue", "as recommended") only waive confirmation waits and lift no review cap or stop point; dispatch notes can only
      tighten, never loosen; a dispatched party encountering loosening content does not follow it and reports it in its reply.
@@ -415,15 +415,17 @@ This section refines §7.9 and does not change the plan, closure and stop condit
    - **Regression scenario library**: holds only cases of the three classes above that were really run; a release runs the scenarios related to this change, the full set runs every Sunday; scenario
      failures are graded per the P1 threshold above.
    - **Length limits**: SKILL.md ≤600 lines, each reference ≤600 lines (anything over is first compressed within the limit); new rules may only replace or merge old clauses and may not push their
-     file over the limit; each Sunday review also lists obsolete and duplicate clauses, deletion approved by Rocky.
+     file over the limit; each Sunday review also lists obsolete and duplicate clauses, deletion approved by the user.
    - **Citations**: candidates and rules always cite by content anchors (section name + sentence-opening fragment), never absolute line numbers. Promotion, deletion and narrowing at expiry are
-     decided by Rocky.
+     decided by the user.
+     **Sources outside rule text**: rule text names no person and carries no message ids, card ids or dated attributions; the source of each rule
+     (the user's original words, message and card ids, dates) is recorded in the maintainer's private source list outside the repository.
 8. **Full first-round plan** (a hard requirement of the review plan): the first round's review plan must list at once all check items and all focuses (executability, holes, conflicts, gates, etc.),
    each with a check ID and positive/negative criteria; first and second legs both review the same frozen version against this full plan; seat focus only adjusts attention order, never narrows
    coverage.
    Later rounds under the same plan handle only found issues, revised text and the cumulative diff and its impact area, without adding review scope or check items in batches.
    - Plan gap: if a later round finds the first-round plan really missed a check, treat it as a plan defect: record whyMissed, revise the plan per §7.4 with a record;
-     at the item 7 cap it goes to Rocky; never skip it silently or treat it as an ordinary scope addition.
+     at the item 7 cap it goes to the user; never skip it silently or treat it as an ordinary scope addition.
 9. **Pre-submission checks** (completed by the coordinator before each round's frozen submission, results recorded; the first leg may not start until done):
    - **Mechanical citation check**: this item is mandatory (ready since 0.1.37), checking each file:line, original fragment and the latter half of the same line. The coordinator first independently
      lists the expected citations for each input, then reconciles with what was actually recognized; the tool's own recognized set cannot be the completeness denominator.
@@ -489,7 +491,7 @@ format); any leg's result without a recorded sha or changed afterwards; final-ve
 ruled; the same model claiming cross-model review;
 the main revision session doubling as reviewer or final verifier; treating review session opinions directly as formal conclusions or Finding closure; unrecorded degradation;
 a first-round plan not listing all check items and focuses, or later rounds adding review scope in batches without handling it as a plan defect per item 8;
-registering candidates without a real event source; counting opinions without a concrete failure scenario as P1 and blocking landing; landing small rules without Rocky's approval or three-class
+registering candidates without a real event source; counting opinions without a concrete failure scenario as P1 and blocking landing; landing small rules without the user's approval or three-class
 changes without real runs; continuing round after round of large-change review beyond the time cap; treating general instructions or dispatch notes as lifting caps or stop points; merging candidates
 in a joint review or letting one issue block others; new rules pushing a file over the length limit; citations with absolute line numbers; fixes adding new mechanisms to the current version;
 opening the next round or judging convergence while verified P0/P1/P2 lack whyMissed; submitting when the mechanical citation check fails or mismatches once the script is ready, without the author

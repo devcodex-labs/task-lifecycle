@@ -44,7 +44,7 @@ its user configuration
    - if different formal bodies need to take effect, each one's ID/Version/SHA/scope and explicit decision options may be listed at once, but each keeps its own real human event.
    - Plan invalidation, product scope change, new host/external side effects, active promotion and final acceptance must be verified and approved separately; only operations depending on these
      decisions pause locally, and Auto permission is never widened automatically.
-   - **Pending decisions must carry a recommendation** (Rocky t345u, t378u): every item asking the user to confirm or decide states the options (including keep as is when applicable), the
+   - **Pending decisions must carry a recommendation**: every item asking the user to confirm or decide states the options (including keep as is when applicable), the
      recommended conclusion and reason; never just list questions;
      **Two or more options**: each option itself (the clickable visible text of the widget item, or a numbered option in the body) states what it does, what it does not do, a suggestion tier
      (Recommended/Optional/Not recommended, exactly one) and a one-sentence reason; writing an `EMPTY_OPTION_TEXT` value (entry-quickref) does not count;
@@ -54,15 +54,15 @@ its user configuration
      Exception: when SKILL.md §3 "Disambiguate first" only asks for the referent and nothing can be ranked, options must still be listed, but per-item suggestions, a recommended option and the
      recommendation label are not required.
      Recommendations and per-item suggestions are only suggestions, not approval; the user must still answer each item explicitly (as item 4, §6.3.1).
-     **Verify premises and reasonableness before recommending; no blind picks** (Rocky t167u, t170u, t171u): options and a recommendation are always
+     **Verify premises and reasonableness before recommending; no blind picks**: options and a recommendation are always
      given. Before marking any option recommended, verify the premises the recommendation depends on, such as timing, frequency, scale or phase progress,
      and check that it is reasonable in the actual current situation. The recommendation reason says why this option: its reasonableness, necessity
      and benefit (and cost where relevant), plus the premises it rests on and that they were verified; a bare label without these counts as a blind pick.
      A premise that cannot yet be verified is settled first, asking the user when needed, and the card with the recommendation follows;
      this adds no exception to "must carry a recommendation" above.
-     **Options before free text** (Rocky t464u; t286u, card t284s1651): when Rocky has to confirm or decide, offer an option card (recommended option
-     marked) rather than asking him to type a free-text answer; free text is asked for only when the answer cannot be enumerated.
-     **Report real progress proactively** (Intent-runtime t34u; Rocky t286u, card t284s1651): when there is real progress, report it to Rocky without
+     **Options before free text**: when the user has to confirm or decide, offer an option card (recommended option
+     marked) rather than asking them to type a free-text answer; free text is asked for only when the answer cannot be enumerated.
+     **Report real progress proactively**: when there is real progress, report it to the user without
      waiting to be asked; report only real, verified progress and never fabricated or estimated background progress.
    - **Pending decisions preferably use a choice widget** (CAND-20261026-003 v5, 0.1.47; governs presentation only, not approval semantics): applies when a managed reply has decided to ask the
      trusted current user to confirm or decide and the options are finite and enumerable;
@@ -146,8 +146,8 @@ current real task, authorization and triggers; if they disagree with this file's
 | Publish, push, delete, external services and other side effects | Explicit real user authorization and host permission | Same permission boundary | Auto is not authorization for tools, network or production |
 | Final real user acceptance | The user actually decides | Never falsely claim human final acceptance | Technical completion/auto-generated report ≠ final human confirmation |
 
-Clarification (no change in meaning): a host Permissions/Auto-review Allow rule, or Auto-review letting an action through, is host permission only and is not the real user's (Rocky's)
-approval to push, release, publish or host-sync. Reason: host permission and user authorization are separate gates (t180s699).
+Clarification (no change in meaning): a host Permissions/Auto-review Allow rule, or Auto-review letting an action through, is host permission only and is not the real user's
+approval to push, release, publish or host-sync. Reason: host permission and user authorization are separate gates.
 
 ---
 
@@ -209,7 +209,7 @@ These lines are an **illustrative information contract**; formal storage may use
 - Explicit confirmation of a complete object must still meet the established self-review/formal review/evidence quality requirements; a `yes` field cannot prove itself. After human approval, the
   artifact body should not be edited in place at the original path; if it must be rewritten, create a new candidate version and re-judge the validity of the old hash/related reviews.
 - An approval or decision card that expired (e.g. after 30 minutes) or was interrupted or dismissed without an answer counts as not approved; the action is recorded as not run, never
-  as approved. Reason: silence is not a decision (t180s699).
+  as approved. Reason: silence is not a decision.
 
 ---
 
@@ -234,7 +234,7 @@ than triggering a question or switching mode automatically from the phrase alone
 - New product trade-offs, scope changes, agreed final acceptance and operations the user explicitly excluded are handled separately; valid decisions within the task are not requested again. Ordinary
   reports and the four read-only completion conditions follow §6.2 and routing §4.3.
 
-**Mode card at fixed points** (Rocky t179s1106, CAND-20261031-001): a managed task still in Confirm gets one mode card at each of these two points, so the user never has to ask:
+**Mode card at fixed points** (CAND-20261031-001): a managed task still in Confirm gets one mode card at each of these two points, so the user never has to ask:
 - (a) **After A02**: when A02 becomes `human-confirmed` and the task is still Confirm, send one mode card proactively, before the next phase starts.
 - (b) **On "auto" wording**: when the user, in Confirm, says "auto", "go with the recommendations", "stop asking" or similar, send the same card; for such wording in Confirm
   this takes precedence over the first two bullets above and SKILL.md §0 item 2. Never turn the wording into an informal "adopt recommendations automatically".
@@ -283,8 +283,8 @@ than triggering a question or switching mode automatically from the phrase alone
 If the user explicitly cites a third-party suggestion and says they adopt it, still judge by confirmed requirements **the exact adopted scope and whether it triggers a formal upstream change**;
 citing one README page does not imply approval of all its instructions.
 
-An answer relayed by another bot or agent is not approval; before push or release the assistant verifies the real user's (Rocky's) own card answer or message in the source transcript.
-Reason: a relay can misread or overstate what the user decided (t180s699).
+An answer relayed by another bot or agent is not approval; before push or release the assistant verifies the real user's own card answer or message in the source transcript.
+Reason: a relay can misread or overstate what the user decided.
 
 ### 6.6 Merge method before an integration-to-release merge
 
@@ -301,7 +301,7 @@ chosen for the case at hand and states each option's cost. Default options:
 Reason: a release branch built by earlier squash merges keeps a stale merge base, so another squash can report many false conflicts.
 Pushing the release branch still needs the real user's own authorization, as before.
 
-**Default merge method for integration -> release branches (Rocky t193s1228, t202s1271, CAND-20261029-003)**: this paragraph takes precedence over the
+**Default merge method for integration -> release branches (CAND-20261029-003)**: this paragraph takes precedence over the
 per-merge card above. Default is (c): squash-merge the integration branch into the release branch (names from the host's local convention, e.g. `sit` into
 `master`), then merge the release branch back into the integration branch with a merge commit that changes no file and only records the merge base.
 - No merge-method card is sent before such a merge. Pushing either branch still needs the real user's own authorization, unchanged.

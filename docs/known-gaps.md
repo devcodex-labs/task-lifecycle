@@ -19,7 +19,7 @@ separately. Entries without the original review/confirmation record keep their o
 - **D/A/I/H**: verification routes (demonstration/analysis/inspection/human); **Confirm/Auto**: the plugin's two working modes.
 - Chinese text in 「」 or “” is a verbatim quote kept as evidence; an English gloss follows in brackets.
 
-> 2026-10-27 t622s3573 A: per the assessment draft, closed/archived lagging ledger items (KG-016-09; 018/021 withdrawn with their candidates; the 013 wording about
+> 2026-10-27 owner decision A: per the assessment draft, closed/archived lagging ledger items (KG-016-09; 018/021 withdrawn with their candidates; the 013 wording about
 > verbal Auto and "no Auto in the card"; KG-004). No product rule changed. Spot checks: external `DIRECT-20261027-已知缺口处置/03-优先抽测计划.md`.
 
 ## Current open index (added 2026-10-27; index only, the body is authoritative)
@@ -43,13 +43,13 @@ Lists sections that still contain open or unverified items; line numbers drift w
 - "Real runs cannot be isolated while the global plugin is enabled": 1 open item.
 - "README acceptance boundary": 3 open items (historical).
 - "0.1.68 README review register": M-13 (P3), M-09 (P2 residue), M-02 (E4 unverified) open.
-- "Host support status": Cursor marked tested by owner decision D12 (t794u).
-- Note: the Page layout clause (`verification-and-evidence-routing.md`) is not split out for now; no new clauses before CI turns green (2026-10-27, owner t783s4386).
+- "Host support status": Cursor marked tested by owner decision D12.
+- Note: the Page layout clause (`verification-and-evidence-routing.md`) is not split out for now; no new clauses before CI turns green (2026-10-27).
 
 ## Host support status (added 2026-10-27, in 0.2.2)
 
 - Grok Build and Codex: live-tested on 0.2.0/0.2.1 in fresh sessions (records `DIRECT-20261027-英文正本迁移/50-第5步实测.md`).
-- Cursor: no fresh Cursor session was run on the box (no Cursor agent CLI available). Marked tested by owner decision D12 (t794u, 2026-10-27 23:24 UTC+8;
+- Cursor: no fresh Cursor session was run on the box (no Cursor agent CLI available). Marked tested by owner decision D12 (2026-10-27 23:24 UTC+8;
   same behavior as Grok Build). This is an owner judgment, not a recorded Cursor transcript.
 
 ## 0.1.53 relay keeps original qualifiers (CAND-20261026-016 v10) retained items
@@ -72,31 +72,31 @@ Lists sections that still contain open or unverified items; line numbers drift w
 - open (KG-016-08, P2, second leg-7, raised from P3 to P2 at final check): “输出摘录（含报错）” [“output excerpt (incl. errors)”], the self-check “报错输出摘录”
   [“error output excerpt”] and the card “关键输出” [“key output”] differ in scope; whether successful output without errors is excluded reads two ways. Source: same,
   r10 second leg-7.
-- closed (KG-016-09, P3, second leg-8) [2026-10-27 t622s3573]: line-number meta debt; no product rule change.
+- closed (KG-016-09, P3, second leg-8) [2026-10-27]: line-number meta debt; no product rule change.
   History: this entry inserted 4 lines after SKILL.md line 131, so the line this ledger's F3 entry called “SKILL:140” moved to line 144; the ledger's old number was
   left as historical text. Source: same, r10 second leg-8.
 - E4 unverified: rejection of relay sentences was not live-tested in a fresh session on a real host; the rule is a text constraint with no gate script.
 
 ## CAND-20261026-021 r2 stopped-review open items (closed: handled in 0.1.53/0.1.56; archived with the candidate's withdrawal)
 
-- archived (P1) [2026-10-27 t622s3573]: withdrawn with CAND-20261026-021 in 0.1.56; not actionable against current rules. Originally open: general instructions vs
+- archived (P1) [2026-10-27]: withdrawn with CAND-20261026-021 in 0.1.56; not actionable against current rules. Originally open: general instructions vs
   specific instructions named by the owner were split only by "named or not"; "default" at line 228 had no boundary (same root as r1 second leg-2).
-- archived (P1, introduced in v2) [2026-10-27 t622s3573]: withdrawn with the candidate. Originally open: "line 250" in item 4 moved after an insertion; when the owner
+- archived (P1, introduced in v2) [2026-10-27]: withdrawn with the candidate. Originally open: "line 250" in item 4 moved after an insertion; when the owner
   explicitly allowed round 4, the dispatch prompt had to include cap-lifting content, and item 2 made UC-08 read two ways.
 - Source: external REVIEW-20261026-023-CAND-021 r2 first leg; stopped 2026-10-26 21:0x UTC+8 under the coordinator's tightening (same-root P1 stop; not a plugin rule).
-- Archive basis: CHANGELOG 0.1.56 "018, 021, 023, 006 withdrawn"; assessment draft + owner t622s3573 A.
+- Archive basis: CHANGELOG 0.1.56 "018, 021, 023, 006 withdrawn"; assessment draft + owner decision A.
 
 ## CAND-20261026-018 same-root P1 stopped-review open items (closed: handled in 0.1.53/0.1.56; archived with the candidate's withdrawal)
 
-- archived (P1) [2026-10-27 t622s3573]: withdrawn with CAND-20261026-018 in 0.1.56; not actionable. Originally open: the replay table's "duty cell → rejection cell"
+- archived (P1) [2026-10-27]: withdrawn with CAND-20261026-018 in 0.1.56; not actionable. Originally open: the replay table's "duty cell → rejection cell"
   function conflicted with independent criteria (same root as r1 R1-3); the "not-applicable counterexample" column referred to two templates ambiguously (r1 R1-5).
-- archived (P1) [2026-10-27 t622s3573]: withdrawn with the candidate. Originally open: the re-added sentence of item 3 had no item number, so rejection did not cover
+- archived (P1) [2026-10-27]: withdrawn with the candidate. Originally open: the re-added sentence of item 3 had no item number, so rejection did not cover
   it; the replay table sat in the "file-level self-review" cell and vanished behind a placeholder in the review copy; `confirmation-authorization-and-change.md:48`
   was not registered for restating-style rejection.
 - Source: external REVIEW-20261026-020-CAND-018 r1, r2 first leg; same-root P1 stop 2026-10-26 20:0x UTC+8.
-- Disposition: owner 2026-10-26 20:02 UTC+8 card t547s3142 「A：6 条全部保持停审，P1 留在已知缺口，以后先实测再改」 [“A: keep all 6 stopped; P1s stay in known
+- Disposition: owner 2026-10-26 20:02 UTC+8 card 「A：6 条全部保持停审，P1 留在已知缺口，以后先实测再改」 [“A: keep all 6 stopped; P1s stay in known
   gaps; later, live-test first, then change”].
-- Archive basis: CHANGELOG 0.1.56 "018, 021, 023, 006 withdrawn"; assessment draft + owner t622s3573 A (do not revise the old drafts again).
+- Archive basis: CHANGELOG 0.1.56 "018, 021, 023, 006 withdrawn"; assessment draft + owner decision A (do not revise the old drafts again).
 
 ## CAND-20261026-015 three-round cap stop, residue (closed: handled in 0.1.53/0.1.56)
 
@@ -106,73 +106,73 @@ Lists sections that still contain open or unverified items; line numbers drift w
 - open: cross-repo sub-task record location and numbering, carrying long-term agreements on re-dispatch, the executor's own-repo commit exception, notifying after
   push and syncing per-repo state, and a joint-push checklist template are not in the rules.
 - open: authorization ownership of relayed tasks touches the authorization boundary; awaits the owner's direction.
-- Source: external REVIEW-20261026-019-CAND-015 r1–r3; three-round cap stop 2026-10-26 19:4x UTC+8 (t532u does not lift the cap). Group chat coordination belongs to
+- Source: external REVIEW-20261026-019-CAND-015 r1–r3; three-round cap stop 2026-10-26 19:4x UTC+8 (the owner's instruction does not lift the cap). Group chat coordination belongs to
   the channel admin and is not in the ledger.
-- Disposition: owner card t547s3142 (quoted above) — live-test first, then change.
+- Disposition: owner card (quoted above) — live-test first, then change.
 
 ## CAND-20261026-016 and CAND-20261026-017 r3 cap awaiting the owner (rounds from r4 exceeded the cap; results reference only) (closed: handled in 0.1.53/0.1.56)
 
-- open: rounds from r4 exceeded the three-round cap (the coordinator misread t532u), which was not compliant; state corrected to "r3 cap, awaiting the owner";
-  the P1s from the over-cap rounds below are reference evidence only. Source: owner t537u (2026-10-26 19:40 UTC+8); fix candidate CAND-20261026-021.
+- open: rounds from r4 exceeded the three-round cap (the coordinator misread the owner's instruction), which was not compliant; state corrected to "r3 cap, awaiting the owner";
+  the P1s from the over-cap rounds below are reference evidence only. Source: owner (2026-10-26 19:40 UTC+8); fix candidate CAND-20261026-021.
 - open: 016 v7 (relay keeps original qualifiers) r7 first leg P1: sentence boundaries only recognize full-width “。？！”, so a "previous sentence / conclusion"
   separated by a newline or half-width mark forms one sentence and frozen UC-03 can yield "do not reject"; also P2: “第…部分” [“part …”] has no upper bound,
   sentence boundaries split error excerpts, substring false matches.
 - open: 017 v6 (new runtime dependency: list comparable libraries and live-test) r6 first leg P1: the pause object written as "package list" vs frozen UC-06
   "pause dependency writes" reads two ways; rejection only rejects the plan's wording, so a correct plan that still writes to the package list slips through.
-- Source: first-leg results of the over-cap rounds (016 r7, 017 r6), reference only (the earlier "stopped per t532u" was corrected by t537u); records
+- Source: first-leg results of the over-cap rounds (016 r7, 017 r6), reference only (the earlier "stopped per the owner" was corrected by the owner); records
   REVIEW-20261026-017-CAND-016, REVIEW-20261026-018-CAND-017.
 - open (016 r3 first leg-1 P1, verified): “给出该结论的每一句” [“every sentence that gives this conclusion”] can read as an empty set when the claim becomes
   "not supported/needed/all"; UC-01/03/05/06 read two ways. Source: REVIEW-20261026-017-CAND-016 r3.
 - open (017 r3 first leg-1/2 P1, verified): the applicability sentence lacks "not in runtime artifacts", UC-04 reads two ways; what item 3 must say when item 2 does
   not apply reads two ways (UC-05). Source: REVIEW-20261026-018-CAND-017 r3.
-- Disposition: owner card t547s3142 (quoted above) — live-test first, then change.
+- Disposition: owner card (quoted above) — live-test first, then change.
 
 ## CAND-20261026-011 narrowed to CAND-20261026-016, residue
 
 - open: non-relayed claims about external systems, libraries or platform capabilities (positive or negative) must carry an anchor sufficient to derive them,
   otherwise be marked "unverified" with a way to verify; live-test first when cheap.
-- Source: owner card t528s3067, verbatim 「011 和 012 选 A：两条都缩小范围重来，011 只管转述保留原限定，012 只管新增依赖前列同类库并实测，其余记进已知缺口」
+- Source: owner card, verbatim 「011 和 012 选 A：两条都缩小范围重来，011 只管转述保留原限定，012 只管新增依赖前列同类库并实测，其余记进已知缺口」
   [“011 and 012: choose A — narrow both and redo; 011 only covers relays keeping original qualifiers, 012 only covers listing comparable libraries and live-testing
   for new dependencies; record the rest in known gaps”] (2026-10-26 17:52 UTC+8); the P1s of 011 r1–r3 all concerned the scope of exceptions and rejection
   sentences; open a narrow candidate if it causes trouble.
 - open: CAND-20261026-016 only checks qualifier words literally: a sentence that lists the original qualifier but still makes a definite claim (e.g. “没测成，所以不支持”
   [“couldn't test it, so unsupported”]) is not rejected; a rewording that keeps the qualification without the original word is rejected; the exception for live
   output in the same sentence still holds when that output is unrelated to the claim.
-- Source: CAND-20261026-016 r1 R1-2, R1-3, r3 first leg-3; recorded 2026-10-26 18:33 UTC+8 under owner t532u auto-advance; open a narrow candidate if needed.
+- Source: CAND-20261026-016 r1 R1-2, R1-3, r3 first leg-3; recorded 2026-10-26 18:33 UTC+8 under the owner's auto-advance; open a narrow candidate if needed.
 - open: CAND-20261026-016 decides "relay" by "conclusion from a cited source"; an author who calls the basis their own knowledge and omits the source bypasses it.
-  Source: 016 r4 first leg-4, r5 first leg-1 (the "same topic" clause withdrawn), recorded 2026-10-26 19:05 UTC+8 under t532u.
+  Source: 016 r4 first leg-4, r5 first leg-1 (the "same topic" clause withdrawn), recorded 2026-10-26 19:05 UTC+8 under the owner's instruction.
 - open: CAND-20261026-016 isolates by source sentence: a sentence where the source itself already dropped the qualifier (e.g. the second sentence of
   “xlsx 没测成。所以不支持。” [“xlsx couldn't be tested. So it is unsupported.”]) is not rejected when copied. Source: 016 r6 first leg-5, recorded 2026-10-26
-  19:25 UTC+8 under t532u.
+  19:25 UTC+8 under the owner's instruction.
 
 ## CAND-20261026-012 narrowed to CAND-20261026-017, residue
 
 - open: before writing new functions, modules or call chains, search the project for existing implementations and prefer reuse; when adding a dependency, offer
   "replace and unify" to the user as a pending option.
-- Source: owner card t528s3067 (quoted above, 2026-10-26 17:52 UTC+8); the P1s of 012 r1–r2 were all about exemptions and the option list not being carried into
+- Source: owner card (quoted above, 2026-10-26 17:52 UTC+8); the P1s of 012 r1–r2 were all about exemptions and the option list not being carried into
   the rejection sentence; open a narrow candidate if needed.
 
 ## CAND-20261026-013 start-card scope reduction, residue
 
-- closed [2026-10-27 t622s3573]: verbal Auto is not a mode source — current `task-recognition-and-routing.md` §4.4 (0.1.56/0.1.58) already says only selecting Auto
+- closed [2026-10-27]: verbal Auto is not a mode source — current `task-recognition-and-routing.md` §4.4 (0.1.56/0.1.58) already says only selecting Auto
   on this card counts; verbal Auto does not; it rejects "verbal Auto taken as the mode source".
   Historical gap description: when creating a managed task, Auto said verbally (even with the task ID and all five elements) was not a mode source and the start
   card was still shown; the user had to select the card's Auto option.
-- Source (historical): owner 2026-10-26 17:45 UTC+8 card t528s3054 「013 选 B…」 [“013: choose B…”]; the P1s of 013 r1, r2 concerned recognizing the task ID in verbal
-  Auto. Closure basis: the assessment draft's ledger-mismatch table + t622s3573 A.
-- closed (historical note) [2026-10-27 t622s3573]: the former wording "the card offers no Auto" is outdated. Current §4.4 (0.1.58): the start card **offers** Auto,
+- Source (historical): owner 2026-10-26 17:45 UTC+8 card 「013 选 B…」 [“013: choose B…”]; the P1s of 013 r1, r2 concerned recognizing the task ID in verbal
+  Auto. Closure basis: the assessment draft's ledger-mismatch table + owner decision A.
+- closed (historical note) [2026-10-27]: the former wording "the card offers no Auto" is outdated. Current §4.4 (0.1.58): the start card **offers** Auto,
   only forbidding Auto as recommended/default; verbal Auto still does not count.
   History: when 013 was narrowed to CAND-20261026-019 in r5, the depth card stated only this task's mode (default Confirm) and offered no Auto; edge cases (intended
   task ID, selecting means delegating, local commit exception) may still not have landed (see open items below and the 0.1.56 edge cases); the "no Auto" debt is not
   repeated here.
-- Source (historical): 2026-10-26 19:00 UTC+8 narrowed per recommendation under owner t532u; verified P1s of 013 r3–r5 concentrate on task ID and exhaustive pointers,
-  see external REVIEW-20261026-014-CAND-013. Closure/rewrite basis: CHANGELOG 0.1.58 + §4.4 + t622s3573 A.
+- Source (historical): 2026-10-26 19:00 UTC+8 narrowed per recommendation under the owner's instruction; verified P1s of 013 r3–r5 concentrate on task ID and exhaustive pointers,
+  see external REVIEW-20261026-014-CAND-013. Closure/rewrite basis: CHANGELOG 0.1.58 + §4.4 + owner decision A.
 - open (013 r3 first leg, four P1s, verified): F1 the routing:57 verbatim text "keep delegation without changing number" can read as keeping Auto; F2 the README
   verbatim text did not limit itself to new tasks, so continuing a task re-sends the card; F3 the SKILL:140 pre-check continuation records an already-selected
   continuing turn as unanswered.
 - open (same): F7 selecting Auto always includes a local commit, conflicting with `confirmation-authorization-and-change.md:68` and lacking a pointer. Source:
   REVIEW-20261026-014-CAND-013 r3.
-- Disposition: owner card t547s3142 (quoted above) — live-test first, then change.
+- Disposition: owner card (quoted above) — live-test first, then change.
 
 ## CAND-20261026-014 round-3 cap stop (not converged) open items (closed: handled in 0.1.53/0.1.56)
 
@@ -181,13 +181,13 @@ Lists sections that still contain open or unverified items; line numbers drift w
 - Reference (over-cap r4–r6, non-compliant, not counted toward convergence): whether a short reply code counts as one, locking the recommended item, bypassing via
   "what/why" placeholders, etc.; see external verification records.
 - Source: REVIEW-20261026-015-CAND-014 r1–r3; corrected 2026-10-26 19:58 UTC+8 to "round-3 cap, awaiting the owner".
-- Disposition: owner card t547s3142 (quoted above) — live-test first, then change.
+- Disposition: owner card (quoted above) — live-test first, then change.
 
 ## CAND-20261026-010 narrowed to CAND-20261026-014, residue
 
 - open: the option-description duty does not cover single options or disambiguate-first: a pending item with only one option, and the disambiguate-first case at
   `confirmation-authorization-and-change.md` line 34 (regardless of count), do not require descriptions; only the existing duties of lines 31–35 apply.
-- Source: owner 2026-10-26 17:27 UTC+8 card t527s3042 「010 选 A：缩小范围，作为新的低风险候选重来，只管两个以上的选项，单选项和消歧记进已知缺口」 [“010: choose A —
+- Source: owner 2026-10-26 17:27 UTC+8 card 「010 选 A：缩小范围，作为新的低风险候选重来，只管两个以上的选项，单选项和消歧记进已知缺口」 [“010: choose A —
   narrow it and redo as a new low-risk candidate covering only two or more options; record single options and disambiguation in known gaps”]; the P1s of 010
   r1–r4 were all about exemptions and placement for these two; open a narrow candidate if needed.
 
@@ -195,7 +195,7 @@ Lists sections that still contain open or unverified items; line numbers drift w
 
 - open: the table C answer-state residue of 006 has not landed: a card that was sent but not answered, or a user saying skip/defer, is not evidence that it was not
   displayed, does not trigger 007's "not displayed → resend as numbered options" downgrade, and records no agree, reject, close or not-shown.
-- Source: CAND-20261026-006 not adopted (owner 2026-10-26 17:21 UTC+8, card t527s3030); 007's current text does not say "no answer ≠ not visible"; no failure seen so
+- Source: CAND-20261026-006 not adopted (owner 2026-10-26 17:21 UTC+8); 007's current text does not say "no answer ≠ not visible"; no failure seen so
   far; open a narrow candidate if needed.
 
 ## 0.1.52 report Pages (CAND-20261026-009 v8r1) retained items
@@ -205,8 +205,8 @@ Lists sections that still contain open or unverified items; line numbers drift w
 - Platform limit: public pages.grok.bot links do not support floating elements (fixed, sticky and IntersectionObserver have no effect), so only a top table of
   contents plus a per-section "↑ contents" link is possible; filed as product feedback, awaiting platform support.
 - The rule is a text constraint; no gate script checks whether a Page is generated or styled correctly.
-- Platform limit (Rocky t242u width floor): public pages.grok.bot links are capped at 960px, so the 1024px desktop floor cannot hold there and they are exempt;
-  the sidebar contents threshold has two measurements (968px item 7, 1100px Rocky 2026-10-28), not reconciled by a fresh live test.
+- Platform limit (1024px width floor): public pages.grok.bot links are capped at 960px, so the 1024px desktop floor cannot hold there and they are exempt;
+  the sidebar contents threshold has two measurements (968px item 7, 1100px, the user's 2026-10-28 test), not reconciled by a fresh live test.
 
 ## 0.1.51 narrowed test-run cap (CAND-20261026-004) retained items
 
@@ -234,7 +234,7 @@ Lists sections that still contain open or unverified items; line numbers drift w
 - E4 unverified: not live-tested in a fresh session after reload that "purely deterministic changes are not delegated; behavior changes are delegated with behavior
   evidence".
 - closed (FEAT-20261026-001) [2026-10-27]: the two hard thresholds were removed in 0.1.72 (commit ca07987); the code-level check requirement has no object; closed.
-  History: the code-level check of the two hard-threshold live records (candidate D2) had become feature request FEAT-20261026-001 (use cases frozen (t477s2567),
+  History: the code-level check of the two hard-threshold live records (candidate D2) had become feature request FEAT-20261026-001 (use cases frozen,
   not implemented); `validate-config.mjs` does not check it; for the narrowed `test-run` cap see the CAND-20261026-004 retained items.
 - New tests only check that rule text exists, not model behavior.
 
@@ -296,7 +296,7 @@ Columns: ID, severity, source candidate/commit, issue, whyMissed summary or link
 | CAND-20261025-008/B2-12 | P2 | same | Completeness check only compares two places; a missed sync registration can pass | same, line 19 | open |
 | CAND-20261025-008/A1-09 | P3 | same | Maintenance cost without basis | same, line 16 (P3, optional) | open |
 | CAND-20261025-008/A1-10 | P3 | same | Tier state inconsistent | same, line 17 (P3, optional) | open |
-| CAND-20261025-001/G1 | to verify (residue) | CAND-20261025-001 v11 / this promotion commit (0.1.35) | Approval scope statement: t292u's original words were not kept; the registered authorization is only a statement | CAND-20261025-001/v11-外置叙述.md (B3-006 revision note) | open |
+| CAND-20261025-001/G1 | to verify (residue) | CAND-20261025-001 v11 / this promotion commit (0.1.35) | Approval scope statement: the owner's original words were not kept; the registered authorization is only a statement | CAND-20261025-001/v11-外置叙述.md (B3-006 revision note) | open |
 | CAND-20261025-001/G2 | to verify (residue) | same | Whether term definitions were checked at §7.10 promotion cannot be proven | same (B3-007 revision note) | open |
 | CAND-20261025-001/G3 | process (residue) | same | v11 changes were not independently re-reviewed; only the change scope was checked | CAND-20261025-001/v11-改动映射表.md | open |
 | CAND-20261025-001/G4 | process (residue) | same | All review rounds used the same model (codex) in two independent sessions; no cross-model coverage | CAND-20261025-001/r3/第3轮裁决.md | open |
@@ -313,7 +313,7 @@ Columns: ID, severity, source candidate/commit, issue, whyMissed summary or link
 | CAND-20261025-012/A1-02 | P2 | same | Relation between the "script unreachable" review exit and line 245 (before ready) / line 250 (must run after ready) unclear | same | open |
 | CAND-20261025-012/A1-03 | P2 | same | The candidate's root cause states as certain an attribution that marked E4 as an assumption; the 010 control failure has no source (candidate body) | same | open |
 | CAND-20261025-012/A1-04 | P2 | same | The candidate cites transcript-0:1262, which is a probe command; the "three times not ready" count is inaccurate (candidate body) | same | open |
-| CAND-20261025-012/A1-05 | P2 | same | The recommendation content t399u relied on was not provided with the source; approval scope cannot be checked independently | same | open |
+| CAND-20261025-012/A1-05 | P2 | same | The recommendation content the owner relied on was not provided with the source; approval scope cannot be checked independently | same | open |
 | CAND-20261025-012/A1-06 | P2 | same | The two rollback branches do not separately cover host, INDEX and partial failure | same | open |
 | CAND-20261025-012/A1-07 | P3 | same | Generalization "all … always happen" without evidence | same (P3, optional) | open |
 | CAND-20261025-012/A1-08 | P3 | same | The not-applicable counterexample is actually an applicable scenario | same (P3, optional) | open |
@@ -325,18 +325,18 @@ Columns: ID, severity, source candidate/commit, issue, whyMissed summary or link
 
 ## CAND-20261026-021 three-round cap stop, residue (r3, 2026-10-26) (closed: handled in 0.1.53/0.1.56; archived with the candidate's withdrawal)
 
-- archived (P1 r3 first leg-1) [2026-10-27 t622s3573]: withdrawn with CAND-20261026-021 in 0.1.56. Originally: v3 defined a specific instruction as "naming both the
+- archived (P1 r3 first leg-1) [2026-10-27]: withdrawn with CAND-20261026-021 in 0.1.56. Originally: v3 defined a specific instruction as "naming both the
   candidate and the round or stop point", narrower than line 228's "a specific instruction for a given review (e.g. a set number of rounds)", conflicting with INV-04.
-- archived (P1 r3 first leg-2) [2026-10-27 t622s3573]: withdrawn with the candidate. Originally: the general-instruction "does not lift" list was closed and did not list
+- archived (P1 r3 first leg-2) [2026-10-27]: withdrawn with the candidate. Originally: the general-instruction "does not lift" list was closed and did not list
   the line 240 invariant confirmation or the line 284 quality exception; it could read two ways.
 - P2×5 and P3×3: see external REVIEW-20261026-023 r3 records (also withdrawn with the candidate; no further fixes scheduled).
-- Archive basis: CHANGELOG 0.1.56; assessment draft + owner t622s3573 A.
+- Archive basis: CHANGELOG 0.1.56; assessment draft + owner decision A.
 
-## Candidates moved in with 0.1.56 (2026-10-27, owner t576u)
+## Candidates moved in with 0.1.56 (2026-10-27)
 
 - KG-003: the wording where rejection sentences cite only the item number without restating exceptions (CAND-20261026-003) did not become a rule; it arose from the
   coordinator's ambiguous wording, with no real failure. Method: static review, not run for real.
-- closed (KG-004) [2026-10-27 t622s3573]: the use-case replay table value system and revising existing criteria (CAND-20261026-004) did not become a rule; **the new
+- closed (KG-004) [2026-10-27]: the use-case replay table value system and revising existing criteria (CAND-20261026-004) did not become a rule; **the new
   flow has dropped frozen replay tables**, there is no current consumer, closed. Historically recorded as "not a rule; the new flow no longer uses frozen replay tables".
 - The 013+019 merged draft took only their common core; the "other" entry details and Docs task exception of the original 013 did not land.
 - 015's template section D was not added separately; the checklist columns are written in item 3 of the rule body.
@@ -349,17 +349,17 @@ Columns: ID, severity, source candidate/commit, issue, whyMissed summary or link
   for isolation needs the owner's approval. Method: static review, not run for real. (Since 0.2.0, isolated runs use a separate `GROK_HOME`; see the 0.2.0 records.)
 
 ## F11 length caps (closed)
-check-docs checks SKILL.md ≤600 lines (raised from ≤180 in 0.2.0, D4; to ≤600 by Rocky t949u) and references/*.md ≤600 lines (raised from ≤300 in 0.2.0, D7; to ≤600 by Rocky t948u).
+check-docs checks SKILL.md ≤600 lines (raised from ≤180 in 0.2.0, D4; to ≤600 by the user) and references/*.md ≤600 lines (raised from ≤300 in 0.2.0, D7; to ≤600 by the user).
 
 ## F09 / F12 / F13 (closed) and F10 (dropped)
 - F09 closed: absolute line numbers named in self-review were changed to content anchors (0.1.64).
 - F12 closed: the three kinds of real use cases run only the kind hit this time; no cases are invented for kinds not hit (0.1.64).
 - F13 closed: FormalReview's "stop when two rounds of the same method make no progress" and the relay's "at most 3 times" have different objects; whichever comes
   first stops (0.1.64).
-- F10 relay detail compression (dropped): the original suggestion was summary into Finding, details into templates; the owner dropped it (t615u); not scheduled; do not
+- F10 relay detail compression (dropped): the original suggestion was summary into Finding, details into templates; the owner dropped it; not scheduled; do not
   treat it as a to-do. The relay detail text is unchanged.
 
-## README acceptance boundary (moved from README in 0.1.68, D1=A t720s4033)
+## README acceptance boundary (moved from README in 0.1.68, D1=A)
 
 - open (historical, former README line 13): restricted CLI behavior, isolated report/Task writes, config consumption samples and independent static re-review evidence
   were obtained; of 82 acceptance items 57 passed and 25 are not fully verified; this cannot be extrapolated to full host acceptance.
@@ -368,7 +368,7 @@ check-docs checks SKILL.md ≤600 lines (raised from ≤180 in 0.2.0, D4; to ≤
 - open (same, former README line 10): delivered with existing results per the user's decision; full V1.2 acceptance still has items awaiting evidence. Source push,
   account save and actual host loading are verified separately.
 
-## 0.1.68 README review register (t723s4066)
+## 0.1.68 README review register
 
 - open (M-13, P3): the "location" line of the consumption protocol in `task-split-parallel-and-integration.md` gives the project layer
   `<workspace>/.task-lifecycle/<Project ID>/config.json`, and the POSIX invocation line gives `--workspace <parent directory of the bound project root>`; the two are

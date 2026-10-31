@@ -232,10 +232,10 @@ automated checks (stating gates/tests run and results), real runs (stating host/
       when the .md updates, modify the same Page and update the sha256, never create a new one.
       When a chapter is moved for reading (e.g. a flow chapter moved after the architecture chapter), the move is made in the .md itself: chapters are renumbered in sequence and cross-references
       in the .md are updated; the Page follows the .md order and numbering, never shows an out-of-sequence chapter number, and its source line needs no reorder note. Reason: items 1–2 govern
-      content and the approval object, not chapter order; keeping one order in both avoids confusing numbers (t848u, t848s4710).
-      Report-type Pages are never deleted unless Rocky names the Page; deleting a Page (which removes it for everyone it was shared with) counts as an irreversible action needing his
-      explicit confirmation; this also holds for same-page reuse under CAND-20261026-009. Reason: a reused Page is the one reading copy others rely on (t180s699).
-    - Item 4a **Page language, source line placement and conclusion order (Grok Bot host only; Rocky t872u, preview approved t878u)**:
+      content and the approval object, not chapter order; keeping one order in both avoids confusing numbers.
+      Report-type Pages are never deleted unless the user names the Page; deleting a Page (which removes it for everyone it was shared with) counts as an irreversible action needing their
+      explicit confirmation; this also holds for same-page reuse under CAND-20261026-009. Reason: a reused Page is the one reading copy others rely on.
+    - Item 4a **Page language, source line placement and conclusion order (Grok Bot host only)**:
       (S1) A Page whose content is Chinese, Japanese or Korean sets the Page `lang` prop (`zh-Hans`, `zh-Hant`, `ja` or `ko`) as the canvas kit declares it; the
       deprecated Page `sources` prop is not used, because it renders nothing.
       (S2) The source line (source .md path, sha256 and line count) is the first line inside the collapsed document-header section, not the Page's top line.
@@ -245,13 +245,13 @@ automated checks (stating gates/tests run and results), real runs (stating host/
       deletion) is unchanged.
       (S3) In the conclusion section, Metrics come first, then the Callouts; a Callout lead states the conclusion directly and never repeats the section heading;
       Metrics, leads and Callouts use only facts already in the content.
-      Reason: preview Page 7e0ddf45 with these changes was approved by Rocky (t872u, t878u).
+      Reason: preview Page 7e0ddf45 with these changes was approved by the user.
     - Item 5 **Page scope**: report-type artifacts (review reports, plans, contract documents) always get a Page regardless of length; non-report artifacts (CHANGELOG, config notes and other
       artifacts) only get .md; length does not change classification (same as the scope definition).
     - Item 6 **Single-file HTML on demand**: when cross-host or local reading is needed, generate a self-contained single-file HTML on demand, not by default; generate only when the user explicitly
       asks, the same on every host; not produced unless asked.
     - Item 7 **Page table of contents (Grok Bot host only)**: every report-type Page always shows a table of contents at the top, regardless of length (written with section anchors, mandatory); do
-      not put a "↑ Contents" link beside each section heading (t762u). Acceptance looks at reading effect: the contents are always reachable, do not scroll away with the body, may stay beside the
+      not put a "↑ Contents" link beside each section heading. Acceptance looks at reading effect: the contents are always reachable, do not scroll away with the body, may stay beside the
       body in wide windows, and do not crowd the body in narrow windows.
       **Component/host defaults suffice; do not hand-write fixed/observers/pixel calculations**: when the host or component provides a sidebar, drawer or current-section highlight use it directly;
       when not provided keep only the top contents, which is not non-compliant. Reference measured values (not an implementation duty): at window ≥ 968px the sidebar top 96px, left 24px, width
@@ -259,10 +259,10 @@ automated checks (stating gates/tests run and results), real runs (stating host/
     - Item 8 **Page body width (Grok Bot host only)**: acceptance looks at reading effect: the body is neither too narrow nor too wide, centered in the available space, tables and flowcharts as wide
       as the body; full width when available width is insufficient. Component/host defaults suffice; do not hand-write fixed/observers/pixel calculations; pick the kit width option (column, wide,
       full) closest to that effect. Reference measured value (not an implementation duty): body max about 960px.
-      **Width floor override (Rocky t242u)**: takes precedence over item 8's "closest to that effect" and its ~960px reference: set every Page width to "wide"
+      **Width floor override**: takes precedence over item 8's "closest to that effect" and its ~960px reference: set every Page width to "wide"
       or "full", never "column"; on desktop the body must not be narrower than 1024px. Phones stay single-column, as expected.
       Exception (platform limit, not a choice): public pages.grok.bot links are capped at 960px by the platform (item 9 measurement), so they are exempt from the
-      1024px floor. Sidebar contents threshold, both measurements kept with their sources: window >= 968px (item 7 measurement) and >= 1100px (Rocky's 2026-10-28
+      1024px floor. Sidebar contents threshold, both measurements kept with their sources: window >= 968px (item 7 measurement) and >= 1100px (the user's 2026-10-28
       test). Phones always use the inline top contents per items 7 and 10b.
     - Item 9 **Known limits and fallback (public links)**: pages.grok.bot public links embed the Page in an iframe as tall as the content, scrolled by the outer page, so fixed, sticky and
       IntersectionObserver following do not work;
@@ -277,8 +277,8 @@ automated checks (stating gates/tests run and results), real runs (stating host/
       - 10c Processes use flowcharts whose nodes carry the number + a summary of about 20 characters (over 22 truncated to 20 plus …), immediately followed by a "number—description" table; number-only
         nodes are forbidden. Reason: long node text squeezes and distorts, bare numbers are unreadable; the summary keeps the diagram readable and the table keeps it checkable.
         Clarification (no change in meaning): item 12 already specializes 10c for flow segments; in a flow segment the Steps titles plus the step table are the 10c "number—description" table, so
-        no extra node table is inserted between the diagram and Steps. Reason: reading 10c and item 12 separately produced a duplicate node table (t829u, t830u, t832s4644).
-        Order below every flowchart follows item 12 (diagram, then the step flow, then a table, nothing in between). Reason: one fixed reading order (t843u, t844s4687).
+        no extra node table is inserted between the diagram and Steps. Reason: reading 10c and item 12 separately produced a duplicate node table.
+        Order below every flowchart follows item 12 (diagram, then the step flow, then a table, nothing in between). Reason: one fixed reading order.
       - 10f Page labels (Segmented tab labels and segment names on any Page) are readable names; a number prefix is allowed (e.g. "F1 Intake and validation"), number-only labels (e.g. "F0"–"F7")
         are forbidden. Reason: readers must tell tabs apart without opening each one or looking up a table.
       - 10d Comparisons use tables; risks and blocks are marked with color plus a text label. Reason: tables ease side-by-side comparison; color plus text does not rely on color vision.
@@ -287,7 +287,7 @@ automated checks (stating gates/tests run and results), real runs (stating host/
         especially 10a–10f and item 12). (2) Within what the rules allow, choose the layout best for human reading given the .md content; only where the rules are silent consult the canvas
         skill's defaults; on conflict the rules win. (3) The plan states per chapter which block is used and which rule it rests on, in a few lines in the delivery note, listing each place where
         the Page structure differs from the .md. This adds no new confirmation stop point (cf. withdrawn item 13); the plan may not override existing constraints (no omitted content, no invented
-        names). Reason: layout decided while writing let rule conflicts surface only at generation time (t831u, t832u, t832s4644).
+        names). Reason: layout decided while writing let rule conflicts surface only at generation time.
       - Criterion: if the same content contains process/comparison/pending items, the Page shows them as 10c/10d/10a respectively (labels per 10f); do not force them in when there is no such content.
     - Item 11 **Delivery self-check (Grok Bot user-facing only)**: when this session delivers a report-type artifact directly to the user, the Page must be written before claiming "delivered", and
       the user-visible reply contains an openable Page link (or the WriteCanvas success url); a hit that requires a Page but has no link/no Page → reject that delivery claim, make it first, then
@@ -308,55 +308,55 @@ automated checks (stating gates/tests run and results), real runs (stating host/
         with an overview and phases (or appendices) you must use one set of segmented tabs (overview / each phase / appendix), never stacking several independent Sections instead; appendices use
         second-level tabs; phase tabs and appendix second-level tabs have the same structure (that segment's sub-diagram + Steps + step table); the overview tab holds only the overview diagram,
         Steps and a phase table (one row per phase: phase name, nodes it contains, corresponding tab), no full-path step table, no extra node diagram between the overview diagram and
-        Steps, and no materials / ordering notes / long Callouts (t743u / t752u).
-        Navigation and contents (t748u / t750u): besides the 10b top contents, never build an extra full-chapter index table like "chapter overview" (never invent one when the source has no such
+        Steps, and no materials / ordering notes / long Callouts.
+        Navigation and contents: besides the 10b top contents, never build an extra full-chapter index table like "chapter overview" (never invent one when the source has no such
         chapter); directly above each flow segment's Segmented at most one short navigation line; never put materials / ordering notes / long Callouts above the control or in the overview tab (such
         content goes in the Steps materials line of the corresponding phase tab); never write "phase-level overview / step tables in each phase" synonymous with the navigation above inside the
         overview;
         tab labels follow 10f and stay short (a readable name, optionally number-prefixed), with the full name in the tab's first sentence;
         flow chapter headings and top contents items carry only the chapter name (e.g. "3. Flow"),
-        without listing tab/node names in parentheses (t772u); multiple flow segments may not mechanically copy the same navigation boilerplate (at most one sentence each; the "back to overview"
+        without listing tab/node names in parentheses; multiple flow segments may not mechanically copy the same navigation boilerplate (at most one sentence each; the "back to overview"
         catchphrase may be omitted).
-        The whole page has only one set of first-level segmented tabs (t758u / t762u, aligned with Feature Page 5c9e0cb3): "overview + main-flow phases (+ appendix)"; tab labels = main-flow
+        The whole page has only one set of first-level segmented tabs (aligned with Feature Page 5c9e0cb3): "overview + main-flow phases (+ appendix)"; tab labels = main-flow
         node/phase names (e.g. overview / prepare / select / gate / result), never invented names like "flow one / two / three"; subordinate flow segments in the source merge into the main-flow
         phase tab they attach to, without separate flow-level tabs or stacking several sets per flow;
         if that phase has subordinate flows, the phase tab contains a second-level Segmented (one option for the main nodes / one per subordinate flow, aligned with the Feature Page 5c9e0cb3
         appendix second-level lane): each option has its own connected sub-diagram + Steps + step table; never draw main nodes and subordinate flows as islands in the same diagram; phases without
-        subordinate flows get no second-level tab (t765u); non-flow chapters remain independent sections per item 10;
+        subordinate flows get no second-level tab; non-flow chapters remain independent sections per item 10;
         phase tabs group several real nodes by phase and draw that segment's sub-diagram (only this segment's nodes and the exit/exception nodes it triggers), not one tab per node (exit/exception
         nodes merge into the sub-diagram and step table of the phase that triggers them, never separate phase or appendix tabs; if an appendix would hold only merged exits, set no appendix tab);
         never draw nodes or edges the source lacks, nor mix other phases' main-path nodes into this segment's sub-diagram;
-        appendix second-level tabs first give a short sentence of explanation, then diagram + Steps + table (t712s3983).
+        appendix second-level tabs first give a short sentence of explanation, then diagram + Steps + table.
         Each Steps step maps to one diagram node (title = number + summary), with numbered sub-steps 1. 2. 3. beneath and one light-colored "Materials: …" line; add a "Stop point: …" line only when
         sub-steps do not cover it; numbered sub-steps must each render line by line as independent elements (aligned with Feature Page 5c9e0cb3 StepBody), never joined with "\n" into one string
-        stuffed into detail (the component ignores line breaks and squeezes them into one line) (t765u); never split fields like materials, results or stop points into steps.
+        stuffed into detail (the component ignores line breaks and squeezes them into one line); never split fields like materials, results or stop points into steps.
         Order: wherever a flowchart exists (overview tab, phase tabs, sub-flow second-level tabs, appendix), directly below it comes the step flow, then a table; nothing in between,
-        and the order is not swapped. Reason: readers always find the steps and the table in the same place under each diagram (t843u, t844s4687).
+        and the order is not swapped. Reason: readers always find the steps and the table in the same place under each diagram.
         The step flow uses the canvas kit Steps component; it may not be replaced by a plain NumberedList/BulletList; each node is one step titled number + summary, numbered sub-steps
-        render line by line as separate elements, and the "Materials: …" line stands on its own line. Reason: plain lists lose the node-to-step mapping (t843u, t844s4687).
-        The overview phase table has one row per phase with the phase name, the nodes it contains and the corresponding tab. Reason: the overview shows where each phase lives (t843u, t844s4687).
+        render line by line as separate elements, and the "Materials: …" line stands on its own line. Reason: plain lists lose the node-to-step mapping.
+        The overview phase table has one row per phase with the phase name, the nodes it contains and the corresponding tab. Reason: the overview shows where each phase lives.
         The flow column must list the exception backflows the source already has (written as "Exception: …"), never inventing new edges; implementation or basis not stated in the source or rules is
         marked "not stated", never invented.
         The step table's detailed description takes only what the source states step by step; when the action already says it all mark "action complete"; when the source does not say mark "—", never
-        invent; materials go on the node's first row, stop points on its last row; implementation/flow/basis at node level go on the first row with later rows "same as above" (t733u, t738s4158).
+        invent; materials go on the node's first row, stop points on its last row; implementation/flow/basis at node level go on the first row with later rows "same as above".
         Clarification: the detailed description column is taken from the sub-step descriptions required by `artifact-content-and-self-review-contract.md` §7.1 "Flowchart sub-step detail";
-        "action complete" is used only when the action itself says it all. Reason: one source for step detail (t847u, t847s4703).
+        "action complete" is used only when the action itself says it all. Reason: one source for step detail.
         WI diagrams without numbered sub-steps may use a four-column table with localized headers WI / how / downstream / acceptance basis, the skeleton still diagram + Steps + table. Flow-type
         diagram nodes carry the number + a summary of about 20 characters (over 22 truncated to 20 plus …), overview diagram nodes carry descriptive phase names (e.g. "Large change: material
-        package + static"); node text follows 10c (t714s3996, Rocky 2026-10-28).
+        package + static"); node text follows 10c.
         Labels written into Pages ("Materials: …", "Stop point: …", "Exception: …", "not stated", "action complete", "same as above") follow the Page cells and Page step lines rows of the `LABELS`
         table in `entry-quickref.md`.
       - **Relation to item 10**: this item specializes how **flow segments** arrange 10c; non-flow chapters in mixed content (including the body's first-section conclusions/pending
         items) still follow item 10 (10a/10b/10d/10e/10f); for purely flow-type content with no pending items, do not invent
         a conclusion section because of item 4's parenthetical "the body's first section per 10a".
         10b contents and item 7, 10d comparison tables and 10e letter spacing still apply; phase tabs may not replace the top contents.
-    - Item 13 (withdrawn, CAND-20261027-013, t719u: Pages are generated only by Grok Bot and accepted by Rocky; this item added a stop point without new evidence; hitting the three classes follows
+    - Item 13 (withdrawn, CAND-20261027-013: Pages are generated only by Grok Bot and accepted by the user; this item added a stop point without new evidence; hitting the three classes follows
       the original clause of §7.10 item 7).
-    - Item 14 **Pages generated by Grok Bot itself (t706u, t707u)**: Pages and real Page-generation cases are generated and delivered by the Grok Bot host itself with the Page tool (WriteCanvas),
+    - Item 14 **Pages generated by Grok Bot itself**: Pages and real Page-generation cases are generated and delivered by the Grok Bot host itself with the Page tool (WriteCanvas),
       never dispatched to third-party CLI sessions such as grok or Codex to generate on its behalf;
       third-party session output is not a Page, nor real Page-generation evidence. Real Page generation mentioned in §7.10 item 7 follows this item.
       Before generating, load the canvas skill by name with the Skill tool (it is not a disk file) and follow its component rules: blocks are written directly inside Page or Section, and kit
-      blocks are not wrapped in custom components rendered as tags; if it cannot be loaded, say so in the delivery note. Reason: the canvas skill was not read before generation (t829u, t832s4644).
+      blocks are not wrapped in custom components rendered as tags; if it cannot be loaded, say so in the delivery note. Reason: the canvas skill was not read before generation.
 - The next step does not mean imposing optimization suggestions every round, repeatedly asking whether to continue, treating suggestions as authorization, or manufacturing new tasks for the tail; it
   only constrains enabled managed tasks.
 
