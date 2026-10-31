@@ -1,3 +1,12 @@
+## 0.2.9 — Verified recommendations, narrow restore and re-clone after instance change, merge-method card (2026-10-31)
+
+- `confirmation-authorization-and-change.md` "Pending decisions must carry a recommendation": new paragraph "Verify premises and reasonableness before recommending;
+  no blind picks": options and a recommendation are always given; premises (timing, frequency, scale, phase progress) are verified and reasonableness checked first; the
+  reason states reasonableness, necessity, benefit and the verified premises; an unverifiable premise is settled first, with no new exception. Rocky t167u, t170u, t171u;
+  release approval card t172s994.
+- `workspace-versioning-and-recovery.md` §9.8: "Pre-authorized narrow restore" (commit a6810a3) and "Broken empty-remote clone" (commit d754b0f).
+- `confirmation-authorization-and-change.md` §6.6 "Merge method before an integration-to-release merge" (commit 8ab203e).
+
 ## 0.2.8 — End-to-end Auto card, host-native parallel config, review intensity (2026-10-28)
 
 - New reference `end-to-end-auto-card.md` (pointer `confirmation-authorization-and-change.md` §6.3.2): Auto form (ii), an end-to-end Auto card with ten required keys,

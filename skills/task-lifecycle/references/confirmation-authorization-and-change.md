@@ -54,6 +54,12 @@ its user configuration
      Exception: when SKILL.md §3 "Disambiguate first" only asks for the referent and nothing can be ranked, options must still be listed, but per-item suggestions, a recommended option and the
      recommendation label are not required.
      Recommendations and per-item suggestions are only suggestions, not approval; the user must still answer each item explicitly (as item 4, §6.3.1).
+     **Verify premises and reasonableness before recommending; no blind picks** (Rocky t167u, t170u, t171u): options and a recommendation are always
+     given. Before marking any option recommended, verify the premises the recommendation depends on, such as timing, frequency, scale or phase progress,
+     and check that it is reasonable in the actual current situation. The recommendation reason says why this option: its reasonableness, necessity
+     and benefit (and cost where relevant), plus the premises it rests on and that they were verified; a bare label without these counts as a blind pick.
+     A premise that cannot yet be verified is settled first, asking the user when needed, and the card with the recommendation follows;
+     this adds no exception to "must carry a recommendation" above.
    - **Pending decisions preferably use a choice widget** (CAND-20261026-003 v5, 0.1.47; governs presentation only, not approval semantics): applies when a managed reply has decided to ask the
      trusted current user to confirm or decide and the options are finite and enumerable;
      not applicable to the §0 light path, purely open questions (names, numbers, etc., where typing is allowed), or pure notices; a dispatched session (as the SKILL.md §0 receiver gate) sends no
