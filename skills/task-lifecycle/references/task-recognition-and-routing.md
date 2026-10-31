@@ -134,6 +134,8 @@ existing tests, Git HEAD/dirty, accessible docs and build/CI conventions, produc
      user explicitly limited reading to certain files, out-of-scope items need not be listed.
    - Review/assessment (code, PR, plan, managed artifacts): per the method of `formal-review-and-findings.md`, lock the reviewed version, list check items, one round of consolidated discovery,
      dedupe by root cause; before characterizing behavior as a defect/root cause apply "Verify before characterizing" in `bugfix-flow.md`; unverified is marked only "inferred".
+   - **Scope before review**: when the user asks to review code or a project without a clear scope, first offer the scope as an option card (for example full
+     file-by-file, core modules only, or chosen dimensions) instead of silently spot-checking; the report lists the files actually read and those not read.
    - Re-review until convergence: per §7.5–7.6 of that file and its execution-order subsection, re-review only the affected scope, verify closure against the original pass criteria, and stop and
      report when there is no substantive progress.
    - Project analysis (to prepare or scope real development work): produce the minimal fact list of §4.2; defect judgments in it also apply "Verify before characterizing".

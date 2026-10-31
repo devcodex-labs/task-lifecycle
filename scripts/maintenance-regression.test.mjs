@@ -682,3 +682,9 @@ test('T119 independent work starts at once, not held for unrelated wrap-up',()=>
   assert.ok(t.includes('**Start independent work at once**'));
   assert.match(t,/never held back until unrelated wrap-up finishes, and any pause names the dependency or gate it waits on\./);
 });
+
+test('T120 review without clear scope offers scope options first and reports read coverage',()=>{
+  const t=rdN(REF+'task-recognition-and-routing.md');
+  assert.ok(t.includes('**Scope before review**'));
+  assert.match(t,/instead of silently spot-checking; the report lists the files actually read and those not read\./);
+});

@@ -1,5 +1,7 @@
 ## Unreleased
 
+- `task-recognition-and-routing.md`: new "Scope before review": a review request without a clear scope first gets a scope option card (full, core modules,
+  dimensions) instead of silent spot checks, and the report lists files read and not read. Test T120.
 - `task-split-parallel-and-integration.md`: new "Start independent work at once" under the parallel admission judgment: work with met dependencies that waits on
   no other item starts right away (parallel when eligible, otherwise next in series), is never held for unrelated wrap-up, and any pause names its dependency or gate. Test T119.
 
