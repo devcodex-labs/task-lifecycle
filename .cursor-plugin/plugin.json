@@ -1,6 +1,6 @@
 {
   "name": "task-lifecycle",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "description": "An intent-triggered, Markdown-first lifecycle for governed Feature, Bugfix, and Docs work, with human approval, review evidence, and safe recovery.",
   "author": {
     "name": "Rocky Shi",

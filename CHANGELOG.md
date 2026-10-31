@@ -1,4 +1,4 @@
-## Unreleased
+## 0.2.15 — De-name rule text (2026-11-01)
 
 - De-naming: rule text under `skills/task-lifecycle/` and `docs/` no longer names a person or carries message, card or dated attributions; "Rocky" became
   "the user" with grammar fixed and meaning unchanged. `formal-review-and-findings.md` §7.10 item 7 "Citations": new "Sources outside rule text" (sources are
