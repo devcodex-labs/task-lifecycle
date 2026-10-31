@@ -230,6 +230,17 @@ than triggering a question or switching mode automatically from the phrase alone
 - New product trade-offs, scope changes, agreed final acceptance and operations the user explicitly excluded are handled separately; valid decisions within the task are not requested again. Ordinary
   reports and the four read-only completion conditions follow §6.2 and routing §4.3.
 
+**Mode card at fixed points** (Rocky t179s1106, CAND-20261031-001): a managed task still in Confirm gets one mode card at each of these two points, so the user never has to ask:
+- (a) **After A02**: when A02 becomes `human-confirmed` and the task is still Confirm, send one mode card proactively, before the next phase starts.
+- (b) **On "auto" wording**: when the user, in Confirm, says "auto", "go with the recommendations", "stop asking" or similar, send the same card; for such wording in Confirm
+  this takes precedence over the first two bullets above and SKILL.md §0 item 2. Never turn the wording into an informal "adopt recommendations automatically".
+- The card has four options: keep Confirm; task-level Auto (form (i)); end-to-end Auto card with `noStop: false`; end-to-end Auto card with `noStop: true`.
+  Each option states what it does and costs, and the card carries a recommendation per "Verify premises and reasonableness before recommending".
+  The end-to-end options are offered only when A01 and A02 are both `human-confirmed` (`end-to-end-auto-card.md` section 1); before that, (b) offers the first two.
+- Only the option picked on the card is an Auto source; the wording itself never is (`task-recognition-and-routing.md` Kickoff card). Until the user picks, Confirm
+  stays and only actions depending on the choice pause. Picking an end-to-end option continues with `end-to-end-auto-card.md`.
+- One card per point: a declined or dismissed card is not re-sent at (a); a later (b) wording shows it again. Valid Auto is never asked again.
+
 **Same-authorization no-repeat-approval protocol**: before each intended approval request, compare
 `Task ID + Artifact/Plan ID + SHA/version of the body read + Decision Scope + trusted user decision/authorization source + valid upstream/risk changes`;
 - if currently executing **the existing check scope of the same approved plan**, generating a temporary draft with no independent effect duty, or doing ordinary self-review/same-root correction

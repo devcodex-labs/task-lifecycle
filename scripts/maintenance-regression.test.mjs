@@ -630,3 +630,10 @@ test('T111 LABELS rows for the card, records and review intensity match the CJK 
   const qn=q.replace(/\s+/g,' ');for(const x of ["Additive (FEAT-20261028-001): Auto form (ii), the end-to-end Auto card", "(parallel)\" at the end of `task-split-parallel-and-integration.md`; re"])assert.ok(qn.includes(x),x);
   assert.match(q.replace(/\s+/g,' '),/Exception \(D30\): the three end-to-end Auto record files auto-decisions\.md, suspended-items\.md and endpoint-report\.md \(including numbered copies endpoint-report-<n>\.md\) keep these fixed English names in every conversation language/);
 });
+test('T112 skill VERSION file matches plugin.json; mode card at fixed points (CAND-20261031-001)',()=>{
+  const ver=JSON.parse(fs.readFileSync(path.join(root,'plugin.json'),'utf8')).version;
+  assert.equal(fs.readFileSync(path.join(root,'skills/task-lifecycle/VERSION'),'utf8'),ver+'\n');
+  const c=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/confirmation-authorization-and-change.md'),'utf8').replace(/\s+/g,' ');
+  for(const x of ['**Mode card at fixed points** (Rocky t179s1106, CAND-20261031-001)','(a) **After A02**','(b) **On "auto" wording**','Only the option picked on the card is an Auto source'])assert.ok(c.includes(x),x);
+  assert.ok(fs.readFileSync(path.join(root,'skills/task-lifecycle/references/entry-quickref.md'),'utf8').includes('| 2 Mode card |'));
+});

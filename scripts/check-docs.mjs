@@ -16,6 +16,7 @@
 //   (g) no CJK in skills/task-lifecycle/**/*.md, docs/**/*.md and CHANGELOG.md, except exact literals listed in scripts/cjk-allowlist.json
 //       (each entry scoped to its files, with bucket and reason); allowlist entries no longer found in their files also fail.
 //   (e) README consistency (M-12): README.md and README.zh-CN.md have the same heading-level sequence; both badge versions = plugin.json version.
+//   (h) skills/task-lifecycle/VERSION exists and its single line = plugin.json version = .cursor-plugin/plugin.json version (Rocky t181s1118).
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -71,6 +72,11 @@ if (fs.existsSync(path.join(root, 'plugin.json')) && fs.existsSync(path.join(roo
     if (!m || m[1] !== ver) errors.push(`${path.relative(root, f)}: version badge ${m ? m[1] : 'missing'} ≠ plugin.json ${ver}`);
   }
   if (fs.existsSync(zh) && heads(en).join() !== heads(zh).join()) errors.push(`README.md and README.zh-CN.md heading-level sequences differ`);
+  const vf = path.join(root, 'skills/task-lifecycle/VERSION');
+  const vv = fs.existsSync(vf) ? fs.readFileSync(vf, 'utf8').replace(/\r?\n$/, '') : null;
+  if (vv !== ver) errors.push(`skills/task-lifecycle/VERSION: ${vv === null ? 'missing' : JSON.stringify(vv)} ≠ plugin.json ${ver}`);
+  const cp = path.join(root, '.cursor-plugin/plugin.json');
+  if (fs.existsSync(cp)) { const cv = JSON.parse(fs.readFileSync(cp, 'utf8')).version; if (cv !== ver) errors.push(`.cursor-plugin/plugin.json: version ${cv} ≠ plugin.json ${ver}`); }
 }
 try {
   const entry = path.join(skillRoot, 'SKILL.md');

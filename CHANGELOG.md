@@ -1,3 +1,12 @@
+## 0.2.10 — Mode card at fixed points, skill VERSION file (2026-10-31)
+
+- `confirmation-authorization-and-change.md` §6.3.2: new "Mode card at fixed points": a task still in Confirm gets one mode card (Confirm, task-level Auto,
+  end-to-end card `noStop: false`, end-to-end card `noStop: true`, with a recommendation) after A02 is `human-confirmed` and whenever the user says "auto" or similar;
+  for such wording this takes precedence over "never re-asking because of wording"; only the card choice is an Auto source. `entry-quickref.md` row "2 Mode card".
+  Candidate CAND-20261031-001 (Rocky t179s1106).
+- New `skills/task-lifecycle/VERSION` so installed copies show their version; `check-docs.mjs` check (h) keeps it equal to both plugin.json files. Regression test T112.
+- Release approval card t181s1118.
+
 ## 0.2.9 — Verified recommendations, narrow restore and re-clone after instance change, merge-method card (2026-10-31)
 
 - `confirmation-authorization-and-change.md` "Pending decisions must carry a recommendation": new paragraph "Verify premises and reasonableness before recommending;
