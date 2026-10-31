@@ -1,3 +1,10 @@
+## Unreleased
+
+- `confirmation-authorization-and-change.md` §6.6: new paragraph "Default merge method for integration -> release branches": default (c) squash then
+  no-file-change merge-back, no per-merge card; precondition check with a card fallback (former options and a recommendation), release-branch content never
+  silently discarded; squash and merge-back commit IDs recorded; first adoption resets the base with push authorization. CAND-20261029-003 (Rocky t193s1228);
+  approval card t202s1271 (commit and push only, no version bump). Regression test T114.
+
 ## 0.2.11 — Self-write reconciliation after compaction (2026-10-31)
 
 - `workspace-versioning-and-recovery.md` §9.4: new trigger-chain step "self-write reconciliation" and paragraph "Self-write reconciliation and reply order after

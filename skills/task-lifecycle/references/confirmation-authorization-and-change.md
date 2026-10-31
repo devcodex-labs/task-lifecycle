@@ -297,6 +297,17 @@ chosen for the case at hand and states each option's cost. Default options:
 Reason: a release branch built by earlier squash merges keeps a stale merge base, so another squash can report many false conflicts.
 Pushing the release branch still needs the real user's own authorization, as before.
 
+**Default merge method for integration -> release branches (Rocky t193s1228, t202s1271, CAND-20261029-003)**: this paragraph takes precedence over the
+per-merge card above. Default is (c): squash-merge the integration branch into the release branch (names from the host's local convention, e.g. `sit` into
+`master`), then merge the release branch back into the integration branch with a merge commit that changes no file and only records the merge base.
+- No merge-method card is sent before such a merge. Pushing either branch still needs the real user's own authorization, unchanged.
+- Precondition and fallback: before the squash, verify the release branch holds no content the integration branch lacks (a diff from the integration
+  branch to the release branch shows nothing outside the integration branch). If it does, or the merge-back would have to drop or change a file, stop and
+  send the user one card with the former options (a), (b), (d) above with their costs and a recommendation; never discard release-branch content silently.
+- Record the squash commit and the merge-back commit IDs in the task record.
+- First adoption: while the merge base is still the old one, run the precondition check, then one no-file-change merge-back to reset the base before the
+  squash; that merge-back pushes the integration branch, so it needs the real user's push authorization.
+
 ---
 
 ### 5.5 Phase errors, stopping and recovery

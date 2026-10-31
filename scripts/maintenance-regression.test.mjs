@@ -644,3 +644,7 @@ test('T113 self-write reconciliation after compaction and sub-task written-file 
   const t=n('skills/task-lifecycle/references/task-split-parallel-and-integration.md');
   assert.ok(t.includes("A sub-task's return report lists every file it wrote")&&t.includes('a mismatch blocks acceptance until explained (CAND-20261031-002)'));
 });
+test('T114 default merge method (c) for integration -> release branches with precondition fallback (CAND-20261029-003)',()=>{
+  const c=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/confirmation-authorization-and-change.md'),'utf8').replace(/\s+/g,' ');
+  for(const x of ['**Default merge method for integration -> release branches (Rocky t193s1228, t202s1271, CAND-20261029-003)**','No merge-method card is sent before such a merge.','never discard release-branch content silently','Record the squash commit and the merge-back commit IDs in the task record.','First adoption: while the merge base is still the old one'])assert.ok(c.includes(x),x);
+});
