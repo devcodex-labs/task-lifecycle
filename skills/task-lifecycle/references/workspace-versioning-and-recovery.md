@@ -242,9 +242,17 @@ Trigger: new session / observable compaction / client restart / told of host swi
   -> re-read the confirmed original requirements/Usage Contract/technical design/implementation plan and confirmation records the current action depends on
   -> check applicable content, version/hash, real approval source, current task mode and permissions
   -> check project Git HEAD/dirty, actual files, tool results and pending external side effects
+  -> self-write reconciliation: from file mtimes, git status/diff, the task record and own tool/command log, list files and side effects
+     this session or sub-task produced since the last trusted point; compare item by item with what you remember; an unexplained write
+     inside the task's write scope and time window is first investigated as possibly your own before it may be reported as external
   -> judge which reviews/tests/approvals have expired and what needs local re-execution
   -> resume affected writes/formal acceptance only with legal conditions, otherwise read-only and gather evidence
 ```
+
+**Self-write reconciliation and reply order after compaction (Rocky t185u, t187s1164, CAND-20261031-002)**: recovery is complete only when each listed write
+or side effect is matched or marked unknown with evidence; until then work stays read-only. An unexplained write inside the task's write scope and time window
+is first investigated as possibly the session's or sub-task's own and may not be reported as external until checked. With a waiting user, after compaction or
+resume the first action is still the reply/pre-check required by SKILL.md §4; the recovery check follows it and never delays or replaces it.
 
 Long originals need **segmented reading of all applicable valid constraints** with the read range recorded; never "fill in" unread originals from a summary because one message's context is
 insufficient. In a normal continuous session with originals proven unchanged, only check relevant identity/version, avoiding full re-reads at every step.

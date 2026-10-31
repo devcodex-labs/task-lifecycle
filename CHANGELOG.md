@@ -1,3 +1,13 @@
+## 0.2.11 — Self-write reconciliation after compaction (2026-10-31)
+
+- `workspace-versioning-and-recovery.md` §9.4: new trigger-chain step "self-write reconciliation" and paragraph "Self-write reconciliation and reply order after
+  compaction": list own writes and side effects since the last trusted point from mtimes, git status/diff, the task record and tool log; recovery completes only
+  when each is matched or marked unknown with evidence (read-only until then); an unexplained write in scope is first checked as possibly one's own; with a waiting
+  user the reply/pre-check still comes first. Candidate CAND-20261031-002 (Rocky t185u).
+- `task-split-parallel-and-integration.md` "Execute item by item" item 5: sub-task return reports list written files (path + SHA-256) and side effects; the main
+  session spot-checks consumed files against real mtime/SHA before accepting. Regression test T113.
+- Release approval card t187s1164.
+
 ## 0.2.10 — Mode card at fixed points, skill VERSION file (2026-10-31)
 
 - `confirmation-authorization-and-change.md` §6.3.2: new "Mode card at fixed points": a task still in Confirm gets one mode card (Confirm, task-level Auto,

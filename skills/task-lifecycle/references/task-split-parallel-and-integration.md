@@ -54,6 +54,9 @@ feature branches, switch the current branch or automatically create worktrees fo
    authorized scope, do not approve root-task objects themselves, and cannot inherit unlimited Auto permission.
 5. Before accepting sub-task results, re-read the current requirement/source, check late cancellation/version invalidation, shared write conflicts, the real diff and consumers; after legal
    integration run the necessary overall regression; local green does not mean global completion.
+   A sub-task's return report lists every file it wrote (path + SHA-256 of final bytes, or path + mtime + diff summary when not computable, per
+   `artifact-content-and-self-review-contract.md` item 5) and every external side effect; before accepting, the main session spot-checks at least the files
+   it consumes against real mtime/SHA, and a mismatch blocks acceptance until explained (CAND-20261031-002).
 **Execution exits for pause/cancel/late results (REQ-063)**: when the root task scope, upstream contract or a user pause changes substantively, immediately freeze the affected dependency chain and
 its candidates;
 - for still-running sub-tasks, attempt `cancel` where **the current host actually provides it and current permissions allow it**, recording the request and actual return (failure/unknown result also

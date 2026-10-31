@@ -637,3 +637,10 @@ test('T112 skill VERSION file matches plugin.json; mode card at fixed points (CA
   for(const x of ['**Mode card at fixed points** (Rocky t179s1106, CAND-20261031-001)','(a) **After A02**','(b) **On "auto" wording**','Only the option picked on the card is an Auto source'])assert.ok(c.includes(x),x);
   assert.ok(fs.readFileSync(path.join(root,'skills/task-lifecycle/references/entry-quickref.md'),'utf8').includes('| 2 Mode card |'));
 });
+test('T113 self-write reconciliation after compaction and sub-task written-file report (CAND-20261031-002)',()=>{
+  const n=p=>fs.readFileSync(path.join(root,p),'utf8').replace(/\s+/g,' ');
+  const w=n('skills/task-lifecycle/references/workspace-versioning-and-recovery.md');
+  for(const x of ['-> self-write reconciliation: from file mtimes','**Self-write reconciliation and reply order after compaction (Rocky t185u, t187s1164, CAND-20261031-002)**','the recovery check follows it and never delays or replaces it'])assert.ok(w.includes(x),x);
+  const t=n('skills/task-lifecycle/references/task-split-parallel-and-integration.md');
+  assert.ok(t.includes("A sub-task's return report lists every file it wrote")&&t.includes('a mismatch blocks acceptance until explained (CAND-20261031-002)'));
+});
