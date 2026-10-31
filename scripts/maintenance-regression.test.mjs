@@ -676,3 +676,9 @@ test('T118 de-naming: rule text names no person and carries no message ids; sour
   }
   assert.ok(rdN(REF+'formal-review-and-findings.md').includes("**Sources outside rule text**: rule text names no person and carries no message ids, card ids or dated attributions;"));
 });
+
+test('T119 independent work starts at once, not held for unrelated wrap-up',()=>{
+  const t=rdN(REF+'task-split-parallel-and-integration.md');
+  assert.ok(t.includes('**Start independent work at once**'));
+  assert.match(t,/never held back until unrelated wrap-up finishes, and any pause names the dependency or gate it waits on\./);
+});

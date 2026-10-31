@@ -1,3 +1,8 @@
+## Unreleased
+
+- `task-split-parallel-and-integration.md`: new "Start independent work at once" under the parallel admission judgment: work with met dependencies that waits on
+  no other item starts right away (parallel when eligible, otherwise next in series), is never held for unrelated wrap-up, and any pause names its dependency or gate. Test T119.
+
 ## 0.2.15 — De-name rule text (2026-11-01)
 
 - De-naming: rule text under `skills/task-lifecycle/` and `docs/` no longer names a person or carries message, card or dated attributions; "Rocky" became

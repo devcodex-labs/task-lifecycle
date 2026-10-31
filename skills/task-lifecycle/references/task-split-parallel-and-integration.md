@@ -349,6 +349,8 @@ estimate supported by project facts** outweighs the extra context, coordination,
 - shared config, lockfiles, approval ledgers, the same site navigation/database/port etc. without reliable isolation must be `serial-required`. Without capability or with unclear benefit, start no
   fictional sub-Agents or independent processes.
 - Additive (FEAT-20261028-001): the optional host-native `parallel` config narrows this judgment and never widens it; see "Host-native parallel config (parallel)".
+- **Start independent work at once**: work whose dependencies are met and that waits on no other item's result starts right away, in parallel when the conditions
+  above hold and otherwise next in series; it is never held back until unrelated wrap-up finishes, and any pause names the dependency or gate it waits on.
 
 **Four parallel admission states and failure exits**:
 
