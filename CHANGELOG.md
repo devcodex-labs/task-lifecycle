@@ -1,4 +1,4 @@
-## Unreleased
+## 0.2.16 — Independent work starts at once, review scope first, sit scope approval, decision write-back (2026-11-01)
 
 - `verification-and-evidence-routing.md` item 7: new "Exception for shared test environments": re-tests on a shared test environment such as `sit` that
   create drafts or other side effects start only after the user approves their scope; the one per-operation approval in item 7. Test T121.
