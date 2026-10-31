@@ -1,4 +1,4 @@
-## Unreleased
+## 0.2.13 — Intent-based immediate rule absorption (2026-10-31)
 
 - `formal-review-and-findings.md` §7.10 item 7: new "Intent-based immediate absorption" (Rocky t250u, t251u, t252u): rules Rocky sets or corrects are written,
   committed and pushed the same day with no confirmation card; one question only for conflict, one-off vs standing, or Yingnuo repos/tags/releases/host installs;
