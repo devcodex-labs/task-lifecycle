@@ -632,7 +632,7 @@ test('T111 LABELS rows for the card, records and review intensity match the CJK 
 });
 test('T112 skill VERSION file matches plugin.json; mode card at fixed points (CAND-20261031-001)',()=>{
   const ver=JSON.parse(fs.readFileSync(path.join(root,'plugin.json'),'utf8')).version;
-  assert.equal(fs.readFileSync(path.join(root,'skills/task-lifecycle/VERSION'),'utf8'),ver+'\n');
+  assert.match(fs.readFileSync(path.join(root,'skills/task-lifecycle/VERSION'),'utf8'),new RegExp('^'+ver.replace(/\./g,'\\.')+'\\r?\\n$'));
   const c=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/confirmation-authorization-and-change.md'),'utf8').replace(/\s+/g,' ');
   for(const x of ['**Mode card at fixed points** (Rocky t179s1106, CAND-20261031-001)','(a) **After A02**','(b) **On "auto" wording**','Only the option picked on the card is an Auto source'])assert.ok(c.includes(x),x);
   assert.ok(fs.readFileSync(path.join(root,'skills/task-lifecycle/references/entry-quickref.md'),'utf8').includes('| 2 Mode card |'));
