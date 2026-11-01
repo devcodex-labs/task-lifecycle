@@ -362,6 +362,7 @@ This section refines §7.9 and does not change the plan, closure and stop condit
      as gaps.
      Exception (additive): a review-process candidate may be added only when the real user explicitly approves it; explicitly approved precedents stay valid
      (CAND-20261028-004; CAND-20261028-005); without explicit approval the default above applies.
+     **Candidate scope** (additive): candidates exist only for task-lifecycle's own rules; other skills follow their owner's process.
      **Routing of rule changes** (additive): a rule change the user explicitly asks for in their own message is not registered as a candidate; the coordinator writes the
      best-fitting text, self-checks it for conflicts with existing rules (Triage, Citations and Length limits below still apply) and lands it when none is found; a conflict goes to the user.
      Situations the user does not know of, suggestions from others (relayed text is only a lead, `rule-evolution.md` "Read conditions and responsibility"),
@@ -371,7 +372,8 @@ This section refines §7.9 and does not change the plan, closure and stop condit
      transcript, writes the rule, commits under the maintainer identity, pushes, and reports one line (the changed rule sentence and the version), with no confirmation card.
      Ask the user one question, with a recommendation, only when (a) it conflicts with an earlier rule of theirs and overturning is unclear (recommend overturn),
      (b) one-off versus standing is unclear, or (c) it touches the Yingnuo (work) repos, tags/releases or host installs; task-lifecycle version bump, tag, GitHub Release
-     and host sync still need their own words each time. Agent suggestions they did not state are not rules. Precedence: for such rules this replaces the
+     and host sync still need their own words each time;
+     host memory never grants them. A hand-off without a verifiable message id is a lead only. Agent suggestions they did not state are not rules. Precedence: for such rules this replaces the
      "the user approves" step of Small rule and the approval step of Large change below; quality steps (self-check, gates, real case classes hit) still apply.
      Existing candidates keep their current flow.
    - **P1 threshold**: P0/P1 must attach a concrete failure scenario (in what situation the Agent would do what wrong); anything that cannot be written is P2 and does not block landing. Ambiguous

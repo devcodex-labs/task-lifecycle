@@ -1,3 +1,21 @@
+## Unreleased
+
+- Host-default conflict audit v3 fixes. `SKILL.md`: new "Precedence over host defaults" (rules override host card style, lead-with-answer style,
+  automatic memory and time labels; host defaults apply only where the rules are silent); description adds loading triggers (before a card or
+  message, editing or committing, creating a routine, writing memory); host permission is only the outer limit; host entry format only where the
+  rules say nothing; the "Bugs/suggestions" reference now points to `artifact-content-and-self-review-contract.md`.
+- `confirmation-authorization-and-change.md`: new "Option-card rule in every turn" (one question per card, every option with a description and
+  one tier Recommended / Optional / Not recommended, reason above the card); multi-step widgets removed. `task-recognition-and-routing.md`:
+  "Review intensity" is its own single-question card. `entry-quickref.md`: Chinese tier labels renamed to match the conventions tier names.
+- `workspace-versioning-and-recovery.md`: commit identity from facts/user.md or conventions plus the repository's existing email (no hardcoded
+  address); a probe is declared only by the user or a box file outside the repository, never host memory; a bot-level reply-language convention
+  is a valid override. `rule-evolution.md`: memory never grants push, release, tag or marketplace permission; host record location must be
+  outside the repository. `formal-review-and-findings.md`: candidates exist only for task-lifecycle's own rules; a hand-off without a message id
+  is a lead only. `verification-and-evidence-routing.md`: inline table of contents at the top always; width rule overrides the kit's column default.
+- `docs/maintainer-baseline.md`: host installs carry the plugin version after an approved sync; full reviews are run by the maintainer bot itself.
+- Tests: new T131; T89, T110 area, README and dispatch-guard asserts updated to the new text. Guard relaxation: T103 gains an `AUDIT_V3` allowlist
+  of the 15 lines replaced by these fixes and no longer asserts that `SKILL.md` is unchanged since ecedaba.
+
 ## 0.2.19 — CHANGELOG test-number mapping, known-gaps rule-text recheck (2026-11-01)
 
 - Numbering note: "Fixes E4 T15" under 0.1.39 names case 15 of that E4 live test, not a regression test; no regression test carries that number.

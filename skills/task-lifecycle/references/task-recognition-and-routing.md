@@ -19,6 +19,7 @@ the user explicitly asks for review/re-review/pre-development project analysis (
 
 Managed 00 and its bounded read-only probes follow "Plan execution for phases and independent work items" in `task-split-parallel-and-integration.md`; with insufficient facts, first set purpose and
 boundary, then refine by real results. For language read the shared-context rule of `workspace-versioning-and-recovery.md`; never override the current task language with a fixed Chinese default.
+When a bot-level convention fixes the reply language, follow it.
 
 1. Accept only the current trusted user's real intent or explicit designation as a trigger;
    - first judge whether a "managed Task" is truly needed (substantive feature development/defect fix/docs revision, multi-step or needing review/verification/approval, continuing an existing
@@ -223,7 +224,7 @@ User explicitly starts or enters managed Feature/Bugfix/Docs by intent
 - Every tier stays under the §7.10 item 7 General review cap ("Recheck counts toward the cap"), P1 threshold and Instruction boundary; picking `strict` is the user naming
   relay. This is a per-task arrangement, not the former "review intensity tiers" that item 7 replaced.
 - Default follows the depth: `fast` → `light`, `standard` → `balanced`, `thorough` → `strict`, `custom` → `balanced`.
-- Kickoff card: a separate second question "Review intensity" with the default preselected; the first question is unchanged. Each option states its approximate review
+- Kickoff: "Review intensity" is its own single-question card sent after the first card, default marked recommended; the first card is unchanged. Each option states its approximate review
   count above and an approximate time per review taken from this project's recorded review durations, or "not estimated" when none exist; never invented.
 - The user may change the tier mid-task; a change applies only to later phases, never to finished ones. Not stored in `config.json`.
 - The task record writes `reviewIntensity` and `reviewIntensitySource`; under the end-to-end Auto card the tier is also recorded in the card confirmation event and an

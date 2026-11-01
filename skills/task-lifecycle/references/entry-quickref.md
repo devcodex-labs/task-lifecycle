@@ -20,7 +20,8 @@
 | 8a Cross-repo | Cross-repo sub-task hand-off or joint push | `task-split-parallel-and-integration.md` "Cross-repo sub-tasks and joint push" |
 
 **Action map**: create a task/write process files → re-read `workspace-versioning-and-recovery.md`; request or reuse approval → re-read `confirmation-authorization-and-change.md` (when the host has
-a widget, pending decisions use the choice widget first, see item 9);
+a widget, pending decisions use the choice widget first, see item 9;
+the widget is the host's, but card content follows conventions and the option-card rule of `confirmation-authorization-and-change.md`);
 classification, depth selection, pause/resume/cancel and other task operations → re-read `task-recognition-and-routing.md`;
 entering a concrete flow → load the flow file per the SKILL.md §2 table; reading delegation config (delegation, depth execution default, review host pool) → first run the validator fresh per
 "Delegation config" in `task-split-parallel-and-integration.md`;
@@ -62,7 +63,7 @@ translated.
 | Depth recommendation | recommended, not selected | 推荐，未选 |
 | Unchanged since last turn | same as last turn | 同上回合 |
 | Progress card (4 lines) | Phase / Done / Awaiting you ("none" if none) / Next | 阶段 / 已完成 / 待你决定（无则写“无”） / 下一步 |
-| Option marks | (recommended); Recommended / Optional / Not recommended; Other | （推荐）；建议采用 / 可选 / 不建议；其他 |
+| Option marks | (recommended); Recommended / Optional / Not recommended; Other | （推荐）；推荐 / 可选 / 不推荐；其他 |
 | Short reply code | D1=A, D2=B | D1=A，D2=B |
 | Code-name style example | Technical design (A03) | 技术方案（A03） |
 | Verification status | E4 tested / E3 static / unverified | E4 实测 / E3 静态 / 未验证 |
@@ -88,7 +89,7 @@ translated.
 | Endpoint report sections | Card identity / Completion / All auto-decisions / All suspended items / Actions not on the card or never allowed on a card, awaiting your own confirmation / Decisions you must make / Final acceptance entry | 卡身份 / 完成情况 / 全部 auto-decision / 全部挂起项 / 卡上未列或不可上卡、待你当时亲口确认的动作 / 需你做的决定 / 最终验收入口 |
 | Auto-decision record keys | id / phase / question / options / chosen / reason / affectedArtifacts / state / marker / decisionType / scope | 编号 / 阶段 / 取舍问题 / 选项及影响 / 采纳的推荐项 / 推荐理由 / 受影响的产物 / 状态 / 标记 / 决定类型 / 范围 |
 | Suspended item record keys | id / item / trigger / evidence / dependents / status / userChoice | 编号 / 受影响项 / 触发原因 / 证据与已试步骤 / 同样挂起的下游项 / 状态 / 需你做的决定 |
-| Review intensity (Kickoff card second question) | Review intensity; light / balanced / strict | 审查强度；轻 / 标准 / 严格 |
+| Review intensity (Kickoff follow-up card) | Review intensity; light / balanced / strict | 审查强度；轻 / 标准 / 严格 |
 
 `PHASE_NAMES` (plain-language phase names, SKILL.md §1; used with codes per the code-name style):
 

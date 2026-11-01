@@ -216,6 +216,8 @@ reasoning, stating files or snapshots read),
 automated checks (stating gates/tests run and results), real runs (stating host/session, cases and counts). When only static review or automated checks were done, write "not actually run", never
 "behavior verified" or "passed live testing"; a conclusion missing its method is incomplete.
 
+Any option card in any turn, managed or not, follows the option-card rule of `confirmation-authorization-and-change.md`.
+
 **Every substantive managed reply** (ending with the 4-line progress card of SKILL.md §4): first state the currently provable conclusion, then give the next step matching the actual state.
 - With valid authorization and able to continue, state the next action and proceed directly; when the user must decide, list the exact items, recommended choice and impact; when blocked give the
   missing evidence/permission and recovery path; when complete, deliver the result and remaining limits and end naturally. Applies to clarifications, plan explanations, execution progress, failures
@@ -261,6 +263,8 @@ automated checks (stating gates/tests run and results), real runs (stating host/
     - Item 7 **Page table of contents (Grok Bot host only)**: every report-type Page always shows a table of contents at the top, regardless of length (written with section anchors, mandatory); do
       not put a "↑ Contents" link beside each section heading. Acceptance looks at reading effect: the contents are always reachable, do not scroll away with the body, may stay beside the
       body in wide windows, and do not crowd the body in narrow windows.
+      **Inline contents override** (takes precedence over the reading-effect wording above and the kit's length threshold): always place an inline
+      TableOfContents at the top of the body, whatever the length; never a floating, sticky or side contents.
       **Component/host defaults suffice; do not hand-write fixed/observers/pixel calculations**: when the host or component provides a sidebar, drawer or current-section highlight use it directly;
       when not provided keep only the top contents, which is not non-compliant. Reference measured values (not an implementation duty): at window ≥ 968px the sidebar top 96px, left 24px, width
       200px, body yields 248px.
@@ -269,6 +273,7 @@ automated checks (stating gates/tests run and results), real runs (stating host/
       full) closest to that effect. Reference measured value (not an implementation duty): body max about 960px.
       **Width floor override**: takes precedence over item 8's "closest to that effect" and its ~960px reference: set every Page width to "wide"
       or "full", never "column"; on desktop the body must not be narrower than 1024px. Phones stay single-column, as expected.
+      This width rule overrides the canvas kit's column default for every Page.
       Exception (platform limit, not a choice): public pages.grok.bot links are capped at 960px by the platform (item 9 measurement), so they are exempt from the
       1024px floor. Sidebar contents threshold, both measurements kept with their sources: window >= 968px (item 7 measurement) and >= 1100px (the user's 2026-10-28
       test). Phones always use the inline top contents per items 7 and 10b.

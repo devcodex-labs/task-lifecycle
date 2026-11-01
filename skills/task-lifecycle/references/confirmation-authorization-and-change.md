@@ -8,7 +8,7 @@
 **Trigger**: any managed write, approval, mode switch, multiple objects, cross-session, permission escalation, formal plan invalidation or A10/B10/DOC10.
 
 **Sole responsibility**: Confirm/Auto content decisions, reuse of the same valid approval, exact version/scope/partial confirmation and change impact; operation permissions belong to the host and
-its user configuration
+its user configuration. Host permission is only the outer limit; the stop points of these rules still apply.
 
 **Direct consumers**: main Skill, all formal file gates, the three flows' phases, evolution promotion, the change loop.
 
@@ -66,12 +66,16 @@ its user configuration
      waiting to be asked; report only real, verified progress and never fabricated or estimated background progress.
      **Write decisions back at once**: when the user decides, write the decision into the governing rule or contract draft and the task's decision
      record in the same turn, before continuing; a decision only noted in chat is not recorded.
+   - **Option-card rule in every turn** (additive; managed or not, light path included): every option card sent in any turn asks exactly one question;
+     every option fills the widget's description field with a one-line description and exactly one tier Recommended / Optional / Not recommended
+     (`LABELS`); the reason is written in the message text above the card. The widget is the host's, but its content follows this rule and conventions.
+     Never use a multi-step widget; send one single-question card per decision.
    - **Pending decisions preferably use a choice widget** (CAND-20261026-003 v5, 0.1.47; governs presentation only, not approval semantics): applies when a managed reply has decided to ask the
      trusted current user to confirm or decide and the options are finite and enumerable;
      not applicable to the §0 light path, purely open questions (names, numbers, etc., where typing is allowed), or pure notices; a dispatched session (as the SKILL.md §0 receiver gate) sends no
      widget and writes pending items only into the final reply.
-     Tier by host-observable capability, writing capabilities not tool names: ① can click question by question (multi-step widget) → present with the widget, multiple decisions one step each; ② can
-     send only one question at a time → one question per turn;
+     Tier by host-observable capability, writing capabilities not tool names: ① or ② can send a single-question
+     widget → one single-question card per decision, never a multi-step widget;
      ③ cannot confirm a widget exists → fall back to numbered options, with short reply codes carrying the decision identity (e.g. "D1=A, D2=B", `LABELS`). In every tier: the recommended option
      comes first with "(recommended)", per-item suggestions and the recommendation reason are written in the body as above, not relying on the widget;
      when "Other" is needed, enable custom input if available, else leave one free-text entry after the options; while decisions are pending, the progress card "Awaiting you" line states the

@@ -43,7 +43,7 @@ test('delegation necessity triage only narrows (CAND-20261026-001 v7)', () => {
 test('pending decisions prefer option controls, presentation only (CAND-20261026-003 v5)', () => {
   const r = read('references/confirmation-authorization-and-change.md');
   assert.match(r, /Pending decisions preferably use a choice widget\*\* \(CAND-20261026-003 v5, 0\.1\.47; governs presentation only, not approval semantics\)/);
-  for (const k of ['can click question by question', 'one question per turn', 'short reply codes carrying the decision identity',
+  for (const k of ['one single-question card per decision', 'never a multi-step widget', 'short reply codes carrying the decision identity',
     'the recommended option\n     comes first with "(recommended)"', 'MERGED_OPTION_TEXT', 'free-text entry']) assert.ok(r.includes(k), k);
   assert.match(r, /all follow §6\.5, §6\.3\.1, items 4 and 5 and SKILL\.md §0 item 2/);
 });

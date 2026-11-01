@@ -35,7 +35,7 @@ What it can do depends on the tools and permissions your host provides.
 - **Three task flows**: Feature (stages `A01–A10`), Bugfix (`B01–B10`) and Docs (`DOC01–DOC10`).
 - **Confirm mode by default**: formal artifacts wait for your confirmation. Auto mode applies only to what you delegate.
 - **Depth on demand**: when a formal plan needs it, you choose `fast / standard / thorough / custom`. No depth skips required quality checks.
-- **Review intensity**: the start card also asks how reviews run, `light / balanced / strict` (default follows the depth). No tier skips a required gate.
+- **Review intensity**: a separate single-question card after the start card asks how reviews run, `light / balanced / strict` (default follows the depth). No tier skips a required gate.
 - **End-to-end Auto card (opt-in)**: after you confirm A01 and A02, one card can run A03–A07 with a `noStop` switch (default off). It can pre-authorize only a local
   commit; push, tag, release, plugin update, host-sync and final acceptance always stay with you.
 - **Honest evidence**: design or static checks are reported separately from real-environment evidence; nothing that was not run is marked as passed.

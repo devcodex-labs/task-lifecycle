@@ -8,7 +8,7 @@
 **Trigger**: when Feature/Bugfix/Docs really involve an HTTP API, the user asks about reusable request files, or a change affects API docs or regression.
 
 **Sole primary responsibility**: the off/suggest/generate policy for WebStorm/JetBrains `.http`, contract sync and verification of real request scope; operation permissions are still decided by the
-host, with no second approval system added
+host, with no second approval system added; host permission is only the outer limit and the stop points of these rules still apply
 
 **Direct consumers**: applicable A04–07, B03/06/07, DOC professional examples and PoC F/H/M.
 

@@ -213,7 +213,7 @@
    ]
   },
   {
-   "literal": "（推荐）；建议采用 / 可选 / 不建议；其他",
+   "literal": "（推荐）；推荐 / 可选 / 不推荐；其他",
    "bucket": "LABELS",
    "reason": "zh column of the bilingual LABELS table (D2)",
    "files": [
