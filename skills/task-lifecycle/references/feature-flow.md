@@ -160,6 +160,11 @@ the formal usage contract or full technical design may not be skipped. Optional 
   (Basis: confirmation-authorization-and-change.md "Execute item by item when applicable")
 - A01-6 Isolate suggestions from existing behavior: optional improvements not affecting the original goal are marked suggested-unapproved/rejected/deferred and do not enter WIs, code or acceptance
   criteria. (Basis: artifact-content-and-self-review-contract.md "Complete self-review and suggestion handling (REQ-003/006/007/043)")
+- A01-7 Source every requirement item (CAND-20261101-006, additive): every item in the requirement body and acceptance criteria names its confirmation
+  source: the user's source text, a summary the user confirmed, or a decision ID. Inferred or completion content without such a source goes only into a
+  "Pending confirmation" section and never into the body, WIs or acceptance criteria until the user confirms it.
+- A01-8 Exit boundary (CAND-20261101-007, additive): besides the table's exit condition, A01 exits only when every missing piece of the user's source
+  text is restored and the "Pending confirmation" section is empty; "no blocking findings in review or re-review" is never by itself an exit basis.
 
 **A02 Usage Contract**
 

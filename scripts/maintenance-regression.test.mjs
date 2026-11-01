@@ -795,3 +795,19 @@ test('T131 audit v3 fixes: single-question cards, tiers, card scope, precedence,
   // memory never grants release
   assert.ok(rdN(REF+'rule-evolution.md').includes('Memory never grants push, release, tag or marketplace permission'));
 });
+
+test('T132 CAND-20261101-006 A01 requirement items carry a confirmation source; unsourced inference goes to Pending confirmation',()=>{
+  const t=rdN(REF+'feature-flow.md');
+  assert.ok(t.includes('every item in the requirement body and acceptance criteria names its confirmation source: the user\'s source text, a summary the user confirmed, or a decision ID.'));
+  assert.ok(t.includes('"Pending confirmation" section and never into the body, WIs or acceptance criteria until the user confirms it.'));
+});
+test('T133 CAND-20261101-007 A01 exit needs restored source text and empty Pending confirmation; no-blocking review is not an exit basis',()=>{
+  const t=rdN(REF+'feature-flow.md');
+  assert.ok(t.includes('A01 exits only when every missing piece of the user\'s source text is restored and the "Pending confirmation" section is empty;'));
+  assert.ok(t.includes('"no blocking findings in review or re-review" is never by itself an exit basis.'));
+});
+test('T134 CAND-20261101-008 phase-closing decisions asked alone; bare acknowledgement never approves them',()=>{
+  const t=rdN(REF+'confirmation-authorization-and-change.md');
+  assert.ok(t.includes('**Phase-closing decisions are asked alone** (CAND-20261101-008, additive): a decision that closes a phase (finalizing an artifact, moving to the next phase) is always asked alone on one single-question card, never bundled in the same message with other pending items or requests;'));
+  assert.ok(t.includes('never approves such a decision, whatever the number of pending items;'));
+});

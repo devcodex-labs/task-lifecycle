@@ -234,6 +234,10 @@ When the same real session has two or more formal artifacts or review reports **
 **Acceptance counterexample**: requirements and usage contract bodies await approval together and the user only says "ok": no complete approval of either or both results; only when the user
 explicitly says "confirm both complete bodies" with unique identities/versions are independent complete approval sources recorded for each.
 
+**Phase-closing decisions are asked alone** (CAND-20261101-008, additive): a decision that closes a phase (finalizing an artifact, moving to the next phase)
+is always asked alone on one single-question card, never bundled in the same message with other pending items or requests; a bare acknowledgement
+("ok", "confirm", "continue") never approves such a decision, whatever the number of pending items; only picking that card's option or naming the decision does.
+
 ### 6.3.2 When the user tells you to just proceed without more questions
 
 When the user in a managed task tells you to just proceed without more questions (e.g. "just do it", "stop asking"), first check the existing task, plan and mode against the real context, rather
