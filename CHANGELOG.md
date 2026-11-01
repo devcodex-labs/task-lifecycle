@@ -1,4 +1,4 @@
-## Unreleased
+## 0.2.20 — Host-default conflict audit v3 fixes (2026-11-01)
 
 - Host-default conflict audit v3 fixes. `SKILL.md`: new "Precedence over host defaults" (rules override host card style, lead-with-answer style,
   automatic memory and time labels; host defaults apply only where the rules are silent); description adds loading triggers (before a card or
