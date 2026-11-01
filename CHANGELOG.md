@@ -1,3 +1,13 @@
+## 0.2.21 — A01 source and exit gates, solo phase-closing cards (2026-11-01)
+
+- `feature-flow.md` A01-7 (CAND-20261101-006): every requirement body and acceptance-criteria item names its confirmation source (user source
+  text, a user-confirmed summary, or a decision ID); unsourced inferred content goes only into a "Pending confirmation" section.
+- `feature-flow.md` A01-8 (CAND-20261101-007): A01 exits only when missing user source text is restored and "Pending confirmation" is empty;
+  "no blocking findings in review" is never by itself an exit basis.
+- `confirmation-authorization-and-change.md` §6.3.1 (CAND-20261101-008): phase-closing decisions are asked alone on one single-question card;
+  a bare acknowledgement ("ok", "confirm", "continue") never approves them.
+- Tests: new T132, T133, T134. All changes are additive.
+
 ## 0.2.20 — Host-default conflict audit v3 fixes (2026-11-01)
 
 - Host-default conflict audit v3 fixes. `SKILL.md`: new "Precedence over host defaults" (rules override host card style, lead-with-answer style,
