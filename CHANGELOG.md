@@ -1,4 +1,4 @@
-## Unreleased
+## 0.2.19 — CHANGELOG test-number mapping, known-gaps rule-text recheck (2026-11-01)
 
 - Numbering note: "Fixes E4 T15" under 0.1.39 names case 15 of that E4 live test, not a regression test; no regression test carries that number.
 - Numbering note: regression tests never named here by number: T43, T44, T49, T50, T51, T52, T61, T75, T76, T77, T78 (added with 0.1.44, commit 70708df);
