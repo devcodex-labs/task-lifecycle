@@ -44,6 +44,10 @@ Lists sections that still contain open or unverified items; line numbers drift w
 - "README acceptance boundary": 3 open items (historical).
 - "0.1.68 README review register": M-13 (P3), M-09 (P2 residue), M-02 (E4 unverified) open.
 - "Host support status": Cursor marked tested by owner decision D12.
+- Index update [2026-11-01], superseding the matching lines above: KG-016-02/03/04 closed (0.2.0 constants), KG-016-06 partly covered; 015 residue: cap
+  reached, 3 items open; 016/017: cap reached, 4 items open (over-cap procedure item closed; 016 r7 partly covered); 014: cap reached, 1 item open, partly
+  covered; 013 residue: F1 and F7 closed, F2 and F3 open; 0.1.56 moved candidates: 015 section D closed; 0.1.68 README: M-13 closed, M-09 and the M-02
+  residue open; global plugin isolation: open, partly covered in practice.
 - Note: the Page layout clause (`verification-and-evidence-routing.md`) is not split out for now; no new clauses before CI turns green (2026-10-27).
 
 ## Host support status (added 2026-10-27, in 0.2.2)
@@ -59,14 +63,20 @@ Lists sections that still contain open or unverified items; line numbers drift w
   REVIEW-20261026-017-CAND-016 r10 first leg-1.
 - open (KG-016-02, P2, first leg-2): “引号内的不算” [“text inside quotes does not count”] gives no quote glyphs (curly double quotes or corner brackets 「」); with an unclosed quote, whether the
   following text is inside quotes is unstated, so sentence count reads two ways. Source: same, r10 first leg-2.
+  Status: closed [2026-11-01] (covered by `QUOTE_PAIRS` in `skills/task-lifecycle/references/entry-quickref.md` line 172, 0.2.0).
 - open (KG-016-03, P2, second leg-1): a half-width “.” always breaks a sentence, so file names and versions in a claim (file.xlsx, v1.2) are cut into fragments
   without the matched word, causing wrong rejection. Source: same, r10 second leg-1.
+  Status: closed [2026-11-01] (covered by `SENTENCE_BREAKS` exception D2 in `skills/task-lifecycle/references/entry-quickref.md` lines 170-171
+  and SKILL.md §4: a half-width "." inside a number, path or code does not break; 0.2.0).
 - open (KG-016-04, P2, second leg-2): “编号” [“number”] does not settle digits vs “十” [“ten”]; dropping “部分” from “第10部分” or “第十一部分” [“part 10/11”] reads both as
   reject and not reject. Source: same, r10 second leg-2.
+  Status: closed [2026-11-01] (covered by `HEDGE_EXCLUSIONS` in `skills/task-lifecycle/references/entry-quickref.md` line 168: Arabic or Chinese numerals; 0.2.0).
 - open (KG-016-05, P2, second leg-3): matching is by substring, so “没有条件” [“no conditions”] and “组成部分” [“component”] still match “有条件” [“conditional”] and “部分”
   [“part”]; a relay that drops them is wrongly rejected. Source: same, r10 second leg-3.
 - open (KG-016-06, P2, second leg-4): the left/right boundary of “合为一句” [“merged into one sentence”] for command text and output excerpts is unstated; whether an
   upgrade sentence on either side of a full stop is excluded reads two ways. Source: same, r10 second leg-4.
+  Status: open, partly covered: SKILL.md §4 relay item 1 (0.2.0) states that a command from this session with its attached output excerpt plus the
+  attached claim count as one sentence and breaks inside do not split it; still unstated: where that merged sentence starts and ends relative to neighbours.
 - open (KG-016-07, P2, second leg-5): the object of “引号内的不算” is omitted: it can mean sentence breaks inside quotes do not break, or matched words inside quotes
   do not count. Source: same, r10 second leg-5.
 - open (KG-016-08, P2, second leg-7, raised from P3 to P2 at final check): “输出摘录（含报错）” [“output excerpt (incl. errors)”], the self-check “报错输出摘录”
@@ -76,6 +86,8 @@ Lists sections that still contain open or unverified items; line numbers drift w
   History: this entry inserted 4 lines after SKILL.md line 131, so the line this ledger's F3 entry called “SKILL:140” moved to line 144; the ledger's old number was
   left as historical text. Source: same, r10 second leg-8.
 - E4 unverified: rejection of relay sentences was not live-tested in a fresh session on a real host; the rule is a text constraint with no gate script.
+- Status note [2026-11-01]: the "open" labels on KG-016-02, 03 and 04 above are superseded by their Status lines (closed, 0.2.0 constants);
+  KG-016-01, 05, 07, 08 stay open and KG-016-06 is open, partly covered.
 
 ## CAND-20261026-021 r2 stopped-review open items (closed: handled in 0.1.53/0.1.56; archived with the candidate's withdrawal)
 
@@ -100,6 +112,8 @@ Lists sections that still contain open or unverified items; line numbers drift w
 
 ## CAND-20261026-015 three-round cap stop, residue (closed: handled in 0.1.53/0.1.56)
 
+Section status [2026-11-01]: closed means the review cap was reached; 3 items below are still open.
+
 - open (r3 first leg verified P1, not fixed): ① the default record path does not yield UC-01; ② the sub-task directory mirrors the Task directory and triggers the
   current Task identity rules; ③ section D's "backfill after push" and "leaving `{}` means not filled" are worded inconsistently; ④ "confirmed/governed" makes UC-03
   read two ways.
@@ -112,11 +126,16 @@ Lists sections that still contain open or unverified items; line numbers drift w
 
 ## CAND-20261026-016 and CAND-20261026-017 r3 cap awaiting the owner (rounds from r4 exceeded the cap; results reference only) (closed: handled in 0.1.53/0.1.56)
 
+Section status [2026-11-01]: closed means the review cap was reached; 4 items below are still open (the over-cap procedure item is closed).
+
 - open: rounds from r4 exceeded the three-round cap (the coordinator misread the owner's instruction), which was not compliant; state corrected to "r3 cap, awaiting the owner";
   the P1s from the over-cap rounds below are reference evidence only. Source: owner (2026-10-26 19:40 UTC+8); fix candidate CAND-20261026-021.
+  Status: closed [2026-11-01] (procedural record only; CAND-20261026-016 promoted in 0.1.53, CAND-20261026-021 withdrawn in 0.1.56, see CHANGELOG).
 - open: 016 v7 (relay keeps original qualifiers) r7 first leg P1: sentence boundaries only recognize full-width “。？！”, so a "previous sentence / conclusion"
   separated by a newline or half-width mark forms one sentence and frozen UC-03 can yield "do not reject"; also P2: “第…部分” [“part …”] has no upper bound,
   sentence boundaries split error excerpts, substring false matches.
+  Status: open, partly covered: sentence breaks now include half-width marks and newline (`SENTENCE_BREAKS`, `skills/task-lifecycle/references/entry-quickref.md` line 170,
+  0.2.0) and Chinese numerals after the ordinal prefix are covered (line 168); still open: substring false matches (KG-016-05) and the spaced ordinal (KG-016-01).
 - open: 017 v6 (new runtime dependency: list comparable libraries and live-test) r6 first leg P1: the pause object written as "package list" vs frozen UC-06
   "pause dependency writes" reads two ways; rejection only rejects the plan's wording, so a correct plan that still writes to the package list slips through.
 - Source: first-leg results of the over-cap rounds (016 r7, 017 r6), reference only (the earlier "stopped per the owner" was corrected by the owner); records
@@ -172,12 +191,21 @@ Lists sections that still contain open or unverified items; line numbers drift w
   continuing turn as unanswered.
 - open (same): F7 selecting Auto always includes a local commit, conflicting with `confirmation-authorization-and-change.md:68` and lacking a pointer. Source:
   REVIEW-20261026-014-CAND-013 r3.
+  Status: F7 closed [2026-11-01] (covered by "Auto defaults to local commit in every repo" in
+  `skills/task-lifecycle/references/end-to-end-auto-card.md` lines 36-37, 0.2.14).
+  Status: F1 closed [2026-11-01]: the routing:57 wording "keep delegation without changing number" and any equivalent (keep or reuse a number or task ID
+  together with delegation) is absent from current `task-recognition-and-routing.md` and all references (searched at 64434f8); §4.4 counts only selecting
+  Auto on the card, so the Auto misreading has no text to attach to. F2 and F3 stay open: they cite old line numbers and the current clauses were not located.
 - Disposition: owner card (quoted above) — live-test first, then change.
 
 ## CAND-20261026-014 round-3 cap stop (not converged) open items (closed: handled in 0.1.53/0.1.56)
 
+Section status [2026-11-01]: closed means the review cap was reached; 1 item below is still open, partly covered.
+
 - open (P1, r3 verified): when the widget question body lacks a recommended tier per option, "none written" reads two ways; when a list and a table coexist, which
   one counts is undecided; "list item or table row + paragraph does not count" wrongly hits the legal numbered options at :39.
+  Status: open, partly covered: `confirmation-authorization-and-change.md` lines 49-53 ("Two or more options") require each option to state what it does,
+  what it does not, exactly one tier and a reason, and an `EMPTY_OPTION_TEXT` value does not count; still open: which counts when a list and a table coexist.
 - Reference (over-cap r4–r6, non-compliant, not counted toward convergence): whether a short reply code counts as one, locking the recommended item, bypassing via
   "what/why" placeholders, etc.; see external verification records.
 - Source: REVIEW-20261026-015-CAND-014 r1–r3; corrected 2026-10-26 19:58 UTC+8 to "round-3 cap, awaiting the owner".
@@ -340,6 +368,7 @@ Columns: ID, severity, source candidate/commit, issue, whyMissed summary or link
   flow has dropped frozen replay tables**, there is no current consumer, closed. Historically recorded as "not a rule; the new flow no longer uses frozen replay tables".
 - The 013+019 merged draft took only their common core; the "other" entry details and Docs task exception of the original 013 did not land.
 - 015's template section D was not added separately; the checklist columns are written in item 3 of the rule body.
+  Status: closed [2026-11-01] (moot: the content already lives in rule text item 3, as stated here).
 
 ## Real runs cannot be isolated while the global plugin is enabled (registered 2026-10-27)
 
@@ -347,6 +376,7 @@ Columns: ID, severity, source candidate/commit, issue, whyMissed summary or link
   stopped running the 014 use cases for this reason, and the out-of-bounds file read in 017 r10 has the same source.
 - Current practice: when the global copy's sha256 matches HEAD, use it for real runs and state "not isolated" in the report; temporarily disabling the global plugin
   for isolation needs the owner's approval. Method: static review, not run for real. (Since 0.2.0, isolated runs use a separate `GROK_HOME`; see the 0.2.0 records.)
+  Status: open, partly covered in practice (separate `GROK_HOME` since 0.2.0); no rule text states the isolation method.
 
 ## F11 length caps (closed)
 check-docs checks SKILL.md ≤600 lines (raised from ≤180 in 0.2.0, D4; to ≤600 by the user) and references/*.md ≤600 lines (raised from ≤300 in 0.2.0, D7; to ≤600 by the user).
@@ -375,6 +405,8 @@ check-docs checks SKILL.md ≤600 lines (raised from ≤180 in 0.2.0, D4; to ≤
   side by side but do not state that `<workspace>` is the `--workspace` value.
   The README states "the same directory (the parent of the project root)"; the protocol text is unchanged pending clarification. Source: README review
   03-自审与复审.md M-13 (re-review R-12).
+  Status: closed [2026-11-01] (covered by `workspace-versioning-and-recovery.md` line 21: `<workspace>` = parent of the project root, the
+  same value passed as `--workspace`).
 - open (M-09, P2 residue): `.cursor-plugin/plugin.json` was checked against the field table in Cursor's official docs cursor.com/docs/plugins/building (read
   2026-10-27), removing the undocumented `displayName` and `author.url`; there is no downloadable JSON Schema, so only the doc field table is checked and T60 locks
   the key set. Not live-loaded in a real local Cursor (E4 unverified).
