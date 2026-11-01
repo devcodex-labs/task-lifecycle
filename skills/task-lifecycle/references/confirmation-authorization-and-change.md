@@ -208,6 +208,7 @@ Supersedes: <old object version/confirmation, if any>
 Next Allowed Action: <exact node and limits>
 ```
 
+`Decision Time` is written in Beijing time (UTC+8), or explicitly unknown, never in another zone's local time.
 These lines are an **illustrative information contract**; formal storage may use Markdown tables in the conversation language or equivalent fields; no hard-coded English line parser is required.
 - When the user confirms only part, the same decision event must fill `Decision Scope` with the real section/field list and `Whole Artifact Effective: no`, keeping the unconfirmed scope and
   applicable independent gates;

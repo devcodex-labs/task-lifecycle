@@ -726,3 +726,9 @@ test('T126 simplification never proposes removing the per-message pre-check',()=
   const t=rdN(REF+'rule-evolution.md');
   assert.match(t,/\*\*Simplification keeps the per-message pre-check\*\*: a proposal to simplify task-lifecycle never proposes removing the per-message pre-check\./);
 });
+
+test('T127 unverified cause or precedent when explaining a warning is written as an assumption',()=>{
+  const t=rdN(REF+'verification-and-evidence-routing.md');
+  assert.match(t,/The same holds for any cause or precedent not verified this turn \(CAND-20261029-001\)/);
+  assert.match(t,/carries the command and output run this turn, or is written as an assumption with its reason, or is left out\./);
+});

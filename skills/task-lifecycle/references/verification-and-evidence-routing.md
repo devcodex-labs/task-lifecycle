@@ -50,6 +50,8 @@ verification of delivery sets and real consumers
 11. **Control request before blaming upstream** (CAND-20261028-003): before stating why a network, download or install step failed, send at least one same-protocol request to an unrelated
     address, within the network scope item 7 and the host allow, and record its status code and key response headers (e.g. `Server`); a cause stated without this control is written as an
     assumption, never as a finding.
+    The same holds for any cause or precedent not verified this turn (CAND-20261029-001): when explaining a warning (push rule bypass, audit, CI, lint, host notice),
+    a claim such as "it was always like this" or "this is normal" carries the command and output run this turn, or is written as an assumption with its reason, or is left out.
 
 ## Counterexamples that must be rejected
 

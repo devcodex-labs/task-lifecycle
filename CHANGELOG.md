@@ -5,6 +5,8 @@
   without asking again. `end-to-end-auto-card.md` §2: matching exception to "confirmation at that time". Test T124.
 - `task-recognition-and-routing.md`: new "Verified, reproducible issues; fix after confirmation" for scan and review reports. Test T125.
 - `rule-evolution.md` item 9: "Simplification keeps the per-message pre-check". Test T126.
+- `verification-and-evidence-routing.md` item 11: unverified causes and precedents ("always like this", "this is normal") are written as assumptions. Test T127.
+- `confirmation-authorization-and-change.md` decision-record template: `Decision Time` is written in Beijing time (UTC+8), or explicitly unknown.
 
 ## 0.2.16 — Independent work starts at once, review scope first, sit scope approval, decision write-back (2026-11-01)
 
