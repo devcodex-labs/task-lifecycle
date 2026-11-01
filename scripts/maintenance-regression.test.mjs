@@ -753,3 +753,11 @@ test('T129 release check: no pending candidate or pending INDEX row names an alr
     const c=l.split(' | ');if(c.length<4||!c[3].includes('candidates/pending/')||/superseded|rejected|已拒绝|已取代/.test(c[2]))continue;
     assert.deepEqual(released(c[2]),[],`INDEX row points at pending/ but is released: ${c[0]}`);}
 });
+test('T130 every regression-test number named in CHANGELOG.md exists in the test files (E4 live-test case numbers excluded)',()=>{
+  const cl=rdN('CHANGELOG.md');
+  const tests=fs.readdirSync(path.join(root,'scripts')).filter(f=>f.endsWith('.test.mjs')).map(f=>fs.readFileSync(path.join(root,'scripts',f),'utf8')).join('\n');
+  const have=new Set([...tests.matchAll(/\bT(\d{2,3})\b/g)].map(m=>m[1]));
+  const named=[...cl.matchAll(/(E4 )?\bT(\d{2,3})\b/g)].filter(m=>!m[1]).map(m=>m[2]);
+  const missing=[...new Set(named)].filter(n=>!have.has(n));
+  assert.deepEqual(missing,[],'CHANGELOG names tests that do not exist: '+missing.join(','));
+});

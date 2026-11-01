@@ -1,3 +1,11 @@
+## Unreleased
+
+- Numbering note: "Fixes E4 T15" under 0.1.39 names case 15 of that E4 live test, not a regression test; no regression test carries that number.
+- Numbering note: regression tests never named here by number: T43, T44, T49, T50, T51, T52, T61, T75, T76, T77, T78 (added with 0.1.44, commit 70708df);
+  T105, T106 (added with 0.2.8, commit e857446; T97–T100 and T110 fall inside the T96–T103 and T108–T111 ranges named there). Test T130 checks that
+  every regression-test number named here exists.
+- `docs/known-gaps.md`: rule-text recheck at 0.2.18 adds status lines to three open items (relayed-task authorization, unanswered card, single option).
+
 ## 0.2.18 — Candidate status closure on promotion and release, renumbered precedent candidate (2026-11-01)
 
 - `rule-evolution.md`: new "Status closure on promotion and release": promotion archives the candidate and updates `candidates/INDEX.md` and

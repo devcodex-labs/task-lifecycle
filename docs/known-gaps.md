@@ -120,6 +120,8 @@ Section status [2026-11-01]: closed means the review cap was reached; 3 items be
 - open: cross-repo sub-task record location and numbering, carrying long-term agreements on re-dispatch, the executor's own-repo commit exception, notifying after
   push and syncing per-repo state, and a joint-push checklist template are not in the rules.
 - open: authorization ownership of relayed tasks touches the authorization boundary; awaits the owner's direction.
+  Status (2026-11-01 rule-text recheck at 0.2.18): open, partly covered: `confirmation-authorization-and-change.md` line 293 says an answer relayed by another bot or agent is not approval and
+  push or release needs the real user's own answer; ownership of the relayed task itself is still unstated.
 - Source: external REVIEW-20261026-019-CAND-015 r1–r3; three-round cap stop 2026-10-26 19:4x UTC+8 (the owner's instruction does not lift the cap). Group chat coordination belongs to
   the channel admin and is not in the ledger.
 - Disposition: owner card (quoted above) — live-test first, then change.
@@ -216,6 +218,7 @@ Section status [2026-11-01]: closed means the review cap was reached; 1 item bel
 ## CAND-20261026-010 narrowed to CAND-20261026-014, residue
 
 - open: the option-description duty does not cover single options or disambiguate-first: a pending item with only one option, and the disambiguate-first case at
+  Status (2026-11-01 rule-text recheck at 0.2.18): still open; `confirmation-authorization-and-change.md` line 54 keeps the disambiguate-first exception and no rule covers a single option.
   `confirmation-authorization-and-change.md` line 34 (regardless of count), do not require descriptions; only the existing duties of lines 31–35 apply.
 - Source: owner 2026-10-26 17:27 UTC+8 card 「010 选 A：缩小范围，作为新的低风险候选重来，只管两个以上的选项，单选项和消歧记进已知缺口」 [“010: choose A —
   narrow it and redo as a new low-risk candidate covering only two or more options; record single options and disambiguation in known gaps”]; the P1s of 010
@@ -226,6 +229,8 @@ Section status [2026-11-01]: closed means the review cap was reached; 1 item bel
 
 - open: the table C answer-state residue of 006 has not landed: a card that was sent but not answered, or a user saying skip/defer, is not evidence that it was not
   displayed, does not trigger 007's "not displayed → resend as numbered options" downgrade, and records no agree, reject, close or not-shown.
+  Status (2026-11-01 rule-text recheck at 0.2.18): open, partly covered: `re-review-performer-choice.md` line 40 makes an unanswered shown card "not confirmed"; "no answer is not evidence of
+  not displayed" and the not-shown record state are still unstated.
 - Source: CAND-20261026-006 not adopted (owner 2026-10-26 17:21 UTC+8); 007's current text does not say "no answer ≠ not visible"; no failure seen so
   far; open a narrow candidate if needed.
   Decision [2026-10-26]: the user chose not to adopt 006 and record this residue here; 2026-10-27 decision: do not revive 006, test first, no new narrow
