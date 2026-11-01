@@ -1,4 +1,4 @@
-## Unreleased
+## 0.2.17 — Unreleased dependencies, target dates, reproducible findings, keep pre-check, assumptions, Decision Time (2026-11-01)
 
 - `verification-and-evidence-routing.md` item 3: new "Unreleased external dependency": acceptance depending on an unreleased dependency stays `blocked`. Test T123.
 - `confirmation-authorization-and-change.md`: new "A target date alone is not approval"; an explicit prior approval naming its date or trigger runs
