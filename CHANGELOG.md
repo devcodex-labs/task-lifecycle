@@ -1,4 +1,4 @@
-## Unreleased
+## 0.2.18 — Candidate status closure on promotion and release, renumbered precedent candidate (2026-11-01)
 
 - `rule-evolution.md`: new "Status closure on promotion and release": promotion archives the candidate and updates `candidates/INDEX.md` and
   other candidate stores; release sets shipped candidates to their version and checks before tagging that nothing in `pending/` is already released;
