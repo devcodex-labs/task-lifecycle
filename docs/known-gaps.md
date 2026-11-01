@@ -150,6 +150,8 @@ Section status [2026-11-01]: closed means the review cap was reached; 4 items be
 
 - open: non-relayed claims about external systems, libraries or platform capabilities (positive or negative) must carry an anchor sufficient to derive them,
   otherwise be marked "unverified" with a way to verify; live-test first when cheap.
+  Decision [2026-10-26]: the user chose to narrow 011 to relays only and record this residue here; 2026-10-27 decision: no product rule change, test first,
+  no new narrow candidate. Not an omission.
 - Source: owner card, verbatim 「011 和 012 选 A：两条都缩小范围重来，011 只管转述保留原限定，012 只管新增依赖前列同类库并实测，其余记进已知缺口」
   [“011 and 012: choose A — narrow both and redo; 011 only covers relays keeping original qualifiers, 012 only covers listing comparable libraries and live-testing
   for new dependencies; record the rest in known gaps”] (2026-10-26 17:52 UTC+8); the P1s of 011 r1–r3 all concerned the scope of exceptions and rejection
@@ -218,6 +220,7 @@ Section status [2026-11-01]: closed means the review cap was reached; 1 item bel
 - Source: owner 2026-10-26 17:27 UTC+8 card 「010 选 A：缩小范围，作为新的低风险候选重来，只管两个以上的选项，单选项和消歧记进已知缺口」 [“010: choose A —
   narrow it and redo as a new low-risk candidate covering only two or more options; record single options and disambiguation in known gaps”]; the P1s of 010
   r1–r4 were all about exemptions and placement for these two; open a narrow candidate if needed.
+  Decision [2026-10-26]: the user chose to keep single options and disambiguation out of the rules and record them here. Not an omission.
 
 ## CAND-20261026-006 not adopted (covered by CAND-20261026-007), residue
 
@@ -225,6 +228,8 @@ Section status [2026-11-01]: closed means the review cap was reached; 1 item bel
   displayed, does not trigger 007's "not displayed → resend as numbered options" downgrade, and records no agree, reject, close or not-shown.
 - Source: CAND-20261026-006 not adopted (owner 2026-10-26 17:21 UTC+8); 007's current text does not say "no answer ≠ not visible"; no failure seen so
   far; open a narrow candidate if needed.
+  Decision [2026-10-26]: the user chose not to adopt 006 and record this residue here; 2026-10-27 decision: do not revive 006, test first, no new narrow
+  candidate. Not an omission.
 
 ## 0.1.52 report Pages (CAND-20261026-009 v8r1) retained items
 
