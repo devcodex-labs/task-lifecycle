@@ -1,3 +1,10 @@
+## Unreleased
+
+- `rule-evolution.md`: new "Status closure on promotion and release": promotion archives the candidate and updates `candidates/INDEX.md` and
+  other candidate stores; release sets shipped candidates to their version and checks before tagging that nothing in `pending/` is already released;
+  one candidate ID per candidate across stores, collisions renumbered with a mapping line. Tests T128, T129 (T129 skips when `candidates/` is absent).
+- `verification-and-evidence-routing.md` item 11: mapping line, the precedent-rule candidate is CAND-20261029-004 (renumbered from a colliding ID). Test T128.
+
 ## 0.2.17 — Unreleased dependencies, target dates, reproducible findings, keep pre-check, assumptions, Decision Time (2026-11-01)
 
 - `verification-and-evidence-routing.md` item 3: new "Unreleased external dependency": acceptance depending on an unreleased dependency stays `blocked`. Test T123.

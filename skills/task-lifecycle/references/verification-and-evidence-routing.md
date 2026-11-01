@@ -52,6 +52,7 @@ verification of delivery sets and real consumers
     assumption, never as a finding.
     The same holds for any cause or precedent not verified this turn (CAND-20261029-001): when explaining a warning (push rule bypass, audit, CI, lint, host notice),
     a claim such as "it was always like this" or "this is normal" carries the command and output run this turn, or is written as an assumption with its reason, or is left out.
+    The candidate cited above as CAND-20261029-001 is CAND-20261029-004 (renumbered to resolve an ID collision with another candidate of the same number).
 
 ## Counterexamples that must be rejected
 

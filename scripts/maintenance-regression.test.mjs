@@ -732,3 +732,24 @@ test('T127 unverified cause or precedent when explaining a warning is written as
   assert.match(t,/The same holds for any cause or precedent not verified this turn \(CAND-20261029-001\)/);
   assert.match(t,/carries the command and output run this turn, or is written as an assumption with its reason, or is left out\./);
 });
+test('T128 candidate ID collision mapping and status closure on promotion and release',()=>{
+  const v=rdN(REF+'verification-and-evidence-routing.md');
+  assert.match(v,/The candidate cited above as CAND-20261029-001 is CAND-20261029-004 \(renumbered to resolve an ID collision/);
+  const r=rdN(REF+'rule-evolution.md');
+  for(const x of ['**Status closure on promotion and release**: the turn that commits a promoted candidate moves its body from `pending/` to `archived/`','names a commit or version already released; a hit is fixed before the tag.','names one candidate across all candidate stores; on a collision the later one is renumbered to a free ID'])assert.ok(r.includes(x),x);
+});
+test('T129 release check: no pending candidate or pending INDEX row names an already released version or commit (skips without local candidates/)',(t)=>{
+  const cd=path.join(root,'candidates');
+  if(!fs.existsSync(cd)){t.skip('candidates/ absent (not committed); check runs only in the maintainer checkout');return;}
+  const tags=spawnSync('git',['-C',root,'tag','--list','v*'],{encoding:'utf8'}).stdout.split('\n').filter(Boolean).map(s=>s.slice(1));
+  const released=(s)=>{const hits=[];for(const m of s.matchAll(/\b(?:released|v)\s*(\d+\.\d+\.\d+)\b/g))if(tags.includes(m[1]))hits.push(m[0]);
+    for(const m of s.matchAll(/\b(?:commit|landed on main（)\s*([0-9a-f]{7,40})\b/g)){const c=spawnSync('git',['-C',root,'tag','--contains',m[1]],{encoding:'utf8'});if(c.status===0&&c.stdout.trim())hits.push(m[0]);}return hits;};
+  const pd=path.join(cd,'pending');
+  if(fs.existsSync(pd))for(const f of fs.readdirSync(pd).filter(f=>f.endsWith('.md')&&f!=='README.md')){
+    const head=fs.readFileSync(path.join(pd,f),'utf8').split('\n').slice(0,12).join('\n');
+    assert.deepEqual(released(head),[],`pending candidate already released: ${f}`);}
+  const idx=path.join(cd,'INDEX.md');
+  if(fs.existsSync(idx))for(const l of fs.readFileSync(idx,'utf8').split('\n')){
+    const c=l.split(' | ');if(c.length<4||!c[3].includes('candidates/pending/')||/superseded|rejected|已拒绝|已取代/.test(c[2]))continue;
+    assert.deepEqual(released(c[2]),[],`INDEX row points at pending/ but is released: ${c[0]}`);}
+});

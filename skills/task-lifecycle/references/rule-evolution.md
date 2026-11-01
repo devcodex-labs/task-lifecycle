@@ -84,6 +84,10 @@ scenario examples are not live-tested effects. Prefer supplementary differences 
 Candidate bodies are **stored in the candidate library `candidates/`** (plugin source repository root, not in the skill directory, not loaded with the skill; new ones written to `pending/`, moved to
 `archived/` once absorbed, moved to `rejected/` and marked retired (`LABELS` "Candidate state") when withdrawn, each syncing the subdirectory README lists and `candidates/INDEX.md`; the
 `candidates/` root holds only README and INDEX), generated through the two mandatory templates.
+**Status closure on promotion and release**: the turn that commits a promoted candidate moves its body from `pending/` to `archived/`, updates its `candidates/INDEX.md` row
+(status, commit, path) and any copy of the same candidate in another candidate store; a release turn sets each candidate it ships to its released version. Before tagging, the release
+checks that no candidate left in `pending/`, and no INDEX row still pointing at `pending/`, names a commit or version already released; a hit is fixed before the tag. One candidate ID
+names one candidate across all candidate stores; on a collision the later one is renumbered to a free ID, and rule text keeps the old reference with an added mapping line.
 Review, freeze, approval and verification records are process artifacts, **not in the candidate library and not in the plugin repository**: written to the external process directory of the managed
 task producing them (the `<task-id>` directory of item 2 of "Execute item by item when applicable" in `workspace-versioning-and-recovery.md`, or an equivalent task record location the host provides
 and verified writable; paths are not hard-coded by host name);
