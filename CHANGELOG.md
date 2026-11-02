@@ -1,3 +1,11 @@
+## 0.2.24 — One full verification round for A01–A03 (2026-11-02)
+
+- `formal-review-and-findings.md` §7.12 (CAND-20261102-002): formal independent verification of the A01 requirements, A02 usage contract and
+  A03 technical design runs at most one full round; after fixes only changed parts are re-checked; remaining medium and low findings (with the
+  four finding items) go to the user as one decision; a revision never starts a new full round by itself. Code and test verification unchanged.
+- Pointers in `feature-flow.md` (A01-9, A02-5, A03-5), `re-review-performer-choice.md` 3b, `task-recognition-and-routing.md` and `SKILL.md`.
+- Tests: new T137. All changes are additive.
+
 ## 0.2.23 — Claude Code host support (2026-11-02)
 
 - New `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`: install in Claude Code with
