@@ -811,3 +811,10 @@ test('T134 CAND-20261101-008 phase-closing decisions asked alone; bare acknowled
   assert.ok(t.includes('**Phase-closing decisions are asked alone** (CAND-20261101-008, additive): a decision that closes a phase (finalizing an artifact, moving to the next phase) is always asked alone on one single-question card, never bundled in the same message with other pending items or requests;'));
   assert.ok(t.includes('never approves such a decision, whatever the number of pending items;'));
 });
+
+test('T135 CAND-20261102-001 every reported finding states verified, checked, reasonableness and benefit',()=>{
+  const t=rdN(REF+'formal-review-and-findings.md');
+  assert.ok(t.includes('**Four items on every reported finding** (CAND-20261102-001, additive, all projects)'));
+  assert.ok(t.includes("a subtask's or reviewer's own claim stays `not checked` until re-confirmed."));
+  assert.ok(t.includes('A finding missing any of the four is reported as incomplete, never as established.'));
+});

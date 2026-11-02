@@ -101,6 +101,13 @@ snapshot containing `Finding ID / reviewed object version / real evidence`;
 Each Finding records at least: `Finding ID`, the requirement and check ID that found it, current object/version, facts and actual evidence, severity (P0/P1/P2), defect root cause `defectRootCause`,
 why the original review missed it `controlFailure/whyMissed`, impact and suggestion, necessary human product decisions, revision diff, affected upstream, re-verification result, closure state.
 
+**Four items on every reported finding** (CAND-20261102-001, additive, all projects): every finding presented to the user in a scan, audit or review report also states:
+- **Verified**: whether it was actually executed or reproduced (the command or script and its real output), or `not verified` with the reason.
+- **Checked**: whether the current session re-ran or re-read the evidence itself; a subtask's or reviewer's own claim stays `not checked` until re-confirmed.
+- **Reasonableness**: how likely the trigger is in real use, with the basis.
+- **Benefit**: what fixing it gains, and the cost if it is left.
+A finding missing any of the four is reported as incomplete, never as established.
+
 - With necessary P0/P1 quality risk unresolved, the reviewed object may not pass; P2 findings are judged by existing pass conditions and actual risk, without repetitive valueless revision rounds
   just to reach zero. For causal evidence that fixing A introduced B, B must link to the original task/fix version and keep the required re-proof; splitting tickets or only adjusting test
   expectations may not bypass quality ownership.
