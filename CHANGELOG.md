@@ -1,3 +1,10 @@
+## 0.2.22 — Four items on every reported finding (2026-11-02)
+
+- `formal-review-and-findings.md` (CAND-20261102-001): every finding in a scan or review report states whether it was verified (actually run),
+  whether it was checked (re-confirmed by the reporting session itself, not a subtask's self-report), its reasonableness, and the benefit of
+  fixing it; a finding missing any item cannot be reported as established. Applies to all projects.
+- Tests: new T135. All changes are additive.
+
 ## 0.2.21 — A01 source and exit gates, solo phase-closing cards (2026-11-01)
 
 - `feature-flow.md` A01-7 (CAND-20261101-006): every requirement body and acceptance-criteria item names its confirmation source (user source
