@@ -165,6 +165,8 @@ the formal usage contract or full technical design may not be skipped. Optional 
   "Pending confirmation" section and never into the body, WIs or acceptance criteria until the user confirms it.
 - A01-8 Exit boundary (CAND-20261101-007, additive): besides the table's exit condition, A01 exits only when every missing piece of the user's source
   text is restored and the "Pending confirmation" section is empty; "no blocking findings in review or re-review" is never by itself an exit basis.
+- A01-9 One full verification round (CAND-20261102-002, additive): formal independent verification of the requirements runs one full round, then delta
+  re-review of changed parts, then one user decision on remaining medium/low findings; see formal-review-and-findings.md §7.12.
 
 **A02 Usage Contract**
 
@@ -176,6 +178,7 @@ the formal usage contract or full technical design may not be skipped. Optional 
   positive/negative assertions, failure criteria) and report per plan. (Basis: formal-review-and-findings.md "Execute item by item when applicable")
 - A02-4 Form the final valid contract: on taking effect record precisely TaskID/ArtifactID/Version/actual path/final SHA/approval source; the SHA is recorded only in the confirmation record outside
   the file. (Basis: confirmation-authorization-and-change.md "Execute item by item when applicable")
+- A02-5 One full verification round (CAND-20261102-002, additive): the contract review follows formal-review-and-findings.md §7.12.
 
 **A03 Technical design**
 
@@ -187,6 +190,7 @@ the formal usage contract or full technical design may not be skipped. Optional 
   applicability and handling/verification responsibility or exclusion reason. (Basis: artifact-content-and-self-review-contract.md "Complete self-review and suggestion handling (REQ-003/006/007/043)")
 - A03-4 Technical review plan and report: first freeze the technical design's current version/SHA, approved upstream and real consumers, then set a version-specific review plan (check IDs, roles,
   positive/negative assertions, failure criteria) and report per plan. (Basis: formal-review-and-findings.md "Execute item by item when applicable")
+- A03-5 One full verification round (CAND-20261102-002, additive): the technical review follows formal-review-and-findings.md §7.12.
 
 **A04 Implementation plan**
 

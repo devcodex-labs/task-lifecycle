@@ -516,3 +516,20 @@ impersonating a proven miss cause or exempting other closures; writing "no previ
 
 Scope: exactly A01–A04, B03 and DOC03–DOC04; §7.11 does not apply to rule or candidate revisions (§7.10 item 7).
 The rule body is in `re-review-performer-choice.md`; it governs only the extra re-review, and everything else follows §7.10.
+
+### 7.12 One full verification round per phase artifact (CAND-20261102-002, user-ruled)
+
+Scope: formal independent verification of the A01 requirements, A02 usage contract and A03 technical design. It does not cover self-review (P5),
+code or test verification (A06, B06, Bugfix regression), which keep §7.6 "Retry limit", nor B03 or DOC03–DOC04 unless the user extends it.
+
+1. **One full round**: formal independent verification of one artifact version runs at most one full round, whatever its pass line
+   (for example "no high or medium findings").
+2. **Delta re-review only**: after fixes, re-check only the changed parts and their direct consumers; never re-run the full verification.
+3. **Hand remaining findings to the user**: after the delta re-check, list every remaining medium and low finding, each with the four items of
+   "Four items on every reported finding", and ask the user one decision: finalize now and resolve them during development, or fix first and then finalize.
+4. **No automatic full round**: a revision never starts a new full round by itself; only the user's explicit request does.
+
+Precedence: for these artifacts this section overrides §7.6 "repeated rounds", §7.10 item 7 "General review" and "Recheck counts toward the cap",
+`re-review-performer-choice.md` rule 3a, and "Re-review until convergence" in `task-recognition-and-routing.md` §4.3 item 3:
+any round after the first is a delta re-review within those caps, and an unmet pass line never by itself opens another full round.
+Remaining high findings are still fixed and delta re-checked before finalizing.

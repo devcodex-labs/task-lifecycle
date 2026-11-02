@@ -141,6 +141,7 @@ existing tests, Git HEAD/dirty, accessible docs and build/CI conventions, produc
      the report gives root cause and a fix plan first, and no change is made until the user confirms it.
    - Re-review until convergence: per §7.5–7.6 of that file and its execution-order subsection, re-review only the affected scope, verify closure against the original pass criteria, and stop and
      report when there is no substantive progress.
+     For A01–A03 artifacts, `formal-review-and-findings.md` §7.12 takes precedence: one full round, then delta re-review and one user decision (CAND-20261102-002).
    - Project analysis (to prepare or scope real development work): produce the minimal fact list of §4.2; defect judgments in it also apply "Verify before characterizing".
    - Output: Finding severity, evidence and source, verified/unverified; improvement suggestions follow the minimum recommendation info (including priority) of
      `artifact-content-and-self-review-contract.md`; fix candidates become Bugfix/Feature tasks only with user authorization.

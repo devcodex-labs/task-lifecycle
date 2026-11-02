@@ -832,3 +832,15 @@ test('T136 Claude Code manifest and marketplace are valid and match plugin.json 
   for(const f of ['README.md','README.zh-CN.md']){const s=fs.readFileSync(path.join(root,f),'utf8');
     assert.match(s,/### Claude Code/,f);assert.match(s,/task-lifecycle@devcodex-task-lifecycle/,f);assert.match(s,/^# DevCodex Task Lifecycle$/m,f+' title unchanged');}
 });
+test('T137 CAND-20261102-002 A01-A03 formal verification: one full round, delta re-review, user decides remaining medium/low',()=>{
+  const r=p=>fs.readFileSync(path.join(root,'skills/task-lifecycle',p),'utf8');
+  const fr=r('references/formal-review-and-findings.md');
+  for(const s of ['### 7.12 One full verification round per phase artifact (CAND-20261102-002','runs at most one full round','**Delta re-review only**',
+    'never re-run the full verification','finalize now and resolve them during development, or fix first and then finalize',
+    'a revision never starts a new full round by itself; only the user\'s explicit request does','an unmet pass line never by itself opens another full round',
+    'which keep §7.6 "Retry limit"'])assert.ok(fr.includes(s),s);
+  const ff=r('references/feature-flow.md');for(const s of ['A01-9 One full verification round','A02-5 One full verification round','A03-5 One full verification round'])assert.ok(ff.includes(s),s);
+  assert.ok(r('references/re-review-performer-choice.md').includes('3b. **One full round for A01–A03**'));
+  assert.ok(r('references/task-recognition-and-routing.md').includes('§7.12 takes precedence'));
+  assert.ok(r('SKILL.md').includes('`references/formal-review-and-findings.md` §7.12'));
+});

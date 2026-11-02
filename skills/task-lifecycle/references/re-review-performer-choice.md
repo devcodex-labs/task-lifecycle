@@ -22,6 +22,8 @@ Exactly the formal artifacts of A01–A04, B03 and DOC03–DOC04 of a managed ta
     at most 3; before the 2nd, state the reason for re-review. At the cap, unresolved issues go to the user at once, with no further round; a review by the user themself ((a)) also
     counts as 1. Keeping an independent re-review for high-risk changes means the §7.10 Trigger and §7.10 item 6, with no separate definition here; this item adds a count only,
     and never waives a review rule 1 keeps.
+3b. **One full round for A01–A03** (CAND-20261102-002, additive): for A01–A03 the count of rule 3a holds one full round at most; later rounds are delta
+    re-reviews and remaining medium/low findings go to the user as one decision, per `formal-review-and-findings.md` §7.12, which takes precedence here.
 4. **Checks and failure**: (b) runs no validator and only checks that the host can open a clean session. Each use of (c) reruns the validator fresh and §7.10 item 0 admission, including the
    capability probe (`task-split-parallel-and-integration.md` "External coding executor delegation" item 3) and read-tier checks ("Delegation config" items 9-10); these probes run at use time,
    never when the card is shown. If (c) fails, open one fresh clean current-host session for one read-only review, labeled "same model, one independent session"; if that is impossible, write "no
