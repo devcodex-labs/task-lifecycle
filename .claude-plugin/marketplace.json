@@ -1,0 +1,15 @@
+{
+  "name": "devcodex-task-lifecycle",
+  "description": "Task Lifecycle plugin for Claude Code",
+  "owner": {
+    "name": "Rocky Shi",
+    "email": "rockyshi1993@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "task-lifecycle",
+      "source": "./",
+      "description": "Governed Feature, Bugfix and Docs work with human approval and review evidence."
+    }
+  ]
+}

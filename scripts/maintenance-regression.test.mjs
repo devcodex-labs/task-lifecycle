@@ -818,3 +818,17 @@ test('T135 CAND-20261102-001 every reported finding states verified, checked, re
   assert.ok(t.includes("a subtask's or reviewer's own claim stays `not checked` until re-confirmed."));
   assert.ok(t.includes('A finding missing any of the four is reported as incomplete, never as established.'));
 });
+test('T136 Claude Code manifest and marketplace are valid and match plugin.json / VERSION',()=>{
+  const j=p=>JSON.parse(fs.readFileSync(path.join(root,p),'utf8'));
+  const a=j('plugin.json'),cc=j('.claude-plugin/plugin.json'),mk=j('.claude-plugin/marketplace.json');
+  const ver=fs.readFileSync(path.join(root,'skills/task-lifecycle/VERSION'),'utf8').trim();
+  assert.equal(cc.version,ver,'claude plugin version = VERSION');
+  for(const k of ['name','version','description','license','homepage','repository','keywords'])assert.deepEqual(cc[k],a[k],k);
+  assert.equal(cc.author.name,a.author.name);assert.equal(cc.author.email,a.author.email);
+  assert.ok(fs.existsSync(path.join(root,cc.skills,'task-lifecycle/SKILL.md')),'skills path');
+  assert.equal(mk.name,'devcodex-task-lifecycle');assert.ok(mk.owner&&mk.owner.name,'owner.name required');
+  assert.equal(mk.plugins.length,1);assert.equal(mk.plugins[0].name,cc.name,'entry name = manifest name');
+  assert.equal(mk.plugins[0].source,'./');
+  for(const f of ['README.md','README.zh-CN.md']){const s=fs.readFileSync(path.join(root,f),'utf8');
+    assert.match(s,/### Claude Code/,f);assert.match(s,/task-lifecycle@devcodex-task-lifecycle/,f);assert.match(s,/^# DevCodex Task Lifecycle$/m,f+' title unchanged');}
+});

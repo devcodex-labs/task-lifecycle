@@ -77,6 +77,8 @@ if (fs.existsSync(path.join(root, 'plugin.json')) && fs.existsSync(path.join(roo
   if (vv !== ver) errors.push(`skills/task-lifecycle/VERSION: ${vv === null ? 'missing' : JSON.stringify(vv)} ≠ plugin.json ${ver}`);
   const cp = path.join(root, '.cursor-plugin/plugin.json');
   if (fs.existsSync(cp)) { const cv = JSON.parse(fs.readFileSync(cp, 'utf8')).version; if (cv !== ver) errors.push(`.cursor-plugin/plugin.json: version ${cv} ≠ plugin.json ${ver}`); }
+  const ccp = path.join(root, '.claude-plugin/plugin.json'); // Claude Code manifest, same version rule as Cursor
+  if (fs.existsSync(ccp)) { const ccv = JSON.parse(fs.readFileSync(ccp, 'utf8')).version; if (ccv !== ver) errors.push(`.claude-plugin/plugin.json: version ${ccv} ≠ plugin.json ${ver}`); }
 }
 try {
   const entry = path.join(skillRoot, 'SKILL.md');

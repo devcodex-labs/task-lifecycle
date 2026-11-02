@@ -76,6 +76,19 @@ codex plugin add task-lifecycle@devcodex-task-lifecycle
 grok plugin install devcodex-labs/task-lifecycle --trust
 ```
 
+### Claude Code
+
+需要 Claude Code 2.1 或更高版本。在 Claude Code 会话中执行：
+
+```text
+/plugin marketplace add devcodex-labs/task-lifecycle
+/plugin install task-lifecycle@devcodex-task-lifecycle
+```
+
+也可以在终端执行 `claude plugin marketplace add devcodex-labs/task-lifecycle`，再执行
+`claude plugin install task-lifecycle@devcodex-task-lifecycle`。用 `claude plugin details task-lifecycle` 确认
+（显示 `Skills (1) task-lifecycle`）。不用插件系统时，把 `skills/task-lifecycle` 复制到 `~/.claude/skills/task-lifecycle`。
+
 安装成功不代表宿主已加载；请开一个新会话，确认这个 Skill 确实被使用。
 
 ## 快速开始
@@ -96,6 +109,7 @@ grok plugin install devcodex-labs/task-lifecycle --trust
 | Cursor | 已测试 |
 | Codex | 已测试 |
 | Grok Build | 已测试 |
+| Claude Code | 已测安装（尚未跑模型会话） |
 
 插件能做什么，仍取决于宿主提供的工具和权限。
 

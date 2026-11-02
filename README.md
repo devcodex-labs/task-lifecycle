@@ -79,6 +79,19 @@ codex plugin add task-lifecycle@devcodex-task-lifecycle
 grok plugin install devcodex-labs/task-lifecycle --trust
 ```
 
+### Claude Code
+
+Requires Claude Code 2.1 or later. In a Claude Code session:
+
+```text
+/plugin marketplace add devcodex-labs/task-lifecycle
+/plugin install task-lifecycle@devcodex-task-lifecycle
+```
+
+Or from your shell: `claude plugin marketplace add devcodex-labs/task-lifecycle`, then
+`claude plugin install task-lifecycle@devcodex-task-lifecycle`. Check with `claude plugin details task-lifecycle`
+(`Skills (1) task-lifecycle`). Without the plugin system, copy `skills/task-lifecycle` to `~/.claude/skills/task-lifecycle`.
+
 A successful install does not prove the host loaded it; start a new session and check that the skill is used.
 
 ## Quick start
@@ -100,6 +113,7 @@ needs your confirmation. Other example prompts:
 | Cursor | Tested |
 | Codex | Tested |
 | Grok Build | Tested |
+| Claude Code | Install tested (no model session yet) |
 
 What the plugin can do still depends on the tools and permissions your host provides.
 
