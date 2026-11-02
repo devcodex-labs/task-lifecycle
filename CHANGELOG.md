@@ -1,3 +1,10 @@
+## 0.2.23 — Claude Code host support (2026-11-02)
+
+- New `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`: install in Claude Code with
+  `/plugin marketplace add devcodex-labs/task-lifecycle` and `/plugin install task-lifecycle@devcodex-task-lifecycle`.
+- README (both languages): Claude Code install section and host-support row. `check-docs` checks the Claude Code manifest version.
+- Tests: new T136. All changes are additive.
+
 ## 0.2.22 — Four items on every reported finding (2026-11-02)
 
 - `formal-review-and-findings.md` (CAND-20261102-001): every finding in a scan or review report states whether it was verified (actually run),
