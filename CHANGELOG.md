@@ -1,3 +1,17 @@
+## 0.2.25 — Close-out rules, advisory review and external reviewer hook (2026-11-03)
+
+- `confirmation-authorization-and-change.md` (CAND-20261102-003): "Finalization close-out" fixed checklist when an artifact is finalized.
+- (CAND-20261102-004): "Supersession close-out": superseded versions keep their bytes, downstream references are repointed, residue is
+  self-checked, partial approvals are recorded outside the frozen copy.
+- `rule-evolution.md` (CAND-20261102-005): the release check covers the candidate subdirectory README lists.
+- `formal-review-and-findings.md` §7.13 (CAND-20261102-006): advisory quality-review submission before plan freeze (A01–A03) and before
+  release, only when the host provides a designated reviewer; non-blocking (2 h full / 15 min quick), opinions only. Pointers in
+  `feature-flow.md`, `docs-flow.md` and `re-review-performer-choice.md` 2b.
+- `formal-review-and-findings.md` §7.14 (CAND-20261103-001): optional external reviewer for the independent re-review at A01–A04, B03 and
+  DOC03–DOC04; unchanged when none is configured; one review per commit or artifact version with a depth rule; timeout fallback and late
+  conclusions; pointer in `re-review-performer-choice.md` 2c.
+- Tests: new T138–T142. All changes are additive.
+
 ## 0.2.24 — One full verification round for A01–A03 (2026-11-02)
 
 - `formal-review-and-findings.md` §7.12 (CAND-20261102-002): formal independent verification of the A01 requirements, A02 usage contract and
