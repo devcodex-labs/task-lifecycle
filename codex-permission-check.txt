@@ -1,2 +1,2 @@
 Temporary GitHub API permission verification.
-Created at the user's request; remove after verification.
+File creation and update verified. Remove after verification.
