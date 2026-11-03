@@ -533,3 +533,57 @@ Precedence: for these artifacts this section overrides §7.6 "repeated rounds", 
 `re-review-performer-choice.md` rule 3a, and "Re-review until convergence" in `task-recognition-and-routing.md` §4.3 item 3:
 any round after the first is a delta re-review within those caps, and an unmet pass line never by itself opens another full round.
 Remaining high findings are still fixed and delta re-checked before finalizing.
+
+### 7.13 Advisory quality-review submission (CAND-20261102-006, additive)
+
+Condition: this section applies only when the host environment provides a designated quality-review agent. The agent's identity and route are supplied by
+the host's role/division skills, never written into these rules. Without such an agent nothing is sent, nothing waits and nothing is reported missing.
+
+1. **Node 1, before plan freeze**: before the finalization card of A01 requirements, A02 usage contract or A03 technical design, send the artifact for full
+   review.
+2. **Node 2, before release**: before the release authorization card, send the release content (breaking changes, CHANGELOG, downstream impact, rollback)
+   for full review. Small changes may be sent for quick review.
+3. **Non-blocking**: with no reply within 2 hours (full review) or 15 minutes (quick review), the owner proceeds on its own judgment and states the timeout
+   (send time and timeout time, UTC+8) in the record and the reply.
+4. **Opinions only**: the reviewer grades each opinion blocking / important / suggestion, each with how to fix and the evidence location, and concludes
+   pass / pass after changes / fail. The user or the owner makes the final call; a review conclusion is neither approval nor rejection.
+5. **Handling**: blocking and important opinions are listed, with a proposed handling, in the message text above the finalization or release card; that card
+   stays a single-question card asked alone ("Phase-closing decisions are asked alone"). Changes adopted before finalization are revisions re-checked by
+   §7.12 delta re-review; opinions arriving after finalization follow item 6 (new candidate) or "Supersession close-out".
+6. **Escalation**: a fail conclusion and recurring issues go to the host's designated self-evolution role for rule root-cause analysis. Checking
+   "verification passed" evidence stays with its existing owner; this node does not take it over.
+7. **Relation to §7.12**: the submission is advisory and does not replace or extend the §7.12 round; it counts as the extra re-review only when the user
+   chooses it as performer under `re-review-performer-choice.md` rule 2b, and then rule 3b applies. It never replaces required self-review or formal review,
+   and never replaces the user's finalization or release authorization.
+   Clarification (CAND-20261103-001, additive): when §7.14 applies, a §7.13 full review of the same version also counts as the §7.14 re-review per §7.14
+   item 4.
+Non-compliant: waiting or reporting missing when the condition does not hold, treating a review conclusion as approval, still blocking after the timeout,
+or agent identifiers in rule text.
+
+### 7.14 External reviewer for the independent re-review (CAND-20261103-001, additive)
+
+Condition: an external reviewer is configured when a role or division skill loaded by the host explicitly names the external reviewer for
+task-lifecycle re-review and its route; without such an explicit statement none is configured. §7.13's "designated quality-review agent" uses the
+same criterion: one determination for both sections. Identities and routes stay in host skills, never in these rules.
+
+1. **Nodes**: exactly the nodes where the independent re-review applies per `re-review-performer-choice.md` Scope: A01–A04, B03 and DOC03–DOC04.
+   Commit or code review at A06/B06 is not covered by §7.14; that is host-level advisory review under §7.13 if the host defines it.
+2. **Hand-off**: when an external reviewer is configured, the independent re-review at those nodes is handed to that external reviewer. Its findings use
+   the §7.13 grading (blocking / important / suggestion; pass / pass after changes / fail), and the owner handles them per §7.13 items 5–6 and §7.12.
+   A fail conclusion does not block; findings go through the re-check below, and the user still finalizes or authorizes release.
+   Re-check: at A01–A03 it is a §7.12 delta re-review; at nodes outside §7.12's scope (A04, B03, DOC03–DOC04) the node's existing re-check rule
+   applies ("Extra re-review performer" in `feature-flow.md`, `bugfix-flow.md` and `docs-flow.md`, with `re-review-performer-choice.md` rule 3a).
+3. **Unchanged when not configured**: when no external reviewer is configured, the independent re-review proceeds exactly as today; behavior on such hosts is unchanged.
+4. **No double review**: one review per commit or artifact version. A §7.13 full review of the same version counts as the §7.14 re-review, and a
+   §7.14 re-review counts as the §7.13 submission for that version; neither is sent again.
+   Depth rule: a prior review counts as done only if its tier is not lower than the tier the node requires; a quick review or delta re-review does not
+   satisfy a node requiring a full review.
+   A re-review is only re-sent when the content changed, and then it is the item 2 re-check.
+5. **Timeout and fallback**: the §7.13 timeouts apply (2 hours full review, 15 minutes quick review). On timeout the owner falls back to the existing
+   independent re-review path and records the timeout (send time and timeout time, UTC+8).
+   Late conclusion: an external conclusion arriving after the timeout fallback is treated as a late supplementary review, not a double review; if it
+   has blocking findings, do the item 2 re-check.
+6. **Not approval**: the external reviewer's conclusion is still not user approval; finalization and release authorization stay with the user.
+Non-compliant: requiring or reporting a missing external reviewer when none is configured, reviewing the same commit or artifact version twice at the
+same or lower tier, accepting a lower-tier review for a full-review node, still waiting after the timeout, treating the conclusion as approval, or
+reviewer identifiers in rule text.

@@ -150,10 +150,14 @@ other phases reference it rather than redefining a looser version.
 | Bugfix | `references/bugfix-flow.md`, `references/formal-review-and-findings.md`, `references/artifact-content-and-self-review-contract.md` (B03 recommendations and option comparison), `references/verification-and-evidence-routing.md` |
 | Docs | `references/docs-flow.md`, `references/docs-audience-and-site-quality.md`, `references/artifact-content-and-self-review-contract.md`, `references/verification-and-evidence-routing.md` |
 | Any-phase substantive change (A10/B10/DOC10) | `references/confirmation-authorization-and-change.md`, `templates/substantive-change-impact-analysis-record.md`, and re-read the current flow file |
+| Supersession of a formal artifact or partial approval: old bytes untouched, downstream repointed, leftover self-check (CAND-20261102-004) | `references/confirmation-authorization-and-change.md` "Supersession close-out" |
 | New formal candidate, self-review, review roles | `references/artifact-content-and-self-review-contract.md`, `references/roles-and-specialist-review.md` |
 | Formal review plan, evidence sign-off, Finding closure | `references/formal-review-and-findings.md`, `references/confirmation-authorization-and-change.md`; multi-session relay review also `templates/relay-review-first-leg-prompt.md`, `templates/relay-review-second-leg-prompt.md`, `templates/relay-review-verifier-prompt.md` (§7.10) |
 | Extra re-review performer choice for A01–A04, B03, DOC03–DOC04 (ask before that plan or artifact is confirmed) | `references/re-review-performer-choice.md` |
 | A01–A03 formal independent verification: one full round, delta re-review, user decides remaining medium/low (CAND-20261102-002) | `references/formal-review-and-findings.md` §7.12 |
+| Advisory quality-review submission before plan freeze (A01–A03) and before release, only when the host provides a designated quality-review agent (CAND-20261102-006) | `references/formal-review-and-findings.md` §7.13 |
+| Independent re-review at A01–A04, B03, DOC03–DOC04 handed to a host-configured external reviewer; unchanged when none is configured; one review per commit or artifact version, tier not lower than required (CAND-20261103-001) | `references/formal-review-and-findings.md` §7.14 |
+| Finalizing a formal artifact: fixed checklist, limited stamp on the finalized copy, leftover-wording self-check (CAND-20261102-003) | `references/confirmation-authorization-and-change.md` "Finalization close-out" |
 | Actual writes, recovery, dirty or cross-session | `references/workspace-versioning-and-recovery.md`, `references/confirmation-authorization-and-change.md` |
 | Tests, CI, flaky, independent Agent Eval | `references/verification-and-evidence-routing.md` |
 | Full delivery set of a real commit/package/release candidate (ABS-07) | `references/verification-and-evidence-routing.md`, `references/workspace-versioning-and-recovery.md` |

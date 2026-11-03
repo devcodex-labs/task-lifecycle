@@ -167,6 +167,9 @@ the formal usage contract or full technical design may not be skipped. Optional 
   text is restored and the "Pending confirmation" section is empty; "no blocking findings in review or re-review" is never by itself an exit basis.
 - A01-9 One full verification round (CAND-20261102-002, additive): formal independent verification of the requirements runs one full round, then delta
   re-review of changed parts, then one user decision on remaining medium/low findings; see formal-review-and-findings.md §7.12.
+- A01-10 Finalization close-out (CAND-20261102-003, additive): on finalization follow confirmation-authorization-and-change.md "Finalization close-out".
+- A01-11 Advisory quality review (CAND-20261102-006, additive): when the host provides a designated quality-review agent, submit before finalization per
+  formal-review-and-findings.md §7.13 node 1.
 
 **A02 Usage Contract**
 
@@ -179,6 +182,9 @@ the formal usage contract or full technical design may not be skipped. Optional 
 - A02-4 Form the final valid contract: on taking effect record precisely TaskID/ArtifactID/Version/actual path/final SHA/approval source; the SHA is recorded only in the confirmation record outside
   the file. (Basis: confirmation-authorization-and-change.md "Execute item by item when applicable")
 - A02-5 One full verification round (CAND-20261102-002, additive): the contract review follows formal-review-and-findings.md §7.12.
+- A02-6 Finalization close-out (CAND-20261102-003, additive): on finalization follow confirmation-authorization-and-change.md "Finalization close-out".
+- A02-7 Advisory quality review (CAND-20261102-006, additive): when the host provides a designated quality-review agent, submit before finalization per
+  formal-review-and-findings.md §7.13 node 1.
 
 **A03 Technical design**
 
@@ -191,6 +197,9 @@ the formal usage contract or full technical design may not be skipped. Optional 
 - A03-4 Technical review plan and report: first freeze the technical design's current version/SHA, approved upstream and real consumers, then set a version-specific review plan (check IDs, roles,
   positive/negative assertions, failure criteria) and report per plan. (Basis: formal-review-and-findings.md "Execute item by item when applicable")
 - A03-5 One full verification round (CAND-20261102-002, additive): the technical review follows formal-review-and-findings.md §7.12.
+- A03-6 Finalization close-out (CAND-20261102-003, additive): on finalization follow confirmation-authorization-and-change.md "Finalization close-out".
+- A03-7 Advisory quality review (CAND-20261102-006, additive): when the host provides a designated quality-review agent, submit before finalization per
+  formal-review-and-findings.md §7.13 node 1.
 
 **A04 Implementation plan**
 
@@ -229,6 +238,8 @@ the formal usage contract or full technical design may not be skipped. Optional 
   (Basis: workspace-versioning-and-recovery.md "Execute item by item when applicable")
 - A08-2 Confirm the real publish result: after publishing query the current state of the target service/repository/artifact to confirm; when the response is unknown check the state first, never
   replaying the publish. (Basis: workspace-versioning-and-recovery.md "9.5 Preventing repeated operations and partial failure")
+- A08-3 Advisory release review (CAND-20261102-006, additive): when the host provides a designated quality-review agent, submit the release content
+  before the release authorization card per formal-review-and-findings.md §7.13 node 2.
 
 **A09 Completion & feedback**
 
@@ -244,6 +255,8 @@ the formal usage contract or full technical design may not be skipped. Optional 
 
 - X1-2 Insert the A10 impact-analysis loop: record the change source, before/after versions and consumers, and which plans/proofs/approvals are invalidated. (Basis:
   confirmation-authorization-and-change.md "Execute item by item when applicable")
+- X1-3 Supersession close-out (CAND-20261102-004, additive): when a new version supersedes a formal artifact, follow confirmation-authorization-and-change.md
+  "Supersession close-out" (old bytes untouched, downstream repointed, leftover self-check, old Page title marked).
 
 **X3 Impact analysis and re-review**
 

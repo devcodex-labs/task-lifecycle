@@ -844,3 +844,99 @@ test('T137 CAND-20261102-002 A01-A03 formal verification: one full round, delta 
   assert.ok(r('references/task-recognition-and-routing.md').includes('§7.12 takes precedence'));
   assert.ok(r('SKILL.md').includes('`references/formal-review-and-findings.md` §7.12'));
 });
+test('T138 CAND-20261102-003 finalization close-out: fixed checklist, limited stamp on finalized copy, leftover-wording self-check, additive',()=>{
+  const r=p=>fs.readFileSync(path.join(root,'skills/task-lifecycle',p),'utf8');
+  const c=r('references/confirmation-authorization-and-change.md');
+  for(const s of ['**Finalization close-out** (CAND-20261102-003, user-ruled, additive)','downstream\n  references repointed to the finalized file',
+    'the stamp is applied only on the new finalized copy','keep the approved SHA','not a new candidate and no re-approval',
+    'the approved SHA, the stamped SHA and the full diff','falls back to item 6','`待定稿|候选|未生效|只剩.*待`','the next phase may not start',
+    'narrow exception to item 6'])assert.ok(c.includes(s),s);
+  // additive: original lines intact and section placed after CAND-20261101-008 paragraph
+  assert.ok(c.includes('changing file content creates a new candidate and judges the affected invalidation of old authorization'));
+  assert.ok(c.includes('artifact body should not be edited in place at the original path; if it must be rewritten, create a new candidate version'));
+  assert.ok(c.indexOf('**Phase-closing decisions are asked alone** (CAND-20261101-008')<c.indexOf('**Finalization close-out**'));
+  assert.ok(c.indexOf('**Finalization close-out**')<c.indexOf('### 6.3.2'));
+  const ff=r('references/feature-flow.md');for(const s of ['A01-10 Finalization close-out','A02-6 Finalization close-out','A03-6 Finalization close-out'])assert.ok(ff.includes(s),s);
+  assert.ok(r('references/docs-flow.md').includes('**Finalization close-out (CAND-20261102-003, additive)**'));
+  assert.ok(r('SKILL.md').includes('(CAND-20261102-003) | `references/confirmation-authorization-and-change.md` "Finalization close-out"'));
+});
+test('T139 CAND-20261102-004 supersession close-out: old bytes untouched, downstream repointed, leftover self-check, partial approval external only, additive',()=>{
+  const r=p=>fs.readFileSync(path.join(root,'skills/task-lifecycle',p),'utf8');
+  const c=r('references/confirmation-authorization-and-change.md');
+  for(const s of ['**Supersession close-out** (CAND-20261102-004, user-ruled, additive)','old version\'s file bytes stay untouched and keep its approved SHA',
+    'is repointed to the new version','"downstream reference paths" exception of "Finalization close-out" (b)','any hit outside history/change-log sections',
+    'marked "superseded by vN"','Partial approval is recorded only in the external event','the body gets no stamp',
+    'This adds no exception to "should not be edited in place at the original path"','complements item 8 (A10)',
+    'Follow-up sync on supersession and partial approval: see "Supersession close-out"'])assert.ok(c.includes(s),s);
+  assert.ok(c.includes('after a valid new version replaces it, the old object is `superseded`, keeping a verifiable original.'));
+  assert.ok(c.includes('artifact body should not be edited in place at the original path; if it must be rewritten, create a new candidate version'));
+  assert.ok(c.indexOf('**Finalization close-out**')<c.indexOf('**Supersession close-out**')&&c.indexOf('**Supersession close-out**')<c.indexOf('### 6.3.2'));
+  assert.ok(r('references/feature-flow.md').includes('X1-3 Supersession close-out (CAND-20261102-004, additive)'));
+  assert.ok(r('SKILL.md').includes('(CAND-20261102-004) | `references/confirmation-authorization-and-change.md` "Supersession close-out"'));
+});
+test('T140 CAND-20261102-005 release check covers candidate subdirectory README lists; READMEs list exactly their files',(t)=>{
+  const e=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/rule-evolution.md'),'utf8');
+  for(const s of ['Before tagging, the release also checks that `candidates/pending/README.md`, `candidates/archived/README.md` and `candidates/rejected/README.md`',
+    'a mismatch is fixed before the tag (CAND-20261102-005, additive)','**Status closure on promotion and release**: the turn that commits a promoted candidate'])assert.ok(e.includes(s),s);
+  const cd=path.join(root,'candidates');
+  if(!fs.existsSync(cd)){t.skip('no candidates/ in this checkout');return;}
+  for(const d of ['pending','archived','rejected']){
+    const dir=path.join(cd,d);const readme=fs.readFileSync(path.join(dir,'README.md'),'utf8');
+    const files=fs.readdirSync(dir).filter(f=>/^CAND-.*\.md$/.test(f));
+    for(const f of files)assert.ok(readme.includes(f.replace(/\.md$/,'')),`${d}/README.md missing ${f}`);
+    if(d==='pending'){
+      for(const l of readme.split('\n').filter(l=>/^\| `?CAND-/.test(l))){
+        const m=l.match(/CAND-\d{8}-\d{3}[^|`]*/)[0].trim().replace(/\.md$/,'');
+        assert.ok(files.includes(m+'.md'),`pending/README.md lists missing file ${m}`);
+      }
+    }
+  }
+});
+test('T141 CAND-20261102-006 advisory quality-review submission: conditional, non-blocking, opinions only, no agent ids, additive',()=>{
+  const r=p=>fs.readFileSync(path.join(root,'skills/task-lifecycle',p),'utf8');
+  const f=r('references/formal-review-and-findings.md');
+  const i=f.indexOf('### 7.13 Advisory quality-review submission (CAND-20261102-006, additive)');assert.ok(i>f.indexOf('### 7.12 One full verification round'));
+  const sec=f.slice(i);
+  for(const s of ['only when the host environment provides a designated quality-review agent','never written into these rules','Node 1, before plan freeze',
+    'Node 2, before release','2 hours (full review) or 15 minutes (quick review)','blocking / important / suggestion','pass / pass after changes / fail',
+    'neither approval nor rejection','asked alone','self-evolution role','does not replace or extend the §7.12 round','rule 2b'])assert.ok(sec.includes(s),s);
+  assert.ok(!/[0-9a-f]{8}-[0-9a-f]{4}-/.test(sec),'no agent ids in §7.13');
+  assert.ok(f.includes('Remaining high findings are still fixed and delta re-checked before finalizing.'));
+  const ff=r('references/feature-flow.md');for(const s of ['A01-11 Advisory quality review','A02-7 Advisory quality review','A03-7 Advisory quality review','A08-3 Advisory release review'])assert.ok(ff.includes(s),s);
+  const rr=r('references/re-review-performer-choice.md');assert.ok(rr.includes('2b. **Option (d)** (CAND-20261102-006, additive)'));assert.ok(!/[0-9a-f]{8}-[0-9a-f]{4}-/.test(rr));
+  assert.ok(r('SKILL.md').includes('(CAND-20261102-006) | `references/formal-review-and-findings.md` §7.13'));
+});
+
+test('T142 CAND-20261103-001 external reviewer hook for the independent re-review: optional, unchanged when not configured, no double review, no ids',()=>{
+  const r=p=>fs.readFileSync(path.join(root,'skills/task-lifecycle',p),'utf8');
+  const f=r('references/formal-review-and-findings.md');
+  const h='### 7.14 External reviewer for the independent re-review (CAND-20261103-001, additive)';
+  const i=f.indexOf(h);assert.ok(i>f.indexOf('### 7.13 Advisory quality-review submission'),'7.14 after 7.13');
+  const n=f.indexOf('\n### ',i+h.length);const sec=n<0?f.slice(i):f.slice(i,n);
+  for(const s of ['an external reviewer is configured when a role or division skill loaded by the host','handed to that external reviewer',
+    'when no external reviewer is configured, the independent re-review proceeds exactly as today; behavior on such hosts is unchanged.',
+    'neither is sent again','one review per commit or artifact version','only re-sent when the content changed',
+    '2 hours full review, 15 minutes quick review','falls back to the existing','still not user approval'])assert.ok(sec.includes(s),s);
+  assert.ok(!/[0-9a-f]{8}-[0-9a-f]{4}-/.test(sec),'no ids');assert.ok(!sec.includes('质量审查'),'no reviewer name');
+  const rr=r('references/re-review-performer-choice.md');const k=rr.indexOf('2c. **External reviewer** (CAND-20261103-001, additive)');assert.ok(k>0);
+  const line=rr.slice(k,rr.indexOf('\n3. ',k));assert.ok(line.includes('§7.14'));assert.ok(!line.includes('质量审查'));assert.ok(!/[0-9a-f]{8}-[0-9a-f]{4}-/.test(line));
+  assert.ok(r('SKILL.md').includes('(CAND-20261103-001) | `references/formal-review-and-findings.md` §7.14'));
+  for(const s of ['explicitly names the external reviewer for','one determination for both','tier is not lower than the tier the node requires',
+    'does not\n   satisfy a node requiring a full review','A §7.13 full review of the same version counts as the §7.14 re-review','A06/B06 is not covered by §7.14',
+    'late supplementary review, not a double review','§7.13 items 5–6','A fail conclusion does not block','then it is the item 2 re-check'])assert.ok(sec.includes(s),s);
+  assert.ok(!sec.includes('vice versa'));
+  const nodes='A01–A04, B03 and';assert.ok(sec.includes(nodes)&&line.includes(nodes)&&sec.includes('DOC03–DOC04')&&line.includes('DOC03–DOC04'),'node list consistent');
+  assert.ok(line.includes('A06/B06')&&line.includes('choice card is then not asked')&&line.includes('override'));
+  assert.ok(rr.includes('Exactly the formal artifacts of A01–A04, B03 and DOC03–DOC04'),'Scope matches §7.14 list');
+  assert.ok(f.includes('Clarification (CAND-20261103-001, additive): when §7.14 applies, a §7.13 full review of the same version also counts'));
+  // round 3: explicit checks
+  assert.ok(sec.includes('Depth rule: a prior review counts as done only if its tier is not lower than the tier the node requires'),'depth rule');
+  const i7=f.indexOf('7. **Relation to §7.12**');const c7=f.indexOf('Clarification (CAND-20261103-001, additive)');assert.ok(i7>0&&c7>i7&&c7<f.indexOf('### 7.14'),'clarification inside §7.13 item 7');
+  const scope=rr.match(/Exactly the formal artifacts of ([^;]+?) of a managed task/)[1];assert.equal(scope,'A01–A04, B03 and DOC03–DOC04');
+  assert.ok(sec.includes('Scope: '+scope)&&line.replace(/\n\s+/g,' ').includes(scope),'node list consistent');
+  assert.ok(sec.includes('Late conclusion: an external conclusion arriving after the timeout fallback is treated as a late supplementary review, not a double review'),'late conclusion');
+  assert.ok(sec.includes('at A01–A03 it is a §7.12 delta re-review; at nodes outside §7.12\'s scope (A04, B03, DOC03–DOC04)'),'N1');
+  assert.ok(sec.includes('"Extra re-review performer"')&&sec.includes('rule 3a'),'N1 anchors');
+  assert.ok(!/do a §7\.12 delta re-review|findings go through §7\.12 delta/.test(sec),'no unscoped §7.12 delta');
+  for(const [fl,h] of [['feature-flow.md','**Extra re-review performer (A01–A04)**'],['bugfix-flow.md','**Extra re-review performer (B03)**'],['docs-flow.md','**Extra re-review performer (DOC03–DOC04)**']])assert.ok(r('references/'+fl).includes(h),fl);
+});

@@ -165,6 +165,7 @@ carry it out when that date or trigger arrives without asking again.
 
 - **Artifact**: `draft` → `self-reviewing` → `self-reviewed` → `pending-gate` → `human-confirmed` or `auto-accepted`;
   - failure may enter `blocked`/`revision-required`; after a valid new version replaces it, the old object is `superseded`, keeping a verifiable original.
+  - Follow-up sync on supersession and partial approval: see "Supersession close-out" (CAND-20261102-004, additive).
   - **Partial approval takes effect only for the stated clauses**; the whole stays `pending-gate`; the whole draft may not be made effective because an event contains the word `human-confirmed`.
 - **Finding (state semantics unified with approved REQ-065)**: the normal but not mandatory linear path is
   `open → investigating → repair-planned → repairing → verification-pending → re-review-pending → closed-verified`;
@@ -237,6 +238,35 @@ explicitly says "confirm both complete bodies" with unique identities/versions a
 **Phase-closing decisions are asked alone** (CAND-20261101-008, additive): a decision that closes a phase (finalizing an artifact, moving to the next phase)
 is always asked alone on one single-question card, never bundled in the same message with other pending items or requests; a bare acknowledgement
 ("ok", "confirm", "continue") never approves such a decision, whatever the number of pending items; only picking that card's option or naming the decision does.
+
+**Finalization close-out** (CAND-20261102-003, user-ruled, additive): after a formal artifact receives a human finalization/effective decision and before the
+next phase starts, finalization is complete only when all of the following hold.
+- (a) Fixed checklist: filename; title; status line; pending-items section (cleared, or each item marked resolved with its decision source); downstream
+  references repointed to the finalized file (e.g. a usage contract's requirements baseline); Page title; the finalization event in the decision record.
+- (b) Limited stamp: the stamp is applied only on the new finalized copy; the original approved candidate file's bytes stay untouched and keep the approved SHA.
+  Allowed changes in the copy are limited to the title, status line, pending-items section and downstream reference paths. This is a non-substantive change:
+  not a new candidate and no re-approval. The external record keeps the approved SHA, the stamped SHA and the full diff; any change outside the list fails
+  the stamp and falls back to item 6 ("changing file content creates a new candidate"), with re-approval.
+- (c) Self-check: search the finalized file for leftover wording (e.g. `待定稿|候选|未生效|只剩.*待` and English equivalents such as "pending finalization",
+  "candidate", "not effective"); any hit means finalization is not complete and the next phase may not start.
+- This is a narrow exception to item 6 ("changing file content creates a new candidate") and to "should not be edited in place at the original path";
+  outside the checklist fields and the finalized copy, both rules stand unchanged.
+
+**Supersession close-out** (CAND-20261102-004, user-ruled, additive): when a valid new version supersedes a formal artifact, or the user confirms only part of
+one, the following hold before the new version is claimed effective or the next phase starts.
+- (a) The old version's file bytes stay untouched and keep its approved SHA; the supersession is recorded only externally: old and new paths and SHAs,
+  the decision source and the list of affected downstream artifacts.
+- (b) Every reference to the old version in downstream formal artifacts is repointed to the new version. If the downstream artifact is already finalized,
+  this uses the "downstream reference paths" exception of "Finalization close-out" (b), recording approved SHA, changed SHA and diff; any other change
+  falls back to item 6 (new candidate).
+- (c) Self-check: search downstream formal artifacts and Pages for the old version's path and version number; any hit outside history/change-log sections
+  means supersession is not complete and the next phase may not start.
+- (d) The old version's Page title is marked "superseded by vN" (a Page is not the approval object); the Page is not deleted.
+- (e) Partial approval is recorded only in the external event (`Decision Scope`, `Whole Artifact Effective: no`); the body gets no stamp. After whole
+  confirmation, "Finalization close-out" applies.
+- This adds no exception to "should not be edited in place at the original path": the old version's body is never changed. It reuses the exception of
+  "Finalization close-out" (b) for downstream reference paths only, and complements item 8 (A10): consumers are not only recorded but actually repointed
+  and self-checked.
 
 ### 6.3.2 When the user tells you to just proceed without more questions
 

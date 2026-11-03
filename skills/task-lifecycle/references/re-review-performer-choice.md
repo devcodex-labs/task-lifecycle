@@ -15,6 +15,12 @@ Exactly the formal artifacts of A01–A04, B03 and DOC03–DOC04 of a managed ta
 2. **Options** (each states what it does, does not do and costs): (a) the user reviews it themself; (b) one fresh clean current-host session, one read-only review, labeled "same model, one
    independent session", shown only when the host can open one; (c) one third-party reviewer host session, one read-only review, using the first host in `hosts` order that passes the checks, or
    the CLI the user named.
+2b. **Option (d)** (CAND-20261102-006, additive): (d) the host's designated quality-review agent, one advisory review per `formal-review-and-findings.md`
+    §7.13; shown only when the host environment provides such an agent. Rule 1 "Additive only" stands.
+2c. **External reviewer** (CAND-20261103-001, additive): when the host configures an external reviewer, the independent re-review at A01–A04, B03 and
+    DOC03–DOC04 is handed to it per `formal-review-and-findings.md` §7.14 (one review per commit or artifact version, no double review with §7.13;
+    A06/B06 commit review not covered). The (a)–(d) choice card is then not asked; the external reviewer is used, and the user may still override by
+    naming a different performer. When none is configured, the options above apply unchanged.
 3. **One session, no relay**: (b) and (c) each open one session for one read-only review. The full §7.10 relay runs only when the artifact's review plan already requires an independent reviewer
    (§7.10 Trigger); the choice never starts one. `reReviewPerformer` never satisfies the §7.10 Trigger, never uses the two-seat rule of `task-split-parallel-and-integration.md` "Delegation config"
    item 9 and never uses `review.fallback`; (c) may still read the `review` config for its host list and checks.

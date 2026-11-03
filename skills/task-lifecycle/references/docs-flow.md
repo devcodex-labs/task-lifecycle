@@ -94,3 +94,5 @@ expanding Auto authorization.
 
 **Extra re-review performer (DOC03–DOC04)**: before the review plan or, without one, the artifact of DOC03–DOC04 is confirmed, ask who performs the extra independent re-review per
 `re-review-performer-choice.md`.
+
+**Finalization close-out (CAND-20261102-003, additive)**: when a DOC formal artifact is finalized, follow `confirmation-authorization-and-change.md` "Finalization close-out".

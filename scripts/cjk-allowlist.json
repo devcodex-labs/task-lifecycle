@@ -1872,6 +1872,14 @@
    "files": [
     "skills/task-lifecycle/references/entry-quickref.md"
    ]
+  },
+  {
+   "literal": "待定稿|候选|未生效|只剩.*待",
+   "bucket": "SEARCH_PATTERNS",
+   "reason": "CAND-20261102-003 finalization self-check regex for Chinese leftover status wording in user artifacts",
+   "files": [
+    "skills/task-lifecycle/references/confirmation-authorization-and-change.md"
+   ]
   }
  ]
 }

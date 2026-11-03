@@ -89,6 +89,8 @@ Candidate bodies are **stored in the candidate library `candidates/`** (plugin s
 (status, commit, path) and any copy of the same candidate in another candidate store; a release turn sets each candidate it ships to its released version. Before tagging, the release
 checks that no candidate left in `pending/`, and no INDEX row still pointing at `pending/`, names a commit or version already released; a hit is fixed before the tag. One candidate ID
 names one candidate across all candidate stores; on a collision the later one is renumbered to a free ID, and rule text keeps the old reference with an added mapping line.
+Before tagging, the release also checks that `candidates/pending/README.md`, `candidates/archived/README.md` and `candidates/rejected/README.md` list exactly the
+candidate files in their directories, with status consistent with `candidates/INDEX.md`; a mismatch is fixed before the tag (CAND-20261102-005, additive).
 Review, freeze, approval and verification records are process artifacts, **not in the candidate library and not in the plugin repository**: written to the external process directory of the managed
 task producing them (the `<task-id>` directory of item 2 of "Execute item by item when applicable" in `workspace-versioning-and-recovery.md`, or an equivalent task record location the host provides
 verified writable and outside the repository; paths are not hard-coded by host name);
