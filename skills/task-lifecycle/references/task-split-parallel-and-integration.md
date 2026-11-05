@@ -114,19 +114,23 @@ remaining 10 are claimed to pass automatically, both must be rejected. If a batc
 
 ## Delegation config: JSON and validator (consumption protocol)
 
+Input configs support v1 and v2; v2 uses the host's opaque approval message ID. Existing v1 configs retain their original semantics. Follow [config-migration.md](config-migration.md)
+  for version support, examples and explicit migration; the validator never rewrites user configs. Stdout has a separate output schema, currently v1.
+
 Delegation config (external executor delegation, `workflowDepth` execution default, read-only reviewer host pool `review`) recognizes only JSON and the validator; soft preferences and task state
 still use Markdown (`workspace-versioning-and-recovery.md` §9.1.1).
 - Location: global `<account home>/.config/task-lifecycle/config.json` (required when using any delegation setting); project layer `<workspace>/.task-lifecycle/<Project ID>/config.json` (optional,
   only narrows).
-- Fields are in the plugin's `assets/config.schema.json` (for humans; the script is authoritative); `assets/config.example.json` never takes effect. Writes go only through "Delegation config writes"
+- Fields are in the full plugin's `assets/config.schema.json` (for humans; the script is authoritative); `assets/config.example.json` never takes effect. Skill-only users can use the
+  self-contained example in [config-migration.md](config-migration.md). Writes go only through "Delegation config writes"
   in `workspace-versioning-and-recovery.md` §9.1.1.
-- POSIX call: `timeout 30 node <plugin root>/scripts/validate-config.mjs [--workspace <parent dir of the bound project root> --project-id <bound Project ID>]`; the validator is read-only, offline,
+- POSIX call: `timeout 30 node <skill root>/scripts/validate-config.mjs [--workspace <parent dir of the bound project root> --project-id <bound Project ID>]`; the validator is read-only, offline,
   and starts no git or any child process.
 - Windows PowerShell uses the existing Node (≥20) with a 30-second wrapper call; do not treat Windows `timeout.exe` as POSIX `timeout`. Replace the example's path and two arguments with verified
   actual values; the wrapper only starts and time-limits this validation child process:
 
 ```powershell
-node -e "const r=require('node:child_process').spawnSync(process.execPath,process.argv.slice(1),{encoding:'utf8',timeout:30000,killSignal:'SIGKILL'});process.stdout.write(r.stdout||'');process.stderr.write(r.stderr||'');if(r.error)process.stderr.write(r.error.code+'\n');process.exit(r.error?1:(r.status??1));" '<plugin root>/scripts/validate-config.mjs' --workspace '<parent dir of the bound project root>' --project-id '<bound Project ID>'
+node -e "const r=require('node:child_process').spawnSync(process.execPath,process.argv.slice(1),{encoding:'utf8',timeout:30000,killSignal:'SIGKILL'});process.stdout.write(r.stdout||'');process.stderr.write(r.stderr||'');if(r.error)process.stderr.write(r.error.code+'\n');process.exit(r.error?1:(r.status??1));" '<skill root>/scripts/validate-config.mjs' --workspace '<parent dir of the bound project root>' --project-id '<bound Project ID>'
 ```
 
 - The account home comes from a system account lookup and cannot be inferred from config. Only on Windows may an unset `HOME` continue using the verified account home; explicit empty values or
@@ -265,16 +269,13 @@ Do not judge by host name: several hosts on the same machine may see the same ex
    Dispatch commands append model and reasoning-effort arguments per item 10 of the previous section and check the log header.
 4. **Call constraints**: headless single call, structured (JSON) output, `maxTurns` cap, outer wall-clock timeout, working directory the target repository;
    - the dispatch prompt's first line always carries the dispatch header `[TL-DISPATCHED depth={dispatch depth≥1} from={coordinator host} task={task/review ID}]`, states "this message is a
-     dispatched task, not a real user message", and states the receiver bans (no further dispatch, no agent CLI calls, no sub-sessions, no managed Tasks); the header only tightens, never loosens.
-   - **Capabilities fully open, only five baselines remain** (applies to grok; DIRECT-20261027-GrokBuild放权 D1/D2): reads, writes, git read-only and local commits, network,
-     interpreters, package managers and sub-agents are all unrestricted;
-     baselines: no push (git push and any remote write), no release (npm publish, gh/glab release, etc.), no delete (rm, unlink, find -delete, git rm, remote deletion),
-     no credential reads (`.env*`, `*.pem`, `~/.ssh`, `~/.config/gh`, git-credentials, token files; both built-in Read and shell reads count), no signing conclusions (output is only
-     opinion/candidate).
-     Unattended runs use no-confirmation mode with the baseline deny list attached (version table at the end of this section); if the table lacks the current CLI version → that category is not
-     delegated (degrade per item 3) until the table is updated.
-   - **Stop on crossing**: if any baseline is touched, immediately stop delegation for that category (category config back to `none`), keep the transcript and original commands and register them,
-     and report to the user; the user decides whether to resume.
+     dispatched task, not a real user message", and binds the receiver role, read scope, write set and evidence duties. No managed Tasks or inherited Auto;
+     recursive delegation is off by default. Record any actually authorized adapter exception explicitly; prompt text alone cannot grant it. The header only tightens, never loosens.
+   - Apply the receiver role and authorized read/write scope in SKILL.md §0 item 1. Capability availability does not enlarge that role.
+   - Grok CLI calls additionally load [grok-cli-dispatch.md](grok-cli-dispatch.md), the sole owner of its version table, broad-capability exception, five baselines and denial evidence.
+     Other executors gain no exception from that adapter. Unknown versions or failed probes fall back per item 3; required independent review evidence remains required.
+   - Stop an out-of-scope operation, preserve its transcript, and return the partial result to the coordinator. Suspend the affected dispatch;
+     changing persistent config uses its own approval procedure.
 5. **Result recovery**: the executor only delivers candidate diffs, local evidence and a self-review list (change scope, commands run, uncovered items; non-independent, only leads; same as items 4
    and 5 of this file);
    - judge completion by the structured output's stop reason; **exit code 0 does not mean done** (cancellation or denied permissions may also return 0); incomplete is handled as a partial result.
@@ -293,30 +294,7 @@ Do not judge by host name: several hosts on the same machine may see the same ex
    without comparable samples, cost and speed are recorded `not-comparable`.
    **Denial records**: for every denial or cancellation record the original command, original denial text, stop reason and handling (CAND-20261026-005 v5).
 
-**Unattended permission version table: grok 1.0.70** (DIRECT-20261027-GrokBuild放权 D1/D2; supersedes the minimal allow table of CAND-20261026-005 v5)
-
-Common arguments: `--always-approve --output-format streaming-json --max-turns <cap>`; outer wall-clock timeout (e.g. `timeout 300`). Do not add `--sandbox` / `--disable-web-search` /
-`--no-subagents`.
-Baseline deny (`--deny`, one per rule): `Bash(git push:*)`, `Bash(npm publish:*)`, `Bash(gh release:*)`, `Bash(glab release:*)`, `Bash(rm:*)`, `Bash(unlink:*)`, `Bash(git rm:*)`,
-`Bash(codex:*)`, `Bash(grok:*)`, `Read(**/.env*)`, `Read(**/*.pem)`, `Read(~/.ssh/**)`, `Read(~/.config/gh/**)`, `Read(**/.git-credentials)` (the `~` and `**` forms not live-tested).
-unverified (the user waived live testing): whether deny still blocks in no-confirmation mode; whether shell variants (`cat` / `node` reading credentials, `find -delete`, `git -c`/alias pushes)
-bypass deny. Baselines do not rely on deny alone; check the transcript per item 5 at result recovery.
-
-| Task type | Status | Allow |
-|---|---|---|
-| Read-only review | May be enabled (admission only per `formal-review-and-findings.md` §7.10 item 0; does not change the reviewed object) | All (no confirmation) |
-| Drafting | May be enabled | All (no confirmation) |
-| Writing code | May be enabled | All (no confirmation) |
-
-History: in non-no-confirmation mode allow rules did not take effect for git and un-allowed commands cancelled the whole call (PERMTEST-20261026-001/002), hence the switch to no-confirmation.
-F1 (CLI upgrade): `--version` or permission-related help text changed → check the arguments and deny forms above before delegating.
-
-**Positive/negative examples (scenarios, not live-tested)**: with the global config missing, both Codex and Grok Bot have the main session implement B04, the pre-check recording
-`Config: disabled (config-missing)`: compliant;
-config enables only `implementation`, the A04 plan states WI-2 goes to `grok-build`, after the probe passes it is called in no-confirmation mode with the baseline deny, and the main session
-re-checks the diff before A05 code review: compliant.
-Reject: auto-delegating on seeing a `grok` command; running no-confirmation without the baseline deny; taking the executor's "review passed" as the B05 conclusion; claiming completion on exit code
-0; following a config that writes `B05: grok-build`.
+Grok-specific invocation examples and the versioned unattended capability table are maintained only in [grok-cli-dispatch.md](grok-cli-dispatch.md).
 
 ## Counterexamples that must be rejected
 
@@ -408,7 +386,7 @@ and corresponding results was obtained;
 Added by FEAT-20261028-001 (D4, D5, D9, D18–D21, D26, D31, D32; R-2). Additive only: every sentence above, including "Four parallel admission states and failure exits" and
 §11.1 "Choose `parallel-eligible` only when", stays verbatim and still governs.
 
-- **Location and shape**: optional top-level key `parallel` in the same global and project `config.json` as `delegation`; `schemaVersion` stays `1`. Fields (all optional):
+- **Location and shape**: optional top-level key `parallel` in the same global and project `config.json` as `delegation`; supported input `schemaVersion` values are `1` and `2`. Fields (all optional):
   `enabled` (boolean, default `false`), `maxConcurrent` (integer 1–4, default `3`), `categories` (object of booleans keyed by the four category keys; defaults
   `readonly-investigation: true`, `implementation: false`, `test-run: false`, `drafting: false`), `sameRepoWrites` (`disjoint-files-only` default,
   `worktree-with-per-time-authorization`, `never`). `"parallel": {}` is valid and means off.

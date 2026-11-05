@@ -256,7 +256,7 @@ the formal usage contract or full technical design may not be skipped. Optional 
 - X1-2 Insert the A10 impact-analysis loop: record the change source, before/after versions and consumers, and which plans/proofs/approvals are invalidated. (Basis:
   confirmation-authorization-and-change.md "Execute item by item when applicable")
 - X1-3 Supersession close-out (CAND-20261102-004, additive): when a new version supersedes a formal artifact, follow confirmation-authorization-and-change.md
-  "Supersession close-out" (old bytes untouched, downstream repointed, leftover self-check, old Page title marked).
+  "Supersession close-out" (old bytes untouched, downstream impact checked before updating current-baseline references, old Page title marked).
 
 **X3 Impact analysis and re-review**
 

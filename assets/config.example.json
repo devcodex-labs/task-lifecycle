@@ -1,6 +1,6 @@
 {
   "approvalSource": {
-    "messageId": "t1u",
+    "messageId": "example-host-message-1",
     "quote": "示例：仓库内示例永不生效，真实写入须逐字摘录用户原话并经确认",
     "record": "/home/user/task-lifecycle-records/EXAMPLE/00-任务记录.md"
   },
@@ -14,5 +14,5 @@
       "zeroExternal": "isolated-host-sessions"
     }
   },
-  "schemaVersion": 1
+  "schemaVersion": 2
 }

@@ -24,6 +24,22 @@ separately. Entries without the original review/confirmation record keep their o
 
 ## Current open index (added 2026-10-27; index only, the body is authoritative)
 
+### Generalization implementation evidence (2026-11-05, working tree)
+
+- Batch 6 evolution: workspace and maintainer domains, scoped identity, isolated-trial authorization and adoption/feedback templates are updated in source. No installed host is changed.
+  Static document/syntax checks do not establish runtime isolation, expiry enforcement, actual loading or effectiveness; these remain E4 unverified. Regression assertions were updated but not run
+  for the earlier batch 6 static-only checkpoint at the user's request. Release preparation subsequently runs the repository suite under the user's release authorization; see the record below.
+  There is no automatic migration or real host trial execution.
+- Release 0.3.0 preparation: Windows / Node 24.22.2 repository regression completed with 211 tests, 190 passed, 0 failed and 21 environment/fixture-dependent skips.
+  This includes the updated evolution-domain assertions. The release record identifies the final commit and CI results; repository tests do not prove real model/host behavior.
+
+- Approval IDs: validator revision 2 now accepts input v1/v2. V1 keeps its grammar; v2 accepts opaque host IDs. Output remains schema v1, and approval provenance and narrowing remain mandatory.
+- Local config regression: 111 tests, 93 passed, 0 failed, 18 environment-dependent skips on Windows. Includes real pre-v2 code rejecting v2, mixed layers and invalid-ID counterexamples.
+- This entry records current source behavior only; it does not retroactively close historical reviews or claim that a release was installed on any host.
+- Runtime distribution: both validator and citation checker now ship inside the Skill with root compatibility wrappers. Isolated complete-plugin and Skill-only copies passed locally on Windows.
+  This addresses the current-source cause of FEAT-20261024-001/Cursor-skills-only; the historical row remains unchanged until its own deployment evidence is reconciled.
+- Grok CLI and Grok Bot Page rules have separate owners; static rule coverage passed. Historical CLI deny gaps and current live-host/Canvas behavior remain unverified.
+
 Lists sections that still contain open or unverified items; line numbers drift with edits, so only section names are given.
 - "0.1.53 relay keeps original qualifiers": KG-016-01–08 (P2) open; E4 unverified.
 - "CAND-20261026-015 three-round cap stop, residue": section marked closed, but the body still has 3 open items (UC-01 path, cross-repo sub-tasks, relayed
@@ -176,6 +192,11 @@ Section status [2026-11-01]: closed means the review cap was reached; 4 items be
   the rejection sentence; open a narrow candidate if needed.
 
 ## CAND-20261026-013 start-card scope reduction, residue
+
+Current-rule note (2026-11-05, approved generalization batch 1): the closures below preserve the decisions of their recorded versions. They are not current
+authorization rules. "Decision source equivalence" in `confirmation-authorization-and-change.md` now accepts an unambiguous, scope-bound text choice as well as
+a click; `end-to-end-auto-card.md` "Local commits require explicit scope" no longer derives a commit from Auto alone. These text changes do not claim fresh-host
+behavior verification, and do not close unrelated historical findings below.
 
 - closed [2026-10-27]: verbal Auto is not a mode source — current `task-recognition-and-routing.md` §4.4 (0.1.56/0.1.58) already says only selecting Auto
   on this card counts; verbal Auto does not; it rejects "verbal Auto taken as the mode source".

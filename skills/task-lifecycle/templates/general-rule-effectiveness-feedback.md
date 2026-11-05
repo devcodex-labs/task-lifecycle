@@ -1,10 +1,13 @@
 # general-rule-effectiveness-feedback — mandatory template
 
 > Record feedback only after a later **real managed task actually reads and applies** an approved active rule; an INDEX entry alone, a generated template or a demo sample is not evidence of effect.
+> Static reasoning and isolated trial observations belong in the adoption review record, not in this actual-use verdict. Maintainer source checks do not prove workspace adoption or effectiveness.
 
 | Field | Real evidence |
 |---|---|
 | Rule ID/Version/approvalRef | `{currently valid identity and trusted approval}` |
+| ruleDomain / ownerRoot / contentHash / applicableProjects | `{exact workspace-extension identity and adopted scope; no cross-root merging}` |
+| Evidence kind | `actual-use` (only with the later real task evidence below; otherwise do not issue an effectiveness verdict) |
 | Current Task/Project/Phase | `{actual task, readers/consumers and trigger conditions}` |
 | Actual indexed/applicable/read/applied evidence | `{path/version/evidence of the content actually read; never guessed from text}` |
 | Positive test cases / negative case | `{originally planned checks and rejected counterexamples}` |

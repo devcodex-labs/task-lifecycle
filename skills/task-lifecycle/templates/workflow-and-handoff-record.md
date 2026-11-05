@@ -28,8 +28,11 @@ information may be combined; record which valid step the current action belongs 
 - `A10/B10/DOC10` is inserted impact analysis, triggered only by substantive change; not forced to rerun after A09/B09/DOC09.
 - Read-only Task: `{per-item evidence for the four completion conditions`, `whether manual acceptance of the report was explicitly agreed`,
   `separate conclusions for the report and the object's quality}`; ordinary reports without a Task fill no fictional identity, and saving does not automatically create a Task.
-- Evolution enabled state and applicable active rules (`.task-lifecycle/active-rules/`): `Rule ID / Version / approvals / applicability / actual read/load evidence / consumers / reason not loaded`;
+- Evolution enabled state and applicable active rules (`.task-lifecycle/active-rules/`): `ruleDomain / ownerRoot / RuleID / Version / Hash / applicableProjects / adoptionApprovalRef`;
+  record `actual read/load evidence / consumers / reason not loaded`;
   not loaded when not enabled; a materials-only review is not application.
+- If an isolated trial is authorized, record its separate `trialApprovalRef / frozen identity / isolated target / allowed actions / termination boundary / evidence / cleanup status`.
+  Resume checks trial expiry and actual isolation before further trial loading; never carry trial authority into ordinary tasks or record trial observations as actual-use effectiveness.
 - Applicable WI DAG, four parallel states and unverified records (the task need not be split); sub-tasks may not write the root task's approval records.
 - Plans/artifacts needing exact human approval list version and scope separately; validly approved plans are not requested again.
 

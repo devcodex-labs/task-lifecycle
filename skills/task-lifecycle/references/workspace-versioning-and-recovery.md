@@ -32,7 +32,8 @@ check.
 6. When the result of a cross-session/same command is unknown, first check real Git/file/process/HTTP consequences, then decide whether to retry; no blind replays that double-charge/write.
 7. Clean up only temporary processes/ports/files you have permission for and proved were started by this task; before terminating re-check PID/start time/command/target to avoid killing a reused
    PID; never use `git reset --hard` or unconditionally clean dirty state.
-8. Evolution rule INDEX/active (only when evolution is enabled) live in the external `.task-lifecycle/active-rules/`, operation records in `.task-lifecycle/reports/history/`; effect and rollback are
+8. Workspace-extension candidates live in verified external `.task-lifecycle/candidates/`; plugin-maintenance candidates stay in the selected source checkout's `candidates/`, never an install.
+   Evolution rule INDEX/active (only when evolution is enabled) live in the external `.task-lifecycle/active-rules/`, operation records in `.task-lifecycle/reports/history/`; effect and rollback are
    controlled by `rule-evolution.md`; revoked permissions cannot be restored by writing history files.
 9. **ABS-07 for commit/package/release candidates**: within the explicit permission scope, read-only check `working/staged/untracked/generated/ignored` of the current real filesystem and
    Git/worktree, distinguishing `tracked`, `git diff`, index staging, actual candidate package content and files excluded by `.gitignore`/package `files`;
@@ -40,10 +41,10 @@ check.
    - Per the `sourceInventory/requiredDeliverableSet/includedInDeliverable/actualConsumer` contract of `verification-and-evidence-routing.md`, verify required assets, entry points and dependencies
      are consumable; block gaps or overreach before requesting specific fix permission.
    - **Never automatically add ignored files, change `.gitignore`, overwrite dirty state or commit/push to pass a check**.
-   - **Commit identity before push**: before any push, verify every commit to be pushed has Author and Committer set to the maintainer identity (the name from
-     facts/user.md or conventions, and the email already used by the repository's existing commits); any `Co-authored-by:`
-     trailer naming a bot or agent is removed before push (amend only unpushed local commits; never rewrite pushed history without the user's confirmation); on a mismatch stop and
-     report the commit IDs. Reason: the repository records only the maintainer's identity; bot co-author lines are not allowed.
+   - **Commit identity before push**: use this project's agreed identity for new commits and preserve the true authors, committers and contribution trailers of
+     existing commits. Do not rewrite contributors to a plugin maintainer or remove attribution just because this Skill is active. A project-specific policy mismatch
+     is reported with the affected commit IDs; rewriting history needs its own valid scope. This plugin's owner-only convention is in
+     [Maintainer baseline](../../../docs/maintainer-baseline.md#repository-maintenance-policy), not a default for installed users.
 
 **Safe recovery of long-task batches**: if task-level Auto is forced to stop at a host/context capacity boundary, and only when real files are verified legally writable, record this round's
 completed `BatchID/source-set hash/actual target version SHA/sub-condition sign-off results and evidence/block reasons/next batch ID/real trusted permission scope` in the existing external Task
@@ -150,6 +151,7 @@ approval. Ordinary files vs formal Tasks: item 3 of this file and routing §4.3.
     ├── active-rules/
     │   ├── INDEX.md               # registers only verified valid active rules
     │   └── active/
+    ├── candidates/                # workspace-extension only; pending/archived/rejected + README/INDEX; never auto-loaded
     ├── reports/
     │   └── history/               # promotion/deactivation records, read-only archive
     ├── 能力缺口索引.md             # generated only when needed across projects; never auto-loaded as rules

@@ -1,0 +1,18 @@
+{
+  "approvalSource": {
+    "messageId": "t1u",
+    "quote": "Example only. Replace with the exact user words and obtain approval for the resulting config bytes.",
+    "record": "/home/user/task-lifecycle-records/EXAMPLE/approval.md"
+  },
+  "delegation": { "enabled": false },
+  "parallel": { "enabled": false },
+  "review": {
+    "enabled": false,
+    "fallback": {
+      "noIndependentSession": "blocked-needs-evidence",
+      "oneExternal": "host-fresh-session-else-isolated-sessions-of-external",
+      "zeroExternal": "isolated-host-sessions"
+    }
+  },
+  "schemaVersion": 1
+}

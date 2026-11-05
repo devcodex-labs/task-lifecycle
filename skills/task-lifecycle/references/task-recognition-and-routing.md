@@ -209,21 +209,22 @@ User explicitly starts or enters managed Feature/Bugfix/Docs by intent
   more options" item of `confirmation-authorization-and-change.md` (since 0.1.55); the recommended option may only be a Confirm option; Auto may not be marked recommended or be the default, and stop
   points such as commit
   and push are not lifted by Auto.
-- Mode defaults to Confirm; only Auto clicked on this card counts as an Auto source; a verbal Auto, an earlier general statement that everything from now on is auto, or a host auto-execute mode does
-  not count and goes only into the description. The Auto option's description must state all five elements of item 1 of `confirmation-authorization-and-change.md`; if any cannot be fixed, offer no
-  Auto and say why. Before the card is clicked, a new message about the same request replaces the content and resends the same card,
-  never a second card. The task record writes `mode` and `modeSource`.
-- Rejection: a verbal Auto treated as mode source; a new managed task running Auto without the card; a record missing `mode`/`modeSource`.
+- Mode defaults to Confirm. Apply the **Decision source equivalence** rule in `confirmation-authorization-and-change.md`: a real user's explicit Auto choice may be
+  a click, a decision-coded text reply or an unambiguous reply to the single current decision. All five scope elements of item 1 must be available; if any is missing,
+  offer no Auto and resolve only that gap. An earlier general statement that everything is auto, a host auto-execute mode or a bare word without a bound scope is not a source.
+  Reuse an already-valid in-scope choice without another card. Before a decision, a changed request updates the same pending decision, never creating a second one;
+  an answer to an obsolete scope cannot approve its replacement. The task record writes `mode`, `modeSource` and the chosen scope.
+- Rejection: Auto without a real explicit, scope-bound decision; default-selected or unanswered options treated as approval; a record missing `mode`/`modeSource`.
 
-**Review intensity** (FEAT-20261028-001, D38; R-3, R-4, R-5, R-7, R-9; additive: the Kickoff card text above, `fast/standard/thorough/custom` and
-`formal-review-and-findings.md` §7.10 stay verbatim): the user picks how formal reviews are arranged for the task.
+**Review intensity** (FEAT-20261028-001, D38; R-3, R-4, R-5, R-7, R-9): the user picks how formal reviews are arranged for the task;
+depth choices stay `fast/standard/thorough/custom`, and independent-review admission stays in `formal-review-and-findings.md` §7.10.
 - Tiers (fixed English keys, Chinese in `entry-quickref.md` LABELS):
   - `light`: single-seat static review, adjacent phases reviewed together; one recheck after accepted fixes. About 1 review per merged group, plus 1 recheck.
   - `balanced`: each phase that needs formal review gets a single-seat review plus one recheck. About 2 reviews per phase.
   - `strict`: three-seat relay (§7.10). About 3 reviews per phase (first leg, second leg, final verification), more after revisions.
 - No tier skips a required gate: A01–A03 formal review, real verification (A06), final acceptance and the like stay; `light` merges review rounds only, never gates.
-- Every tier stays under the §7.10 item 7 General review cap ("Recheck counts toward the cap"), P1 threshold and Instruction boundary; picking `strict` is the user naming
-  relay. This is a per-task arrangement, not the former "review intensity tiers" that item 7 replaced.
+- Every tier follows §7.10 item 7 "Review round accounting", the P1 threshold and Instruction boundary: necessary fix verification does not consume another full round
+  and cannot be skipped just because only P2 remains. Picking `strict` is the user naming relay. This is a per-task arrangement, not a new admission rule.
 - Default follows the depth: `fast` → `light`, `standard` → `balanced`, `thorough` → `strict`, `custom` → `balanced`.
 - Kickoff: "Review intensity" is its own single-question card sent after the first card, default marked recommended; the first card is unchanged. Each option states its approximate review
   count above and an approximate time per review taken from this project's recorded review durations, or "not estimated" when none exist; never invented.

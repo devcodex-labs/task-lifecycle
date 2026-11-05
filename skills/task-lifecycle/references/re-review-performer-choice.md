@@ -24,10 +24,10 @@ Exactly the formal artifacts of A01–A04, B03 and DOC03–DOC04 of a managed ta
 3. **One session, no relay**: (b) and (c) each open one session for one read-only review. The full §7.10 relay runs only when the artifact's review plan already requires an independent reviewer
    (§7.10 Trigger); the choice never starts one. `reReviewPerformer` never satisfies the §7.10 Trigger, never uses the two-seat rule of `task-split-parallel-and-integration.md` "Delegation config"
    item 9 and never uses `review.fallback`; (c) may still read the `review` config for its host list and checks.
-3a. **Re-review count cap** (additive): the extra re-review of rule 3 and every recheck after its accepted fixes count toward this artifact's review count: default 1,
-    at most 3; before the 2nd, state the reason for re-review. At the cap, unresolved issues go to the user at once, with no further round; a review by the user themself ((a)) also
-    counts as 1. Keeping an independent re-review for high-risk changes means the §7.10 Trigger and §7.10 item 6, with no separate definition here; this item adds a count only,
-    and never waives a review rule 1 keeps.
+3a. **Re-review count cap**: classify the extra review and its follow-up under `formal-review-and-findings.md` §7.10 item 7 "Review round accounting".
+    A full extra review, including option (a), counts as one full round; necessary verification of accepted fixes is a delta check, not another full round.
+    B03/DOC03 P2-only fixes still receive that check. Apply the full-round cap and §7.6 retry limits separately; unresolved items stay open at either stop.
+    Keeping an independent re-review for high-risk changes still means the §7.10 Trigger and item 6; this count never waives a review rule 1 keeps.
 3b. **One full round for A01–A03** (CAND-20261102-002, additive): for A01–A03 the count of rule 3a holds one full round at most; later rounds are delta
     re-reviews and remaining medium/low findings go to the user as one decision, per `formal-review-and-findings.md` §7.12, which takes precedence here.
 4. **Checks and failure**: (b) runs no validator and only checks that the host can open a clean session. Each use of (c) reruns the validator fresh and §7.10 item 0 admission, including the
@@ -47,8 +47,8 @@ Exactly the formal artifacts of A01–A04, B03 and DOC03–DOC04 of a managed ta
    result is kept. Never re-ask per artifact or because a report was produced (SKILL.md §0 item 7). Until answered, existing review rules apply unchanged.
 8. **Unanswered card**: when a shown card expires, is dismissed or gets no selection, that plan or artifact is not confirmed until the user selects an option or gives a no-card instruction (rule
    9); the outcome is recorded in `reReviewPerformer`.
-9. **No card**: on an explicit "just do it" or "as recommended" for this task given before the card appears, or Auto clicked on the Kickoff card (a verbal Auto is not an Auto source,
-   `task-recognition-and-routing.md` Kickoff card), show no card, apply existing rules, and write "re-review mode not chosen" on the progress card's Done line; such a general instruction picks no
+9. **No card**: on an explicit "just do it" or "as recommended" for this task given before the card appears, or a valid Auto choice under "Decision source equivalence"
+   in `confirmation-authorization-and-change.md`, show no card, apply existing rules, and write "re-review mode not chosen" on the progress card's Done line; such a general instruction picks no
    option. When neither (b) nor (c) can be shown, show no card and write "re-review mode not chosen (no session available)" on the Done line, adding that the user may still name a CLI (§7.10 item
    0). Either outcome is also recorded in `reReviewPerformer` with its source.
 10. **When (c) is shown**: only when the validator, run fresh this run, gives a valid config, approval verification passes and `effective.review.enabled.value === true` with hosts

@@ -8,6 +8,33 @@ session on a real host). **REQ/AC/PAC/SC/UC** = requirement, acceptance criterio
 approved development baseline. **D/A/I/H** = verification routes (demonstration, analysis, inspection, human). **D1=A, D3=B, M-02 …** and **tNNNu/tNNNsNNNN** =
 decision and review IDs and the owner's message/card IDs in the maintainer's history, kept as approval sources. **CAND-*** = a rule candidate in `candidates/`.
 
+## Repository maintenance policy
+
+These conventions apply only when maintaining the task-lifecycle source repository under the owner's verified project policy and current authorization.
+Reading this file, a relayed message or an installed Skill creates no commit, push, publication or host-install permission. A narrower current instruction wins.
+Ordinary consumer projects use their own identity, branching and release policies; this file is not loaded by their normal lifecycle.
+
+- **Owner-only commit identity**: the original maintainer workflow used the owner's identity from facts/user.md or conventions and the repository's existing email
+  for both Author and Committer, without bot Co-authored-by trailers. Apply that convention only to work actually authored for the owner under that policy;
+  preserve other contributors' true identities and attribution. Report mismatches by commit ID; do not rewrite pushed history without the user's authorization.
+- **Default merge method for integration -> release branches (CAND-20261029-003)**: when this owner convention is selected, squash the integration branch into
+  the release branch, then merge the release branch back with a merge commit that changes no file and only records the merge base. Branch names come from the project.
+  Reuse the valid method choice without another card. Pushing either branch still needs the real user's own authorization.
+  Before squashing, verify the release branch has no content absent from integration; if it does, or merge-back would drop/change a file, stop that merge and present
+  plain merge, compatible squash or selective cherry-pick with their costs. Never discard release-branch content silently. Cherry-picked dependencies and the
+  resulting combined tree need verification. Record the squash commit and the merge-back commit IDs in the task record.
+  First adoption with a stale merge base used a no-file-change merge-back before squashing, subject to the same checks and authorized push scope.
+- **Intent-based immediate absorption**: under the maintainer's explicit standing authorization, a rule the owner sets or corrects is verified against the actual
+  source transcript and applied by intent, then written, self-checked, committed and pushed the same day within that authorization. A verifiable original message
+  and its identifier are required; a bot relay is only a lead. This convention does not itself authorize forwarding a message to another party.
+  Reuse a valid in-scope decision with no confirmation card; clarify an unresolved conflict with prior rules, whether a request is one-off or standing, or an
+  out-of-scope repository/action. Agent suggestions the owner did not state are not rules. Existing candidates keep their current flow.
+  Version bumps, tags, releases and host sync retain their own actual authorization requirements; host memory grants none of them. If no standing authorization
+  can be verified, do only the current request's authorized work and leave any additional external action pending.
+- **Historical migration checks**: T103's zero-deletion comparison and T110's frozen original wording described the FEAT-20261028-001 migration from ecedaba.
+  They are historical evidence, not permanent bans on approved edits. Current regression checks protect authorization, review scope, provenance and consumers;
+  an intentional rule revision updates those checks with the approved semantic change, preserving the historical commit and review records.
+
 ## Package version and approval baseline (formerly in README)
 
 - Historical source baseline: `0.1.43`, continuing the formally approved development requirements V0.18-R2, Usage Contract V0.5-R2, technical design R9-R2 and
@@ -38,8 +65,15 @@ handled as logical lines; three kinds are not checked:
 - Table rows: lines starting with optional whitespace and `|`; Markdown table cells cannot wrap.
 - Lines inside triple-backtick code blocks.
 
-Maintenance runs `node scripts/check-docs.mjs` and `node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs scripts/dispatch-guard.test.mjs`
-(same as CI); tests are passed as exact files so the host does not treat a directory as the entry module.
+Maintenance runs `node scripts/check-docs.mjs` and the exact test files below (same as CI; no directory entry or shell-dependent glob):
+
+```sh
+node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs scripts/dispatch-guard.test.mjs scripts/check-citations.test.mjs scripts/runtime-packaging.test.mjs
+```
+
+The canonical runtime tools live in `skills/task-lifecycle/scripts/`; root scripts are compatibility wrappers. Keep a single implementation and verify both complete-plugin and Skill-only copies.
+Skill `VERSION` remains the package-version authority when no plugin manifest ships; with a manifest, versions must agree. Config schema/examples in root `assets/` are reference material only.
+CI targets Node 20 on Ubuntu and Windows. Local Node 24 Windows evidence does not count as a CI run or live model/Canvas verification.
 The doc check uses the script's real file path, independent of cwd; missing required targets/main SKILL, an empty entry or zero scanned files all fail; `--compare`
 keeps byte-for-byte and file-set comparison.
 The citation tool keeps per-item stdout and per-input recognized/unchecked/failed summaries on stderr; any input with zero recognized fails, and the coordinator
@@ -114,4 +148,14 @@ The exclusions below stay as a second line of defence, so it never goes into dis
   equal to the `git archive` source and `diff -rq` clean (prints `EXCL ok`).
   Rollback: `rm -rf <target> && cp -a <backup> <target>` (the script prints the exact command on failure), or `git -C <target> sparse-checkout disable`. Ran on the
   real Codex and Grok installs from 0.2.0 on (HOSTSYNC-20261027-0200/0201, `EXCL ok`); earlier it was only simulated in a temp directory.
-- The candidate pool lives only in the source repo: installed plugins contain no `candidates/`; candidates are created, promoted and retired only in a source checkout.
+- The `plugin-maintenance` candidate pool lives only in the source repo: installed plugins contain no `candidates/`. Consumer `workspace-extension` candidates live in their verified external
+  workspace and are not part of this maintainer pool or its commit/tag checks; see `../skills/task-lifecycle/references/rule-evolution.md` "Rule domains and storage".
+
+### Maintainer candidate status closure on promotion and release
+
+Only for `plugin-maintenance`: the turn that commits an incorporated candidate moves its body from `pending/` to `archived/`, updates its `candidates/INDEX.md` row (status, commit, path),
+and reconciles known copies of that same source candidate. A release turn sets each shipped candidate to its released version. Before tagging, check that no pending body or INDEX row
+names a commit or version already released; a hit is fixed before the tag. Identity is scoped to the selected source root; independent workspace IDs are not renumbered.
+Before tagging, the release also checks that `candidates/pending/README.md`, `candidates/archived/README.md` and `candidates/rejected/README.md` list exactly the
+candidate files in their directories, with status consistent with `candidates/INDEX.md`; a mismatch is fixed before the tag (CAND-20261102-005, additive).
+Within this source candidate store, resolve any real ID collision without overwriting history, retaining old-reference mapping. Historical cross-store references keep their original provenance.

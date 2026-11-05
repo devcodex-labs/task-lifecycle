@@ -1,3 +1,15 @@
+## 0.3.0 — Host-neutral core and optional Grok adapters (2026-11-05)
+
+- Keep common task, approval, role, evidence and recovery rules in one Skill; move Grok CLI dispatch and Grok Bot Page behavior into conditional references.
+- Preserve v1 config semantics; add v2 native message IDs with unchanged approval verification, project narrowing and output schema v1. No automatic config migration.
+- Ship the validator and citation checker inside the Skill, with root compatibility entries. Add Windows-path citations, durable anchors and explicit no-citation N/A handling.
+- Clarify receiver write scope, decision-source equivalence, review/verification boundaries and source-versus-Page delivery; scope repository maintainer policies separately.
+- Synchronize both READMEs, migration examples, regression checks and the Node 20 Ubuntu/Windows CI matrix. Local tests do not claim live-host, Canvas or remote CI verification.
+- Keep installed hosts and user rule stores unchanged; package publication does not perform a host sync or automatic migration.
+- Separate workspace-extension candidates from plugin-maintenance candidates; retain existing external active/history paths and scoped human adoption, with no automatic store migration.
+- Define explicit isolated trial identity, authorization, expiry and evidence boundaries; synchronize adoption/feedback/handoff templates and maintainer-only release checks.
+- Rule semantics were reviewed statically; release regression and CI evidence are recorded for the actual release commit. Host loading, trial isolation and rule effectiveness remain unverified.
+
 ## 0.2.25 — Close-out rules, advisory review and external reviewer hook (2026-11-03)
 
 - `confirmation-authorization-and-change.md` (CAND-20261102-003): "Finalization close-out" fixed checklist when an artifact is finalized.

@@ -12,6 +12,7 @@ import * as V from './validate-config.mjs';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.dirname(here);
 const SCRIPT = path.join(here, 'validate-config.mjs');
+const IMPLEMENTATION = path.join(root, 'skills/task-lifecycle/scripts/validate-config.mjs');
 const fixtureRoots = [];
 after(() => {
   const parent = fs.realpathSync(os.tmpdir());
@@ -118,8 +119,8 @@ test('E8 categories.B05 → forbidden-mapping (takes precedence over unknown-fie
 test('E9 "auto": true → unknown-field', () => { const f = mk(); writeG(f, { ...G1(f), auto: true }); disabledWith(run(f), 'unknown-field'); });
 test('E10 global missing delegation → missing-field', () => { const f = mk(); const g = G1(f); delete g.delegation; writeG(f, g); disabledWith(run(f), 'missing-field'); });
 test('E11 schemaVersion:"1" → invalid-type（version）', () => { const f = mk(); writeG(f, { ...G1(f), schemaVersion: '1' }); const r = run(f); disabledWith(r, 'invalid-type'); assert.equal(r.reasons[0].stage, 'version'); });
-test('schemaVersion 2 → schema-version-unknown; missing → missing-field', () => {
-  let f = mk(); writeG(f, { ...G1(f), schemaVersion: 2 }); disabledWith(run(f), 'schema-version-unknown');
+test('schemaVersion 3 → schema-version-unknown; missing → missing-field', () => {
+  let f = mk(); writeG(f, { ...G1(f), schemaVersion: 3 }); disabledWith(run(f), 'schema-version-unknown');
   f = mk(); const g = G1(f); delete g.schemaVersion; writeG(f, g); disabledWith(run(f), 'missing-field');
 });
 test('E12 valid JSON + legacy 《项目约定.md》 delegation section → valid + legacy', () => {
@@ -496,7 +497,7 @@ const schema = JSON.parse(fs.readFileSync(path.join(root, 'assets', 'config.sche
 const stripComments = (x) => (Array.isArray(x) ? x.map(stripComments) : x && typeof x === 'object' ? Object.fromEntries(Object.entries(x).filter(([k]) => k !== '$comment').map(([k, v]) => [k, stripComments(v)])) : x);
 test('schema and constants match field by field ($defs full comparison; global / project separate; root anyOf)', () => {
   assert.deepEqual(stripComments(schema.$defs), V.buildSchemaDefs());
-  assert.deepEqual(schema.anyOf, [{ $ref: '#/$defs/globalConfig' }, { $ref: '#/$defs/projectConfig' }]);
+  assert.deepEqual(schema.anyOf, ['globalConfig', 'projectConfig', 'globalConfigV2', 'projectConfigV2'].map((def) => ({ $ref: `#/$defs/${def}` })));
   assert.equal(schema.oneOf, undefined);
   // Assertion validity counterexamples: common drift must be detected
   const mut = [(d) => (d.executor.properties.command.type = 'number'), (d) => (d.globalReview.required = []), (d) => (d.globalReview.then.required = []), (d) => (d.approvalSource.additionalProperties = true), (d) => (d.reviewHost.properties.model.pattern = '.*')];
@@ -507,11 +508,13 @@ test('schema and constants match field by field ($defs full comparison; global /
   assert.deepEqual(Object.keys(d.projectConfig.properties).sort(), [...V.FIELD_RULES_PROJECT.root.properties].sort());
 });
 function FIELD(a) { return [...a].sort(); }
-test('assets/config.example.json: delegation and review both enabled:false, and pass structure validation', () => {
-  const ex = JSON.parse(fs.readFileSync(path.join(root, 'assets', 'config.example.json'), 'utf8'));
-  assert.equal(ex.delegation.enabled, false); assert.equal(ex.review.enabled, false);
-  const f = mk(); ex.approvalSource.record = f.record; writeG(f, ex); const r = run(f);
-  assert.equal(r.status, 'valid', JSON.stringify(r.reasons)); assert.equal(r.effective.delegation.enabled.value, false); assert.equal(r.effective.review.enabled.value, false);
+test('v1/v2 config examples keep delegation and review disabled and pass structure validation', () => {
+  for (const [name, version] of [['config.example.json', 2], ['config.v1.example.json', 1]]) {
+    const ex = JSON.parse(fs.readFileSync(path.join(root, 'assets', name), 'utf8'));
+    assert.equal(ex.schemaVersion, version); assert.equal(ex.delegation.enabled, false); assert.equal(ex.review.enabled, false);
+    const f = mk(); ex.approvalSource.record = f.record; writeG(f, ex); const r = run(f);
+    assert.equal(r.status, 'valid', JSON.stringify(r.reasons)); assert.equal(r.effective.delegation.enabled.value, false); assert.equal(r.effective.review.enabled.value, false);
+  }
 });
 test('category table and never-delegate list match task-split-parallel-and-integration.md verbatim (anti-drift)', () => {
   const full = fs.readFileSync(path.join(root, 'skills', 'task-lifecycle', 'references', 'task-split-parallel-and-integration.md'), 'utf8');
@@ -644,21 +647,57 @@ test('T106 project layer may only narrow parallel; equal to global passes; omitt
   // structure error reported before widening
   { const f = mk(); writeG(f, GP(f, glob)); writeP(f, { ...P1(f), parallel: { enabled: true, maxConcurrent: 9 } }); const r = run(f, pargs(f)); disabledWith(r, 'invalid-value'); assert.ok(!codes(r).includes('project-layer-widening')); }
 });
-test('T107 schemaVersion stays 1; a 0.2.6-shaped root (no parallel key) reports parallel as unknown-field (AC14)', async () => {
-  const f = mk(); writeG(f, { ...GP(f, { enabled: false }), schemaVersion: 2 }); disabledWith(run(f), 'schema-version-unknown');
+test('T107 v1 remains supported; a 0.2.6-shaped root (no parallel key) reports parallel as unknown-field (AC14)', async () => {
+  const f = mk(); writeG(f, { ...GP(f, { enabled: false }), schemaVersion: 3 }); disabledWith(run(f), 'schema-version-unknown');
   assert.equal(schema.$defs.globalConfig.properties.schemaVersion.const, 1);
   const legacyRoot = ['approvalSource', 'delegation', 'review', 'schemaVersion', 'workflowDepth']; // FIELD_RULES_GLOBAL.root.properties at f47c527 (0.2.6)
   assert.deepEqual(V.FIELD_RULES_GLOBAL.root.properties.filter((k) => k !== 'parallel'), legacyRoot);
   // Build a 0.2.6-shaped validator: same script with `parallel` removed from both root key lists (f47c527 FIELD_RULES), then validate a config containing parallel
   const legacyDir = mk(); const lp = path.join(legacyDir.base, 'plugin', 'scripts', 'validate-config-0.2.6-shape.mjs'); fs.mkdirSync(path.dirname(lp), { recursive: true });
-  const srcText = fs.readFileSync(SCRIPT, 'utf8').replaceAll("properties: ['approvalSource', 'delegation', 'parallel', 'review', 'schemaVersion', 'workflowDepth'] },", "properties: ['approvalSource', 'delegation', 'review', 'schemaVersion', 'workflowDepth'] },");
-  assert.notEqual(srcText, fs.readFileSync(SCRIPT, 'utf8')); fs.writeFileSync(lp, srcText);
+  const srcText = fs.readFileSync(IMPLEMENTATION, 'utf8').replaceAll("properties: ['approvalSource', 'delegation', 'parallel', 'review', 'schemaVersion', 'workflowDepth'] },", "properties: ['approvalSource', 'delegation', 'review', 'schemaVersion', 'workflowDepth'] },");
+  assert.notEqual(srcText, fs.readFileSync(IMPLEMENTATION, 'utf8')); fs.writeFileSync(lp, srcText);
   const L = await import(pathToFileURL(lp).href);
   assert.deepEqual([...L.FIELD_RULES_GLOBAL.root.properties], legacyRoot);
   writeG(f, GP(f, { enabled: false }));
   const lr = L.validate([], { HOME: f.home }, { userInfo: () => ({ homedir: f.home }), scriptPath: lp });
   assert.equal(lr.status, 'disabled'); assert.ok(lr.reasons.some((x) => x.code === 'unknown-field' && x.path === 'parallel'), JSON.stringify(lr.reasons)); assert.equal(lr.effective, null);
 });
+test('v2 opaque approval ids preserve exact values; v1 retains its original grammar', () => {
+  for (const id of ['msg_01ABC', '01a1aa1b-691d-71d3-bf98-d41cdfd6e5bb', 'host:conversation/message:7', '🧪'.repeat(256)]) {
+    const f = mk(); const g = { ...G1(f), schemaVersion: 2, approvalSource: src(f, id) }; writeG(f, g);
+    const r = run(f); assert.equal(r.status, 'valid', JSON.stringify(r.reasons));
+    assert.equal(r.approvalSources[0].messageId, id); assert.equal(r.schemaVersion, 1); assert.equal(r.validator.version, '2');
+    writeG(f, { ...g, schemaVersion: 1 }); disabledWith(run(f), 'approval-source-missing');
+  }
+});
+
+test('v2 rejects empty, whitespace-only, control, non-string and oversized approval ids', () => {
+  for (const id of ['', '  ', '\n', 'a\u0000b', 'a\u007fb', 12, 'x'.repeat(257), '🧪'.repeat(257)]) {
+    const f = mk(); writeG(f, { ...G1(f), schemaVersion: 2, approvalSource: src(f, id) }); disabledWith(run(f), 'approval-source-missing');
+  }
+});
+
+test('v1/v2 layers can mix but project narrowing and approval records remain mandatory', () => {
+  for (const [gv, pv] of [[1, 2], [2, 1], [2, 2]]) {
+    const f = mk(); writeG(f, { ...G1(f), schemaVersion: gv });
+    const p = { ...P1(f), schemaVersion: pv }; writeP(f, p);
+    assert.equal(run(f, pargs(f)).status, 'valid');
+    writeP(f, { ...p, delegation: { categories: { implementation: 'codex-cli' } } }); disabledWith(run(f, pargs(f)), 'project-layer-widening');
+    writeP(f, { ...p, approvalSource: { ...p.approvalSource, record: 'relative.md' } }); disabledWith(run(f, pargs(f)), 'approval-source-missing');
+  }
+});
+
+test('pre-v2 release rejects v2 at the version stage without silently downgrading it', async (t) => {
+  const legacy = spawnSync('git', ['show', '639d05ee36083a49b392ada77eaf42db7507c758:scripts/validate-config.mjs'], { cwd: root, encoding: 'utf8', windowsHide: true });
+  if (legacy.status !== 0) { t.skip('UNVERIFIED: historical Git object unavailable in this checkout'); return; }
+  const f = mk(); const oldPath = path.join(f.base, 'legacy-validator.mjs'); fs.writeFileSync(oldPath, legacy.stdout);
+  const old = await import(pathToFileURL(oldPath).href);
+  writeG(f, { ...G1(f), schemaVersion: 2 });
+  const r = old.validate([], { HOME: f.home }, deps(f));
+  disabledWith(r, 'schema-version-unknown'); assert.equal(r.reasons[0].stage, 'version');
+  assert.equal(JSON.parse(fs.readFileSync(gpath(f), 'utf8')).schemaVersion, 2);
+});
+
 test('T-A3 coverage gate (runs last): actually hit reason codes ⊇ REASON_CODES, with matching stage ownership', () => {
   for (const [code, stages] of Object.entries(V.REASON_CODES)) {
     assert.ok(HIT.has(code), `reason code ${code} has no triggering fixture`);

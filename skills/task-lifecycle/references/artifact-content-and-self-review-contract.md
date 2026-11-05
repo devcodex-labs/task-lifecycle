@@ -32,7 +32,7 @@ from this reference's directory**) is a format example only.
    when the user or an approved plan explicitly requires an independent formal artifact, generate a candidate and perform review/confirmation.
 7. Public README/API contains only practical user content, never internal approval records or task process; the user can open/read the real candidate body; if the host cannot open files, give
    readable content and the real path in chat, inventing no UI.
-   For a Grok Bot host, the reading view is in the file-delivery sub-item of `verification-and-evidence-routing.md` §10.5 "Separating real progress, acceptance tracking and evidence levels".
+   Formal file delivery follows `verification-and-evidence-routing.md` §10.5; the conditional Grok Bot reading view follows [grok-bot-page.md](grok-bot-page.md).
 8. When a field contract applies, check each actual fieldPath for type/domain, required/conditional, default/absent/null/empty, cross-field constraints, success and error,
    security/compatibility/consumers; with no fields, do not fabricate a database/REST.
 9. **ABS-08/AC-107 conditional fact check of technology choices**: when this batch truly needs to add/upgrade a key dependency, change framework, or introduce an important SDK/platform API/host
@@ -129,7 +129,7 @@ into existing formal files, but a usage contract or review-approval duty with in
 **Flowchart sub-step detail**: every .md artifact that contains a flowchart (docs, plans/proposals, specs, implementation plans) gives each flow node numbered sub-steps, and each sub-step has a
 detailed description stating what is done, inputs, outputs, and when it stops or branches, with Basis when one exists; format follows feature-flow.md §5.2.1:
 "<node>-<n> <action>: <detail> (Basis: …)". This applies only to newly written or modified content; existing .md files are not retrofitted unless the user names one.
-Reason: Pages can only show the step detail the .md states, and retrofitting every old file is not requested.
+Reason: the source must contain executable step detail; reading views may not invent it. Retrofitting every old file is not requested.
 Clarification of the "Task description/workflow" row (meaning unchanged): "Fixing every sub-step" there concerns planning task-workflow sub-steps, which stay dynamic per project facts; the
 flowchart sub-step rule above only requires each sub-step that is written to carry a description. Reason: the two rules govern different objects.
 
@@ -153,7 +153,8 @@ project facts and unverified scope, applicable roles/check scope, summary of iss
 optional suggestions awaiting decision, whether converged/why not, next legal action. Full itemized history may cite `审查/`/`修订/`; public README/API docs should not carry internal self-review logs;
 public artifacts have their review evidence carried by external process records.
 **Flowchart sub-step check**: in self-review and formal review of a .md with a flowchart, any sub-step lacking a detailed description is a Finding; it must be filled in the .md before a Page is
-generated, and the Page never invents the missing content. Reason: missing detail is fixed at the source of truth, not on the reading copy.
+generated, and the Page never invents the missing content. Page layout applies only through [grok-bot-page.md](grok-bot-page.md);
+the Markdown detail check itself is host-neutral. Reason: missing detail is fixed at the source of truth, not on the reading copy.
 
 **Evidence layering**: a model playing tester ≠ a real user experiment; an independent Reviewer needs real host support and an independent record; symmetric static numbering/matrix relations ≠
 verified professional semantics and real consumers. Every artifact must let a reviewer state that "not applicable" differs from "unverified".

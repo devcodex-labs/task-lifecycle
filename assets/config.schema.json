@@ -1,14 +1,20 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "task-lifecycle/config.schema.json",
-  "title": "task-lifecycle 放权类配置 schemaVersion 1（人读；scripts/validate-config.mjs 为权威）",
-  "$comment": "全局层：<账户 home>/.config/task-lifecycle/config.json；项目层：<workspace>/.task-lifecycle/<Project ID>/config.json（只收窄）。位置、Git 边界、批准核验、合并收窄判定由脚本与消费方执行，本文件不表达。 根用 anyOf：同时满足两层定义的配置（如仅 delegation.enabled:false）两层皆合法。$defs 由 scripts/validate-config.mjs buildSchemaDefs() 生成，测试逐字段比对。",
+  "title": "task-lifecycle 放权类配置 schemaVersion 1/2（人读；skills/task-lifecycle/scripts/validate-config.mjs 为权威）",
+  "$comment": "全局层：<账户 home>/.config/task-lifecycle/config.json；项目层：<workspace>/.task-lifecycle/<Project ID>/config.json（只收窄）。位置、Git 边界、批准核验、合并收窄判定由脚本与消费方执行，本文件不表达。 根用 anyOf：同时满足两层定义的配置（如仅 delegation.enabled:false）两层皆合法。$defs 由 skills/task-lifecycle/scripts/validate-config.mjs buildSchemaDefs() 生成，测试逐字段比对。",
   "anyOf": [
     {
       "$ref": "#/$defs/globalConfig"
     },
     {
       "$ref": "#/$defs/projectConfig"
+    },
+    {
+      "$ref": "#/$defs/globalConfigV2"
+    },
+    {
+      "$ref": "#/$defs/projectConfigV2"
     }
   ],
   "$defs": {
@@ -381,6 +387,90 @@
         },
         "parallel": {
           "$ref": "#/$defs/projectParallel"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "approvalSource"
+      ],
+      "additionalProperties": false
+    },
+    "approvalSourceV2": {
+      "type": "object",
+      "properties": {
+        "messageId": {
+          "type": "string",
+          "pattern": "^(?=.*\\S)[^\\u0000-\\u001f\\u007f]+$",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500,
+          "pattern": "\\S"
+        },
+        "record": {
+          "type": "string",
+          "pattern": "^(?:/|[A-Za-z]:[\\\\/]|\\\\).*\\.md$"
+        }
+      },
+      "required": [
+        "messageId",
+        "quote",
+        "record"
+      ],
+      "additionalProperties": false
+    },
+    "globalConfigV2": {
+      "type": "object",
+      "properties": {
+        "approvalSource": {
+          "$ref": "#/$defs/approvalSourceV2"
+        },
+        "delegation": {
+          "$ref": "#/$defs/globalDelegation"
+        },
+        "parallel": {
+          "$ref": "#/$defs/globalParallel"
+        },
+        "review": {
+          "$ref": "#/$defs/globalReview"
+        },
+        "schemaVersion": {
+          "const": 2
+        },
+        "workflowDepth": {
+          "$ref": "#/$defs/globalWorkflowDepth"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "approvalSource",
+        "delegation"
+      ],
+      "additionalProperties": false
+    },
+    "projectConfigV2": {
+      "type": "object",
+      "properties": {
+        "approvalSource": {
+          "$ref": "#/$defs/approvalSourceV2"
+        },
+        "delegation": {
+          "$ref": "#/$defs/projectDelegation"
+        },
+        "parallel": {
+          "$ref": "#/$defs/projectParallel"
+        },
+        "review": {
+          "$ref": "#/$defs/projectReview"
+        },
+        "schemaVersion": {
+          "const": 2
+        },
+        "workflowDepth": {
+          "$ref": "#/$defs/projectWorkflowDepth"
         }
       },
       "required": [

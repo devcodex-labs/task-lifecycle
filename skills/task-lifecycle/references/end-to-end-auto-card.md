@@ -1,14 +1,15 @@
 # end-to-end-auto-card (Auto form (ii): end-to-end Auto card and `noStop`)
 
 Added by FEAT-20261028-001 (D1–D3, D8, D10, D11, D14, D22, D25, D27, D29, D30, D33, D34). Read this file when the user picks form (ii), the end-to-end Auto card
-(pointer: `confirmation-authorization-and-change.md` §6.3.2). Additive only: existing Auto (form (i)) and every existing clause stay verbatim and still apply whenever
-form (ii) is not selected.
+(pointer: `confirmation-authorization-and-change.md` §6.3.2). Existing Auto (form (i)) remains available. Both forms use the shared decision-source and explicit
+side-effect rules; the ten-field card and its phase limits apply only to form (ii).
 
 ## 1. Scope and admission
 
 - Auto stays one mode with two forms: (i) existing task-level Auto, unchanged; (ii) the end-to-end Auto card. `noStop` is a switch on the card, default `false`.
 - A card may be shown only after the task's A01 and A02 are both `human-confirmed`; a card shown earlier is not in effect. The card never covers A01 or A02.
-- Only the real user confirming the card in person makes it effective; relays, old files and dispatch prompts never count.
+- Only the real user confirming this exact card and scope makes it effective, by a click or equivalent explicit text per "Decision source equivalence" in
+  `confirmation-authorization-and-change.md`; relays, old files and dispatch prompts never count.
 - The card applies only to the task it names and only when the user explicitly selects it for that task.
 
 ## 2. Card fields
@@ -33,8 +34,10 @@ All ten keys are required; a missing key, or any value outside these limits, mea
 - Push (any branch), tag, release, plugin update and host-sync can never be put on a card; they always need the real user's own confirmation at that time.
   Exception: the real user's own explicit prior approval of that action, naming its date or trigger, counts as this confirmation when the date or trigger arrives
   (see "A target date alone is not approval" in `confirmation-authorization-and-change.md`); the card itself still never carries these actions.
-- **Auto defaults to local commit in every repo**: under any Auto form, in every repository the default side effect
-  stops at a local commit; push, PR and release are excluded. An exception for the bot-skills repository is governed by bot-skills' own rules, not by this plugin.
+- **Local commits require explicit scope**: Auto controls progress within the approved task, not an implicit side effect. In form (ii), `local-commit` must appear
+  in both `allowedObjects` and `preAuthorizedSideEffects`; an empty `preAuthorizedSideEffects` means no local commit. In form (i), the real user's approved
+  operations must explicitly include local commits. Reuse valid existing authorization, but never derive it from the mode name or a maintainer's habits.
+  Push, PR and release are not implied by either Auto form; their own valid authorization and the project's rules still apply.
 
 ## 3. Card storage, identity, resume and continue
 

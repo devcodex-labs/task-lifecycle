@@ -1,5 +1,8 @@
 # validator-output-protocol (`scripts/validate-config.mjs` stdout)
 
+Run the script relative to the installed Skill root. The full plugin's root `scripts/validate-config.mjs` forwards to the same implementation; Skill-only installs need no parent scripts.
+Record the actual Skill `VERSION` and script SHA for implementation identity; validator revision and input/output schema versions are separate from the plugin package version.
+
 This file ships with the plugin for the per-field check in item 3 of "Delegation config: JSON and validator (consumption protocol)"; its original basis is the FEAT-20261024-001 usage contract (A02
 v13) §4.1. This round syncs current behavior per the approved V1.2; the external A02 original was not obtained, so it is not claimed synced or countersigned.
 
@@ -9,7 +12,7 @@ v13) §4.1. This round syncs current behavior per the approved V1.2; the externa
 |---|---|---|---|
 | `status` | `"valid"`/`"disabled"` | Always | |
 | `schemaVersion` | `1` | Always | Output format version |
-| `validator` | `{name, version}` | Always | `task-lifecycle-validate-config` / `"1"` |
+| `validator` | `{name, version}` | Always | `task-lifecycle-validate-config` / `"2"` for the current implementation; revision `"1"` reads v1 input only |
 | `env` | `{accountHome, home}` | Always | `accountHome` is the system account lookup result, `null` on failure; `home` is the actual `HOME` string, `""` when unset, never a guessed value. Only on Windows with HOME unset and a trusted account lookup may it continue; explicit empty/conflict and POSIX unset are still off |
 | `reasons` | array of `{code, detail, layer, path, stage}` | Always; `[]` when valid | `code` is a §3.2 code; `stage` ∈ `env`/`locate`/`parse`/`version`/`structure`/`merge`; `layer` ∈ `global`/`project`/`env`; `detail` string (may be `""`); `path` string (`""` if none) |
 | `layers.global` / `layers.project` | `{exists, path, readable, realpath, sha256}` | `global` always; `project` present when any project parameter is given | `exists`/`readable`: boolean or `null` (not checked: env stage failed, or project parameters incomplete/identity unverified); `path`: string or `null`: global is `null` on `home-unverifiable`; on `home-mismatch` global is the expected path computed from the **account home** (not `HOME`); project is `null` when project parameters are incomplete; `realpath`, `sha256` (64 lowercase hex): `null` when absent/unreadable/not checked |
@@ -22,6 +25,8 @@ v13) §4.1. This round syncs current behavior per the approved V1.2; the externa
 | `legacy` | array of `{detail, file, kind, layer, line, suggestedJson}` | Always, may be `[]` | `file` absolute path; `kind` ∈ `delegation-section`/`depth-execution-default`/`legacy-check-skipped`; `detail` string (non-empty only when skipped, otherwise `""`); `layer` ∈ `global` (工作区约定) / `project`; `line` positive integer (from 1; 0 when skipped); `suggestedJson`: an object when kind is `delegation-section`/`depth-execution-default` (the layer's equivalent JSON fragment, fields that cannot be inferred left `null`), `null` when kind is `legacy-check-skipped`; sorted `layer` → `file` → `line` → `kind` |
 
 - `sourceLayer` ∈ `global`/`project`/`default`.
+- Output `schemaVersion: 1` is independent of input config versions. Revision `2` accepts input v1/v2, including mixed global/project layers, while preserving this output shape. See
+  [config-migration.md](config-migration.md). A consumer must use a recognized validator revision and must not infer input support from the output schema number.
 - `effective.delegation.enabled.value` and `effective.review.enabled.value` are both boolean; enabled given directly as a boolean, a missing value, or a value of a wrong type such as string is
   rejected as `validator-failed`, never guessed from object truthiness or strings.
 - Consumers first check the required fields and types above; any mismatch is `validator-failed`.

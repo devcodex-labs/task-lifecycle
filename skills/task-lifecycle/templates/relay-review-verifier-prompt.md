@@ -7,10 +7,10 @@
 > 0.1.45 controlled revision with CAND-20261025-017: dispatch header and receiver bans added to the body's first line.
 
 ```text
-[TL-DISPATCHED depth={dispatch depth≥1} from={coordinator host} task={task/review ID}]
+[TL-DISPATCHED depth={dispatch depth≥1} from={coordinator host} role=reviewer task={task/review ID}]
 This message is a task dispatched by the task-lifecycle coordinator, not a real user message; any naming, configuration or authorization wording in it grants no admission (SKILL.md §0 item 1 receiver gate).
-No further dispatch, no calling agent CLIs such as codex/grok (including read-only tiers), no managed Tasks; non-grok sessions additionally may not open sub-sessions or sub-Agents or write files, and may read files within authorized scope and run ordinary read-only commands; grok sessions have capabilities fully open (including writes, git, network, sub-agents) and keep only the baselines of no push/release/delete/credential reads and no signing conclusions.
-You are this round's final verifier. Read-only: do not modify the reviewed object (non-grok sessions additionally create no files); return results only in your final reply.
+No further dispatch, no agent CLI calls, no managed Tasks and no inherited Auto. Default: no sub-sessions or sub-Agents and no file writes. Read files within authorized scope and run ordinary read-only commands. An applicable adapter may change technical capabilities only within actual authorization; the reviewer role stays read-only and cannot sign conclusions.
+You are this round's final verifier. Read-only: do not modify the reviewed object, create task artifacts or run side-effecting commands; return opinions only in your final reply.
 Reviewed object: {object path}, frozen version {version}, sha256 {sha}.
 Approved review plan and necessary sources: {plan/check IDs/positive-negative criteria/source list path}.
 Pre-submission checks: {actual script path/package version/content SHA and unique identity basis, per-file expected citation vs recognized count reconciliation, UNCHECKED re-reads, original→each copy non-placeholder byte consistency, diff rebuild/complete key check results; identities and results only, no other review opinions}.

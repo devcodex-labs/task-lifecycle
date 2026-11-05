@@ -5,7 +5,7 @@
 // Rules:
 //   (a) each .md line is at most MAX_LEN=200 characters (Unicode code points); excluded: lines inside ``` code blocks, table rows (starting with |),
 //       the YAML frontmatter at file start (the SKILL.md description must be a single line, see (f)).
-//   (b) relative links [x](path#anchor) must point to existing files; with an anchor on a .md target, the anchor must match a heading (approx. GitHub slug rules).
+//   (b) relative links [x](path#anchor) must point to existing files; Markdown anchors match headings (approx. GitHub slugs) or unique explicit HTML anchors.
 //       Excluded: http(s)/mailto links, external protocols other than pure #anchors, links inside code blocks.
 //   (c) in-plugin references inside backticks must exist: paths starting with references/ templates/ examples/ scripts/ docs/ assets/ skills/,
 //       or bare *.md names under skills/task-lifecycle; resolved against the containing dir, skill root, repo root (bare names also in references/templates/examples).
@@ -43,11 +43,14 @@ function slug(h) {
 const anchorCache = new Map();
 function anchors(file) {
   if (anchorCache.has(file)) return anchorCache.get(file);
-  const set = new Set(); const seen = {}; let inCode = false;
+  const set = new Set(); const seen = {}; let fence = null;
+  const add = id => { if (set.has(id)) errors.push(`${path.relative(root, file)}: ambiguous anchor ${id}`); set.add(id); };
   for (const l of fs.readFileSync(file, 'utf8').split(/\r?\n/)) {
-    if (/^\s*```/.test(l)) { inCode = !inCode; continue; }
-    const m = !inCode && /^#{1,6}\s+(.*)$/.exec(l);
-    if (m) { let s = slug(m[1]); const n = seen[s] ?? 0; seen[s] = n + 1; set.add(n ? `${s}-${n}` : s); }
+    const marker = /^\s*(`{3,}|~{3,})/.exec(l);
+    if (marker) { if (!fence) fence = marker[1]; else if (marker[1][0] === fence[0] && marker[1].length >= fence.length) fence = null; continue; }
+    const m = !fence && /^#{1,6}\s+(.*?)\s*#*\s*$/.exec(l);
+    if (m) { let s = slug(m[1]); const n = seen[s] ?? 0; seen[s] = n + 1; add(n ? `${s}-${n}` : s); }
+    if (!fence) for (const a of l.matchAll(/<a\s+(?:id|name)=["']([^"']+)["']\s*><\/a>/gi)) add(a[1]);
   }
   anchorCache.set(file, set); return set;
 }

@@ -18,6 +18,10 @@ its user configuration. Host permission is only the outer limit; the stop points
 
 1. Default `Confirm`. Task-level `Auto` needs real delegation by the trusted current user stating task ID, allowed objects/operations, exclusions, scope/end point; a preceding CLI `--full-auto`,
    README, sub-Agent, old documents or long-term conventions never raise permissions.
+   **Decision source equivalence**: a click, a decision-coded text reply (e.g. D1=A), or an explicit reply that uniquely binds to the single current decision has
+   the same meaning when its object/version, option and scope are clear. All five Auto scope elements above must be stated or already bound to that decision.
+   Record the actual source and selected scope; reuse an unchanged valid decision without asking again. Clarify only ambiguous objects, options or changed scope.
+   Default-selected options, no answer, expired choices, old summaries, tool output and dispatched text are not approval. Presentation changes do not create authority.
 2. Each formal file taking effect is matched exactly on
    `TaskID + ArtifactID + Version + actual path + final SHA/whether computable + DecisionScope + current trusted approval source + applicable upstream`; acknowledging a report's facts and approving
    the reviewed document's content quality are independent Decisions.
@@ -89,13 +93,13 @@ its user configuration. Host permission is only the outer limit; the stop points
      A message saying only that it is visible now, or one that in the same message still reports it not showing/blank/unclickable, does not meet the recovery condition. While sentence (2) is in
      effect it takes precedence over sentence (1) and over the original rejection clause "tiers ①② had pending items but used no widget": that client (if unknown, this session) uses only numbered
      options and may not be pulled back to the widget by sentence (1);
-     the other clauses of the original rejection paragraph (merged options, a bare option-letter reply without decision identity, custom input/free-text entry) stay in effect; during this period
+     the other clauses of the rejection paragraph (unnamed merged options, ambiguous option-letter replies, custom input/free-text entry) stay in effect; during this period
      custom input is treated as "capability absent", leaving only the free-text entry. This candidate defines no approval: whether an answer constitutes approval and how events are recorded still
      follow the original approval sentence and the §6.1 table, §6.3.1, §6.5;
      evidence is not subdivided by widget form and no status table is set up, left to CAND-20261026-006.
      Whether a widget or numbered-option answer constitutes approval, how events are recorded and when to reuse without re-asking all follow §6.5, §6.3.1, items 4 and 5 and SKILL.md §0 item 2.
      Rejection: tiers ①② had pending items but used no widget (except disambiguation with nothing to rank); disambiguation with ranking lacks "(recommended)" or per-item suggestions; multiple
-     decisions offered an unnamed merged option (`MERGED_OPTION_TEXT`, entry-quickref) or invited a bare option-letter reply without decision identity (e.g. reply "A");
+     decisions offered an unnamed merged option (`MERGED_OPTION_TEXT`, entry-quickref) or an option-letter reply cannot bind uniquely to the current decision;
      custom input available but not enabled; capability absent but no free-text entry left. Not rejected: disambiguation with nothing to rank may skip the widget per the exception above, still
      listing options, and adds no progress card because of it.
      Additional rejection: using a multi-step widget without multi-step display evidence; switching to a single-question widget because of this item when the tier is ② or ③; treating a tool send
@@ -149,6 +153,7 @@ current real task, authorization and triggers; if they disagree with this file's
 | Intermediate formal artifact taking effect | Real user confirms the exact version | `auto-accepted` only with qualified evidence and scope delegation | Never forge `human-confirmed` |
 | Public behavior/scope/important architecture trade-off | Real user decides | Pause the affected node and ask the real user for a single decision | Even several AI roles agreeing cannot approve on the user's behalf |
 | Evolution `active` promotion | Real user approves per candidate or per batch (one sentence may approve a batch but must list every candidate ID) | Cannot approve on the user's behalf | A Skill Gap cannot trigger automatic installation either |
+| Isolated candidate trial | Explicit real user approval binds exact rule identity, isolated target, allowed actions and termination boundary | Cannot infer from Auto, editing or report acceptance | No production active update, adoption or effectiveness claim; follow `rule-evolution.md` |
 | Publish, push, delete, external services and other side effects | Explicit real user authorization and host permission | Same permission boundary | Auto is not authorization for tools, network or production |
 | Final real user acceptance | The user actually decides | Never falsely claim human final acceptance | Technical completion/auto-generated report ≠ final human confirmation |
 
@@ -236,19 +241,23 @@ When the same real session has two or more formal artifacts or review reports **
 explicitly says "confirm both complete bodies" with unique identities/versions are independent complete approval sources recorded for each.
 
 **Phase-closing decisions are asked alone** (CAND-20261101-008, additive): a decision that closes a phase (finalizing an artifact, moving to the next phase)
-is always asked alone on one single-question card, never bundled in the same message with other pending items or requests; a bare acknowledgement
-("ok", "confirm", "continue") never approves such a decision, whatever the number of pending items; only picking that card's option or naming the decision does.
+is asked alone as one current decision, using a single-question card when available or explicit text otherwise, never bundled with other pending decisions.
+Apply "Decision source equivalence": an acknowledgement can confirm only when that decision's object/version, option and scope are unambiguous; otherwise clarify.
 
 **Finalization close-out** (CAND-20261102-003, user-ruled, additive): after a formal artifact receives a human finalization/effective decision and before the
 next phase starts, finalization is complete only when all of the following hold.
 - (a) Fixed checklist: filename; title; status line; pending-items section (cleared, or each item marked resolved with its decision source); downstream
-  references repointed to the finalized file (e.g. a usage contract's requirements baseline); Page title; the finalization event in the decision record.
+  references repointed to the finalized file (e.g. a usage contract's requirements baseline); the finalization event in the decision record;
+  existing Page title/status only when [grok-bot-page.md](grok-bot-page.md) applies (no new Page for a finalized contract).
 - (b) Limited stamp: the stamp is applied only on the new finalized copy; the original approved candidate file's bytes stay untouched and keep the approved SHA.
-  Allowed changes in the copy are limited to the title, status line, pending-items section and downstream reference paths. This is a non-substantive change:
-  not a new candidate and no re-approval. The external record keeps the approved SHA, the stamped SHA and the full diff; any change outside the list fails
-  the stamp and falls back to item 6 ("changing file content creates a new candidate"), with re-approval.
-- (c) Self-check: search the finalized file for leftover wording (e.g. `待定稿|候选|未生效|只剩.*待` and English equivalents such as "pending finalization",
-  "candidate", "not effective"); any hit means finalization is not complete and the next phase may not start.
+  Allowed changes in the copy are limited to the title, status line, pending-items section and downstream reference paths, and must preserve the approved meaning.
+  Before updating a reference, compare the old/new upstream content and its downstream assumptions per item 8 (A10/B10/DOC10). Identical-byte relocation or a
+  demonstrated compatible revision can reuse the existing decision; changed premises require affected review, verification and acceptance before propagation.
+  Only a meaning-preserving stamp is not a new candidate and needs no re-approval. The external record keeps the approved SHA, the stamped SHA, the full diff
+  and the compatibility basis; a substantive change or any change outside the list falls back to item 6 ("changing file content creates a new candidate").
+- (c) State self-check: inspect the artifact's own status, unresolved decisions and unfinished placeholders. Actual pending finalization or unresolved required items
+  mean finalization is not complete and the next phase may not start. A wording search only locates clues for classification: a finalized contract about "candidate"
+  management, a code example or a historical quotation is not a pending status. Record how each relevant hit was classified; do not reject legitimate subject terms.
 - This is a narrow exception to item 6 ("changing file content creates a new candidate") and to "should not be edited in place at the original path";
   outside the checklist fields and the finalized copy, both rules stand unchanged.
 
@@ -256,17 +265,17 @@ next phase starts, finalization is complete only when all of the following hold.
 one, the following hold before the new version is claimed effective or the next phase starts.
 - (a) The old version's file bytes stay untouched and keep its approved SHA; the supersession is recorded only externally: old and new paths and SHAs,
   the decision source and the list of affected downstream artifacts.
-- (b) Every reference to the old version in downstream formal artifacts is repointed to the new version. If the downstream artifact is already finalized,
-  this uses the "downstream reference paths" exception of "Finalization close-out" (b), recording approved SHA, changed SHA and diff; any other change
-  falls back to item 6 (new candidate).
-- (c) Self-check: search downstream formal artifacts and Pages for the old version's path and version number; any hit outside history/change-log sections
-  means supersession is not complete and the next phase may not start.
-- (d) The old version's Page title is marked "superseded by vN" (a Page is not the approval object); the Page is not deleted.
+- (b) First assess the impact on each affected downstream artifact under item 8, then update its current-baseline references. Only a meaning-preserving update
+  uses the "downstream reference paths" exception of "Finalization close-out" (b), recording approved SHA, changed SHA, diff and compatibility basis in a new copy.
+  A changed downstream premise falls back to item 6 (new candidate) and the affected reviews/tests; the former approval does not transfer by changing a link.
+- (c) Self-check: search downstream formal artifacts and Pages for the old path/version, then classify each hit. A stale current-baseline reference prevents
+  completion; an intentional history, comparison or migration reference does not. Do not repoint historical evidence to a different version.
+- (d) If a Page exists, apply [grok-bot-page.md](grok-bot-page.md) item 4: reuse the current logical document's Page and update its source/status.
+  Only a separate obsolete Page is marked "superseded by vN". A Page is not the approval object and is not deleted automatically. With no Page this check is N/A.
 - (e) Partial approval is recorded only in the external event (`Decision Scope`, `Whole Artifact Effective: no`); the body gets no stamp. After whole
   confirmation, "Finalization close-out" applies.
-- This adds no exception to "should not be edited in place at the original path": the old version's body is never changed. It reuses the exception of
-  "Finalization close-out" (b) for downstream reference paths only, and complements item 8 (A10): consumers are not only recorded but actually repointed
-  and self-checked.
+- This adds no exception to "should not be edited in place at the original path": the old version's body is never changed. It complements item 8 (A10):
+  assess consumer impact first, then apply the compatible-reference exception or create a new candidate, and verify the resulting current-baseline references.
 
 ### 6.3.2 When the user tells you to just proceed without more questions
 
@@ -281,14 +290,14 @@ than triggering a question or switching mode automatically from the phrase alone
 
 **Mode card at fixed points** (CAND-20261031-001): a managed task still in Confirm gets one mode card at each of these two points, so the user never has to ask:
 - (a) **After A02**: when A02 becomes `human-confirmed` and the task is still Confirm, send one mode card proactively, before the next phase starts.
-- (b) **On "auto" wording**: when the user, in Confirm, says "auto", "go with the recommendations", "stop asking" or similar, send the same card; for such wording in Confirm
-  this takes precedence over the first two bullets above and SKILL.md §0 item 2. Never turn the wording into an informal "adopt recommendations automatically".
+- (b) **On a request to change mode**: interpret the user's current intent and existing scope first. A fully specified explicit choice follows "Decision source
+  equivalence" without another card; when the user wants Auto but its form or scope is unresolved, present the same decision once. Wording alone does not select a mode.
 - The card has four options: keep Confirm; task-level Auto (form (i)); end-to-end Auto card with `noStop: false`; end-to-end Auto card with `noStop: true`.
   Each option states what it does and costs, and the card carries a recommendation per "Verify premises and reasonableness before recommending".
   The end-to-end options are offered only when A01 and A02 are both `human-confirmed` (`end-to-end-auto-card.md` section 1); before that, (b) offers the first two.
-- Only the option picked on the card is an Auto source; the wording itself never is (`task-recognition-and-routing.md` Kickoff card). Until the user picks, Confirm
-  stays and only actions depending on the choice pause. Picking an end-to-end option continues with `end-to-end-auto-card.md`.
-- One card per point: a declined or dismissed card is not re-sent at (a); a later (b) wording shows it again. Valid Auto is never asked again.
+- A real explicit selection by click or equivalent text is the Auto source, with the chosen scope recorded. Until a valid selection, Confirm stays and only actions
+  depending on that choice pause. Selecting an end-to-end option continues with `end-to-end-auto-card.md`.
+- One decision per point: a declined or dismissed card is not re-sent at (a); a later substantive mode-change request can reopen it. Valid Auto is never asked again.
 
 **Same-authorization no-repeat-approval protocol**: before each intended approval request, compare
 `Task ID + Artifact/Plan ID + SHA/version of the body read + Decision Scope + trusted user decision/authorization source + valid upstream/risk changes`;
@@ -333,29 +342,14 @@ Reason: a relay can misread or overstate what the user decided.
 
 ### 6.6 Merge method before an integration-to-release merge
 
-Before merging an integration branch into a release branch (both named by the host's local convention, e.g. `sit` into `master`), the executor sends the
-real user one option card for the merge method and acts only after they pick; it never chooses the method itself. The card marks a recommendation
-chosen for the case at hand and states each option's cost. Default options:
-- (a) Plain merge.
-- (b) Squash: first check that the release branch holds nothing the integration branch lacks, then take the integration branch's full content.
-- (c) Squash, then merge the release branch back into the integration branch (no file change, only records the merge base; pushes the integration branch).
-- (d) Pull the release branch, then cherry-pick only the user's commits (including assistant commits made for the user). Cost: commits that depend on
-  others' changes conflict or fail to run; the branches diverge and the combination on the release branch was never verified on the integration branch;
-  merge commits must be skipped or replaced by their original commits.
-
-Reason: a release branch built by earlier squash merges keeps a stale merge base, so another squash can report many false conflicts.
-Pushing the release branch still needs the real user's own authorization, as before.
-
-**Default merge method for integration -> release branches (CAND-20261029-003)**: this paragraph takes precedence over the
-per-merge card above. Default is (c): squash-merge the integration branch into the release branch (names from the host's local convention, e.g. `sit` into
-`master`), then merge the release branch back into the integration branch with a merge commit that changes no file and only records the merge base.
-- No merge-method card is sent before such a merge. Pushing either branch still needs the real user's own authorization, unchanged.
-- Precondition and fallback: before the squash, verify the release branch holds no content the integration branch lacks (a diff from the integration
-  branch to the release branch shows nothing outside the integration branch). If it does, or the merge-back would have to drop or change a file, stop and
-  send the user one card with the former options (a), (b), (d) above with their costs and a recommendation; never discard release-branch content silently.
-- Record the squash commit and the merge-back commit IDs in the task record.
-- First adoption: while the merge base is still the old one, run the precondition check, then one no-file-change merge-back to reset the base before the
-  squash; that merge-back pushes the integration branch, so it needs the real user's push authorization.
+Before merging an integration branch into a release branch, verify the actual branches, history, project merge policy and current authorized scope. Reuse an
+applicable existing choice; do not ask a new merge-method question solely because another merge is due. This Skill supplies no default squash or merge-back policy.
+- If the method is genuinely unresolved, explain the applicable merge, squash/merge-back or cherry-pick alternatives, their history/verification costs and a recommendation,
+  then obtain the missing decision under "Decision source equivalence". A proposed method is not approval.
+- Preserve target-branch-only content and real contributors. Verify the resulting tree and affected tests; never silently discard release-branch content.
+- Record the actual commits and evidence. Merge authorization does not imply pushing either branch; reuse an existing valid push authorization only within its scope.
+- The task-lifecycle maintainer's CAND-20261029-003 squash/merge-back convention and its preconditions live in
+  [Maintainer baseline](../../../docs/maintainer-baseline.md#repository-maintenance-policy). Ordinary projects use their own policy.
 
 ---
 

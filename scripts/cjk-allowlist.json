@@ -942,7 +942,7 @@
    "bucket": "RECORD_ID",
    "reason": "record/candidate/bug ID containing Chinese; IDs are kept verbatim",
    "files": [
-    "skills/task-lifecycle/references/task-split-parallel-and-integration.md"
+    "skills/task-lifecycle/references/grok-cli-dispatch.md"
    ]
   },
   {
@@ -1871,14 +1871,6 @@
    "reason": "runtime end-to-end Auto card file name in Chinese sessions (FEAT-20261028-001)",
    "files": [
     "skills/task-lifecycle/references/entry-quickref.md"
-   ]
-  },
-  {
-   "literal": "待定稿|候选|未生效|只剩.*待",
-   "bucket": "SEARCH_PATTERNS",
-   "reason": "CAND-20261102-003 finalization self-check regex for Chinese leftover status wording in user artifacts",
-   "files": [
-    "skills/task-lifecycle/references/confirmation-authorization-and-change.md"
    ]
   }
  ]
