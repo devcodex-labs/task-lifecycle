@@ -69,6 +69,16 @@ test('frozen commit citations and anchors use committed bytes and preserve absol
   let r = run(f, '`' + f.target + ':2` "Exact evidence."\n[Rule](target.md#stable-rule)', ['--rev', rev]);
   assert.equal(r.status, 0, r.stdout + r.stderr); assert.match(r.stderr, /recognized=2/);
   r = run(f, '[Rule](target.md#new-rule)', ['--rev', rev]); assert.equal(r.status, 1); assert.match(r.stdout, /^ANCHOR\t/);
+  const alias = path.join(base, 'alias-' + serial);
+  fs.symlinkSync(f.dir, alias, process.platform === 'win32' ? 'junction' : 'dir');
+  try {
+    const aliased = { dir: alias, report: path.join(alias, 'report.md') };
+    r = run(aliased, '`' + path.join(alias, 'target.md') + ':2` "Exact evidence."\n[Rule](target.md#stable-rule)', ['--rev', rev]);
+    assert.equal(r.status, 0, 'directory aliases must retain frozen path identity: ' + r.stdout + r.stderr);
+  } finally { fs.unlinkSync(alias); }
+  fs.unlinkSync(f.target);
+  r = run(f, '`' + f.target + ':2` "Exact evidence."\n[Rule](target.md#stable-rule)', ['--rev', rev]);
+  assert.equal(r.status, 0, 'deleted worktree files still resolve at the frozen commit: ' + r.stdout + r.stderr);
   const outside = path.join(base, 'outside.md'); fs.writeFileSync(outside, '# Outside\n');
   r = run(f, '`' + outside + ':1` "# Outside"', ['--rev', rev]); assert.equal(r.status, 1); assert.match(r.stdout, /^NOFILE\t/);
 });

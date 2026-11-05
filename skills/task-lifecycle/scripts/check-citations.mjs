@@ -11,6 +11,19 @@
 import fs from 'node:fs'; import path from 'node:path'; import { execFileSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
 class ArgumentError extends Error {}
 function die(m) { throw new ArgumentError(m); }
+// Resolve native directory aliases (including Windows 8.3 names). Missing
+// suffixes remain usable for files deleted from the worktree since --rev.
+function frozenPath(p) {
+  let current = path.resolve(p); const suffix = [];
+  for (;;) {
+    try { return path.join(fs.realpathSync.native(current), ...suffix.reverse()); }
+    catch (e) {
+      if (!['ENOENT', 'ENOTDIR'].includes(e.code)) throw e;
+      const parent = path.dirname(current); if (parent === current) throw e;
+      suffix.push(path.basename(current)); current = parent;
+    }
+  }
+}
 // The path can include a Windows drive colon; the final :N suffix or external line marker owns the range.
 const RE = /`([^`\n]*[^`\s][^`\n]*?)(?::(\d+)(?:[-～~](\d+))?`|`\s*第\s*(\d+)(?:\s*[-～~]\s*(\d+))?\s*行|`\s+lines?\s+(\d+)(?:\s*[-–~]\s*(\d+))?\b)(?:[^「“"`]{0,6}(?:「([^」]+)」|“([^”]+)”|"([^"\n]+)"))?/g;
 export function parseLineCitations(line) {
@@ -51,7 +64,8 @@ let gitRoot = root;
 if (rev) {
   try {
     rev = execFileSync('git', ['-C', root, 'rev-parse', '--verify', `${rev}^{commit}`], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
-    gitRoot = path.resolve(execFileSync('git', ['-C', root, 'rev-parse', '--show-toplevel'], { encoding: 'utf8' }).trim());
+    gitRoot = frozenPath(execFileSync('git', ['-C', root, 'rev-parse', '--show-toplevel'], { encoding: 'utf8' }).trim());
+    root = frozenPath(root);
   } catch { die(`--rev ${rev} is not a valid commit`); }
 }
 for (const f of files) { if (!fs.existsSync(f)) die(`file to check does not exist ${f}`); if (!fs.statSync(f).isFile()) die(`path to check is not a file ${f}`); }
@@ -60,7 +74,7 @@ function load(p) {
   if (cache.has(p)) return cache.get(p); let t = null;
   try {
     if (rev) {
-      const rel = path.relative(gitRoot, path.resolve(root, p));
+      const rel = path.relative(gitRoot, frozenPath(path.resolve(root, p)));
       if (!rel || path.isAbsolute(rel) || rel === '..' || rel.startsWith('..' + path.sep)) throw new Error('not an in-repo file path');
       const object = `${rev}:${rel.split(path.sep).join('/')}`;
       const git = args => execFileSync('git', ['-C', gitRoot, ...args], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
@@ -78,7 +92,8 @@ function resolve(p, from) {
   if (/^[A-Za-z]:[\\/]/.test(p) || p.startsWith('\\\\')) return path.isAbsolute(p) && load(p) ? p : null;
   // Frozen references keep their original path identity; an absolute path must not turn into a skill short name after failing.
   if (rev && path.isAbsolute(p)) return load(p) ? p : null;
-  const c = [p, path.join(path.relative(root, path.dirname(path.resolve(from))), p)];
+  const source = rev ? frozenPath(from) : path.resolve(from);
+  const c = [p, path.join(path.relative(root, path.dirname(source)), p)];
   // Report-relative references resolve first; aliases may normalize internally, but a prefix must not cancel a parent that still escapes.
   const aliasPath = path.normalize(p);
   const escapesAlias = aliasPath === '..' || aliasPath.startsWith('..' + path.sep);
