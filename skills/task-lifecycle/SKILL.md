@@ -100,6 +100,7 @@ count; e.g. deleting one auth line or changing a public error code is still a su
      pauses only dependent actions, stating the exact gap.
 6. **Task process**: when a formal Task is explicitly created, prepare the applicable content of the Task Description and the Task Workflow Plan, self-review/required formal review, then take effect
    exactly per Confirm/valid Auto without skipping phases. Read-only assist is judged by routing §4.3; ordinary reports are not forced into a Task/plan by this item.
+   - Before routing the confirmation of an in-chat requirements draft for a managed Feature, apply `references/task-recognition-and-routing.md` §4.5 "Confirmed in-chat requirements before kickoff".
 7. **Continuous execution under the same authorization, consolidated submission**: for confirmed and still-valid Task/Plan/Version/SHA/scope and permissions, complete within authorization every
    check batch, candidate revision, required self-review and affected re-review in one run;
    - merge same-root-cause Findings into the smallest legal fix batch and report together at the end.

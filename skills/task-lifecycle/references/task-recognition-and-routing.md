@@ -267,6 +267,19 @@ plain text options, implementing no fictional standalone pop-up.
 | Mid-course change | The real user explicitly changes scope/goal; affected originals locatable | Pause the related chain per A10/B10/DOC10, generate the needed 变更影响分析.md, list invalidated old evidence, required re-approval and the next safe node | "Proposing changes" is not approval of the full text or an Auto expansion; cross-scope items await a human decision |
 | Exit Auto | The current trusted user's explicit instruction | Later approvals switch to Confirm; historical facts kept | Already-incurred external side effects are not reversed |
 
+#### Confirmed in-chat requirements before kickoff
+
+Apply this branch when the trusted user has requested a managed Feature and confirms an identifiable in-chat requirements draft before kickoff (00) has taken effect. Record the exact draft
+version, source message and confirmed scope. Reuse that decision for the same requirements content. Standalone drafting and read-only analysis keep their ordinary delivery rules.
+
+1. Resume at kickoff (00) before selecting a writing workflow or drafting downstream artifacts. Reuse valid depth, mode and write scope. If depth is still missing, apply §4.4 and show kickoff
+   as awaiting that choice. The draft confirmation supplies the requirements source only.
+2. Resolve the new process destination through `workspace-versioning-and-recovery.md` §9.1. Treat any existing archive as a source. Once kickoff prerequisites are met, create the Task
+   Description and Task Workflow Plan in the resolved task directory, citing the confirmed draft. Self-review and read back both files. Give the user an openable path, version and status for
+   each. In Confirm, submit both files for their own content decisions and stay at kickoff until both take effect. If saving fails, identify the missing file and keep kickoff pending.
+3. Enter requirements review (A01) only after both kickoff artifacts take effect. Start Usage Contract (A02) work, including drafting its candidate, only after A01 has produced valid
+   confirmed requirements and the current scope allows A02. An existing downstream draft remains reference material until its stage is reached.
+
 **First-use/formal candidate display protocol**: the first legal managed response (only when confirmable) clearly shows the user the real `Project ID/actual path`, the `Feature|Bugfix|Docs`
 classification and reason, the candidate **outside-repo** process artifact directory and its writability, and indicates whether the flow depth is selected/recommended only/awaiting choice, default
 Confirm or trusted Auto authorization, and the next legal action.

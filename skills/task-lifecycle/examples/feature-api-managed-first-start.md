@@ -24,6 +24,19 @@
 **Should be rejected**: a README implying Auto is on; letting a depth-dependent formal plan take effect without a legal tier choice; adding an SDK before the API is confirmed; calling a generated
 `.http` a real execution; writing internal reports into the project's Git without an explicit directory decision. Ordinary report saving is not subject to the tier-choice gate.
 
+## Regression case: FlowKit requirements confirmed in chat before kickoff
+
+The user requests managed Feature development for FlowKit, asks to confirm the requirements first, then replies `Confirm v0.1` to the exact in-chat draft. There is no effective kickoff (00).
+The project README links to `.devcodex/flowkit/requirements/` for archived requirements. The current task has permission to write under the workspace's `.task-lifecycle/` and uses Confirm.
+
+| Step | Expected result |
+|---|---|
+| Confirm the in-chat draft without a valid depth | Record v0.1 as the requirements source and show kickoff awaiting depth. |
+| Select `standard` and `balanced` review intensity | Write and read back the Task Description and Task Workflow Plan in `.task-lifecycle/flowkit/<task-id>/`. Provide both links and stay at kickoff awaiting confirmation of both files. |
+| Confirm both kickoff files | Enter requirements review (A01). Keep Usage Contract (A02) work pending until A01 has produced valid confirmed requirements and the user's scope permits A02. |
+
+Read the old archive as evidence only. If the new destination cannot be written, report the missing kickoff deliverable and keep kickoff pending.
+
 ## A different contract example for a CLI usage surface (fictional, not executed)
 
 The following assumes the user's own project already has a file-validation CLI; this is not a new command provided by Task Lifecycle, and no real tool is assumed to have any particular parameter.

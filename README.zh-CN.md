@@ -4,7 +4,7 @@
 
 **规划、审查、确认：为 AI 编程宿主提供受管的 Feature、Bugfix 与 Docs 工作流程。**
 
-[![version](https://img.shields.io/badge/version-0.3.0-2357C6)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-0.3.1-2357C6)](CHANGELOG.md)
 [![CI](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml/badge.svg)](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -116,7 +116,7 @@ grok plugin install devcodex-labs/task-lifecycle --trust
 | Grok CLI 1.0.70 | 保留历史参数与例外约定；deny 限制及当前真实行为仍未验证 |
 | 具备 Canvas 能力的 Grok Bot | Page 规则已作静态检查；本次没有真实生成 Page 的证据 |
 
-历史宿主测试不能直接证明修改后的 Skill 有效。插件版本为 0.3.0；发布测试及 CI 结果仅对应所记录提交，不证明真实模型会话行为。
+历史宿主测试不能直接证明修改后的 Skill 有效。插件版本为 0.3.1；发布测试及 CI 结果仅对应所记录提交，不证明真实模型会话行为。
 
 ## 配置
 

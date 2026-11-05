@@ -1,3 +1,9 @@
+## 0.3.1 — Resume kickoff after in-chat requirements confirmation (2026-11-05)
+
+- Resume managed Feature kickoff when the user confirms an identifiable in-chat requirements draft. Reuse the confirmed scope and submit the two kickoff files before requirements review.
+- Resolve the new process destination separately from historical sources. Start Usage Contract work only after valid confirmed requirements and within the authorized scope.
+- Add a regression check and a FlowKit replay case covering a missing depth, a legacy archive link, and the kickoff confirmation stop.
+
 ## 0.3.0 — Host-neutral core and optional Grok adapters (2026-11-05)
 
 - Keep common task, approval, role, evidence and recovery rules in one Skill; move Grok CLI dispatch and Grok Bot Page behavior into conditional references.

@@ -4,7 +4,7 @@
 
 **Plan, review, confirm: governed Feature, Bugfix and Docs work for AI coding hosts.**
 
-[![version](https://img.shields.io/badge/version-0.3.0-2357C6)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-0.3.1-2357C6)](CHANGELOG.md)
 [![CI](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml/badge.svg)](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -120,7 +120,7 @@ needs your confirmation. Other example prompts:
 | Grok CLI 1.0.70 | Historical parameter/exception contract only; deny limitations and current live behavior remain unverified |
 | Grok Bot with Canvas capability | Page adapter rules checked statically; no current live Page-generation evidence |
 
-Historical host checks do not transfer to a changed Skill. Package version: 0.3.0. Release test/CI results apply to their recorded commit and do not establish real model-session behavior.
+Historical host checks do not transfer to a changed Skill. Package version: 0.3.1. Release test/CI results apply to their recorded commit and do not establish real model-session behavior.
 
 ## Configuration
 

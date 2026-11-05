@@ -1005,3 +1005,26 @@ test('T142 CAND-20261103-001 external reviewer hook for the independent re-revie
   assert.ok(!/do a §7\.12 delta re-review|findings go through §7\.12 delta/.test(sec),'no unscoped §7.12 delta');
   for(const [fl,h] of [['feature-flow.md','**Extra re-review performer (A01–A04)**'],['bugfix-flow.md','**Extra re-review performer (B03)**'],['docs-flow.md','**Extra re-review performer (DOC03–DOC04)**']])assert.ok(r('references/'+fl).includes(h),fl);
 });
+
+test('T143 FlowKit in-chat v0.1 confirmation resumes kickoff before any Usage Contract work', () => {
+  const skill = 'skills/task-lifecycle/';
+  const heading = 'Confirmed in-chat requirements before kickoff';
+  const routing = rdN(`${skill}references/task-recognition-and-routing.md`);
+  assert.ok(rdN(`${skill}SKILL.md`).includes(`Before routing the confirmation of an in-chat requirements draft for a managed Feature, apply \`references/task-recognition-and-routing.md\` §4.5 "${heading}".`));
+  const start = routing.indexOf(`#### ${heading}`);
+  const end = routing.indexOf('**First-use/formal candidate display protocol**', start);
+  assert.ok(start > 0 && end > start);
+  const branch = routing.slice(start, end);
+  assert.match(branch, /requested a managed Feature and confirms an identifiable in-chat requirements draft before kickoff \(00\) has taken effect/);
+  assert.match(branch, /Reuse that decision for the same requirements content\. Standalone drafting and read-only analysis keep their ordinary delivery rules/);
+  assert.match(branch, /1\. Resume at kickoff \(00\) before selecting a writing workflow or drafting downstream artifacts\..*awaiting that choice/);
+  assert.match(branch, /2\. Resolve the new process destination through `workspace-versioning-and-recovery\.md` §9\.1\..*Task Description and Task Workflow Plan.*read back both files.*openable path, version and status/);
+  assert.match(branch, /submit both files for their own content decisions and stay at kickoff until both take effect.*keep kickoff pending/);
+  assert.match(branch, /3\. Enter requirements review \(A01\) only after both kickoff artifacts take effect\. Start Usage Contract \(A02\) work, including drafting its candidate, only after A01 has produced valid confirmed requirements and the current scope allows A02/);
+
+  const paths = rdN(`${skill}references/workspace-versioning-and-recovery.md`);
+  assert.match(paths, /resolve the destination from the current user instruction, an applicable verified convention .* or the default below/);
+  assert.match(paths, /Treat README links and paths used to read existing requirements or historical archives as source locations only\./);
+  const example = rdN(`${skill}examples/feature-api-managed-first-start.md`);
+  assert.match(example, /FlowKit requirements confirmed in chat before kickoff.*`Confirm v0\.1`.*`\.devcodex\/flowkit\/requirements\/`.*`\.task-lifecycle\/flowkit\/<task-id>\/`.*stay at kickoff awaiting confirmation of both files/);
+});

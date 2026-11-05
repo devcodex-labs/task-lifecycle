@@ -130,6 +130,9 @@ current real task, authorization and triggers; if they disagree with this file's
 This is the default layout and does not negate other legal process paths the user explicitly specified; reuse valid directory decisions and never turn "external by default" into an extra tool
 approval. Ordinary files vs formal Tasks: item 3 of this file and routing §4.3. Names follow the conversation language; Chinese sessions use the right column of `RUNTIME_NAMES` (entry-quickref).
 
+Before writing new process artifacts, resolve the destination from the current user instruction, an applicable verified convention ("Preferences and file naming"), or the default below.
+Treat README links and paths used to read existing requirements or historical archives as source locations only. If the resolved destination cannot be verified or written, use §9.7.
+
 ```text
 <workspace>/
 ├── project-a/                      # original project Git worktree; internal process docs forbidden inside
