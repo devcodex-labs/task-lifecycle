@@ -25,6 +25,11 @@ when manual acceptance was explicitly agreed, and acknowledging a report does no
 
 ## Multi-object confirmation and avoiding repeated approval
 
+- The role-review action (`references/artifact-role-review.md`) is recorded separately as a review request: selected artifact IDs/paths/versions/fingerprints, trusted source,
+  displayed check scope/method, reused report/check IDs, newly executed checks, outcome link and pending content decisions. Do not put it in the content Decision Type field.
+- After review or evidence reuse, selected pending objects remain `pending-gate`, Whole Artifact Effective remains `no`, and the next action is their content confirmation.
+  A later content decision must bind the current candidate bytes; the review request cannot supply that decision.
+
 - Formal code delivery may be confirmed as one linked batch: `{Task/Batch ID`, `Version`, `upstream/WI`, `exact file set and each file's SHA/unverified`, `real diff`, `applicable review and tests`,
   `whether scope/whole batch takes effect`, `trusted decision source}`. Changes to the set/body produce a new candidate and re-check the invalidated scope; partial approval may not take effect for
   the whole batch; execution batching does not automatically create human approval objects, nor grant Git operation permission. Approval rules consume only

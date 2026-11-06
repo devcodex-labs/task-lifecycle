@@ -1028,3 +1028,42 @@ test('T143 FlowKit in-chat v0.1 confirmation resumes kickoff before any Usage Co
   const example = rdN(`${skill}examples/feature-api-managed-first-start.md`);
   assert.match(example, /FlowKit requirements confirmed in chat before kickoff.*`Confirm v0\.1`.*`\.devcodex\/flowkit\/requirements\/`.*`\.task-lifecycle\/flowkit\/<task-id>\/`.*stay at kickoff awaiting confirmation of both files/);
 });
+
+test('T144 key artifact confirmation exposes role review across kickoff and the three flows', () => {
+  const base = 'skills/task-lifecycle/';
+  const rule = rdN(`${base}references/artifact-role-review.md`);
+  for (const text of ['both kickoff files (Task Description and Task Workflow Plan) in every managed flow',
+    'requirements, Usage Contract, technical/fix designs', 'implementation/revision plans, content contracts/information architecture',
+    'user-facing delivery documentation awaiting content confirmation', 'Routine logs, confirmation records and review reports',
+    'Required self-review and formal review still precede content acceptance']) assert.ok(rule.includes(text), text);
+  for (const file of ['SKILL.md', 'references/entry-quickref.md', 'references/confirmation-authorization-and-change.md',
+    'references/roles-and-specialist-review.md', 'references/re-review-performer-choice.md',
+    'references/task-recognition-and-routing.md', 'references/formal-review-and-findings.md']) {
+    assert.ok(rdN(base + file).includes('artifact-role-review.md'), file);
+  }
+  assert.ok(rdN(`${base}references/entry-quickref.md`).includes('| Artifact review action | Review by role, then return for my confirmation | 先分角色审查，再交我确认 |'));
+});
+
+test('T145 role review requests cannot accept artifacts or advance phases, including Auto', () => {
+  const base = 'skills/task-lifecycle/';
+  const rule = rdN(`${base}references/artifact-role-review.md`);
+  for (const text of ['review request**, not a content decision', '`pending-gate` and `whole-artifact-effective=no`',
+    'never records `human-confirmed` or `auto-accepted`', 'never advances the dependent phase', 'including `noStop`', 'Other valid, unaffected decisions remain effective',
+    'both files must take effect before requirements review (A01), defect analysis (B01), or readers/goals (DOC01)',
+    'Before recording a later content confirmation, re-read the candidate', 'A request to review alone does not grant target-edit permission']) {
+    assert.ok(rule.includes(text), text);
+  }
+  const record = rdN(`${base}templates/confirmation-and-auto-acceptance-record.md`);
+  assert.ok(record.includes('Do not put it in the content Decision Type field'));
+  assert.ok(record.includes('the review request cannot supply that decision'));
+});
+
+test('T146 role review reuses evidence before dispatch and invalidates by affected scope', () => {
+  const rule = rdN('skills/task-lifecycle/references/artifact-role-review.md');
+  for (const text of ['Before running any check or dispatch', 'version/fingerprint, upstream/source versions',
+    'review method/independence and readable evidence', 'zero new review runs', 'Preserve open Findings and limitations',
+    'does not explicitly request another full round', 'run a delta check', 'only supplement uncovered checks',
+    'Missing/unreadable evidence is an uncovered check', 'Same-context evidence cannot satisfy an independent-review requirement',
+    'review caps, required verification and §7.12 delta rules', 'same-context role review; no independent reviewer',
+    'Human-only performer choices stay human-only', 'never enables external delegation']) assert.ok(rule.includes(text), text);
+});

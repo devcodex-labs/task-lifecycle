@@ -35,6 +35,23 @@ The project README links to `.devcodex/flowkit/requirements/` for archived requi
 | Select `standard` and `balanced` review intensity | Write and read back the Task Description and Task Workflow Plan in `.task-lifecycle/flowkit/<task-id>/`. Provide both links and stay at kickoff awaiting confirmation of both files. |
 | Confirm both kickoff files | Enter requirements review (A01). Keep Usage Contract (A02) work pending until A01 has produced valid confirmed requirements and the user's scope permits A02. |
 
+### Role-review action replay
+
+Use an isolated FlowKit fixture with the two real kickoff candidates and confirmed v0.1 source above. Load the current source Skill in a fresh CLI session;
+select `standard` and `balanced`, keep Confirm, and authorize only the fixture's process records. Preserve product and archive files.
+
+| User action / fixture change | Expected observable result |
+|---|---|
+| Deliver both kickoff files for confirmation | Each file has its own content decision and the role-review action from `entry-quickref.md` LABELS. |
+| Select the role-review action for both files | A consolidated report identifies versions, source fidelity, phase/order/stop checks, evidence and actual executor; both files remain pending at kickoff. |
+| Select it again with unchanged files and premises | Re-read enough to validate identity and evidence, reuse the report/check IDs, make zero new review runs; no reviewer dispatch or approval event. |
+| Change only a plan's downstream stop while keeping its old report | Detect the changed bytes; check the changed stop and direct consumers, reuse unaffected checks, report the conflict and await current-version confirmation. |
+| Repeat with an Auto task and select return-for-confirmation | Selected artifacts still await explicit content decisions; no auto-acceptance or dependent phase advancement. |
+| One kickoff file already has valid exact approval | Preserve that decision; reviewing the other file does not confirm it or reopen the approved file. |
+
+Inspect actual artifacts, external fingerprints, command/session traces and final replies. No A01/A02 work or content-approval event may result from the review action.
+Also replay a technical/fix design or content/revision plan to check the shared action outside kickoff. Static text assertions alone do not verify these host behaviors.
+
 Read the old archive as evidence only. If the new destination cannot be written, report the missing kickoff deliverable and keep kickoff pending.
 
 ## A different contract example for a CLI usage surface (fictional, not executed)

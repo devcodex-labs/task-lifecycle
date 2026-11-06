@@ -15,6 +15,8 @@
 
 ## Execute item by item when applicable
 
+For the optional role-review action, apply `artifact-role-review.md` before checks or dispatch: reuse evidence, supplement missing/invalidated checks and return for confirmation.
+
 1. First freeze the reviewed file's real current version/external SHA, the exact approved upstream, current real consumers and actual project facts, then draw up a **version-specific** formal review
    plan (check IDs, roles, each composite sub-condition, positive/negative assertions, failure criteria, D/A/I/H ceiling, applicability/permissions). The plan is self-reviewed first, then legally
    approved per the valid mode; without approval never claim a formal specialist re-review.

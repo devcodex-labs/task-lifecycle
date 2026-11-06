@@ -277,6 +277,8 @@ version, source message and confirmed scope. Reuse that decision for the same re
 2. Resolve the new process destination through `workspace-versioning-and-recovery.md` §9.1. Treat any existing archive as a source. Once kickoff prerequisites are met, create the Task
    Description and Task Workflow Plan in the resolved task directory, citing the confirmed draft. Self-review and read back both files. Give the user an openable path, version and status for
    each. In Confirm, submit both files for their own content decisions and stay at kickoff until both take effect. If saving fails, identify the missing file and keep kickoff pending.
+    Include the optional role-review action for each file per `artifact-role-review.md`; selected pending files still await their own content decisions after review.
+    Reviewing one file neither approves the other nor invalidates its still-valid approval.
 3. Enter requirements review (A01) only after both kickoff artifacts take effect. Start Usage Contract (A02) work, including drafting its candidate, only after A01 has produced valid
    confirmed requirements and the current scope allows A02. An existing downstream draft remains reference material until its stage is reached.
 

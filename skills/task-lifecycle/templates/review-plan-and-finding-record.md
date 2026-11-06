@@ -51,6 +51,10 @@ three-suggestion quota.
 
 ## D. Futile loop check
 
+For an artifact role-review request, also record the selected objects/current fingerprints, request source, scope and actual execution method,
+per-role reused/new check IDs and evidence, changed premises/direct consumers, report link and pending content decisions (`references/artifact-role-review.md`).
+An ordinary role-check result may use these fields in a consolidated report without creating the independent formal plan/report objects above.
+
 | Review Round | newEvidence | newAffectedConditions | newCodeOrContractDiff | newVerifiedClaims | closedWithEvidence | remaining gaps |
 |---|---|---|---|---|---|---|
 | `{one actual round}` | `{real change or none}` | ... | ... | ... | ... | ... |

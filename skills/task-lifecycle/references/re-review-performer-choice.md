@@ -64,3 +64,6 @@ Exactly the formal artifacts of A01–A04, B03 and DOC03–DOC04 of a managed ta
 13. **Explicit rotation sequence** (additive): the user may explicitly set a reviewer rotation sequence (for example "third-party host → the user themself"). It is written into
     `reReviewPerformer` with its source, and the task record notes who performs this time and who performed last time. Within one task, rule 7 reuse still applies; the
     sequence advances only per its own setting. When no sequence is set, everything stays as before.
+
+The optional role-review action in `artifact-role-review.md` separately covers key artifact confirmation, including kickoff. It chooses check perspectives, not a new
+performer. Reuse this choice only within its valid scope; check existing review evidence before dispatch, and never add a duplicate review for the same covered checks.

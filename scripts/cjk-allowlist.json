@@ -2,6 +2,14 @@
  "description": "Exact CJK literals allowed in skills/task-lifecycle/** and CHANGELOG.md (check-docs gate g). Each entry is scoped to the listed files; stale entries fail the gate.",
  "entries": [
   {
+   "literal": "先分角色审查，再交我确认",
+   "bucket": "LABELS",
+   "reason": "user-approved canonical Chinese artifact review action label",
+   "files": [
+    "skills/task-lifecycle/references/entry-quickref.md"
+   ]
+  },
+  {
    "literal": "《任务描述》",
    "bucket": "RUNTIME_NAMES",
    "reason": "runtime process document name (《…》) in user workspaces",

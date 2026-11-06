@@ -4,7 +4,7 @@
 
 **规划、审查、确认：为 AI 编程宿主提供受管的 Feature、Bugfix 与 Docs 工作流程。**
 
-[![version](https://img.shields.io/badge/version-0.3.1-2357C6)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-0.3.2-2357C6)](CHANGELOG.md)
 [![CI](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml/badge.svg)](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -35,6 +35,8 @@ Task Lifecycle 是面向 AI 编程助手的纯 Skill 插件。宿主实际加载
 - **按意图触发，不打扰**：只有实质性开发工作才进入受管任务，并会先告诉你；普通提问、查询和小改动照常帮忙。
 - **三种任务流程**：Feature（阶段 `A01–A10`）、Bugfix（`B01–B10`）和 Docs（`DOC01–DOC10`）。
 - **默认 Confirm 模式**：正式产物等你确认；Auto 模式只适用于你委托的内容。
+- **确认前分角色审查**：关键产物提供“先分角色审查，再交我确认”，包括《任务描述》和《任务工作流方案》。复用已有有效审查，只补查遗漏或变化，
+  完成后把当前文件交回你确认；审查结果不会自动确认文件或推进依赖它的阶段。
 - **按需选择深度**：正式方案需要时，由你选择 `fast / standard / thorough / custom`；任何深度都不跳过必需的质量检查。
 - **审查强度**：开工卡另问一题，审查怎么做：轻 / 标准 / 严格（`light / balanced / strict`，默认跟随深度）；任何一档都不省略必需关卡。
 - **全程 Auto 卡（需主动选择）**：你确认 A01、A02 之后，一张卡可以跑 A03–A07，卡上有 `noStop`（不停）开关，默认关。卡上只能预先放行本地提交；
@@ -116,7 +118,7 @@ grok plugin install devcodex-labs/task-lifecycle --trust
 | Grok CLI 1.0.70 | 保留历史参数与例外约定；deny 限制及当前真实行为仍未验证 |
 | 具备 Canvas 能力的 Grok Bot | Page 规则已作静态检查；本次没有真实生成 Page 的证据 |
 
-历史宿主测试不能直接证明修改后的 Skill 有效。插件版本为 0.3.1；发布测试及 CI 结果仅对应所记录提交，不证明真实模型会话行为。
+历史宿主测试不能直接证明修改后的 Skill 有效。插件版本为 0.3.2；发布测试及 CI 结果仅对应所记录提交，不证明真实模型会话行为。
 
 ## 配置
 

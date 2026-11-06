@@ -1,3 +1,8 @@
+## 0.3.2 — Role review before artifact confirmation (2026-11-06)
+
+- Add an optional role-review action to key artifact confirmation, including both kickoff files in Feature, Bugfix and Docs tasks.
+- Keep selected artifacts pending after review, including under Auto; reuse valid evidence and check only missing or affected scope before returning for confirmation.
+
 ## 0.3.1 — Resume kickoff after in-chat requirements confirmation (2026-11-05)
 
 - Resume managed Feature kickoff when the user confirms an identifiable in-chat requirements draft. Reuse the confirmed scope and submit the two kickoff files before requirements review.

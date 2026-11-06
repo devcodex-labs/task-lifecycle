@@ -13,6 +13,7 @@ of independent Agents
 **Direct consumers**: all phases/formal artifacts/dynamic formal review plans, primary/auxiliary selection of applicable Skills.
 
 **Linked References**: `formal-review-and-findings.md` is the authority for review coverage sign-off; `skill-discovery-matching-and-degradation.md` decides available capability.
+The user-selectable role review before key artifact confirmation follows `artifact-role-review.md`, including kickoff coverage, executor honesty and evidence reuse.
 
 ## Execute item by item when applicable
 

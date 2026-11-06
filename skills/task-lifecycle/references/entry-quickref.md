@@ -22,6 +22,7 @@
 **Action map**: create a task/write process files → re-read `workspace-versioning-and-recovery.md`; request or reuse approval → re-read `confirmation-authorization-and-change.md` (when the host has
 a widget, pending decisions use the choice widget first, see item 9;
 the widget is the host's, but card content follows conventions and the option-card rule of `confirmation-authorization-and-change.md`);
+key artifact confirmation, including either kickoff file → read `artifact-role-review.md` for the role-review action, confirmation hold and evidence reuse;
 classification, depth selection, pause/resume/cancel and other task operations → re-read `task-recognition-and-routing.md`;
 entering a concrete flow → load the flow file per the SKILL.md §2 table; reading delegation config (delegation, depth execution default, review host pool) → first run the validator fresh per
 "Delegation config" in `task-split-parallel-and-integration.md`;
@@ -90,6 +91,7 @@ translated.
 | Auto-decision record keys | id / phase / question / options / chosen / reason / affectedArtifacts / state / marker / decisionType / scope | 编号 / 阶段 / 取舍问题 / 选项及影响 / 采纳的推荐项 / 推荐理由 / 受影响的产物 / 状态 / 标记 / 决定类型 / 范围 |
 | Suspended item record keys | id / item / trigger / evidence / dependents / status / userChoice | 编号 / 受影响项 / 触发原因 / 证据与已试步骤 / 同样挂起的下游项 / 状态 / 需你做的决定 |
 | Review intensity (Kickoff follow-up card) | Review intensity; light / balanced / strict | 审查强度；轻 / 标准 / 严格 |
+| Artifact review action | Review by role, then return for my confirmation | 先分角色审查，再交我确认 |
 
 `PHASE_NAMES` (plain-language phase names, SKILL.md §1; used with codes per the code-name style):
 

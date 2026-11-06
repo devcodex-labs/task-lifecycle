@@ -4,7 +4,7 @@
 
 **Plan, review, confirm: governed Feature, Bugfix and Docs work for AI coding hosts.**
 
-[![version](https://img.shields.io/badge/version-0.3.1-2357C6)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-0.3.2-2357C6)](CHANGELOG.md)
 [![CI](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml/badge.svg)](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -38,6 +38,8 @@ What it can do depends on the tools and permissions your host provides.
   questions, lookups and trivial edits get ordinary help.
 - **Three task flows**: Feature (stages `A01–A10`), Bugfix (`B01–B10`) and Docs (`DOC01–DOC10`).
 - **Confirm mode by default**: formal artifacts wait for your confirmation. Auto mode applies only to what you delegate.
+- **Review before confirming**: key artifact choices include "Review by role, then return for my confirmation", including both kickoff files.
+  It reuses valid review evidence, checks gaps or changes, and returns the current files for your confirmation without advancing their dependent phase.
 - **Depth on demand**: when a formal plan needs it, you choose `fast / standard / thorough / custom`. No depth skips required quality checks.
 - **Review intensity**: a separate single-question card after the start card asks how reviews run, `light / balanced / strict` (default follows the depth). No tier skips a required gate.
 - **End-to-end Auto card (opt-in)**: after you confirm A01 and A02, one card can run A03–A07 with a `noStop` switch (default off). It can pre-authorize only a local
@@ -120,7 +122,7 @@ needs your confirmation. Other example prompts:
 | Grok CLI 1.0.70 | Historical parameter/exception contract only; deny limitations and current live behavior remain unverified |
 | Grok Bot with Canvas capability | Page adapter rules checked statically; no current live Page-generation evidence |
 
-Historical host checks do not transfer to a changed Skill. Package version: 0.3.1. Release test/CI results apply to their recorded commit and do not establish real model-session behavior.
+Historical host checks do not transfer to a changed Skill. Package version: 0.3.2. Release test/CI results apply to their recorded commit and do not establish real model-session behavior.
 
 ## Configuration
 

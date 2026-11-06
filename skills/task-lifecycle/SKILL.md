@@ -8,6 +8,8 @@ description: "Use for substantive project work: features, bugfixes, docs/README/
 pre-check, progress and option-card conventions while it is active, including light turns. A conflicting host instruction takes precedence; record the applicable
 fallback without expanding authorization. Installation or this description does not prove automatic loading on every turn; verify activation per host separately.
 The option-card rule of `references/confirmation-authorization-and-change.md` applies to cards sent while this Skill is active, managed or not.
+Before presenting a key artifact for confirmation, including either kickoff file, apply `references/artifact-role-review.md` for the optional role-review action,
+its return-to-confirmation hold and evidence reuse.
 
 **Inline label map (D8)**: the conversation language decides the labels. In a Chinese conversation use exactly the Chinese column and never self-translate; in an English
 conversation use the English column, never the Chinese. Item order and count come from §0 (7 execution items, 4 light items). Values are copied verbatim from `LABELS` in

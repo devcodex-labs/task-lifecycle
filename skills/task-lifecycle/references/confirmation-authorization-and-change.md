@@ -14,6 +14,10 @@ its user configuration. Host permission is only the outer limit; the stop points
 
 **Linked references**: `formal-review-and-findings.md` owns review; `workspace-versioning-and-recovery.md` owns real versions and paths; this rule may not be expanded on your own.
 
+**Key artifact confirmation actions**: before presenting a key artifact's content decision, read `artifact-role-review.md`. Offer its role-review action alongside
+eligible confirmation and change requests, including for each kickoff file. A review request is not content acceptance; keep its selected objects pending after review,
+including under Auto, and reuse valid review evidence before starting new work. Required review and exact content-decision rules below still apply.
+
 ## Execute item by item when applicable
 
 1. Default `Confirm`. Task-level `Auto` needs real delegation by the trusted current user stating task ID, allowed objects/operations, exclusions, scope/end point; a preceding CLI `--full-auto`,
