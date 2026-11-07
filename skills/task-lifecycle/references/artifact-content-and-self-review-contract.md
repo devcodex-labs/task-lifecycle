@@ -32,7 +32,8 @@ from this reference's directory**) is a format example only.
    when the user or an approved plan explicitly requires an independent formal artifact, generate a candidate and perform review/confirmation.
 7. Public README/API contains only practical user content, never internal approval records or task process; the user can open/read the real candidate body; if the host cannot open files, give
    readable content and the real path in chat, inventing no UI.
-   Formal file delivery follows `verification-and-evidence-routing.md` §10.5; the conditional Grok Bot reading view follows [grok-bot-page.md](grok-bot-page.md).
+   Formal file delivery follows `verification-and-evidence-routing.md` §10.5; Grok Bot Page must-create duty and formatting both follow [grok-bot-page.md](grok-bot-page.md).
+   This contract does not require a Page for every reply. A generic Page with no formal Markdown invents no source path or approval SHA.
 8. When a field contract applies, check each actual fieldPath for type/domain, required/conditional, default/absent/null/empty, cross-field constraints, success and error,
    security/compatibility/consumers; with no fields, do not fabricate a database/REST.
 9. **ABS-08/AC-107 conditional fact check of technology choices**: when this batch truly needs to add/upgrade a key dependency, change framework, or introduce an important SDK/platform API/host

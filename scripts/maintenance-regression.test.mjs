@@ -1091,3 +1091,48 @@ test('T146 role review reuses evidence before dispatch and invalidates by affect
     'review caps, required verification and §7.12 delta rules', 'same-context role review; no independent reviewer',
     'Human-only performer choices stay human-only', 'never enables external delegation']) assert.ok(rule.includes(text), text);
 });
+
+test('T148 Page formatting applies to every loaded-rule Page; must-create scope stays narrow',()=>{
+  const page=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/grok-bot-page.md'),'utf8').replace(/\s+/g,' ');
+  const skill=fs.readFileSync(path.join(root,'skills/task-lifecycle/SKILL.md'),'utf8').replace(/\s+/g,' ');
+  const route=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/verification-and-evidence-routing.md'),'utf8').replace(/\s+/g,' ');
+  const art=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/artifact-content-and-self-review-contract.md'),'utf8').replace(/\s+/g,' ');
+  for(const x of [
+    '**Must-create scope**: review reports, technical/implementation/fix/review plans and proposals handed to the user, and contract drafts awaiting approval. Length never changes this scope.',
+    'does not require every reply to become a Page',
+    '| Ordinary artifacts, casual options, one decision card, CHANGELOG or config notes | No automatic Page |',
+    '**Formatting applicability**:',
+    'every Page this session generates or updates',
+    'including a Page outside item 5',
+    'not global enforcement',
+    'this Skill merely being active, does not load this file',
+    'A generic Page with no formal Markdown gets no invented path, sha256, line count, or approval SHA',
+    'for every Page generated or updated while this file is loaded, including a Page outside item 5, set width to "wide" or "full", never "column"',
+    'exempt from the 1024px floor',
+    'narrow viewports use available width',
+    '960px cap',
+    'only** the gate/branch/execute-against flow segments',
+    'Do not invent that section when the content has none',
+    'does not by itself create a managed Task or a formal artifact',
+    'source-delivery=complete',
+    'Page-delivery=pending',
+    'An explicit user request for a Page is not automatic and is not a new must-create duty.',
+  ])assert.ok(page.includes(x),x);
+  assert.doesNotMatch(page,/every reply must become a Page|all bots must load|every host inherits this formatting/);
+  for(const x of [
+    'must-create duty for a review report, plan or pending contract',
+    'does not make every reply a Page',
+    'Skill activation alone is not a load',
+    'Other hosts and dispatched sessions do not load it and have no Page duty',
+  ])assert.ok(skill.includes(x),x);
+  for(const x of [
+    'owns must-create duty and formatting separately',
+    'does not turn every reply into a Page',
+    'A generic Page does not invent a formal Markdown path or approval SHA',
+    'Other hosts and dispatched sessions do not load it and have no Page duty',
+  ])assert.ok(route.includes(x),x);
+  assert.doesNotMatch(route,/1024px|WriteCanvas|Item 12 \*\*Flow-type/);
+  assert.ok(art.includes('Grok Bot Page must-create duty and formatting both follow'));
+  assert.ok(art.includes('does not require a Page for every reply'));
+  assert.ok(art.includes('invents no source path or approval SHA'));
+});
