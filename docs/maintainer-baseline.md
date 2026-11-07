@@ -68,7 +68,7 @@ handled as logical lines; three kinds are not checked:
 Maintenance runs `node scripts/check-docs.mjs` and the exact test files below (same as CI; no directory entry or shell-dependent glob):
 
 ```sh
-node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs scripts/dispatch-guard.test.mjs scripts/check-citations.test.mjs scripts/runtime-packaging.test.mjs
+node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs scripts/dispatch-guard.test.mjs scripts/check-citations.test.mjs scripts/runtime-packaging.test.mjs scripts/instance-probe.test.mjs
 ```
 
 The canonical runtime tools live in `skills/task-lifecycle/scripts/`; root scripts are compatibility wrappers. Keep a single implementation and verify both complete-plugin and Skill-only copies.

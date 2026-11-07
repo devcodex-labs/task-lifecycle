@@ -197,7 +197,11 @@ function mapFs(virt, real) {
   const back = p => map(p, real, virt);
   return { ...fs, lstatSync: (p, ...a) => fs.lstatSync(to(p), ...a), statSync: (p, ...a) => fs.statSync(to(p), ...a), readFileSync: (p, ...a) => fs.readFileSync(to(p), ...a), openSync: (p, ...a) => fs.openSync(to(p), ...a), readdirSync: (p, ...a) => fs.readdirSync(to(p), ...a), realpathSync: (p) => back(fs.realpathSync(to(p))) };
 }
-test('E18 /workspace/.task-lifecycle/<ID>/config.json valid project layer (virtual /workspace path)', () => {
+const e18Parent = path.join(path.parse(os.tmpdir()).root, 'workspace');
+const e18Skip = ['.git', 'HEAD', 'commondir', 'gitdir'].some((m) => fs.existsSync(path.join(e18Parent, m)))
+  ? `UNVERIFIED: real ${e18Parent} already has a Git marker, so the virtual project path collides`
+  : false;
+test('E18 /workspace/.task-lifecycle/<ID>/config.json valid project layer (virtual /workspace path)', { skip: e18Skip }, () => {
   const f = mk(); writeG(f, G1(f)); writeP(f, P1(f));
   const virt = path.join(path.parse(f.ws).root, 'workspace', 'tlvc-e18');
   const r = run(f, ['--workspace', virt, '--project-id', 'P1'], { fs: mapFs(virt, f.ws) });

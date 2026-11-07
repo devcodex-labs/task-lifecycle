@@ -29,6 +29,14 @@ for (const layout of ['plugin', 'skill-only']) test(`${layout}: isolated runtime
     fs.mkdirSync(path.join(install, 'scripts'));
     for (const name of ['validate-config.mjs', 'check-citations.mjs']) fs.copyFileSync(path.join(root, 'scripts', name), path.join(install, 'scripts', name));
   }
+  const probePath = path.join(skill, 'scripts', 'instance-probe.mjs');
+  const refreshPath = path.join(skill, 'scripts', 'record-instance-baseline.mjs');
+  assert.equal(fs.existsSync(probePath), true);
+  assert.equal(fs.existsSync(refreshPath), true);
+  const probeSource = fs.readFileSync(probePath, 'utf8');
+  assert.match(probeSource, /O_CREAT \| fs\.constants\.O_EXCL \| fs\.constants\.O_NOFOLLOW/);
+  assert.doesNotMatch(probeSource, /O_TRUNC|child_process/);
+  if (layout === 'plugin') assert.equal(fs.existsSync(path.join(install, 'scripts', 'instance-probe.mjs')), false);
   const validatorPath = path.join(skill, 'scripts', 'validate-config.mjs');
   const V = await import(pathToFileURL(validatorPath).href);
   const version = fs.readFileSync(path.join(skill, 'VERSION'), 'utf8').trim();

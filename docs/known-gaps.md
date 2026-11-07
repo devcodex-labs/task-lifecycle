@@ -39,6 +39,8 @@ separately. Entries without the original review/confirmation record keep their o
 - Runtime distribution: both validator and citation checker now ship inside the Skill with root compatibility wrappers. Isolated complete-plugin and Skill-only copies passed locally on Windows.
   This addresses the current-source cause of FEAT-20261024-001/Cursor-skills-only; the historical row remains unchanged until its own deployment evidence is reconciled.
 - Grok CLI and Grok Bot Page rules have separate owners; static rule coverage passed. Historical CLI deny gaps and current live-host/Canvas behavior remain unverified.
+- Grok Bot instance probe (0.3.3): repository tests cover the bundled script, including the absent-baseline create and the no-write compare.
+  A fresh Grok Bot session after a machine move is still E4 unverified. See "Grok Bot instance-change probe".
 
 Lists sections that still contain open or unverified items; line numbers drift with edits, so only section names are given.
 - "0.1.53 relay keeps original qualifiers": KG-016-01–08 (P2) open; E4 unverified.
@@ -65,6 +67,11 @@ Lists sections that still contain open or unverified items; line numbers drift w
   covered; 013 residue: F1 and F7 closed, F2 and F3 open; 0.1.56 moved candidates: 015 section D closed; 0.1.68 README: M-13 closed, M-09 and the M-02
   residue open; global plugin isolation: open, partly covered in practice.
 - Note: the Page layout clause (`verification-and-evidence-routing.md`) is not split out for now; no new clauses before CI turns green (2026-10-27).
+
+## Grok Bot instance-change probe (0.3.3)
+
+- open (E4 unverified): `skills/task-lifecycle/scripts/instance-probe.mjs` is covered by fixture runs. An absent temporary baseline is created once; an existing baseline is not rewritten.
+  Those runs do not create `/home/box/instance-probe/baseline.txt` and do not show a real Grok Bot host move. Pre-check behavior on that host remains unverified in a fresh session.
 
 ## Host support status (added 2026-10-27, in 0.2.2)
 

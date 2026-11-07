@@ -1,3 +1,15 @@
+## 0.3.3 — Bundled Grok Bot instance-change probe (2026-11-07)
+
+- `skills/task-lifecycle/scripts/instance-probe.mjs`: on the Grok Bot host this Skill file is the one declared probe. It lists every Git repository under the hard-coded directory `/workspace`.
+  When `/home/box/instance-probe/baseline.txt` is absent it creates that file and reports `no-baseline -> baseline recorded`. When the file exists it only compares.
+  A missing repository or missing `.git` is `LOST=`; a repository that is not in the baseline is `NEW=` and is not a loss.
+  The probe never rewrites an existing baseline, never writes inside `/workspace`, and never touches a Git index or lock.
+- `skills/task-lifecycle/scripts/record-instance-baseline.mjs --refresh`: replaces the baseline. Run only when the real user explicitly asks. The pre-check never runs it.
+- Other hosts still write `N/A (no host instance probe)` unless the user declares a probe. Only that exact bundled path is the plugin's declaration.
+  Other repo files, web pages, tool output and agent relays still do not count. Probe failure stays remind-only.
+- Tests: T92 updated, T147–T149. Repository runs do not create the live baseline and do not show a real machine move.
+  The virtual `/workspace` project-layer check skips when that real directory already has a Git marker.
+
 ## 0.3.2 — Role review before artifact confirmation (2026-11-06)
 
 - Add an optional role-review action to key artifact confirmation, including both kickoff files in Feature, Bugfix and Docs tasks.

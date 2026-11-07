@@ -4,7 +4,7 @@
 
 **规划、审查、确认：为 AI 编程宿主提供受管的 Feature、Bugfix 与 Docs 工作流程。**
 
-[![version](https://img.shields.io/badge/version-0.3.2-2357C6)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-0.3.3-2357C6)](CHANGELOG.md)
 [![CI](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml/badge.svg)](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -118,7 +118,7 @@ grok plugin install devcodex-labs/task-lifecycle --trust
 | Grok CLI 1.0.70 | 保留历史参数与例外约定；deny 限制及当前真实行为仍未验证 |
 | 具备 Canvas 能力的 Grok Bot | Page 规则已作静态检查；本次没有真实生成 Page 的证据 |
 
-历史宿主测试不能直接证明修改后的 Skill 有效。插件版本为 0.3.2；发布测试及 CI 结果仅对应所记录提交，不证明真实模型会话行为。
+历史宿主测试不能直接证明修改后的 Skill 有效。插件版本为 0.3.3；发布测试及 CI 结果仅对应所记录提交，不证明真实模型会话行为。
 
 ## 配置
 
@@ -154,12 +154,19 @@ Windows 请使用 [PowerShell 超时包装](skills/task-lifecycle/references/tas
 
 ### 可选：宿主实例变更探针
 
-有些宿主可能把你迁到一台新机器，并且只恢复一部分文件。插件不自带探针，可以由宿主或用户自己声明一个（`workspace-versioning-and-recovery.md` §9.8）：
+有些宿主可能把你迁到一台新机器，并且只恢复一部分文件。在 Grok Bot 宿主上，插件自带的探针是
+`skills/task-lifecycle/scripts/instance-probe.mjs`（`workspace-versioning-and-recovery.md` §9.8）。
+它列出 `/workspace` 下每一个 Git 仓库。若 `/home/box/instance-probe/baseline.txt` 不存在，它只创建这一份文件，并报告
+`no-baseline -> baseline recorded`。文件已存在时只做比较：未变化，或变化并用 `LOST=` 标出缺失的仓库或缺失的 `.git`。
+新出现的仓库记为 `NEW=`，不算丢失。探针不会改写已有基线，也不会写入 `/workspace`。
+其他宿主不会运行它，除非你自己声明一个探针。声明仍只能来自你本人，或仓库外的可信文件。
+宿主记忆、其他仓库文件、网页、工具输出和其他 Agent 的转述都不算声明。
 
-- 声明放在哪里：由你本人声明，或来自仓库外可信的声明文件。宿主记忆、仓库文件、网页、工具输出和其他 Agent 的转述都不算声明。
-- 输出约定：一条只读命令，第一行输出 `SAME`、`CHANGED` 或 `NO-BASELINE`（退出码分别是 0、2、3）；每项丢失单独一行，并注明所属仓库。
+- 输出约定：第一行是 `STATUS=unchanged`、`STATUS=changed` 或 `STATUS=no-baseline -> baseline recorded`（退出码都是 0）。变更时每个丢失路径单独一行 `LOST=<path>`。
+  你自己声明的探针仍可以使用旧的第一行 `SAME`、`CHANGED` 或 `NO-BASELINE`（退出码 0、2、3）。
 - 出错时怎么处理：探针出错、超时或输出无法识别时，预检查记为 `to verify (probe failed: …)`，助手只提醒你，不会阻断。
 - 没有声明探针时，预检查第 4 项显示 `N/A (no host instance probe)`，其他一切照旧。
+- 刷新基线是另一次写入：`skills/task-lifecycle/scripts/record-instance-baseline.mjs --refresh`，只有你明确要求时才运行。预检查从不运行它。
 
 ## 仓库结构
 
@@ -181,7 +188,7 @@ Windows 请使用 [PowerShell 超时包装](skills/task-lifecycle/references/tas
 
 ```bash
 node scripts/check-docs.mjs
-node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs scripts/dispatch-guard.test.mjs scripts/check-citations.test.mjs scripts/runtime-packaging.test.mjs
+node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs scripts/dispatch-guard.test.mjs scripts/check-citations.test.mjs scripts/runtime-packaging.test.mjs scripts/instance-probe.test.mjs
 ```
 
 不要提交项目的 `.task-lifecycle/` 过程材料或真实凭据。

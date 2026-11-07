@@ -16,4 +16,4 @@ jobs:
           node-version: 20
       - run: node scripts/check-docs.mjs
       - if: always()
-        run: node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs scripts/dispatch-guard.test.mjs scripts/check-citations.test.mjs scripts/runtime-packaging.test.mjs
+        run: node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs scripts/dispatch-guard.test.mjs scripts/check-citations.test.mjs scripts/runtime-packaging.test.mjs scripts/instance-probe.test.mjs

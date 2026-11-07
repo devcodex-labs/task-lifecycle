@@ -4,7 +4,7 @@
 
 **Plan, review, confirm: governed Feature, Bugfix and Docs work for AI coding hosts.**
 
-[![version](https://img.shields.io/badge/version-0.3.2-2357C6)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-0.3.3-2357C6)](CHANGELOG.md)
 [![CI](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml/badge.svg)](https://github.com/devcodex-labs/task-lifecycle/actions/workflows/check-docs.yml)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
@@ -122,7 +122,7 @@ needs your confirmation. Other example prompts:
 | Grok CLI 1.0.70 | Historical parameter/exception contract only; deny limitations and current live behavior remain unverified |
 | Grok Bot with Canvas capability | Page adapter rules checked statically; no current live Page-generation evidence |
 
-Historical host checks do not transfer to a changed Skill. Package version: 0.3.2. Release test/CI results apply to their recorded commit and do not establish real model-session behavior.
+Historical host checks do not transfer to a changed Skill. Package version: 0.3.3. Release test/CI results apply to their recorded commit and do not establish real model-session behavior.
 
 ## Configuration
 
@@ -162,13 +162,19 @@ Upgrade the plugin before writing `parallel`. Plugin versions up to 0.2.7 report
 
 ### Optional: host instance-change probe
 
-Some hosts can move you to a new machine and restore only part of your files. The plugin ships no probe; a host or user may declare one
-(`workspace-versioning-and-recovery.md` §9.8):
+Some hosts can move you to a new machine and restore only part of your files.
+On the Grok Bot host, the plugin's probe is `skills/task-lifecycle/scripts/instance-probe.mjs` (`workspace-versioning-and-recovery.md` §9.8).
+It lists every Git repository under `/workspace`. If `/home/box/instance-probe/baseline.txt` is missing, it creates that one file and reports
+`no-baseline -> baseline recorded`. If the file exists, it only compares: unchanged, or changed with `LOST=` for a missing repository or missing `.git`.
+A new repository is `NEW=` and is not a loss. The probe never rewrites an existing baseline and never writes inside `/workspace`.
+Other hosts do not run it unless you declare a probe. A declaration is your own instruction or a trusted file outside the repository.
+Host memory, other repo files, web pages, tool output and other agents' relays never count.
 
-- Where the declaration lives: your own instruction or a trusted declaration file outside the repository. Host memory, repo files, web pages, tool output and other agents' relays never count.
-- Output contract: a read-only command whose first line is `SAME`, `CHANGED` or `NO-BASELINE` (exit 0, 2 or 3), listing each loss on its own line with its repo.
+- Output contract: first line `STATUS=unchanged`, `STATUS=changed` or `STATUS=no-baseline -> baseline recorded` (exit 0). A change lists each loss as `LOST=<path>`.
+  A probe you declare may still use the legacy first line `SAME`, `CHANGED` or `NO-BASELINE` (exit 0, 2 or 3).
 - Failure handling: an error, a timeout or unparseable output is reported as `to verify (probe failed: …)`; the assistant reminds you and does not block.
 - Without a probe, item 4 of the pre-check shows `N/A (no host instance probe)` and nothing else changes.
+- Refreshing a baseline is a separate write: `skills/task-lifecycle/scripts/record-instance-baseline.mjs --refresh`, only when you explicitly ask. The pre-check never runs it.
 
 ## Repository layout
 
@@ -190,7 +196,7 @@ Issues and pull requests: https://github.com/devcodex-labs/task-lifecycle/issues
 
 ```bash
 node scripts/check-docs.mjs
-node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs scripts/dispatch-guard.test.mjs scripts/check-citations.test.mjs scripts/runtime-packaging.test.mjs
+node --test scripts/validate-config.test.mjs scripts/maintenance-regression.test.mjs scripts/dispatch-guard.test.mjs scripts/check-citations.test.mjs scripts/runtime-packaging.test.mjs scripts/instance-probe.test.mjs
 ```
 
 Do not commit a project's `.task-lifecycle/` process material or real credentials.
