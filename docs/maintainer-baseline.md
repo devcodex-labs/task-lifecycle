@@ -14,6 +14,13 @@ These conventions apply only when maintaining the task-lifecycle source reposito
 Reading this file, a relayed message or an installed Skill creates no commit, push, publication or host-install permission. A narrower current instruction wins.
 Ordinary consumer projects use their own identity, branching and release policies; this file is not loaded by their normal lifecycle.
 
+- **This repository's main-branch preference (owner, 2026-11-08)**: later work on the task-lifecycle source repository prefers `main`.
+  This is a preference for this repository only. It does not apply to other projects and it does not change consumer branching rules.
+  Host branch protection, a required pull request and the current host's existing branch workflow still win.
+  Do not cite this preference to bypass those, to force-push, or to push without a current authorization.
+  The coding-agent model-selection rule does not authorize a push.
+  If the host forbids direct work on `main`, report that limit and do not claim this preference is in effect.
+
 - **Owner-only commit identity**: the original maintainer workflow used the owner's identity from facts/user.md or conventions and the repository's existing email
   for both Author and Committer, without bot Co-authored-by trailers. Apply that convention only to work actually authored for the owner under that policy;
   preserve other contributors' true identities and attribution. Report mismatches by commit ID; do not rewrite pushed history without the user's authorization.

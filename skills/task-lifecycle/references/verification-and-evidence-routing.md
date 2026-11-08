@@ -234,6 +234,8 @@ Any option card in any turn, managed or not, follows the option-card rule of `co
     when delivering a report, plan/proposal or contract draft awaiting approval, and when this session will generate or update any Page while this Skill is active.
     That file owns must-create duty and formatting separately. Formatting applies to every Page generated or updated only after that file is actually loaded, and does not turn every reply into a Page.
     Other hosts and dispatched sessions do not load it and have no Page duty. That adapter is the only owner of Page-specific requirements.
+    Controllable rendered width of Markdown this session generates or updates is owned by [markdown-render-width.md](markdown-render-width.md).
+    Loading that file does not load this Page adapter and does not create a Page.
     A generic Page does not invent a formal Markdown path or approval SHA. Those rules stay in **Formal source and delivery** and apply only to governed artifacts.
 - The next step does not mean imposing optimization suggestions every round, repeatedly asking whether to continue, treating suggestions as authorization, or manufacturing new tasks for the tail; it
   only constrains enabled managed tasks.

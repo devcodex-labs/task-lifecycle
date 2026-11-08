@@ -268,11 +268,14 @@ Section status [2026-11-01]: closed means the review cap was reached; 1 item bel
 
 - E4 unverified: not live-tested in a fresh Grok Bot session that reports get a separate Page, dispatched sessions make no Page, the 968px sidebar/drawer switch and
   body width; small fixes after v8r1 converged (P2×4, P3×3) were not re-reviewed.
-- Platform limit: public pages.grok.bot links do not support floating elements (fixed, sticky and IntersectionObserver have no effect), so only a top table of
-  contents plus a per-section "↑ contents" link is possible; filed as product feedback, awaiting platform support.
-- The rule is a text constraint; no gate script checks whether a Page is generated or styled correctly.
+- Platform limit: public pages.grok.bot links do not support floating elements (fixed, sticky and IntersectionObserver have no effect).
+  The current rule uses an inline top table of contents and does not add a per-section "↑ contents" link.
+  An older note that such a per-section link was the only available contents form is outdated relative to item 7.
+- The rule is a text constraint; no gate script checks whether a Page is generated or styled correctly, or whether a Markdown render met a width floor.
 - Platform limit (1024px width floor): public pages.grok.bot links are capped at 960px, so the 1024px desktop floor cannot hold there and they are exempt;
   the sidebar contents threshold has two measurements (968px item 7, 1100px, the user's 2026-10-28 test), not reconciled by a fresh live test.
+  The same floor is a controllable-render instruction for Markdown this session lays out, not a property of the .md bytes.
+  A chat attachment preview or another renderer this session cannot set is not claimed to meet 1024px. No live render check was added.
 
 ## 0.1.51 narrowed test-run cap (CAND-20261026-004) retained items
 
