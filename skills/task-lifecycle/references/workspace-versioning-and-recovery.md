@@ -45,6 +45,8 @@ check.
      existing commits. Do not rewrite contributors to a plugin maintainer or remove attribution just because this Skill is active. A project-specific policy mismatch
      is reported with the affected commit IDs; rewriting history needs its own valid scope. This plugin's owner-only convention is in
      [Maintainer baseline](../../../docs/maintainer-baseline.md#repository-maintenance-policy), not a default for installed users.
+     For this plugin source repository only, that baseline records the owner's preference to do later work on `main`.
+     It does not apply to other projects, does not override host branch protection or a required pull request, and does not authorize a push.
 
 **Safe recovery of long-task batches**: if task-level Auto is forced to stop at a host/context capacity boundary, and only when real files are verified legally writable, record this round's
 completed `BatchID/source-set hash/actual target version SHA/sub-condition sign-off results and evidence/block reasons/next batch ID/real trusted permission scope` in the existing external Task

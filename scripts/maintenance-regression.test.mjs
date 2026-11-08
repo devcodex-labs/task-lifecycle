@@ -688,7 +688,10 @@ test('T114 consumer merge policy is project-owned; owner squash convention remai
 });
 test('T115 Page width floor override 1024px, public-link exemption',()=>{
   const v=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/grok-bot-page.md'),'utf8').replace(/\s+/g,' ');
-  for(const x of ['**Width**','never "column"; on desktop the body must not be narrower than 1024px','exempt from the 1024px floor','narrow viewports use available width'])assert.ok(v.includes(x),x);
+  const w=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/markdown-render-width.md'),'utf8').replace(/\s+/g,' ');
+  assert.ok(v.includes('**Width**')&&v.includes('uses width "wide" or "full", never "column"'));
+  assert.ok(v.includes('markdown-render-width.md')&&!v.includes('does not inherit this width rule'));
+  for(const x of ['must not be narrower than 1024px','exempt from the 1024px floor','Narrow viewports use available width'])assert.ok(w.includes(x),x);
 });
 test('T116 immediate absorption is scoped to the maintainer; an ordinary rule edit grants no external action',()=>{
   const f=rdN(REF+'formal-review-and-findings.md');
@@ -1090,4 +1093,129 @@ test('T146 role review reuses evidence before dispatch and invalidates by affect
     'Missing/unreadable evidence is an uncovered check', 'Same-context evidence cannot satisfy an independent-review requirement',
     'review caps, required verification and §7.12 delta rules', 'same-context role review; no independent reviewer',
     'Human-only performer choices stay human-only', 'never enables external delegation']) assert.ok(rule.includes(text), text);
+});
+
+test('T150 Page formatting applies to every loaded-rule Page; must-create scope stays narrow',()=>{
+  const page=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/grok-bot-page.md'),'utf8').replace(/\s+/g,' ');
+  const skill=fs.readFileSync(path.join(root,'skills/task-lifecycle/SKILL.md'),'utf8').replace(/\s+/g,' ');
+  const route=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/verification-and-evidence-routing.md'),'utf8').replace(/\s+/g,' ');
+  const art=fs.readFileSync(path.join(root,'skills/task-lifecycle/references/artifact-content-and-self-review-contract.md'),'utf8').replace(/\s+/g,' ');
+  for(const x of [
+    '**Must-create scope**: review reports, technical/implementation/fix/review plans and proposals handed to the user, and contract drafts awaiting approval. Length never changes this scope.',
+    'does not require every reply to become a Page',
+    '| Ordinary artifacts, casual options, one decision card, CHANGELOG or config notes | No automatic Page |',
+    '**Formatting applicability**:',
+    'every Page this session generates or updates',
+    'including a Page outside item 5',
+    'not global enforcement',
+    'this Skill merely being active, does not load this file',
+    'A generic Page with no formal Markdown gets no invented path, sha256, line count, or approval SHA',
+    'a Page whose layout this session sets uses width "wide" or "full", never "column"',
+    'markdown-render-width.md',
+    'reading the width file does not load the rest of this Page file',
+    'only** the gate/branch/execute-against flow segments',
+    'Do not invent that section when the content has none',
+    'does not by itself create a managed Task or a formal artifact',
+    'source-delivery=complete',
+    'Page-delivery=pending',
+    'An explicit user request for a Page is not automatic and is not a new must-create duty.',
+  ])assert.ok(page.includes(x),x);
+  assert.doesNotMatch(page,/every reply must become a Page|all bots must load|every host inherits this formatting/);
+  for(const x of [
+    'must-create duty for a review report, plan or pending contract',
+    'does not make every reply a Page',
+    'Skill activation alone is not a load',
+    'Other hosts and dispatched sessions do not load it and have no Page duty',
+  ])assert.ok(skill.includes(x),x);
+  for(const x of [
+    'owns must-create duty and formatting separately',
+    'does not turn every reply into a Page',
+    'A generic Page does not invent a formal Markdown path or approval SHA',
+    'Other hosts and dispatched sessions do not load it and have no Page duty',
+  ])assert.ok(route.includes(x),x);
+  assert.doesNotMatch(route,/1024px|WriteCanvas|Item 12 \*\*Flow-type/);
+  assert.ok(art.includes('Grok Bot Page must-create duty and formatting both follow'));
+  assert.ok(art.includes('does not require a Page for every reply'));
+  assert.ok(art.includes('invents no source path or approval SHA'));
+});
+test('T151 Cursor/cloud coding launch selects latest Grok by explicit id; no Auto and no new admission',()=>{
+  const t=rdN(REF+'task-split-parallel-and-integration.md');
+  const i=t.indexOf('## Coding-agent model selection');
+  assert.ok(i>t.indexOf('## Host-native parallel config (parallel)'),'model section follows parallel config');
+  const sec=t.slice(i);
+  for(const x of [
+    'owns model selection only for a Cursor cloud coding agent, or a host-native coding sub-agent on Cursor, whose launch surface accepts an explicit model id',
+    'does not admit the launch',
+    'receiver gate',
+    'admitted-executor rules',
+    'actual-config validation',
+    'Tools and CLIs that cannot select a model are outside this section',
+    'Item 10\'s omitted `model` (do not append the flag; record host default) stays for those callers',
+    'An explicit model id from the real user for this launch takes precedence',
+    'query the host\'s current available-model catalog',
+    'latest available Grok',
+    'concrete model id',
+    'Do not pass Auto or default, and do not omit the model so the host selects automatically',
+    'This rule names no permanent model id',
+    'No silent fallback to Auto, to an omitted model, or to another vendor',
+    'A continuation passes the explicit id already chosen for that agent',
+    'Do not set reasoning effort, context size or a fast variant unless the real user requested that setting',
+    'A host refusal wins',
+  ])assert.ok(sec.includes(x),x);
+  assert.doesNotMatch(sec,/grok-4\.7|permanent default is grok/);
+  assert.ok(t.includes('omitted means not appended'));
+  assert.ok(t.includes('This omitted-model behavior is only for a caller that cannot set a model id'));
+  const skill=rdN('skills/task-lifecycle/SKILL.md');
+  assert.ok(skill.includes('A Cursor or cloud coding launch that can set a model id also reads "Coding-agent model selection"'));
+  assert.ok(skill.includes('that section does not admit the launch'));
+  const q=rdN(REF+'entry-quickref.md');
+  assert.ok(q.includes('re-read "Coding-agent model selection" in `task-split-parallel-and-integration.md`'));
+  assert.ok(q.includes('That section selects a model only; it does not admit the launch.'));
+  const g=rdN(REF+'grok-cli-dispatch.md');
+  assert.ok(g.includes('Selecting a model for a Cursor or cloud coding launch that accepts a model id is outside this adapter'));
+  assert.ok(g.includes('Recording model and effort below does not choose effort, context size or a fast variant'));
+  assert.ok(g.includes('A reviewer remains read-only'));
+});
+test('T152 controllable Markdown width stays separate from Page duty and uncontrolled renderers',()=>{
+  const w=rdN(REF+'markdown-render-width.md').replace(/\s+/g,' ');
+  for(const x of [
+    'sole owner of controllable rendered width',
+    'does not load that Page file, does not create a Page and does not apply Page items',
+    'project analysis and any other Markdown',
+    'does not itself have a pixel width',
+    'Do not insert HTML or CSS into a `.md` file to force a width',
+    'must not be narrower than 1024px when the available viewport permits it',
+    'Narrow viewports use available width',
+    '960px cap are exempt from the 1024px floor',
+    'host chat attachment preview',
+    'Do not claim that preview or renderer meets 1024px',
+    'does not prove the floor was rendered',
+    'does not add a confirmation stop',
+    'does not authorize a commit, a push or a release',
+  ])assert.ok(w.includes(x),x);
+  const skill=rdN('skills/task-lifecycle/SKILL.md');
+  assert.ok(skill.includes('Generating or updating Markdown whose rendered layout this session can control'));
+  assert.ok(skill.includes('does not load `references/grok-bot-page.md`'));
+  const q=rdN(REF+'entry-quickref.md');
+  assert.ok(q.includes('re-read `markdown-render-width.md`'));
+  assert.ok(q.includes('It does not load Page rules and does not create a Page.'));
+  assert.ok(q.includes('main-branch preference for this repository only'));
+  assert.ok(q.includes('That preference authorizes no push'));
+  const route=rdN(REF+'verification-and-evidence-routing.md');
+  assert.ok(route.includes('markdown-render-width.md')&&route.includes('does not create a Page'));
+  assert.doesNotMatch(route,/1024px/);
+  const gaps=rdN('docs/known-gaps.md');
+  assert.ok(gaps.includes('does not add a per-section "\u2191 contents" link'));
+  assert.ok(gaps.includes('outdated relative to item 7'));
+  assert.equal(gaps.includes('per-section "\u2191 contents" link is possible'),false);
+  const base=rdN('docs/maintainer-baseline.md');
+  assert.ok(base.includes("This repository's main-branch preference"));
+  assert.ok(base.includes('does not apply to other projects'));
+  assert.ok(base.includes('The coding-agent model-selection rule does not authorize a push.'));
+  assert.ok(base.includes('do not claim this preference is in effect'));
+  const maint=fs.readFileSync(path.join(root,'scripts/maintenance-regression.test.mjs'),'utf8');
+  const ids=[...maint.matchAll(/^test\('T(\d+)/gm)].map(m=>m[1]);
+  assert.equal(ids.filter(x=>x==='148').length,0);
+  assert.equal(ids.filter(x=>x==='149').length,0);
+  for(const n of ['150','151','152'])assert.equal(ids.filter(x=>x===n).length,1,n);
 });

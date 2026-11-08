@@ -230,8 +230,13 @@ Any option card in any turn, managed or not, follows the option-card rule of `co
     Finalized contracts retain their formal Markdown source; a reading copy never changes approval or supersedes the approved bytes.
   - Deliver an openable file/attachment under the host capability above. A generated reading view is distinct from source delivery and has its own actual success/failure evidence.
   - **Single-file HTML on demand**: generate self-contained HTML only when the user explicitly asks, on every host; never infer this request from document length or Page availability.
-  - **Conditional reading Page**: for an actual user-facing Grok Bot session delivering a report-type artifact, load [grok-bot-page.md](grok-bot-page.md) for scope, identity, layout and fallback.
-    Page rules do not apply to other hosts or dispatched sessions. That adapter is the only owner of Page-specific requirements.
+  - **Conditional reading Page**: on an actual user-facing Grok Bot session, load [grok-bot-page.md](grok-bot-page.md)
+    when delivering a report, plan/proposal or contract draft awaiting approval, and when this session will generate or update any Page while this Skill is active.
+    That file owns must-create duty and formatting separately. Formatting applies to every Page generated or updated only after that file is actually loaded, and does not turn every reply into a Page.
+    Other hosts and dispatched sessions do not load it and have no Page duty. That adapter is the only owner of Page-specific requirements.
+    Controllable rendered width of Markdown this session generates or updates is owned by [markdown-render-width.md](markdown-render-width.md).
+    Loading that file does not load this Page adapter and does not create a Page.
+    A generic Page does not invent a formal Markdown path or approval SHA. Those rules stay in **Formal source and delivery** and apply only to governed artifacts.
 - The next step does not mean imposing optimization suggestions every round, repeatedly asking whether to continue, treating suggestions as authorization, or manufacturing new tasks for the tail; it
   only constrains enabled managed tasks.
 

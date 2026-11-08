@@ -30,6 +30,12 @@ dispatching to an external coding executor → re-read "External coding executor
 deterministic tier closes locally with zero delegation).
 Additive (FEAT-20261028-001): Auto form (ii), the end-to-end Auto card → re-read `end-to-end-auto-card.md`; host-native `parallel` config → re-read "Host-native parallel config
 (parallel)" at the end of `task-split-parallel-and-integration.md`; review intensity → re-read "Review intensity" in `task-recognition-and-routing.md`.
+A Cursor or cloud coding launch that can set a model id → re-read "Coding-agent model selection" in `task-split-parallel-and-integration.md`.
+That section selects a model only; it does not admit the launch.
+Generating or updating Markdown whose rendered layout this session can control, including a project analysis → re-read `markdown-render-width.md`.
+That file sets width only. It does not load Page rules and does not create a Page.
+Maintaining this plugin source repository → `docs/maintainer-baseline.md` records a main-branch preference for this repository only.
+Host branch protection and a required pull request still win. That preference authorizes no push, and the model-selection rule authorizes none either.
 
 **Order and completion**: before the pre-check only a bounded bootstrap of required rules/versions/identity and config results is allowed; no early project traversal, writes or dispatch; still show
 the original 4/7 items, and each later config consumption reruns fresh.

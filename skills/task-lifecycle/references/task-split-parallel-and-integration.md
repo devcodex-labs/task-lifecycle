@@ -183,6 +183,8 @@ node -e "const r=require('node:child_process').spawnSync(process.execPath,proces
       repeated identical values are not a conflict, but the value must still be compared with config, and a mismatch is recorded `config-mismatch` as usual.
     - Omitted fields (effective `null`) are not compared and record no code, only the actual value and source "host default"; when that log header line is missing, truncated or unreadable record the
       actual value as "not obtained".
+    - This omitted-model behavior is only for a caller that cannot set a model id. A Cursor or cloud coding launch that can set one follows
+      "Coding-agent model selection" and does not silently use Auto, default or an omitted model.
     - A non-codex host configured with `model` / `reasoningEffort` whose support the capability probe has not proven → `executor-unavailable`, never silently ignored.
     - These three codes and `review-sandbox-tier-unnamed` apply only to this host's call, do not turn off the config and do not affect other hosts or categories;
       reviewer hosts degrade per §7.10 item 6 or fill in `hosts` order; coding executors degrade to main-session execution per item 3 of the next section, without reassigning to another executor
@@ -431,3 +433,26 @@ Added by FEAT-20261028-001 (D4, D5, D9, D18–D21, D26, D31, D32; R-2). Additive
 | Same repo, disjoint files | `parallel-eligible` (conditional) | Touches none of the §11.1 shared resources; §11.1 conditions met; commits by the main task only, with that time's authorization or the end-to-end Auto card's local-commit pre-authorization; a batch confirmation grants no commit |
 | Same file or shared interface | `serial-required` | §11.1 shared-resource rule |
 | Never-delegate list ("External coding executor delegation") | not dispatched (not one of the four states) | The A03 dependency and source-structure check may still run as a read-only investigation |
+
+## Coding-agent model selection
+
+This section owns model selection only for a Cursor cloud coding agent, or a host-native coding sub-agent on Cursor, whose launch surface accepts an explicit model id.
+It applies to that launch and to each continuation of the same agent. It does not admit the launch, enable external delegation, recursive delegation, Task Lifecycle Auto, push or release.
+Existing delegation gates, the receiver gate, admitted-executor rules, actual-config validation and host policy still decide whether any launch is allowed.
+A host refusal wins; record it and do not bypass it.
+Tools and CLIs that cannot select a model are outside this section. Item 10's omitted `model` (do not append the flag; record host default) stays for those callers.
+
+When this section applies:
+- An explicit model id from the real user for this launch takes precedence. Pass that id unchanged.
+- Otherwise query the host's current available-model catalog for this launch. Select the latest available Grok and pass that concrete model id.
+  Do not pass Auto or default, and do not omit the model so the host selects automatically.
+- Determine latest only from ordering or version identity the catalog itself exposes. This rule names no permanent model id.
+  Do not reuse an example, a memory or an older catalog.
+- If the catalog lists no Grok, the query fails, or latest cannot be told reliably, do not launch on a guessed id.
+  Report the catalog evidence and ask the user. No silent fallback to Auto, to an omitted model, or to another vendor.
+- A continuation passes the explicit id already chosen for that agent. Do not drop it, and do not let the continuation fall back to automatic selection.
+  Re-query only for a new launch, or when the real user asks to refresh the catalog.
+- Do not set reasoning effort, context size or a fast variant unless the real user requested that setting for this launch. Leave those selectors unset.
+- If the host itself mandates a model, or forbids setting one, follow the host and record that fact. Do not override the host, and do not omit the model to reach automatic selection.
+
+Item 10 of "Delegation config" does not override this section for a launch this section covers.
